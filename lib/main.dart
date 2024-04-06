@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'LingoPal',
-          initialRoute: RouteName.homePage,
+          initialRoute: RouteName.registerPage,
           getPages: AppPages.pages,
         );
       },

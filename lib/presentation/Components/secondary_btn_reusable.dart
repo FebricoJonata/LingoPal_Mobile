@@ -35,7 +35,7 @@ class SecondaryBtn extends StatelessWidget {
 
       child: Text(
         btnText, 
-        style: TextStyle(
+        style: const TextStyle(
           color: MyColors.white,
           // font
           fontSize: 16.0,
