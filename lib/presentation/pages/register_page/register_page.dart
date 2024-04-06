@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
-import 'package:lingo_pal_mobile/presentation/Components/text_field_reusable.dart';
+import 'package:lingo_pal_mobile/presentation/components/text_field_reusable.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
