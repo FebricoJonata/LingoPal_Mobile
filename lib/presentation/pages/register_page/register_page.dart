@@ -31,13 +31,13 @@ class _MyWidgetState extends State<RegisterPage> {
                 labelTxt: "Name",
                 maxHeight: 150.h),
             
-            // test button
-            SizedBox(height: 20,),
-            PrimaryBtn(btnText: "Register", width: double.infinity, height: 150.h,
-            onClick: () => {Navigator.pushNamed(context, '/home')},),
-            SizedBox(height: 20,),
-            SecondaryBtn(btnText: "Login", width: double.infinity, height: 150.h,
-            onClick: () {Navigator.pushNamed(context, '/home');},)
+            // contoh button
+            // SizedBox(height: 20,),
+            // PrimaryBtn(btnText: "Register", width: double.infinity, height: 150.h,
+            // onClick: () => {Navigator.pushNamed(context, '/home')},),
+            // SizedBox(height: 20,),
+            // SecondaryBtn(btnText: "Login", width: double.infinity, height: 150.h,
+            // onClick: () {Navigator.pushNamed(context, '/home');},)
           ],
         ),
       ),
