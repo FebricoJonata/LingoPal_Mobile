@@ -1,4 +1,4 @@
-# lingo_pal_mobile
+# LingoPal Mobile Application
 
 A new Flutter project.
 

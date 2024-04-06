@@ -14,14 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(1280, 1920),
+      designSize: const Size(1179, 2556),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'LingoPal',
-          initialRoute: RouteName.registerPage,
+          initialRoute: RouteName.homePage,
           getPages: AppPages.pages,
         );
       },

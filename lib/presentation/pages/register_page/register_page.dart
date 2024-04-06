@@ -14,7 +14,8 @@ class _MyWidgetState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ReuseTextField(
+      body: Center(
+        child: ReuseTextField(
             linesMax: 1,
             linesMin: 1,
             color: MyColors.primaryGreen,
@@ -24,6 +25,8 @@ class _MyWidgetState extends State<RegisterPage> {
             iconTxt: Icons.person,
             iconSize: 30.sp,
             labelTxt: "Name",
-            maxHeight: 150.h));
+            maxHeight: 150.h),
+      ),
+    );
   }
 }
