@@ -99,7 +99,7 @@ class _MyWidgetState extends State<RegisterPage> {
               btnText: "Register",
               width: MediaQuery.of(context).size.width / 2,
               height: 150.h,
-              onClick: () => {Navigator.pushNamed(context, '/home')},
+              onClick: () => {Navigator.pushReplacementNamed(context, '/home')},
             ),
           ],
         ),
