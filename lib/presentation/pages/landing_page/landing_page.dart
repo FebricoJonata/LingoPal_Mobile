@@ -89,7 +89,7 @@ class _LandingPageState extends State<LandingPage> {
                           alignment: Alignment.centerRight,
                           child: TextButton(
                               onPressed: () {
-                                Get.toNamed(RouteName.homePage);
+                                Get.toNamed(RouteName.loginPage);
                               },
                               child: Text("Skip", style: TextStyle(color: MyColors.white, fontSize: 50.sp))),
                         ),
