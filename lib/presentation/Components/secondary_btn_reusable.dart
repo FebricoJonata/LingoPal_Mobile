@@ -25,12 +25,12 @@ class SecondaryBtn extends StatelessWidget {
     return FilledButton(
       onPressed: onClick,
 
-      style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(MyColors.secondaryGreen),
-        minimumSize: MaterialStatePropertyAll(Size(width, height)),
-        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+      style: FilledButton.styleFrom(
+        backgroundColor: MyColors.secondaryGreen,
+        minimumSize: Size(width, height),
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.sp)
-        ))
+        )
       ), 
 
       child: Text(

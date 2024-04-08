@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lingo_pal_mobile/routes/app_page.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
           title: 'LingoPal',
           initialRoute: RouteName.registerPage,
           getPages: AppPages.pages,
+          theme: ThemeData(textTheme: GoogleFonts.latoTextTheme()),
         );
       },
     );

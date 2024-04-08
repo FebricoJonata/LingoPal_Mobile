@@ -38,6 +38,7 @@ dependencies:
   get: ^4.6.6
   flutter_native_splash: ^2.3.11
   curved_navigation_bar: ^1.0.3
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:

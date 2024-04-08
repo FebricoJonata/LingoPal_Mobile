@@ -91,7 +91,26 @@ class _MyWidgetState extends State<RegisterPage> {
               labelTxt: "Password Confirmation",
               maxHeight: 150.h,
             ),
-            // contoh button
+            // buat ke login
+            const SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Already have an account? Login "),
+                TextButton(
+                  onPressed: () => {Navigator.pushNamed(context, '/login')}, 
+                  style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
+                  child: const Text(
+                    "here", 
+                    style: TextStyle(
+                      decoration: TextDecoration.underline, 
+                      decorationColor: MyColors.secondaryGreen, 
+                      color: MyColors.secondaryGreen
+                    ),
+                  )
+                )
+              ],
+            ),
             const SizedBox(
               height: 20,
             ),
