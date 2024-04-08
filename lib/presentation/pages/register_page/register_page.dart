@@ -19,7 +19,7 @@ class _MyWidgetState extends State<RegisterPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      backgroundColor: MyColors.primaryYellow,
+      backgroundColor: MyColors.secondaryYellow,
       body: Padding(
         padding: const EdgeInsets.only(left: 40, right: 40),
         child: Column(
@@ -92,23 +92,24 @@ class _MyWidgetState extends State<RegisterPage> {
               maxHeight: 150.h,
             ),
             // buat ke login
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Already have an account? Login "),
+                const Text("Already have an account? Login "),
                 TextButton(
-                  onPressed: () => {Navigator.pushNamed(context, '/login')}, 
-                  style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
-                  child: const Text(
-                    "here", 
-                    style: TextStyle(
-                      decoration: TextDecoration.underline, 
-                      decorationColor: MyColors.secondaryGreen, 
-                      color: MyColors.secondaryGreen
-                    ),
-                  )
-                )
+                    onPressed: () => {Navigator.pushNamed(context, '/login')},
+                    style: TextButton.styleFrom(
+                        minimumSize: Size.zero, padding: EdgeInsets.zero),
+                    child: const Text(
+                      "here",
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          decorationColor: MyColors.secondaryGreen,
+                          color: MyColors.secondaryGreen),
+                    ))
               ],
             ),
             const SizedBox(

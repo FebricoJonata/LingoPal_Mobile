@@ -59,19 +59,19 @@ class _LoginPageState extends State<LoginPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("New here? Register your account "),
+                const Text("New here? Register your account "),
                 TextButton(
-                  onPressed: () => {Navigator.pushNamed(context, '/register')}, 
-                  style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
-                  child: const Text(
-                    "here", 
-                    style: TextStyle(
-                      decoration: TextDecoration.underline, 
-                      decorationColor: MyColors.secondaryGreen, 
-                      color: MyColors.secondaryGreen
-                    ),
-                  )
-                )
+                    onPressed: () =>
+                        {Navigator.pushNamed(context, '/register')},
+                    style: TextButton.styleFrom(
+                        minimumSize: Size.zero, padding: EdgeInsets.zero),
+                    child: const Text(
+                      "here",
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          decorationColor: MyColors.secondaryGreen,
+                          color: MyColors.secondaryGreen),
+                    ))
               ],
             ),
             const SizedBox(
@@ -81,11 +81,11 @@ class _LoginPageState extends State<LoginPage> {
               btnText: "Login",
               width: MediaQuery.of(context).size.width / 2,
               height: 150.h,
-              onClick: () => {Navigator.pushNamed(context, '/home')},
+              onClick: () => {Navigator.pushReplacementNamed(context, '/home')},
             ),
           ],
         ),
       ),
-    );;
+    );
   }
 }
