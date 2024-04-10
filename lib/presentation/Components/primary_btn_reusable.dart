@@ -25,12 +25,12 @@ class PrimaryBtn extends StatelessWidget {
     return FilledButton(
       onPressed: onClick,
 
-      style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(MyColors.primaryGreen),
-        minimumSize: MaterialStatePropertyAll(Size(width, height)),
-        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+      style: FilledButton.styleFrom(
+        backgroundColor: MyColors.primaryGreen,
+        minimumSize: Size(width, height),
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.sp)
-        ))
+        )
       ), 
 
       child: Text(
