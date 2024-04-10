@@ -10,23 +10,40 @@ class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 1179.w,
-      height: 2556.h,
+      width: 900.w,
+      height: 1200.h,
       color: MyColors.secondaryYellow,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            AssetConstraints.page1,
-            height: 500.h,
+      child: Column(children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            width: 1200.w,
+            height: 700.h,
+            child: Image.asset(
+              AssetConstraints.page1,
+              width: 300.w,
+            ),
           ),
-          Container(
-            height: 150.h,
-          ),
-          const Text("Welcome to LingoPal!!"),
-          const Text("Start your English learning journey here."),
-        ],
-      ),
+        ),
+        Container(
+          height: 150.h,
+        ),
+        Flexible(
+          child: SizedBox(
+              width: 1200.w,
+              height: 500.h,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const Text("Welcome to LingoPal!!"),
+                  const Text("Start your English learning journey here."),
+                  SizedBox(
+                    height: 165.h,
+                  ),
+                ],
+              )),
+        ),
+      ]),
     );
   }
 }

@@ -48,7 +48,7 @@ class _LandingPageState extends State<LandingPage> {
                         alignment: Alignment.center,
                         child: SizedBox(
                           width: 1179.w,
-                          height: 2000.h,
+                          height: 1500.h,
                           child: GetBuilder<PageViewController>(builder: (controller) {
                             return PageView(
                               controller: controller.pageController,

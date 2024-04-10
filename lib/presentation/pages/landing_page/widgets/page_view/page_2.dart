@@ -10,23 +10,40 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 1179.w,
-      height: 2556.h,
+      width: 900.w,
+      height: 1200.h,
       color: MyColors.secondaryYellow,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            AssetConstraints.page2,
-            height: 500.h,
+      child: Column(children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            width: 1200.w,
+            height: 700.h,
+            child: Image.asset(
+              AssetConstraints.page2,
+              width: 300.w,
+            ),
           ),
-          Container(
-            height: 150.h,
-          ),
-          const Text("Enhance your English language proficiency "),
-          const Text("with the help of materials and AI chatbot."),
-        ],
-      ),
+        ),
+        Container(
+          height: 150.h,
+        ),
+        Flexible(
+          child: SizedBox(
+              width: 1200.w,
+              height: 500.h,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const Text("Enhance your English language proficiency"),
+                  const Text("with the help of materials and AI chatbot."),
+                  SizedBox(
+                    height: 165.h,
+                  ),
+                ],
+              )),
+        ),
+      ]),
     );
   }
 }

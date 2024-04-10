@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class Page3 extends StatelessWidget {
   const Page3({super.key});
@@ -13,38 +16,59 @@ class Page3 extends StatelessWidget {
       width: 900.w,
       height: 1200.h,
       color: MyColors.secondaryYellow,
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Image.asset(
-          AssetConstraints.page3,
-          height: 500.h,
+      child: Column(children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            width: 1200.w,
+            height: 700.h,
+            child: Image.asset(
+              AssetConstraints.page3,
+              width: 300.w,
+            ),
+          ),
         ),
         Container(
           height: 150.h,
         ),
-        const Text("Explore words that can be helpful in "),
-        const Text("careers, literature, entertainment, research,"),
-        // SizedBox(
-        //   height: 70.h,
-        // ),
-        // SizedBox(
-        //   width: 400.w,
-        //   child: ElevatedButton(
-        //     style: ButtonStyle(
-        //       padding: MaterialStateProperty.all<EdgeInsets>(
-        //         const EdgeInsets.symmetric(vertical: 1.0, horizontal: 1.0),
-        //       ),
-        //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        //           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.sp))),
-        //       backgroundColor: MaterialStateProperty.all<Color>(MyColors.primaryGreen),
-        //     ),
-        //     onPressed: () {},
-        //     child: Text(
-        //       "Lanjutkan",
-        //       textAlign: TextAlign.center,
-        //       style: TextStyle(color: Colors.white, fontFamily: "Poppins", fontSize: 30.sp),
-        //     ),
-        //   ),
-        // )
+        Flexible(
+          child: SizedBox(
+              width: 1200.w,
+              height: 500.h,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const Text("Explore words that can be helpful in "),
+                  const Text("careers, literature, entertainment, research,"),
+                  SizedBox(
+                    height: 50.h,
+                  ),
+                  Flexible(
+                    child: SizedBox(
+                      width: 400.w,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                            const EdgeInsets.symmetric(vertical: 1.0, horizontal: 1.0),
+                          ),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.sp))),
+                          backgroundColor: MaterialStateProperty.all<Color>(MyColors.primaryGreen),
+                        ),
+                        onPressed: () {
+                          Get.toNamed(RouteName.homePage);
+                        },
+                        child: Text(
+                          "Lanjutkan",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontFamily: "Poppins", fontSize: 30.sp),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              )),
+        ),
       ]),
     );
   }
