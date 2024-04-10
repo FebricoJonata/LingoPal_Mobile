@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 import '../../../core/color/color_constraint.dart';
 import '../../Components/primary_btn_reusable.dart';
@@ -61,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Text("New here? Register your account "),
                 TextButton(
-                  onPressed: () => {Navigator.pushNamed(context, '/register')}, 
+                  onPressed: () => {Get.toNamed(RouteName.registerPage)}, 
                   style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
                   child: const Text(
                     "here", 
@@ -81,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
               btnText: "Login",
               width: MediaQuery.of(context).size.width / 2,
               height: 150.h,
-              onClick: () => {Navigator.pushNamed(context, '/home')},
+              onClick: () => {Get.toNamed(RouteName.homePage)},
             ),
           ],
         ),
