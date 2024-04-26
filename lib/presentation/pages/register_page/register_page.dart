@@ -1,8 +1,12 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
-import 'package:lingo_pal_mobile/presentation/Components/primary_btn_reusable.dart';
-import 'package:lingo_pal_mobile/presentation/Components/text_field_reusable.dart';
+import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/pages/register_page/controllers/page_view_controller.dart';
+import 'package:lingo_pal_mobile/presentation/pages/register_page/widgets/section_marker.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -12,115 +16,113 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<RegisterPage> {
+  var pageController = Get.find<PageViewRegisController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
       backgroundColor: MyColors.secondaryYellow,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 40, right: 40),
+      body: SizedBox(
+        width: 1179.w,
+        height: 2556.h,
         child: Column(
           children: [
-            const Row(
-              children: [Text("Sign Up")],
-            ),
-            ReuseTextField(
-              linesMax: 1,
-              linesMin: 1,
-              color: MyColors.white,
-              fontSize: 40.sp,
-              radius: 25.sp,
-              width: double.infinity,
-              iconTxt: Icons.email,
-              iconSize: 40.sp,
-              labelTxt: "Email",
-              maxHeight: 150.h,
-            ),
-            const SizedBox(height: 20),
-            ReuseTextField(
-              linesMax: 1,
-              linesMin: 1,
-              color: MyColors.white,
-              fontSize: 40.sp,
-              radius: 25.sp,
-              width: double.infinity,
-              iconTxt: Icons.person,
-              iconSize: 40.sp,
-              labelTxt: "Name",
-              maxHeight: 150.h,
-            ),
-            const SizedBox(height: 20),
-            ReuseTextField(
-              linesMax: 1,
-              linesMin: 1,
-              color: MyColors.white,
-              fontSize: 40.sp,
-              radius: 25.sp,
-              width: double.infinity,
-              iconTxt: Icons.phone,
-              iconSize: 40.sp,
-              labelTxt: "Phone Number",
-              maxHeight: 150.h,
-            ),
-            const SizedBox(height: 20),
-            ReuseTextField(
-              linesMax: 1,
-              linesMin: 1,
-              color: MyColors.white,
-              fontSize: 40.sp,
-              radius: 25.sp,
-              width: double.infinity,
-              iconTxt: Icons.password,
-              iconSize: 40.sp,
-              labelTxt: "Password",
-              maxHeight: 150.h,
-            ),
-            const SizedBox(height: 20),
-            ReuseTextField(
-              linesMax: 1,
-              linesMin: 1,
-              color: MyColors.white,
-              fontSize: 40.sp,
-              radius: 25.sp,
-              width: double.infinity,
-              iconTxt: Icons.password,
-              iconSize: 40.sp,
-              labelTxt: "Password Confirmation",
-              maxHeight: 150.h,
-            ),
-            // buat ke login
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text("Already have an account? Login "),
-                TextButton(
-                    onPressed: () => {Navigator.pushNamed(context, '/login')},
-                    style: TextButton.styleFrom(
-                        minimumSize: Size.zero, padding: EdgeInsets.zero),
-                    child: const Text(
-                      "here",
-                      style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          decorationColor: MyColors.secondaryGreen,
-                          color: MyColors.secondaryGreen),
-                    ))
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            PrimaryBtn(
-              btnText: "Register",
-              width: MediaQuery.of(context).size.width / 2,
-              height: 150.h,
-              onClick: () => {Navigator.pushReplacementNamed(context, '/home')},
-            ),
+            Image.asset(AssetConstraints.bgAppLogo),
+            Flexible(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 100.w),
+                width: 1179.w,
+                height: 1900.h,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 1179.w,
+                      height: 150.h,
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: CircleAvatar(
+                              radius: 50.h,
+                              backgroundColor: MyColors.secondaryGreen,
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: MyColors.white,
+                                size: 50.h,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 80.w,
+                          ),
+                          Text(
+                            "Sign Up",
+                            style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w900),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                    GetBuilder<PageViewRegisController>(
+                      builder: (controller) {
+                        return SizedBox(
+                          width: 1179.w,
+                          height: 100.h,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                radius: controller.radius1.value,
+                                backgroundColor: controller.colorMarker.value,
+                                child: Text(
+                                  "1",
+                                  style: TextStyle(color: MyColors.white, fontSize: 30.sp, fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              CustomPaint(
+                                size: Size(300.w, 10.h),
+                                painter: MyPainter(lineColor: controller.colorLine1.value),
+                              ),
+                              CircleAvatar(
+                                  radius: controller.radius2.value,
+                                  backgroundColor: controller.colorMarker2.value,
+                                  child: Text(
+                                    "2",
+                                    style:
+                                        TextStyle(color: MyColors.white, fontSize: 30.sp, fontWeight: FontWeight.w500),
+                                  )),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                    Flexible(
+                      child: SizedBox(
+                        width: 1179.w,
+                        height: 1500.h,
+                        child: GetBuilder<PageViewRegisController>(builder: (controller) {
+                          return PageView(
+                            physics: NeverScrollableScrollPhysics(),
+                            controller: controller.pageController,
+                            onPageChanged: (int index) {
+                              print(controller.currentPageIndex);
+                              controller.currentPageIndex.value = index;
+                            },
+                            children: controller.pages,
+                          );
+                        }),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),

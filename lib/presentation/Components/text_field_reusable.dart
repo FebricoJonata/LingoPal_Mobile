@@ -14,6 +14,8 @@ class ReuseTextField extends StatelessWidget {
     required this.fontSize,
     required this.iconSize,
     this.onChanged,
+    required this.obscureText,
+    this.onPressed,
   });
   final IconData iconTxt;
   final String labelTxt;
@@ -26,6 +28,8 @@ class ReuseTextField extends StatelessWidget {
   final double fontSize;
   final double iconSize;
   final ValueChanged<String>? onChanged;
+  final bool obscureText;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,7 @@ class ReuseTextField extends StatelessWidget {
       child: ConstrainedBox(
         constraints: BoxConstraints(maxHeight: maxHeight),
         child: TextField(
+          obscureText: obscureText,
           minLines: linesMin,
           maxLines: linesMax,
           keyboardType: TextInputType.multiline,
@@ -49,9 +54,12 @@ class ReuseTextField extends StatelessWidget {
               width: iconSize,
               height: iconSize,
               child: Center(
-                child: Icon(
-                  iconTxt,
-                  size: iconSize,
+                child: IconButton(
+                  icon: Icon(
+                    iconTxt,
+                    size: iconSize,
+                  ),
+                  onPressed: onPressed,
                 ),
               ),
             ),

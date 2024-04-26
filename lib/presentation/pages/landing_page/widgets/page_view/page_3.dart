@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
@@ -56,7 +54,7 @@ class Page3 extends StatelessWidget {
                           backgroundColor: MaterialStateProperty.all<Color>(MyColors.primaryGreen),
                         ),
                         onPressed: () {
-                          Get.toNamed(RouteName.homePage);
+                          Get.toNamed(RouteName.registerPage);
                         },
                         child: Text(
                           "Lanjutkan",

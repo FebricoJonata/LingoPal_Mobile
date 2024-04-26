@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../core/color/color_constraint.dart';
 import '../../Components/primary_btn_reusable.dart';
 import '../../Components/text_field_reusable.dart';
@@ -29,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [Text("Sign In")],
             ),
             ReuseTextField(
+              obscureText: false,
               linesMax: 1,
               linesMin: 1,
               color: MyColors.white,
@@ -42,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 20),
             ReuseTextField(
+              obscureText: false,
               linesMax: 1,
               linesMin: 1,
               color: MyColors.white,
@@ -61,10 +62,8 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const Text("New here? Register your account "),
                 TextButton(
-                    onPressed: () =>
-                        {Navigator.pushNamed(context, '/register')},
-                    style: TextButton.styleFrom(
-                        minimumSize: Size.zero, padding: EdgeInsets.zero),
+                    onPressed: () => {Navigator.pushNamed(context, '/register')},
+                    style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
                     child: const Text(
                       "here",
                       style: TextStyle(
