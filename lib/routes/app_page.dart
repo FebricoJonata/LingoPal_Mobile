@@ -1,17 +1,23 @@
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/presentation/pages/home_page/home.dart';
-import 'package:lingo_pal_mobile/presentation/pages/landing_page/controller/landing_binding.dart';
-import 'package:lingo_pal_mobile/presentation/pages/landing_page/landing_page.dart';
-import 'package:lingo_pal_mobile/presentation/pages/login_page/login_page.dart';
-import 'package:lingo_pal_mobile/presentation/pages/register_page/controllers/register_page_binding.dart';
-import 'package:lingo_pal_mobile/presentation/pages/register_page/register_page.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/base_controller/base_binding.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_binding.dart';
+import 'package:lingo_pal_mobile/presentation/view/base/base.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/landing_page_controller/landing_binding.dart';
+import 'package:lingo_pal_mobile/presentation/view/home_page/home_page.dart';
+import 'package:lingo_pal_mobile/presentation/view/landing_page/landing_page.dart';
+import 'package:lingo_pal_mobile/presentation/view/login_page/login_page.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/register_page_binding.dart';
+import 'package:lingo_pal_mobile/presentation/view/profile_page/profile_page.dart';
+import 'package:lingo_pal_mobile/presentation/view/register_page/register_page.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class AppPages {
   static final pages = [
     GetPage(name: RouteName.registerPage, page: () => const RegisterPage(), binding: RegisBindings()),
-    GetPage(name: RouteName.homePage, page: () => const HomePage()),
+    GetPage(name: RouteName.basePage, page: () => const BasePage(), binding: BaseBindings()),
     GetPage(name: RouteName.landigPage, page: () => const LandingPage(), binding: LandingBindings()),
-    GetPage(name: RouteName.loginPage, page: () => const LoginPage())
+    GetPage(name: RouteName.loginPage, page: () => const LoginPage(), binding: LoginBindings()),
+    GetPage(name: RouteName.homePage, page: () => const HomePage()),
+    GetPage(name: RouteName.profilePage, page: () => const ProfilePage())
   ];
 }
