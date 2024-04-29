@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
           Flexible(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 100.w),
-              child: Column(
+              child: Column( 
                 children: [
                   SizedBox(
                     height: 300.h,
