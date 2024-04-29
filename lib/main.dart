@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'LingoPal',
-          initialRoute: RouteName.loginPage,
+          initialRoute: RouteName.landigPage,
           getPages: AppPages.pages,
           theme: ThemeData(textTheme: GoogleFonts.latoTextTheme()),
         );

@@ -1,6 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+
+import '../../../core/image/image_constraint.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -52,6 +55,35 @@ class _HomePageState extends State<HomePage> {
           });
         },
       ),
+      body: SizedBox(
+        width: 1179.w,
+        height: 2556.h,
+        child: Stack(
+          children: [
+            Center(
+              child: SizedBox(
+                width: 1179.w,
+                height: 2556.h,
+                child: Column(
+                  children: [
+                    Flexible(
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Image.asset(
+                          AssetConstraints.bgIntroTop,
+                        ),
+                      ),
+                    ),
+                    Text("Halo User!"),
+                    Text("Total poin")
+                    // tambahin widget dibawah
+                  ]
+                )
+              )
+            )
+          ]
+        )
+      )
     );
   }
 }
