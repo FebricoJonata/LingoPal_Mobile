@@ -19,7 +19,7 @@ class _HomePageState extends State<BasePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.primaryYellow,
+      backgroundColor: MyColors.secondaryYellow,
       bottomNavigationBar: Container(
         width: 1179.w,
         height: 2556.h,
