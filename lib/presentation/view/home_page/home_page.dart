@@ -15,7 +15,6 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         width: 1179.w,
         height: 2556.h,
-        color: Colors.red,
       ),
     );
   }
