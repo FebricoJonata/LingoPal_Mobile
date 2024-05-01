@@ -10,7 +10,7 @@ class AppPages {
   static final pages = [
     GetPage(name: RouteName.registerPage, page: () => const RegisterPage()),
     GetPage(name: RouteName.homePage, page: () => const HomePage()),
-    GetPage(name: RouteName.landigPage, page: () => const LandingPage(), binding: LandingBindings()),
+    GetPage(name: RouteName.landingPage, page: () => const LandingPage(), binding: LandingBindings()),
     GetPage(name: RouteName.loginPage, page: () => const LoginPage())
   ];
 }
