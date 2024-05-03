@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/home_appbar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,7 +19,14 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         width: 1179.w,
         height: 2556.h,
-        color: Colors.red,
+        color: MyColors.secondaryYellow,
+        child: Column(
+          children: [
+            // app bar
+            CustomAppBar()
+            // content
+          ]
+        ),
       ),
     );
   }

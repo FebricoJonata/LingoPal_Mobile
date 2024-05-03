@@ -13,10 +13,22 @@ import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class AppPages {
   static final pages = [
-    GetPage(name: RouteName.registerPage, page: () => const RegisterPage(), binding: RegisBindings()),
-    GetPage(name: RouteName.basePage, page: () => const BasePage(), binding: BaseBindings()),
-    GetPage(name: RouteName.landigPage, page: () => const LandingPage(), binding: LandingBindings()),
-    GetPage(name: RouteName.loginPage, page: () => const LoginPage(), binding: LoginBindings()),
+    GetPage(
+        name: RouteName.registerPage,
+        page: () => const RegisterPage(),
+        binding: RegisBindings()),
+    GetPage(
+        name: RouteName.basePage,
+        page: () => const BasePage(),
+        binding: BaseBindings()),
+    GetPage(
+        name: RouteName.landingPage,
+        page: () => const LandingPage(),
+        binding: LandingBindings()),
+    GetPage(
+        name: RouteName.loginPage,
+        page: () => const LoginPage(),
+        binding: LoginBindings()),
     GetPage(name: RouteName.homePage, page: () => const HomePage()),
     GetPage(name: RouteName.profilePage, page: () => const ProfilePage())
   ];
