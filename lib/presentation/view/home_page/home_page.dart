@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 150.h,),
             Expanded(
               child: ListView.separated(
-                padding: EdgeInsets.fromLTRB(20, 50.h, 20, 250.h),
+                padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
                 shrinkWrap: true,
                 itemCount: 5,
                 itemBuilder: (context, index) {
