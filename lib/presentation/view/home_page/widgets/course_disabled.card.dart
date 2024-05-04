@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 
@@ -19,16 +20,16 @@ class CourseDisabledCard extends StatelessWidget {
         // color: Colors.white,
         padding: EdgeInsets.all(36.sp),
         height: 300.h,
-        child: Expanded(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Flexible(
+              child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  child: Row(
                     children: [
                       Text("A1 - Basic", style: TextStyle(fontSize: 50.sp),),
                       SizedBox(width: 200.w,),
@@ -37,14 +38,14 @@ class CourseDisabledCard extends StatelessWidget {
                       )
                     ],
                   ),
-                  Text("Pilihan Ganda - Level 6", style: TextStyle(fontSize: 40.sp),),
-                  Text("Deskripsi course", style: TextStyle(fontSize: 32.sp),)
-                ],),
-              ),
-              SizedBox(width: 80.w,),
-              Icon(Icons.lock_rounded, size: 150.w, color: MyColors.secondaryYellow,)
-            ],
-          ),
+                ),
+                Text("Pilihan Ganda - Level 6", style: TextStyle(fontSize: 40.sp),),
+                Text("Deskripsi course", style: TextStyle(fontSize: 32.sp),)
+              ],),
+            ),
+            SizedBox(width: 80.w,),
+            Icon(Icons.lock_rounded, size: 150.w, color: MyColors.secondaryYellow,)
+          ],
         ),
       ),
     );
