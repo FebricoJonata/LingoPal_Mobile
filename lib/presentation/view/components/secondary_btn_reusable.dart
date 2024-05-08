@@ -40,7 +40,6 @@ class SecondaryBtn extends StatelessWidget {
           // font
           fontSize: 16.0,
           fontWeight: FontWeight.bold,
-          // fontFamily: "Lato"
         )
       ),
     );

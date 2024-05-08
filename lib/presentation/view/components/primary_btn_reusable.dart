@@ -21,6 +21,7 @@ class PrimaryBtn extends StatelessWidget {
     return FilledButton(
       onPressed: onClick,
       style: FilledButton.styleFrom(
+          foregroundColor: MyColors.primaryGreen,
           backgroundColor: MyColors.primaryGreen,
           minimumSize: Size(width, height),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.sp))),

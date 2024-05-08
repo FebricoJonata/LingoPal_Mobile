@@ -7,12 +7,11 @@ import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class LoginAPIController extends GetxController {
   final _isLoading = RxBool(false);
+  RxString name = "".obs;
   RxBool get isLoading => _isLoading;
   Future<Either<Failure, LoginModel>> loginAPI(String email, String password) async {
     _isLoading.value = true;
-
     try {
-      // Replace with your actual API endpoint and request body
       final response = await Dio().post(
         'https://lingo-pal-backend-v1.vercel.app/api/users/signin',
         data: {'email': email, 'password': password},
@@ -24,6 +23,8 @@ class LoginAPIController extends GetxController {
       final loginModel = LoginModel.fromJson(response.data);
       _isLoading.value = false;
       Get.toNamed(RouteName.basePage);
+      name.value = email;
+      print(name.value);
       return Right(loginModel);
     } on DioException catch (e) {
       _isLoading.value = false;

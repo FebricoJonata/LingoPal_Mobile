@@ -34,7 +34,7 @@ class CustomAppBar extends StatelessWidget {
                                   foregroundColor: MyColors.secondaryYellow, radius: 60.h,
                                 ),
                                 SizedBox(width: 50.w,),
-                                const Text("Halo, User", style: TextStyle(fontWeight: FontWeight.bold),), 
+                                Text("Halo, User", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.sp),), 
                                 SizedBox(width: 50.w,),
                                 const Icon(Icons.waving_hand_rounded, color: MyColors.secondaryYellow,)
                               ],
