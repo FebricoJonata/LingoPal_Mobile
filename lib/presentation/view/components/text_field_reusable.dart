@@ -17,6 +17,7 @@ class ReuseTextField extends StatelessWidget {
     required this.obscureText,
     this.onPressed,
     this.controller,
+    this.height,
   });
   final IconData iconTxt;
   final String labelTxt;
@@ -32,11 +33,13 @@ class ReuseTextField extends StatelessWidget {
   final bool obscureText;
   final VoidCallback? onPressed;
   final TextEditingController? controller;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
+      height: height,
       child: ConstrainedBox(
         constraints: BoxConstraints(maxHeight: maxHeight),
         child: TextField(

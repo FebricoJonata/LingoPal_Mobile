@@ -13,7 +13,9 @@ class _DictionaryPageState extends State<DictionaryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(child: PrimaryBtn(btnText: "Dictionary", width: 500.w, height: 200.h),),
+      body: Container(
+        child: PrimaryBtn(btnText: "Dictionary", width: 500.w, height: 200.h),
+      ),
     );
   }
 }
