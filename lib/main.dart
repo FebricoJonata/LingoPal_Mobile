@@ -4,8 +4,16 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lingo_pal_mobile/routes/app_page.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
+  // Init Supabase
+  Supabase.initialize(
+    url: 'https://vfsijkhnwxfbsanoefua.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZmc2lqa2hud3hmYnNhbm9lZnVhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxMjQ3MTYxOSwiZXhwIjoyMDI4MDQ3NjE5fQ.UnjnJOMv-Zrsr1t7WXsvt6WJ5-XrYAHFydb66FNGKU0',
+  );
+
   runApp(const MyApp());
 }
 
