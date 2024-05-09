@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
     if (_alertShown != true) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         showCustomAlertDialog(context);
+        _alertShown = true;
       });
     }
   }
