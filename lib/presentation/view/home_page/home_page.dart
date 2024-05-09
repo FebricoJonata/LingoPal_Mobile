@@ -101,8 +101,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _alertShown = false;
-
   @override
   void initState() {
     super.initState();
@@ -159,9 +157,6 @@ class _HomePageState extends State<HomePage> {
           onClose: () async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setBool('alertShown', true);
-            setState(() {
-              _alertShown = true;
-            });
             Navigator.of(context).pop();
           },
         );
