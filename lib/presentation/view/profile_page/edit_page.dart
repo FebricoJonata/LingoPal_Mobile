@@ -6,6 +6,7 @@ import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/choice_chip_edit_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/edit_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
+import 'package:lingo_pal_mobile/presentation/view/camera_screen/camera_screen.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/date_picker.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/text_field_reusable.dart';
@@ -82,17 +83,7 @@ class _EditPageState extends State<EditPage> {
                                   SizedBox(
                                     width: 393.w,
                                     height: 400.h,
-                                    child: Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: CircleAvatar(
-                                        radius: 60.sp,
-                                        backgroundColor: MyColors.primaryYellow,
-                                        child: const Icon(
-                                          Icons.edit,
-                                          color: MyColors.primaryGreen,
-                                        ),
-                                      ),
-                                    ),
+                                    child: const Align(alignment: Alignment.bottomRight, child: Camera2()),
                                   )
                                 ],
                               ),
@@ -208,7 +199,6 @@ class _EditPageState extends State<EditPage> {
                       width: 300.w,
                       height: 150.h,
                       onClick: () {
-                        print("Biji");
                         controllerEdit.editProfileAPI(userId, nameContoller.text, datePickerController.text,
                             controllerChoice.selectedChoice.value?.label ?? "", phoneController.text);
                         controllerProfile.profileAPI();

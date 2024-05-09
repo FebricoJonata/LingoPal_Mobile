@@ -46,6 +46,9 @@ dependencies:
   flutter_launcher_icons: "^0.13.1"
   supabase_flutter: ^2.5.2
   shared_preferences: ^2.2.3
+  image_picker: ^1.1.1
+  video_player: ^2.8.6
+  mime: ^1.0.5
 
 dev_dependencies:
   flutter_test:
