@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/choice_chip_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/register_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/date_picker.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/text_field_reusable.dart';
@@ -13,7 +15,14 @@ class Regis1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController datePickerController = TextEditingController();
+    TextEditingController nameContoller = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController phoneController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    var controllerRegis = Get.find<RegisterAPIController>();
     var controllerPageView = Get.find<PageViewRegisController>();
+    var controllerChoiceChip = Get.find<ChoiceController>();
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -25,6 +34,7 @@ class Regis1 extends StatelessWidget {
             ),
           ),
           ReuseTextField(
+            controller: emailController,
             obscureText: false,
             linesMax: 1,
             linesMin: 1,
@@ -46,6 +56,7 @@ class Regis1 extends StatelessWidget {
             ),
           ),
           ReuseTextField(
+            controller: nameContoller,
             obscureText: false,
             linesMax: 1,
             linesMin: 1,
@@ -67,6 +78,7 @@ class Regis1 extends StatelessWidget {
             ),
           ),
           ReuseTextField(
+            controller: phoneController,
             obscureText: false,
             linesMax: 1,
             linesMin: 1,
@@ -87,8 +99,8 @@ class Regis1 extends StatelessWidget {
               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
             ),
           ),
-
           DatePicker(
+              controller: datePickerController,
               labelTxt: "BirtDay",
               iconTxt: Icons.calendar_month,
               linesMax: 1,
@@ -108,7 +120,7 @@ class Regis1 extends StatelessWidget {
               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
             ),
           ),
-          Container(width: 1179.w, height: 150.h, child: choiChip()),
+          SizedBox(width: 1179.w, height: 150.h, child: choiChip()),
           SizedBox(height: 15.h),
           Align(
             alignment: Alignment.centerLeft,
@@ -117,8 +129,8 @@ class Regis1 extends StatelessWidget {
               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
             ),
           ),
-
           ReuseTextField(
+            controller: passwordController,
             obscureText: true,
             linesMax: 1,
             linesMin: 1,
@@ -152,8 +164,6 @@ class Regis1 extends StatelessWidget {
             labelTxt: "Password Confirmation",
             maxHeight: 100.h,
           ),
-
-          // buat ke login
           const SizedBox(
             height: 20,
           ),
@@ -180,11 +190,19 @@ class Regis1 extends StatelessWidget {
             btnText: "Lanjutkan",
             width: MediaQuery.of(context).size.width / 2,
             height: 150.h,
-            onClick: () => {
-              if (controllerPageView.currentPageIndex == 0)
-                {
-                  controllerPageView.onChangePage1(),
-                }
+            onClick: () {
+              String? name = nameContoller.text;
+              String? email = emailController.text;
+              String? password = passwordController.text;
+              String? phoneNumber = phoneController.text;
+              String birth = datePickerController.text;
+
+              if (controllerPageView.currentPageIndex == 0) {
+                controllerPageView.onChangePage1();
+                print(controllerChoiceChip.selectedChoice.value?.label);
+                controllerRegis.signUpAPI(
+                    name, email, password, phoneNumber, birth, controllerChoiceChip.selectedChoice.value?.label ?? "");
+              }
             },
           ),
         ],
