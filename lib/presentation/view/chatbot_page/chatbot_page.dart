@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 
 class ChatbotPage extends StatefulWidget {
   const ChatbotPage({super.key});
@@ -11,7 +12,9 @@ class _ChatbotPageState extends State<ChatbotPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: Container(
+        color: MyColors.secondaryYellow,
+      ),
     );
   }
 }
