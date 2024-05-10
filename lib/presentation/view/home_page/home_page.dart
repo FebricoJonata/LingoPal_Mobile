@@ -87,6 +87,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_active_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
@@ -133,7 +134,7 @@ class _HomePageState extends State<HomePage> {
               shrinkWrap: true,
               itemCount: 5,
               itemBuilder: (context, index) {
-                return CourseDisabledCard();
+                return CourseActiveCard();
               },
               separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(height: 50.h);

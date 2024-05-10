@@ -1,4 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widgets/practice_disable.dart';
+import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/home_appbar.dart';
 
 class PracticePage extends StatefulWidget {
   const PracticePage({super.key});
@@ -10,6 +15,20 @@ class PracticePage extends StatefulWidget {
 class _PracticePageState extends State<PracticePage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Container(
+        width: 1179.w,
+        height: 2556.h,
+        color: MyColors.secondaryYellow,
+        child: Column(
+          children: [
+            CustomAppBar(),
+            SizedBox(height: 150.h),
+            DisablePractice()
+
+          ],
+        ),
+      )
+    );
   }
 }
