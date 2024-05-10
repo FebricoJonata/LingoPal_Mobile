@@ -33,7 +33,9 @@ class Body {
 
   Body.fromJson(Map<String, dynamic> json)
       : error = json['error'],
-        data = (json['data'] as List?)?.map((dynamic e) => Data.fromJson(e as Map<String, dynamic>)).toList(),
+        data = (json['data'] as List?)
+            ?.map((dynamic e) => Data.fromJson(e as Map<String, dynamic>))
+            .toList(),
         count = json['count'],
         status = json['status'] as int?,
         statusText = json['statusText'] as String?;
@@ -54,7 +56,7 @@ class Data {
   final String? phoneNumber;
   final String? birthDate;
   final String? gender;
-  final dynamic image;
+  final String? image;
 
   Data({
     this.userId,
@@ -73,7 +75,7 @@ class Data {
         phoneNumber = json['phone_number'] as String?,
         birthDate = json['birth_date'] as String?,
         gender = json['gender'] as String?,
-        image = json['image'];
+        image = json['image'] as String?;
 
   Map<String, dynamic> toJson() => {
         'user_id': userId,

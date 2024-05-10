@@ -17,6 +17,7 @@ class DatePicker extends StatefulWidget {
     required this.iconSize,
     required this.obscureText,
     this.onPressed,
+    this.controller,
     // required this.optionColorCourier,
   });
   final IconData iconTxt;
@@ -32,24 +33,20 @@ class DatePicker extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final bool obscureText;
   final VoidCallback? onPressed;
-  // final IconData iconTxt;
-  // final String labelTxt;
-  // final int? lines;
-  // final ValueChanged<String>? onChanged;
-  // final Rx<Color> optionColorCourier;
-
+  final TextEditingController? controller;
   @override
   State<DatePicker> createState() => _MyWidgetState();
 }
 
 class _MyWidgetState extends State<DatePicker> {
   // final fieldController = Get.put(onChangeField());
-  TextEditingController? datePickerController; // Ubah menjadi nullable
+  TextEditingController? datePickerController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    datePickerController = TextEditingController(); // Inisialisasi datePickerController di initState
+    datePickerController = widget.controller ?? TextEditingController();
+    // datePickerController = TextEditingController(); // Inisialisasi datePickerController di initState
   }
 
   void _showDatePicker(BuildContext context) async {
@@ -72,6 +69,7 @@ class _MyWidgetState extends State<DatePicker> {
       child: ConstrainedBox(
         constraints: BoxConstraints(maxHeight: widget.maxHeight),
         child: TextField(
+          controller: datePickerController,
           obscureText: widget.obscureText,
           minLines: widget.linesMin,
           maxLines: widget.linesMax,

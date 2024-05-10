@@ -43,6 +43,12 @@ dependencies:
   dropdown_button2: ^2.3.9
   dartz: ^0.10.1
   dio: ^5.4.3+1
+  flutter_launcher_icons: "^0.13.1"
+  supabase_flutter: ^2.0.2
+  shared_preferences: ^2.2.3
+  image_picker: ^1.1.1
+  video_player: ^2.8.6
+  mime: ^1.0.5
 
 dev_dependencies:
   flutter_test:
@@ -68,9 +74,12 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/images/robots/
     - assets/images/background_asset/
     - assets/images/splash_screen_asset/
     - assets/images/carousel_assets/
+    - assets/images/splash_screen_asset/logo.png
+    - assets/images/splash_screen_asset/logo-color.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -104,4 +113,10 @@ flutter_native_splash:
 
   android_12:
     color: "#638889"
-    image: "assets/images/splash_screen_asset/logo.png"
+    icon_background_color: "#638889"
+    image: assets/images/splash_screen_asset/logo-color.png
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/images/splash_screen_asset/logo-color.png
