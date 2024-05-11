@@ -65,38 +65,6 @@ class _MyWidgetState extends State<RegisterPage> {
                     SizedBox(
                       height: 50.h,
                     ),
-                    SizedBox(
-                      width: 1179.w,
-                      height: 100.h,
-                      // child: Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     CircleAvatar(
-                      //       radius: controller.radius1.value,
-                      //       backgroundColor: controller.colorMarker.value,
-                      //       child: Text(
-                      //         "1",
-                      //         style: TextStyle(color: MyColors.white, fontSize: 30.sp, fontWeight: FontWeight.w500),
-                      //       ),
-                      //     ),
-                      //     CustomPaint(
-                      //       size: Size(300.w, 10.h),
-                      //       painter: MyPainter(lineColor: controller.colorLine1.value),
-                      //     ),
-                      //     CircleAvatar(
-                      //         radius: controller.radius2.value,
-                      //         backgroundColor: controller.colorMarker2.value,
-                      //         child: Text(
-                      //           "2",
-                      //           style:
-                      //               TextStyle(color: MyColors.white, fontSize: 30.sp, fontWeight: FontWeight.w500),
-                      //         )),
-                      //   ],
-                      // ),
-                    ),
-                    SizedBox(
-                      height: 50.h,
-                    ),
                     Flexible(
                       child: SizedBox(width: 1179.w, height: 1500.h, child: Regis1()),
                     )
