@@ -1,31 +1,30 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
-import 'package:lingo_pal_mobile/presentation/model/profile_model/profile_model.dart';
+import 'package:lingo_pal_mobile/presentation/model/home_model/progress_model.dart';
 
-class GetProfileController extends GetxController {
+class ProgressAPIController extends GetxController {
   var controllerLogin = Get.find<LoginAPIController>();
-  Rx<Profile?> profile = Rx<Profile?>(null);
-  Future<Either<Failure, Profile>> profileAPI() async {
+  Rx<ProgressUserModel?> progress = Rx<ProgressUserModel?>(null);
+  Future<Either<Failure, ProgressUserModel>> getProgress() async {
     try {
       final response = await Dio().get(
-        'https://lingo-pal-backend-v1.vercel.app/api/users',
-        queryParameters: {'email': controllerLogin.name.value.toString()},
+        'https://lingo-pal-backend-v1.vercel.app/api/users/status',
+        queryParameters: {'user_id': controllerLogin.login.value?.user?.userId},
         options: Options(
           headers: {"Accept": "application/json"},
         ),
       );
-      print("masih aman");
-      var profileModel = Profile.fromJson(response.data);
-      print("masih aman2");
-      profile(profileModel);
-      print("AHHAHAHAHAH ${response.data}");
-      print("OI ${profile.value?.body?.data?.first.userId}");
-      return Right(profileModel);
+
+      var progressModel = ProgressUserModel.fromJson(response.data);
+      print("AMAN BANG");
+      progress(progressModel);
+      print(response.data);
+      return Right(progressModel);
     } on DioException catch (e) {
+      print("Ga AMAN COK");
       print("DioException: ${e.response?.statusCode}");
       if (e.response?.statusCode == 401) {
         print("Error 401");
@@ -38,13 +37,15 @@ class GetProfileController extends GetxController {
 
   @override
   void onInit() {
+    // TODO: implement onInit
     super.onInit();
-    profileAPI();
+    getProgress();
   }
 
   @override
   void onClose() {
+    // TODO: implement onClose
     super.onClose();
-    profileAPI();
+    getProgress();
   }
 }

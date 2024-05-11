@@ -8,6 +8,7 @@ import 'package:lingo_pal_mobile/routes/name_page.dart';
 class LoginAPIController extends GetxController {
   final _isLoading = RxBool(false);
   RxString name = "".obs;
+  Rx<LoginModel?> login = Rx<LoginModel?>(null);
   RxBool get isLoading => _isLoading;
   Future<Either<Failure, LoginModel>> loginAPI(String email, String password) async {
     _isLoading.value = true;
@@ -19,12 +20,10 @@ class LoginAPIController extends GetxController {
           headers: {"Accept": "application/json", "Content-Type": "application/json"},
         ),
       );
-      print("Response code login ${response}");
       final loginModel = LoginModel.fromJson(response.data);
-      _isLoading.value = false;
+      login(loginModel);
+      print("Response code login ${response}");
       Get.toNamed(RouteName.basePage);
-      name.value = email;
-      print(name.value);
       return Right(loginModel);
     } on DioException catch (e) {
       _isLoading.value = false;

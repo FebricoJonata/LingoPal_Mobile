@@ -83,15 +83,15 @@
 //     );
 //   }
 // }
-import 'package:flutter/cupertino.dart';
+
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_active_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
-import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_disabled.card.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/home_appbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -102,6 +102,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _alertShown = false;
+
   @override
   void initState() {
     super.initState();
@@ -126,7 +128,7 @@ class _HomePageState extends State<HomePage> {
         height: 2556.h,
         color: MyColors.secondaryYellow,
         child: Column(children: [
-          const CustomAppBar(),
+          CustomAppBar(),
           SizedBox(height: 150.h),
           Expanded(
             child: ListView.separated(
@@ -158,6 +160,9 @@ class _HomePageState extends State<HomePage> {
           onClose: () async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setBool('alertShown', true);
+            setState(() {
+              _alertShown = true;
+            });
             Navigator.of(context).pop();
           },
         );
