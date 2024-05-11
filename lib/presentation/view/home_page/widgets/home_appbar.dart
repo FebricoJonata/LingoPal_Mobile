@@ -22,8 +22,9 @@ class CustomAppBar extends StatelessWidget {
         Container(
             decoration: BoxDecoration(
                 color: MyColors.primaryYellow,
-                borderRadius:
-                    BorderRadius.only(bottomLeft: Radius.circular(75.sp), bottomRight: Radius.circular(75.sp))),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(75.sp),
+                    bottomRight: Radius.circular(75.sp))),
             child: Column(
               children: [
                 Image.asset(AssetConstraints.bgIntroTop),
@@ -38,16 +39,22 @@ class CustomAppBar extends StatelessWidget {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: MyColors.primaryGreen,
-                              foregroundColor: MyColors.secondaryYellow,
+                              // backgroundColor: MyColors.primaryGreen,
+                              // foregroundColor: MyColors.secondaryYellow,
+                              backgroundImage: NetworkImage(controllerProfile
+                                      .profile.value?.body?.data?.first.image ??
+                                  ""),
                               radius: 60.h,
                             ),
                             SizedBox(
                               width: 50.w,
                             ),
                             Text(
-                              controllerProfile.profile.value?.body?.data?.first.name ?? "",
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.sp),
+                              controllerProfile
+                                      .profile.value?.body?.data?.first.name ??
+                                  "",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 50.sp),
                             ),
                             SizedBox(
                               width: 50.w,
@@ -96,7 +103,8 @@ class CustomAppBar extends StatelessWidget {
                     } else if (snapshot.data == null) {
                       return const Text("DATA NULL");
                     } else {
-                      final progressData = snapshot.data!.fold((failure) => <ProgressUserModel>[], (l) => l.body);
+                      final progressData = snapshot.data!.fold(
+                          (failure) => <ProgressUserModel>[], (l) => l.body);
 
                       if (progressData == null) {
                         return const Center(
@@ -113,23 +121,30 @@ class CustomAppBar extends StatelessWidget {
                                   blurRadius: 10,
                                 )
                               ],
-                              borderRadius: BorderRadius.all(Radius.circular(50.sp))),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50.sp))),
                           width: 979.w,
-                          padding: EdgeInsets.symmetric(horizontal: 100.w, vertical: 64.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 100.w, vertical: 64.h),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                   "Level: ${controllerProgress.progress.value?.body?.data?.first.level?.userLevelCode} ${controllerProgress.progress.value?.body?.data?.first.level?.userLevelName}",
-                                  style: TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      color: MyColors.primaryGreen,
+                                      fontWeight: FontWeight.bold)),
                               Container(
                                 width: 2,
                                 height: 100.h,
                                 color: MyColors.lightGrey,
                               ),
                               Row(children: [
-                                Text("${controllerProgress.progress.value?.body?.data?.first.totalPoin}",
-                                    style: TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
+                                Text(
+                                    "${controllerProgress.progress.value?.body?.data?.first.totalPoin}",
+                                    style: TextStyle(
+                                        color: MyColors.primaryGreen,
+                                        fontWeight: FontWeight.bold)),
                                 Icon(
                                   Icons.star_rounded,
                                   color: MyColors.primaryYellow,
