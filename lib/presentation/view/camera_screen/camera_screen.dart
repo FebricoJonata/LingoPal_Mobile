@@ -69,7 +69,7 @@ class _MyHomePageState extends State<Camera2> {
             imageQuality: 100,
           );
           String? photoName = media?.path.split(Platform.pathSeparator).last;
-          String? filePath = media?.path;
+          // String? filePath = media?.path;
 
           controllerPicker.setImageFile(media?.path);
           controllerPicker.imageName(photoName);
@@ -98,7 +98,7 @@ class _MyHomePageState extends State<Camera2> {
             imageQuality: 100,
           );
           String? photoName = pickedFile?.path.split(Platform.pathSeparator).last;
-          String? filePath = pickedFile?.path;
+          // String? filePath = pickedFile?.path;
           controllerPicker.setImageFile(pickedFile?.path);
           controllerPicker.imageName(photoName);
           controllerPicker.update();

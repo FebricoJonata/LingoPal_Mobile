@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
@@ -15,6 +16,9 @@ class CustomAppBar extends StatelessWidget {
   var controllerProgress = Get.find<ProgressAPIController>();
   @override
   Widget build(BuildContext context) {
+    final fomattedName =
+        controllerProfile.profile.value?.body?.data?.first.name?.split(' ') ??
+            [];
     return Stack(
       alignment: Alignment.topCenter,
       clipBehavior: Clip.none,
@@ -50,14 +54,14 @@ class CustomAppBar extends StatelessWidget {
                               width: 50.w,
                             ),
                             Text(
-                              controllerProfile
-                                      .profile.value?.body?.data?.first.name ??
-                                  "",
+                              "Welcome,  ${fomattedName[0]}",
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 50.sp),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 50.sp,
+                              ),
                             ),
                             SizedBox(
-                              width: 50.w,
+                              width: 20.w,
                             ),
                             const Icon(
                               Icons.waving_hand_rounded,
