@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/base_controller/base_binding.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/camera_controllers/camera_binding.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/home_bindings.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_binding.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/profile_page_binding.dart';
 import 'package:lingo_pal_mobile/presentation/view/base/base.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/landing_page_controller/landing_binding.dart';
+import 'package:lingo_pal_mobile/presentation/view/camera_screen/camera_screen.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/home_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/landing_page/landing_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/login_page/login_page.dart';
@@ -22,6 +24,7 @@ class AppPages {
     GetPage(name: RouteName.loginPage, page: () => const LoginPage(), binding: LoginBindings()),
     GetPage(name: RouteName.homePage, page: () => const HomePage(), binding: HomeBindings()),
     GetPage(name: RouteName.profilePage, page: () => const ProfilePage(), binding: ProfileBindings()),
-    GetPage(name: RouteName.editPage, page: () => const EditPage(), binding: ProfileBindings())
+    GetPage(name: RouteName.editPage, page: () => const EditPage(), binding: ProfileBindings()),
+    GetPage(name: RouteName.camera2, page: () => const Camera2(), binding: CameraBinding()),
   ];
 }

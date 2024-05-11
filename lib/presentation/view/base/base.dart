@@ -61,26 +61,21 @@ class _HomePageState extends State<BasePage> {
                   setState(() {
                     switch (index) {
                       case 0:
-                        controllerPage.pageController.animateToPage(0,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeIn);
+                        controllerPage.pageController
+                            .animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                       case 1:
-                        controllerPage.pageController.animateToPage(1,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeIn);
+                        controllerPage.pageController
+                            .animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                       case 2:
-                        controllerPage.pageController.animateToPage(2,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeIn);
+                        controllerPage.pageController
+                            .animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                       case 3:
-                        controllerPage.pageController.animateToPage(3,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeIn);
+                        controllerPage.pageController
+                            .animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                       case 4:
                         controllerProfile.profileAPI();
-                        controllerPage.pageController.animateToPage(4,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeIn);
+                        controllerPage.pageController
+                            .animateToPage(4, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                       default:
                         break;
                     }
