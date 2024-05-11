@@ -1,6 +1,3 @@
-import 'dart:js';
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dartz/dartz.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
@@ -19,7 +16,7 @@ class LoginAPIController extends GetxController {
     _isLoading.value = true;
     try {
       final response = await Dio().post(
-        'https://lingo-pal-backend-v1.vercel.app/api/user/signin',
+        'https://lingo-pal-backend-v1.vercel.app/api/users/signin',
         data: {'email': email, 'password': password},
         options: Options(
           headers: {
