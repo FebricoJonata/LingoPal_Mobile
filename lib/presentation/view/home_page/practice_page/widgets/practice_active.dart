@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 
 class ActivePractice extends StatelessWidget {
-  const ActivePractice({super.key});
+  const ActivePractice({super.key, required this.id, required this.code});
+
+  final int id; final String code;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +31,9 @@ class ActivePractice extends StatelessWidget {
                 color: MyColors.secondaryGreen,
                 borderRadius: BorderRadius.circular(100),
               ),
-              child: Text("1", style: TextStyle(color: Colors.white, fontSize: 100.sp, fontWeight: FontWeight.bold),)),
+              child: Text(id.toString(), style: TextStyle(color: Colors.white, fontSize: 100.sp, fontWeight: FontWeight.bold),)),
           ),
-          const Text("DISNI", style: TextStyle(fontWeight: FontWeight.bold),)
+          const Text("DISINI", style: TextStyle(fontWeight: FontWeight.bold),)
         ]),
     );
   }
