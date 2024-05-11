@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.secondaryYellow,
+      resizeToAvoidBottomInset: false,
       body: SizedBox(
         width: 1179.w,
         height: 2700.h,
