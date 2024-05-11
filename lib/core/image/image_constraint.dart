@@ -2,6 +2,7 @@ class AssetConstraints {
   static const baseImages = 'assets/images';
   static const baseBgImages = '$baseImages/background_asset';
   static const baseLandingImages = "$baseImages/carousel_assets";
+  static const robots = "$baseImages/robots";
 
   //background
   static const bgIntroTop = "$baseBgImages/bg_intro_top.png";
