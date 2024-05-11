@@ -30,18 +30,17 @@ class _ChatbotPageState extends State<ChatbotPage> {
                 height: 1600.h,
                 child: Column(
                   children: [
-                    SizedBox(height: 100.h),
+                    SizedBox(height: 50.h),
                     const MessageBubble.first(
-                        userImage:
-                            "https://vfsijkhnwxfbsanoefua.supabase.co/storage/v1/object/public/lingo-pal-storage/profiles/kao.jpeg",
+                        userImage: AssetConstraints.robotCool,
                         username: "Fabian Ganteng",
                         message: "Yes",
                         isMe: false),
-                    MessageBubble.next(message: "Yes", isMe: true),
+                    const MessageBubble.next(message: "Yes", isMe: true),
                   ],
                 ),
               ),
-              NewMessage()
+              const NewMessage()
               // Align(alignment: Alignment.bottomCenter, child: )
             ],
           )),

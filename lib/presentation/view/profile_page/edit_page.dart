@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/camera_controllers/picker_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/choice_chip_edit_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/edit_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
@@ -27,6 +30,7 @@ class _EditPageState extends State<EditPage> {
   var controllerEdit = Get.find<EditAPIController>();
   var controllerChoice = Get.find<ChoiceEditController>();
   var controllerProfile = Get.find<GetProfileController>();
+  var controllerImage = Get.find<ImagePickerController>();
   int userId = Get.arguments;
   @override
   Widget build(BuildContext context) {
@@ -76,9 +80,17 @@ class _EditPageState extends State<EditPage> {
                               height: 400.h,
                               child: Stack(
                                 children: [
-                                  CircleAvatar(
-                                    radius: 200.sp,
-                                    backgroundColor: Colors.blue,
+                                  GetBuilder<ImagePickerController>(
+                                    builder: (controller) {
+                                      return CircleAvatar(
+                                        radius: 200.sp,
+                                        backgroundColor: Colors.blue,
+                                        backgroundImage: controller.imageUrl.value == ""
+                                            ? NetworkImage(
+                                                "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
+                                            : NetworkImage(controller.imageUrl.value),
+                                      );
+                                    },
                                   ),
                                   SizedBox(
                                     width: 393.w,
@@ -199,10 +211,15 @@ class _EditPageState extends State<EditPage> {
                       width: 300.w,
                       height: 150.h,
                       onClick: () {
-                        controllerEdit.editProfileAPI(userId, nameContoller.text, datePickerController.text,
-                            controllerChoice.selectedChoice.value?.label ?? "", phoneController.text);
-                        controllerProfile.profileAPI();
-                        Get.toNamed(RouteName.basePage);
+                        controllerEdit.editProfileAPI(
+                            userId,
+                            nameContoller.text,
+                            datePickerController.text,
+                            controllerChoice.selectedChoice.value?.label ?? "",
+                            phoneController.text,
+                            controllerImage.imageUrl.value);
+                        controllerProfile.update();
+                        Get.toNamed(RouteName.loginPage);
                       },
                     )
                   ],
