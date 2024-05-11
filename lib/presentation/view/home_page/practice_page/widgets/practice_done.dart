@@ -9,7 +9,7 @@ class PracticeDone extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 180.w,
-      height: 400.h,
+      height: 360.h,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

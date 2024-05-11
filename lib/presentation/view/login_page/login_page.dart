@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
+import 'package:lingo_pal_mobile/presentation/view/components/back_btn.dart';
 import '../../../core/color/color_constraint.dart';
 import '../components/primary_btn_reusable.dart';
 import '../components/text_field_reusable.dart';
@@ -44,20 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          InkWell(
-                            onTap: () {
-                              Get.back();
-                            },
-                            child: CircleAvatar(
-                              radius: 50.h,
-                              backgroundColor: MyColors.secondaryGreen,
-                              child: Icon(
-                                Icons.arrow_back,
-                                color: MyColors.white,
-                                size: 50.h,
-                              ),
-                            ),
-                          ),
+                          BackBtn(),
                           SizedBox(
                             width: 80.w,
                           ),
