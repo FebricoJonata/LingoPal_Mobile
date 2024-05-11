@@ -1,11 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/base_controller/base_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/progress_course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 
 class BasePage extends StatefulWidget {
@@ -20,11 +19,12 @@ class _HomePageState extends State<BasePage> {
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   var controllerPage = Get.find<BaseController>();
   var controllerProfile = Get.find<GetProfileController>();
+  var controllerProgress = Get.find<ProgressAPIController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.secondaryYellow,
-      bottomNavigationBar: Container(
+      bottomNavigationBar: SizedBox(
         width: 1179.w,
         height: 2556.h,
         child: Stack(

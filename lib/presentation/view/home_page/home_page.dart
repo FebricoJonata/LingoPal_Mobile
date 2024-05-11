@@ -83,10 +83,11 @@
 //     );
 //   }
 // }
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/progress_course_API_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
@@ -101,8 +102,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _alertShown = false;
-
+  var controllerProgress = Get.find<ProgressAPIController>();
   @override
   void initState() {
     super.initState();
@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
         height: 2556.h,
         color: MyColors.secondaryYellow,
         child: Column(children: [
-          const CustomAppBar(),
+          CustomAppBar(),
           SizedBox(height: 150.h),
           Expanded(
             child: ListView.separated(
@@ -159,9 +159,7 @@ class _HomePageState extends State<HomePage> {
           onClose: () async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setBool('alertShown', true);
-            setState(() {
-              _alertShown = true;
-            });
+            setState(() {});
             Navigator.of(context).pop();
           },
         );

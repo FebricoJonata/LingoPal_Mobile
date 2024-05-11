@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/model/signup_model/singup_model.dart';
+import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class RegisterAPIController extends GetxController {
   Future<Either<Failure, SignUp>> signUpAPI(
@@ -24,6 +25,7 @@ class RegisterAPIController extends GetxController {
       );
       final signUpModel = SignUp.fromJson(response.data);
       print("HAIII");
+      Get.toNamed(RouteName.loginPage);
       return Right(signUpModel);
     } on DioException catch (e) {
       print("errorExp");

@@ -7,7 +7,6 @@ import 'package:lingo_pal_mobile/presentation/controllers/register_page_controll
 import 'package:lingo_pal_mobile/presentation/view/components/date_picker.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/text_field_reusable.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/page_view_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/register_page/widgets/choice_chip/choice_chip.dart';
 
 class Regis1 extends StatelessWidget {
@@ -21,7 +20,7 @@ class Regis1 extends StatelessWidget {
     TextEditingController phoneController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     var controllerRegis = Get.find<RegisterAPIController>();
-    var controllerPageView = Get.find<PageViewRegisController>();
+    // var controllerPageView = Get.find<PageViewRegisController>();
     var controllerChoiceChip = Get.find<ChoiceController>();
     return SingleChildScrollView(
       child: Column(
@@ -196,13 +195,10 @@ class Regis1 extends StatelessWidget {
               String? password = passwordController.text;
               String? phoneNumber = phoneController.text;
               String birth = datePickerController.text;
-
-              if (controllerPageView.currentPageIndex == 0) {
-                controllerPageView.onChangePage1();
-                print(controllerChoiceChip.selectedChoice.value?.label);
-                controllerRegis.signUpAPI(
-                    name, email, password, phoneNumber, birth, controllerChoiceChip.selectedChoice.value?.label ?? "");
-              }
+              print(controllerChoiceChip.selectedChoice.value?.label);
+              controllerRegis.signUpAPI(
+                  name, email, password, phoneNumber, birth, controllerChoiceChip.selectedChoice.value?.label ?? "");
+              // }
             },
           ),
         ],

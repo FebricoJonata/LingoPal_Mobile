@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/base_controller/base_binding.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/home_bindings.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_binding.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/profile_page_binding.dart';
 import 'package:lingo_pal_mobile/presentation/view/base/base.dart';
@@ -19,7 +20,7 @@ class AppPages {
     GetPage(name: RouteName.basePage, page: () => const BasePage(), binding: BaseBindings()),
     GetPage(name: RouteName.landingPage, page: () => const LandingPage(), binding: LandingBindings()),
     GetPage(name: RouteName.loginPage, page: () => const LoginPage(), binding: LoginBindings()),
-    GetPage(name: RouteName.homePage, page: () => const HomePage()),
+    GetPage(name: RouteName.homePage, page: () => const HomePage(), binding: HomeBindings()),
     GetPage(name: RouteName.profilePage, page: () => const ProfilePage(), binding: ProfileBindings()),
     GetPage(name: RouteName.editPage, page: () => const EditPage(), binding: ProfileBindings())
   ];
