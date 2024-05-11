@@ -7,28 +7,32 @@ class ActivePractice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 200.w,
-          height: 200.w,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: MyColors.secondaryYellow,
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(width: 2, color: MyColors.secondaryGreen)
-          ),
-          child: Container(
-            width: 150.w,
-            height: 150.w,
+    return SizedBox(
+      height: 400.h,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: 200.w,
+            height: 200.w,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: MyColors.secondaryGreen,
+              color: MyColors.secondaryYellow,
               borderRadius: BorderRadius.circular(100),
+              border: Border.all(width: 5, color: MyColors.secondaryGreen)
             ),
-            child: Text("1", style: TextStyle(color: Colors.white, fontSize: 100.sp),)),
-        ),
-        const Text("DISINI")
-      ]);
+            child: Container(
+              width: 150.w,
+              height: 150.w,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: MyColors.secondaryGreen,
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Text("1", style: TextStyle(color: Colors.white, fontSize: 100.sp, fontWeight: FontWeight.bold),)),
+          ),
+          const Text("DISINI", style: TextStyle(fontWeight: FontWeight.bold),)
+        ]),
+    );
   }
 }

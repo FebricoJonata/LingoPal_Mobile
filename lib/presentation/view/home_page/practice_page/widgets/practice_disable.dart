@@ -7,10 +7,11 @@ class DisablePractice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 250.w,
-      // height: 500.h,
+    return SizedBox(
+      width: 180.w,
+      height: 400.h,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             width: 200.w,
@@ -24,9 +25,9 @@ class DisablePractice extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(Icons.star_border, size: 80.w, color: MyColors.primaryYellow,),
-              Icon(Icons.star_border, size: 80.w, color: MyColors.primaryYellow,),
-              Icon(Icons.star_border, size: 80.w, color: MyColors.primaryYellow,)
+              Icon(Icons.star_border, size: 70.w, color: MyColors.primaryYellow,),
+              Icon(Icons.star_border, size: 70.w, color: MyColors.primaryYellow,),
+              Icon(Icons.star_border, size: 70.w, color: MyColors.primaryYellow,)
             ],
           )
         ]),
