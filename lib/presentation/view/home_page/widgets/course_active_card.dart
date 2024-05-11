@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 
 class CourseActiveCard extends StatelessWidget {
@@ -65,11 +66,12 @@ class CourseActiveCard extends StatelessWidget {
               width: 30.w,
             ),
             PrimaryBtn(
-              btnText: "Go",
+              btnText: "Lihat",
               width: 350.w,
               height: 120.h,
               onClick: () {
                 print("Go");
+                Get.toNamed("/practice");
               },
             )
           ],

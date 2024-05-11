@@ -4,6 +4,7 @@ abstract class RouteName {
   static const loginPage = "/login";
   static const basePage = "/base";
   static const homePage = "/home";
+  static const practicePage = "/practice";
   static const profilePage = "/profile";
   static const editPage = "/edit";
 }

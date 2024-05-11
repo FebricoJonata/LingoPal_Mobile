@@ -7,6 +7,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:lingo_pal_mobile/presentation/controllers/profile_page/edit_API_controller.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,21 +68,14 @@ class _MyHomePageState extends State<Camera2> {
           );
           String? photoName = media?.path.split(Platform.pathSeparator).last;
           String? filePath = media?.path;
-          // var formData = FormData.fromMap({
-          //   'AdditionalDoc': await MultipartFile.fromFile(filePath ?? "", filename: photoName),
-          // });
-          // if (Get.currentRoute == "/visitorLog") {
-          //   var controllerCam = Get.find<UpdateDocAPIController>();
-          //   controllerCam.updateDoc(formData, widget.id ?? 0);
-          // } else {
-          //   controllerPicker.setImageFile(media?.path);
-          //   controllerPicker.update();
-          // }
           if (media != null) {
             pickedFileList.add(media);
             setState(() {
               _mediaFileList = pickedFileList;
             });
+
+            // Call uploadImage function after picking an image
+            await EditAPIController().uploadImage(File(media.path), photoName);
           }
         } catch (e) {
           setState(() {
@@ -95,22 +90,16 @@ class _MyHomePageState extends State<Camera2> {
             maxHeight: 1200.h,
             imageQuality: 100,
           );
-          String? photoName = pickedFile?.path.split(Platform.pathSeparator).last;
+          String? photoName =
+              pickedFile?.path.split(Platform.pathSeparator).last;
           String? filePath = pickedFile?.path;
-          // var formData = FormData.fromMap({
-          //   'AdditionalDoc': await MultipartFile.fromFile(filePath ?? "", filename: photoName),
-          // });
-          // if (Get.currentRoute == "/visitorLog") {
-          //   var controllerCam = Get.find<UpdateDocAPIController>();
-          //   controllerCam.updateDoc(formData, widget.id ?? 0);
-          // } else {
-          //   print("PickedFile ${pickedFile?.path}");
-          //   controllerPicker.setImageFile(pickedFile?.path);
-          //   controllerPicker.update();
-          // }
           setState(() {
             _setImageFileListFromFile(pickedFile);
           });
+          if (pickedFile != null) {
+            await EditAPIController()
+                .uploadImage(File(pickedFile.path), photoName);
+          }
         } catch (e) {
           setState(() {
             _pickImageError = e;
@@ -168,8 +157,11 @@ class _MyHomePageState extends State<Camera2> {
                   : (mime == null || mime.startsWith('image/')
                       ? Image.file(
                           File(_mediaFileList![index].path),
-                          errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                            return const Center(child: Text('This image type is not supported'));
+                          errorBuilder: (BuildContext context, Object error,
+                              StackTrace? stackTrace) {
+                            return const Center(
+                                child:
+                                    Text('This image type is not supported'));
                           },
                         )
                       : _buildInlineVideoPlayer(index)),
@@ -192,7 +184,8 @@ class _MyHomePageState extends State<Camera2> {
   }
 
   Widget _buildInlineVideoPlayer(int index) {
-    final VideoPlayerController controller = VideoPlayerController.file(File(_mediaFileList![index].path));
+    final VideoPlayerController controller =
+        VideoPlayerController.file(File(_mediaFileList![index].path));
     const double volume = kIsWeb ? 0.0 : 1.0;
     controller.setVolume(volume);
     controller.initialize();
@@ -278,7 +271,8 @@ class _MyHomePageState extends State<Camera2> {
                             child: FloatingActionButton(
                               onPressed: () {
                                 isVideo = false;
-                                _onImageButtonPressed(ImageSource.camera, context: context);
+                                _onImageButtonPressed(ImageSource.camera,
+                                    context: context);
                               },
                               heroTag: 'image2',
                               tooltip: 'Take a Photo',
@@ -341,7 +335,8 @@ class _MyHomePageState extends State<Camera2> {
   }
 }
 
-typedef OnPickImageCallback = void Function(double? maxWidth, double? maxHeight, int? quality, int? limit);
+typedef OnPickImageCallback = void Function(
+    double? maxWidth, double? maxHeight, int? quality, int? limit);
 
 class AspectRatioVideo extends StatefulWidget {
   const AspectRatioVideo(this.controller, {super.key});

@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 import 'package:lingo_pal_mobile/presentation/model/profile_model/edit_model.dart';
+import 'dart:io';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class EditAPIController extends GetxController {
   var controllerProfile = Get.find<GetProfileController>();
@@ -32,6 +34,24 @@ class EditAPIController extends GetxController {
     } catch (e) {
       print("$e");
       return Left(Failure("$e"));
+    }
+  }
+
+  Future uploadImage(File imageFile, String? imageName) async {
+    try {
+      final response = await Supabase.instance.client.storage
+          .from('lingo-pal-storage/profiles/') // Replace with your storage bucket name
+          .upload(imageName ?? "img", imageFile);
+
+      if (response.isNotEmpty) {
+        final String publicUrl =
+            Supabase.instance.client.storage.from('lingo-pal-storage/profiles/').getPublicUrl(imageName ?? "");
+
+        print(publicUrl);
+        return publicUrl;
+      }
+    } catch (e) {
+      print('Error uploading image: $e');
     }
   }
 }
