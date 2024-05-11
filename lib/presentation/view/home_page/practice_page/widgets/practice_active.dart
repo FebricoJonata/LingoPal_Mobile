@@ -8,7 +8,7 @@ class ActivePractice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 400.h,
+      height: 360.h,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -31,7 +31,7 @@ class ActivePractice extends StatelessWidget {
               ),
               child: Text("1", style: TextStyle(color: Colors.white, fontSize: 100.sp, fontWeight: FontWeight.bold),)),
           ),
-          const Text("DISINI", style: TextStyle(fontWeight: FontWeight.bold),)
+          const Text("DISNI", style: TextStyle(fontWeight: FontWeight.bold),)
         ]),
     );
   }
