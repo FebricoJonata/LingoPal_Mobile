@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 
 // A MessageBubble for showing a single chat message on the ChatScreen.
 class MessageBubble extends StatelessWidget {
@@ -49,20 +50,22 @@ class MessageBubble extends StatelessWidget {
         if (userImage != null)
           Positioned(
             top: 15,
+            left: 10,
             // Align user image to the right, if the message is from me.
             right: isMe ? 0 : null,
             child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                userImage!,
-              ),
-              backgroundColor: MyColors.primaryGreen,
+              backgroundImage: AssetImage(userImage!),
+              // NetworkImage(
+              //   userImage!,
+              // ),
+              backgroundColor: MyColors.white,
               radius: 23,
             ),
           ),
         Container(
           // Add some margin to the edges of the messages, to allow space for the
           // user's image.
-          margin: const EdgeInsets.symmetric(horizontal: 46),
+          margin: !isMe ? const EdgeInsets.symmetric(horizontal: 46) : null,
           child: Row(
             // The side of the chat screen the message should show at.
             mainAxisAlignment:
