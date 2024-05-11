@@ -34,7 +34,7 @@ class CourseActiveCard extends StatelessWidget {
                           style: TextStyle(fontSize: 50.sp),
                         ),
                         SizedBox(
-                          width: 200.w,
+                          width: 180.w,
                         ),
                         Row(
                           children: [

@@ -58,7 +58,7 @@ class _PracticePageState extends State<PracticePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(course?.courseName??"Course Name", style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.bold),),
-                                  Text(course?.courseName??"Course description", style: TextStyle(fontSize: 50.sp),)
+                                  Text(course?.courseDescription??"Course description", style: TextStyle(fontSize: 50.sp),)
                                 ],
                               )
                             ],
