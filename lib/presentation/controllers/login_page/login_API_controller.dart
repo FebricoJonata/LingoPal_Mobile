@@ -7,7 +7,7 @@ import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class LoginAPIController extends GetxController {
   final _isLoading = RxBool(false);
-  RxString name = "".obs;
+  RxString emailName = "".obs;
   Rx<LoginModel?> login = Rx<LoginModel?>(null);
   RxBool get isLoading => _isLoading;
   Future<Either<Failure, LoginModel>> loginAPI(String email, String password) async {
@@ -22,6 +22,7 @@ class LoginAPIController extends GetxController {
       );
       final loginModel = LoginModel.fromJson(response.data);
       login(loginModel);
+      emailName.value = loginModel.user?.email ?? "";
       print("Response code login ${response}");
       Get.toNamed(RouteName.basePage);
       return Right(loginModel);

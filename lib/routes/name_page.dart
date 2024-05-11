@@ -7,4 +7,5 @@ abstract class RouteName {
   static const practicePage = "/practice";
   static const profilePage = "/profile";
   static const editPage = "/edit";
+  static const camera2 = "/camera";
 }

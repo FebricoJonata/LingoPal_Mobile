@@ -18,8 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
   var controllerProfile = Get.find<GetProfileController>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SingleChildScrollView(child: GetBuilder<GetProfileController>(
+    return Scaffold(body: SingleChildScrollView(child: GetBuilder<GetProfileController>(
       builder: (controllerProfile) {
         return Container(
             width: 1179.w,
@@ -28,8 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(children: [
               Image.asset(AssetConstraints.bgAppLogo),
               Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 width: 1179.w,
                 height: 500.h,
                 child: Column(
@@ -64,8 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           InkWell(
                             onTap: () => Get.offNamed(RouteName.editPage,
-                                arguments: controllerProfile
-                                    .profile.value!.body!.data!.first.userId),
+                                arguments: controllerProfile.profile.value!.body!.data!.first.userId),
                             child: Container(
                               width: 200.w,
                               height: 95.h,
@@ -76,8 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Center(
                                 child: Text(
                                   "Edit",
-                                  style: TextStyle(
-                                      color: MyColors.white, fontSize: 40.sp),
+                                  style: TextStyle(color: MyColors.white, fontSize: 40.sp),
                                 ),
                               ),
                             ),
@@ -91,12 +87,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CircleAvatar(
-                            radius: 150.w,
-                            backgroundImage: NetworkImage(controllerProfile
-                                    .profile.value!.body!.data!.first.image ??
-                                ""),
-                          ),
+                          Obx(() => CircleAvatar(
+                                radius: 150.w,
+                                backgroundImage: controllerProfile.profile.value!.body!.data!.first.image == null
+                                    ? NetworkImage(
+                                        "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
+                                    : NetworkImage(controllerProfile.profile.value!.body!.data!.first.image ?? ""),
+                              )),
                           SizedBox(
                             width: 80.w,
                           ),
@@ -110,9 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    controllerProfile.profile.value!.body!.data!
-                                            .first.name ??
-                                        "",
+                                    controllerProfile.profile.value!.body!.data!.first.name ?? "",
                                     style: TextStyle(
                                       fontSize: 40.sp,
                                       fontWeight: FontWeight.w500,
@@ -122,12 +117,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    controllerProfile.profile.value!.body!.data!
-                                            .first.birthDate ??
-                                        "",
-                                    style: TextStyle(
-                                        fontSize: 40.sp,
-                                        fontWeight: FontWeight.w500),
+                                    controllerProfile.profile.value!.body!.data!.first.birthDate ?? "",
+                                    style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w500),
                                   ),
                                 ),
                               ],
@@ -141,8 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 width: 1179.w,
                 height: 500.h,
                 child: Column(
@@ -185,8 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Center(
                               child: Text(
                                 "Edit",
-                                style: TextStyle(
-                                    color: MyColors.white, fontSize: 40.sp),
+                                style: TextStyle(color: MyColors.white, fontSize: 40.sp),
                               ),
                             ),
                           )
@@ -209,27 +198,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     "Email",
-                                    style: TextStyle(
-                                        fontSize: 40.sp,
-                                        fontWeight: FontWeight.w700),
+                                    style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     "Telephone Number",
-                                    style: TextStyle(
-                                        fontSize: 40.sp,
-                                        fontWeight: FontWeight.w700),
+                                    style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     "Password",
-                                    style: TextStyle(
-                                        fontSize: 40.sp,
-                                        fontWeight: FontWeight.w700),
+                                    style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 )
                               ],
@@ -245,32 +228,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    controllerProfile.profile.value!.body!.data!
-                                            .first.email ??
-                                        "",
-                                    style: TextStyle(
-                                        fontSize: 40.sp,
-                                        fontWeight: FontWeight.w700),
+                                    controllerProfile.profile.value!.body!.data!.first.email ?? "",
+                                    style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    controllerProfile.profile.value!.body!.data!
-                                            .first.phoneNumber ??
-                                        "",
-                                    style: TextStyle(
-                                        fontSize: 40.sp,
-                                        fontWeight: FontWeight.w700),
+                                    controllerProfile.profile.value!.body!.data!.first.phoneNumber ?? "",
+                                    style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     "***************",
-                                    style: TextStyle(
-                                        fontSize: 40.sp,
-                                        fontWeight: FontWeight.w700),
+                                    style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 )
                               ],
@@ -283,8 +256,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 width: 1179.w,
                 height: 800.h,
                 child: Column(
@@ -347,10 +319,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 margin: const EdgeInsets.all(10),
                                 child: Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text("FAQ",
-                                        style: TextStyle(
-                                            fontSize: 40.sp,
-                                            fontWeight: FontWeight.w600)))),
+                                    child:
+                                        Text("FAQ", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
                           ),
                           SizedBox(
                             height: 25.h,
@@ -377,9 +347,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text("Terms and Conditions",
-                                        style: TextStyle(
-                                            fontSize: 40.sp,
-                                            fontWeight: FontWeight.w600)))),
+                                        style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
                           ),
                           SizedBox(
                             height: 25.h,
@@ -406,9 +374,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text("Rating and Review",
-                                        style: TextStyle(
-                                            fontSize: 40.sp,
-                                            fontWeight: FontWeight.w600)))),
+                                        style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
                           ),
                           SizedBox(
                             height: 25.h,
@@ -435,9 +401,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text("About Us",
-                                        style: TextStyle(
-                                            fontSize: 40.sp,
-                                            fontWeight: FontWeight.w600)))),
+                                        style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
                           )
                         ],
                       ),

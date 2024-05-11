@@ -13,14 +13,13 @@ class GetProfileController extends GetxController {
     try {
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/users',
-        queryParameters: {'email': controllerLogin.name.value.toString()},
+        queryParameters: {'email': controllerLogin.emailName.value.toString()},
         options: Options(
           headers: {"Accept": "application/json"},
         ),
       );
-      print("masih aman");
       var profileModel = Profile.fromJson(response.data);
-      print("masih aman2");
+      print("profile aman");
       profile(profileModel);
       print("AHHAHAHAHAH ${response.data}");
       print("OI ${profile.value?.body?.data?.first.userId}");
