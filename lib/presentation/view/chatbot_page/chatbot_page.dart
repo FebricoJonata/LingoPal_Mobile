@@ -25,19 +25,45 @@ class _ChatbotPageState extends State<ChatbotPage> {
           child: Column(
             children: [
               Image.asset(AssetConstraints.bgIntroTop),
-              Container(
+              SizedBox(
                 width: 1179.w,
                 height: 1600.h,
-                child: Column(
-                  children: [
-                    SizedBox(height: 50.h),
-                    const MessageBubble.first(
-                        userImage: AssetConstraints.robotCool,
-                        username: "Fabian Ganteng",
-                        message: "Yes",
-                        isMe: false),
-                    const MessageBubble.next(message: "Yes", isMe: true),
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 50.h),
+                      const MessageBubble.first(
+                          userImage: AssetConstraints.robotCool,
+                          username: "Fabian Ganteng",
+                          message: "Yes",
+                          isMe: false),
+                      const MessageBubble.next(message: "Yes", isMe: true),
+                      const MessageBubble.first(
+                          userImage: AssetConstraints.robotCool,
+                          username: "Fabian Ganteng",
+                          message: "Yes",
+                          isMe: false),
+                      const MessageBubble.next(message: "Yes", isMe: true),
+                      const MessageBubble.first(
+                          userImage: AssetConstraints.robotCool,
+                          username: "Fabian Ganteng",
+                          message: "Yes",
+                          isMe: false),
+                      const MessageBubble.next(message: "Yes", isMe: true),
+                      const MessageBubble.first(
+                          userImage: AssetConstraints.robotCool,
+                          username: "Fabian Ganteng",
+                          message: "Yes",
+                          isMe: false),
+                      const MessageBubble.next(message: "Yes", isMe: true),
+                      const MessageBubble.first(
+                          userImage: AssetConstraints.robotCool,
+                          username: "Fabian Ganteng",
+                          message: "Yes",
+                          isMe: false),
+                      const MessageBubble.next(message: "Yes", isMe: true),
+                    ],
+                  ),
                 ),
               ),
               const NewMessage()
