@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_course_api_controller.dart';
-import 'package:lingo_pal_mobile/presentation/model/home_model/practice_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/back_btn.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widgets/practice_active.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widgets/practice_disable.dart';
