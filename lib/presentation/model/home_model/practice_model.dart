@@ -21,7 +21,7 @@ class Body {
   final int? practiceId;
   final String? practiceCode;
   final int? courseId;
-  final Course? course;
+  final CoursePractice? course;
 
   Body({
     this.practiceId,
@@ -34,7 +34,7 @@ class Body {
     : practiceId = json['practice_id'] as int?,
       practiceCode = json['practice_code'] as String?,
       courseId = json['course_id'] as int?,
-      course = (json['course'] as Map<String,dynamic>?) != null ? Course.fromJson(json['course'] as Map<String,dynamic>) : null;
+      course = (json['course'] as Map<String,dynamic>?) != null ? CoursePractice.fromJson(json['course'] as Map<String,dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
     'practice_id' : practiceId,
@@ -44,16 +44,16 @@ class Body {
   };
 }
 
-class Course {
+class CoursePractice {
   final String? courseName;
   final String? courseDescription;
 
-  Course(
+  CoursePractice(
     this.courseName,
     this.courseDescription,
   );
 
-  Course.fromJson(Map<String, dynamic> json)
+  CoursePractice.fromJson(Map<String, dynamic> json)
     : courseName = json['course_name'] as String?,
       courseDescription = json['course_description'] as String?;
 

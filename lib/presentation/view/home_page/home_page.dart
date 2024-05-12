@@ -88,7 +88,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/course_API_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_course_API_controller.dart';
+import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_active_card.dart';
+import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_disabled.card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
@@ -122,6 +127,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // var controllerCourse = Get.find<CourseController>();
+    // var controllerPractice = Get.find<PracticeCourseController>();
     return Scaffold(
       body: Container(
         width: 1179.w,
@@ -130,19 +137,46 @@ class _HomePageState extends State<HomePage> {
         child: Column(children: [
           CustomAppBar(),
           SizedBox(height: 150.h),
+          CourseDisabledCard(),
           Expanded(
-            child: ListView.separated(
-              padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
-              shrinkWrap: true,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return CourseActiveCard();
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(height: 50.h);
-              },
+            child: GetBuilder<CourseController>(
+              builder: (controllerCourse) {
+                print("masuk ke course controller");
+                return FutureBuilder(
+                  future: controllerCourse.getCourses(), 
+                  builder: (context, snapshot) {
+                    if(snapshot.connectionState == ConnectionState.waiting){
+                      return CircularProgressIndicator();
+                    }
+                    else if (snapshot.hasError) {
+                      return Text("Error");
+                    }
+                    else if (snapshot.data == null){
+                      return Text("No data");
+                    }
+                    else {
+                      var courseList = controllerCourse.courses.value?.body;
+                      return ListView.separated(
+                        padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
+                        shrinkWrap: true,
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          var course = courseList?[index];
+                          if(course==null){
+                            course = Course(courseId: 1, courseCategoryId: 1, courseName: "Default", courseDescription: "Default", );
+                          }
+                          return CourseActiveCard(course: course,); // nanti diganti return future builder baru dibandingin lagi sama user course progress
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return SizedBox(height: 50.h);
+                        },
+                      );
+                    }
+                  }
+                );
+              }
             ),
-          )
+          ),
         ]),
       ),
     );

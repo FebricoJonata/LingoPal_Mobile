@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/base_controller/base_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/progress_course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 
@@ -20,6 +21,7 @@ class _HomePageState extends State<BasePage> {
   var controllerPage = Get.find<BaseController>();
   var controllerProfile = Get.find<GetProfileController>();
   var controllerProgress = Get.find<ProgressAPIController>();
+  var controllerCourse = Get.find<CourseController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

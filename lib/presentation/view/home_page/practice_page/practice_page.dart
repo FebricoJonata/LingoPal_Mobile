@@ -17,7 +17,6 @@ class PracticePage extends StatefulWidget {
 }
 
 class _PracticePageState extends State<PracticePage> {
-  var controllerPracticeCourse = Get.find<PracticeCourseController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +33,7 @@ class _PracticePageState extends State<PracticePage> {
               child: GetBuilder<PracticeCourseController>(
                 builder: (controllerPractice) {
                   return FutureBuilder(
-                    future: controllerPracticeCourse.getPractices(), 
+                    future: controllerPractice.getPractices(), 
                     builder: (context, snapshot){
                       if(snapshot.connectionState == ConnectionState.waiting){
                         return CircularProgressIndicator();
