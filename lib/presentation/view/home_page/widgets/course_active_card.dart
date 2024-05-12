@@ -37,7 +37,7 @@ class CourseActiveCard extends StatelessWidget {
                           style: TextStyle(fontSize: 50.sp),
                         ),
                         SizedBox(
-                          width: 180.w,
+                          width: 200.w,
                         ),
                         Row(
                           children: [
@@ -70,7 +70,7 @@ class CourseActiveCard extends StatelessWidget {
             ),
             PrimaryBtn(
               btnText: "Lihat",
-              width: 350.w,
+              width: 300.w,
               height: 120.h,
               onClick: () {
                 print("Go");
