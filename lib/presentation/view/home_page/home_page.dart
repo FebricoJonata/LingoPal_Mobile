@@ -108,6 +108,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _alertShown = false;
+  var activeCourses;
 
   @override
   void initState() {
@@ -125,10 +126,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // Future<void>__checkActiveCourses() async {
+  //   var courseController = Get.find<CourseController>();
+  //   activeCourses = courseController.getUserCourseProgress();
+  //   activeCourses ??= [];
+  //   print("Active courses: {$activeCourses}"); 
+  // }
+
   @override
   Widget build(BuildContext context) {
-    // var controllerCourse = Get.find<CourseController>();
-    // var controllerPractice = Get.find<PracticeCourseController>();
     return Scaffold(
       body: Container(
         width: 1179.w,
