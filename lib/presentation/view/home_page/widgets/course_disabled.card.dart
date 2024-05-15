@@ -31,7 +31,7 @@ class CourseDisabledCard extends StatelessWidget {
                 SizedBox(
                   child: Row(
                     children: [
-                      Text("A1 - Basic", style: TextStyle(fontSize: 50.sp),),
+                      Text("Nama Course", style: TextStyle(fontSize: 50.sp),),
                       SizedBox(width: 200.w,),
                       Row(
                         children: [Icon(Icons.star, size: 50.w,), Text("11/45", style: TextStyle(fontSize: 40.sp),)],
@@ -39,7 +39,7 @@ class CourseDisabledCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Text("Pilihan Ganda - Level 6", style: TextStyle(fontSize: 40.sp),),
+                Text("Kategori course - Level 6", style: TextStyle(fontSize: 40.sp),),
                 Text("Deskripsi course", style: TextStyle(fontSize: 32.sp),)
               ],),
             ),

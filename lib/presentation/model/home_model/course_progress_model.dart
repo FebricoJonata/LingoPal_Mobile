@@ -1,6 +1,6 @@
 class CourseProgressModel {
   final int? status;
-  final List<Body>? body;
+  final List<CourseProgress>? body;
 
   CourseProgressModel({
     this.status,
@@ -9,7 +9,7 @@ class CourseProgressModel {
 
   CourseProgressModel.fromJson(Map<String, dynamic> json)
     : status = json['status'] as int?,
-      body = (json['body'] as List?)?.map((dynamic e) => Body.fromJson(e as Map<String,dynamic>)).toList();
+      body = (json['CourseProgress'] as List?)?.map((dynamic e) => CourseProgress.fromJson(e as Map<String,dynamic>)).toList();
 
   Map<String, dynamic> toJson() => {
     'status' : status,
@@ -17,7 +17,7 @@ class CourseProgressModel {
   };
 }
 
-class Body {
+class CourseProgress {
   final int? progressCourseId;
   final int? userId;
   final int? courseId;
@@ -25,7 +25,7 @@ class Body {
   final bool? isActive;
   final bool? isCourseCompleted;
 
-  Body({
+  CourseProgress({
     this.progressCourseId,
     this.userId,
     this.courseId,
@@ -34,7 +34,7 @@ class Body {
     this.isCourseCompleted,
   });
 
-  Body.fromJson(Map<String, dynamic> json)
+  CourseProgress.fromJson(Map<String, dynamic> json)
     : progressCourseId = json['progress_course_id'] as int?,
       userId = json['user_id'] as int?,
       courseId = json['course_id'] as int?,

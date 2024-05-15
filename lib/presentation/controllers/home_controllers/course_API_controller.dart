@@ -8,8 +8,8 @@ import 'package:lingo_pal_mobile/presentation/model/home_model/course_progress_m
 
 class CourseController extends GetxController {
   Rx<CourseModel?> courses = Rx<CourseModel?>(null);
-  Rx<CourseProgressModel?> courseProgress = Rx<CourseProgressModel?>(null);
   var controllerProfile = Get.find<GetProfileController>();
+  Rx<CourseProgressModel?> courseProgress = Rx<CourseProgressModel?>(null);
   // get master course
   Future<Either<Failure, CourseModel>> getCourses() async {
     try {
@@ -22,7 +22,7 @@ class CourseController extends GetxController {
 
       var courseModel = CourseModel.fromJson(response.data);
       courses(courseModel);
-      // print("success ${response.data}");
+      print("success retrieve courses: ${response.data}");
       
       return Right(courseModel);
     } catch (e) {
@@ -34,11 +34,12 @@ class CourseController extends GetxController {
   // get user course progress
   Future<Either<Failure, CourseProgressModel>> getUserCourseProgress() async {
     var userId = controllerProfile.profile.value?.body?.data?.first.userId;
+    await controllerProfile.profileAPI();
     print('USER ID in Course Controller: {$userId}');
     try {
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/course/progress',
-        queryParameters: {'user_id' : controllerProfile.profile.value?.body?.data?.first.userId},
+        queryParameters: {'user_id' : userId!},
         options: Options(
           headers: {'accept' : 'application/json'}
         )
@@ -46,7 +47,11 @@ class CourseController extends GetxController {
 
       var userCourseProgress = CourseProgressModel.fromJson(response.data);
       courseProgress(userCourseProgress);
-      print("response: ${response.data}");
+      print("User Progress Response: ${response.data}");
+      var courseProgressBody = userCourseProgress.body; // ternyata null
+      // kudu nanya chatgpt
+      print("Course Progress: {$courseProgressBody}");
+      print("Course Progress 2: {$courseProgress}");
       return Right(userCourseProgress);
 
     } catch (e) {
@@ -58,12 +63,14 @@ class CourseController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getCourses();
+    // getCourses();
+    // getUserCourseProgress();
   }
 
   @override
   void onClose() {
     super.onClose();
-    getCourses();
+    // getCourses();
+    // getUserCourseProgress();
   }
 }

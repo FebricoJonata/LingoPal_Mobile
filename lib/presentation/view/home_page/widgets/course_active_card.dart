@@ -46,7 +46,7 @@ class CourseActiveCard extends StatelessWidget {
                               size: 50.w,
                             ),
                             Text(
-                              "11/45",
+                              "11\/45",
                               style: TextStyle(fontSize: 40.sp),
                             )
                           ],
@@ -55,7 +55,7 @@ class CourseActiveCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Pilihan Ganda - Level 6", // dari BE course
+                    "Kategori course - Level 6", // dari BE course
                     style: TextStyle(fontSize: 40.sp),
                   ),
                   Text(
