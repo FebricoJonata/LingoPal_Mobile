@@ -210,7 +210,6 @@ class _HomePageState extends State<HomePage> {
                       // __checkActiveCourses();
                       var courseList = controllerCourse.courses.value?.body;
                       var activeCourses = controllerCourse.courseProgress.value?.body;
-                      print("sementara aman disinii");
                       print("COURSE LIST: {$courseList}");
                       print("ACTIVE: {$activeCourses}");
                       int lastCourseId = (activeCourses != null) ? activeCourses.last.courseId! : 0;

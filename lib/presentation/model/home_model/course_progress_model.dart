@@ -9,7 +9,8 @@ class CourseProgressModel {
 
   CourseProgressModel.fromJson(Map<String, dynamic> json)
     : status = json['status'] as int?,
-      body = (json['CourseProgress'] as List?)?.map((dynamic e) => CourseProgress.fromJson(e as Map<String,dynamic>)).toList();
+      body = (json['body'] as List?)?.map((dynamic e) => CourseProgress.fromJson(e as Map<String,dynamic>)).toList();
+      
 
   Map<String, dynamic> toJson() => {
     'status' : status,

@@ -34,7 +34,6 @@ class CourseController extends GetxController {
   // get user course progress
   Future<Either<Failure, CourseProgressModel>> getUserCourseProgress() async {
     var userId = controllerProfile.profile.value?.body?.data?.first.userId;
-    await controllerProfile.profileAPI();
     print('USER ID in Course Controller: {$userId}');
     try {
       final response = await Dio().get(
@@ -48,10 +47,6 @@ class CourseController extends GetxController {
       var userCourseProgress = CourseProgressModel.fromJson(response.data);
       courseProgress(userCourseProgress);
       print("User Progress Response: ${response.data}");
-      var courseProgressBody = userCourseProgress.body; // ternyata null
-      // kudu nanya chatgpt
-      print("Course Progress: {$courseProgressBody}");
-      print("Course Progress 2: {$courseProgress}");
       return Right(userCourseProgress);
 
     } catch (e) {
