@@ -227,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                           if (index < lastCourseId){
                             return CourseActiveCard(course: course,);
                           }
-                          return CourseDisabledCard();
+                          return CourseDisabledCard(course: course,);
                         },
                         separatorBuilder: (BuildContext context, int index) {
                           return SizedBox(height: 50.h);
