@@ -165,6 +165,10 @@ class _HomePageState extends State<HomePage> {
                       if(courseList==null || courseList.isEmpty){
                         return Text("No course found");
                       }
+                      else if(activeCourses==null){
+                        print("harusnya jangan return card dulu kalau masih null");
+                        return Text("No active courses");
+                      }
 
                       return ListView.separated(
                         padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
