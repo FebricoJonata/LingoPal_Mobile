@@ -20,7 +20,6 @@ class CourseDisabledCard extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(30.sp)),
           color: Colors.white
         ),
-        // color: Colors.white,
         padding: EdgeInsets.all(36.sp),
         height: 300.h,
         child: Row(

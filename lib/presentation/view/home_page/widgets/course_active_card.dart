@@ -46,7 +46,7 @@ class CourseActiveCard extends StatelessWidget {
                               size: 50.w,
                             ),
                             Text(
-                              "11\/45",
+                              "11/45",
                               style: TextStyle(fontSize: 40.sp),
                             )
                           ],
@@ -74,7 +74,7 @@ class CourseActiveCard extends StatelessWidget {
               height: 120.h,
               onClick: () {
                 print("Go");
-                Get.toNamed("/practice");
+                Get.toNamed("/practice", arguments: {'course_id': course.courseId!});
               },
             )
           ],

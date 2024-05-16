@@ -126,17 +126,6 @@ class _HomePageState extends State<HomePage> {
       });
     }
   }
-
-  // Future<void> __checkActiveCourses() async {
-  //   var courseController = Get.find<CourseController>();
-  //   // var activeCourseFunc = await courseController.getUserCourseProgress();
-  //   print("Sampai sini aman");
-  //   if(courseController.courseProgress.value?.courseProgress != null){
-  //     activeCourses = courseController.courseProgress.value!.courseProgress!;
-  //   }
-  //   print("Active courses: {$activeCourses}"); 
-  // }
-
   
 
   @override
@@ -153,47 +142,6 @@ class _HomePageState extends State<HomePage> {
             child: GetBuilder<CourseController>(
               builder: (controllerCourse) {
                 print("masuk ke course controller");
-                // return FutureBuilder(
-                //   future: controllerCourse.getCourses(), 
-                //   builder: (context, snapshot) {
-                //     if(snapshot.connectionState == ConnectionState.waiting){
-                //       return CircularProgressIndicator();
-                //     }
-                //     else if (snapshot.hasError) {
-                //       return Text("Error");
-                //     }
-                //     else if (snapshot.data == null){
-                //       return Text("No data");
-                //     }
-                //     else {
-                //       // __checkActiveCourses();
-                //       var courseList = controllerCourse.courses.value?.body;
-                //       if(courseList==null || courseList.isEmpty){
-                //         return Text("No course found");
-                //       }
-                //       return ListView.separated(
-                //         padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
-                //         shrinkWrap: true,
-                //         itemCount: courseList.length,
-                //         itemBuilder: (context, index) {
-                //           var course = courseList[index];
-                //           if (activeCourses.isNotEmpty){
-                //             var lastActiveCourse = activeCourses.last;
-                //             var lastActiveCourseId = lastActiveCourse.courseId!;
-
-                //             if (index <= lastActiveCourseId){
-                //               return CourseActiveCard(course: course,);
-                //             }
-                //           }
-                //           return CourseDisabledCard();
-                //         },
-                //         separatorBuilder: (BuildContext context, int index) {
-                //           return SizedBox(height: 50.h);
-                //         },
-                //       );
-                //     }
-                //   }
-                // );
                 return FutureBuilder(
                   future: Future.wait([controllerCourse.getCourses(), controllerCourse.getUserCourseProgress()]), 
                   builder: (context, snapshot) {
