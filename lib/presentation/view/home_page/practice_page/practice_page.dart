@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_course_api_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_course_API_controller.dart';
+import 'package:lingo_pal_mobile/presentation/model/home_model/practice_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/back_btn.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widgets/practice_active.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widgets/practice_disable.dart';
@@ -17,9 +18,12 @@ class PracticePage extends StatefulWidget {
 }
 
 class _PracticePageState extends State<PracticePage> {
-  var controllerPracticeCourse = Get.find<PracticeCourseController>();
   @override
   Widget build(BuildContext context) {
+
+    final int courseId = Get.arguments['course_id'];
+    print('course id in practice page: {$courseId}');
+
     return Scaffold(
       body: Container(
         width: 1179.w,
@@ -34,7 +38,7 @@ class _PracticePageState extends State<PracticePage> {
               child: GetBuilder<PracticeCourseController>(
                 builder: (controllerPractice) {
                   return FutureBuilder(
-                    future: controllerPracticeCourse.getPractices(), 
+                    future: Future.wait([controllerPractice.getPractices(courseId), controllerPractice.getUserPractices()]), 
                     builder: (context, snapshot){
                       if(snapshot.connectionState == ConnectionState.waiting){
                         return CircularProgressIndicator();
@@ -48,40 +52,56 @@ class _PracticePageState extends State<PracticePage> {
                       else {
                         var practices = controllerPractice.practices.value?.body;
                         var course = controllerPractice.practices.value?.body?.first.course;
-                      return Column(
-                        children: [
-                          Row(
-                            children: [
-                              const BackBtn(),
-                              SizedBox(width: 80.w,),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(course?.courseName??"Course Name", style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.bold),),
-                                  Text(course?.courseName??"Course description", style: TextStyle(fontSize: 50.sp),)
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 200.h),
-                          GridView.count(
-                            crossAxisSpacing: 50.w,
-                            mainAxisSpacing: 100.h,
-                            crossAxisCount: 4,
-                            shrinkWrap: true,
-                            childAspectRatio: (1/1.25),
-                            children: [
-                              for(int i=0; i<practices!.length; i++)
-                                if(i==6)
-                                  ActivePractice(id: practices[i].practiceId!, code: practices[i].practiceCode!,)
-                                else if(i<6)
-                                  PracticeDone(id: practices[i].practiceId!, code: practices[i].practiceCode!,)
-                                else
-                                  DisablePractice()
-                            ],
-                          ),
-                        ],
-                      );
+                        var userPractices = controllerPractice.practiceProgress.value?.body;
+                        var lastPracticeId;
+                        if(userPractices == null || userPractices.isEmpty){
+                          lastPracticeId = 0;
+                        }
+                        else {
+                          lastPracticeId = userPractices.last.practiceId;
+                        }
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                const BackBtn(),
+                                SizedBox(width: 80.w,),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(course?.courseName??"Course Name", style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.bold),),
+                                    Text(course?.courseDescription??"Course description", style: TextStyle(fontSize: 50.sp),)
+                                  ],
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 200.h),
+                            GridView.count(
+                              crossAxisSpacing: 50.w,
+                              mainAxisSpacing: 100.h,
+                              crossAxisCount: 4,
+                              shrinkWrap: true,
+                              childAspectRatio: (1/1.25),
+                              children: [
+                                for (Practice practice in practices!)
+                                  if(practice.practiceId == lastPracticeId+1)
+                                    ActivePractice(id: practice.practiceId!, code: practice.practiceCode!,)
+                                  else if(practice.practiceId! <= lastPracticeId)
+                                    PracticeDone(practiceDone: userPractices![practices.indexOf(practice)],)
+                                  else
+                                    DisablePractice()
+                                
+                                // for(int i=0; i<practices!.length; i++)
+                                //   if(i==lastPracticeId+1)
+                                //     ActivePractice(id: practices[i].practiceId!, code: practices[i].practiceCode!,)
+                                //   else if(i<lastPracticeId)
+                                //     PracticeDone(id: practices[i].practiceId!, code: practices[i].practiceCode!,)
+                                //   else
+                                //     DisablePractice()
+                              ],
+                            ),
+                          ],
+                        );
                       }
                     }
                   );

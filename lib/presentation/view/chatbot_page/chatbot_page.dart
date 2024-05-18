@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/chatbot_controller/chat_user_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/chatbot_controller/chatbot_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/model/chatbot_model/chat_user_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/chatbot_page/widgets/message_bubble.dart';
 import 'package:lingo_pal_mobile/presentation/view/chatbot_page/widgets/new_message.dart';
@@ -17,8 +18,43 @@ class ChatbotPage extends StatefulWidget {
 }
 
 class _ChatbotPageState extends State<ChatbotPage> {
+  TextEditingController messageController = TextEditingController();
+  var chatbot = Get.find<ChatBotAPIController>();
+
+  Future<void> handleSubmittedMessage(String message) async {
+    if (message.isNotEmpty) {
+      if (message.trim().isEmpty) {
+        return;
+      }
+      controller.addMessage(message, true);
+      final response = await chatbot.chatBotAPI(message);
+
+      response.fold(
+        (failure) {
+          // Handle error here
+          print('Error: ${failure.message}');
+        },
+        (chatBotResponse) {
+          // Handle success here
+          controller.update();
+          print('Message: $message');
+          controller.addMessage(chatbot.chatbotReponse.value?.message ?? "", false);
+          print('Response : ${chatbot.chatbotReponse.value?.message}');
+        },
+      );
+
+      messageController.clear();
+      chatbot.update();
+      messageController.clear();
+      // Simulate receiving a message from the other party
+      // Future.delayed(Duration(milliseconds: 100), () {
+      //   controller.addMessage(chatbot.chatbotReponse.value?.message ?? "", false);
+      // });
+    }
+    controller.update();
+  }
+
   var controller = Get.find<ChatController>();
-  TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +72,6 @@ class _ChatbotPageState extends State<ChatbotPage> {
                 // child: Column(
                 //   children: [
                 child: GetBuilder<ChatController>(
-                  // init: MyController(),
-                  // initState: (_) {},
                   builder: (controller) {
                     return ListView.builder(
                       shrinkWrap: true, // Ini penting untuk mencegah konflik ukuran
@@ -67,21 +101,12 @@ class _ChatbotPageState extends State<ChatbotPage> {
 
               // ),
               NewMessage(
-                controller: textEditingController,
-                onSubmitted: (value) {
-                  String message = textEditingController.text;
-                  if (message.isNotEmpty) {
-                    controller.addMessage(message, true); // Message from user
-                    textEditingController.clear();
-                    // Simulate receiving a message from the other party
-                    Future.delayed(Duration(milliseconds: 100), () {
-                      controller.addMessage('Hello from the other side', false);
-                    });
-                  }
-                  controller.update();
+                controller: messageController,
+                onSubmitted: (value) async {
+                  String message = messageController.text;
+                  await handleSubmittedMessage(message);
                 },
               )
-              // Align(alignment: Alignment.bottomCenter, child: )
             ],
           )),
     );

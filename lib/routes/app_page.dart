@@ -31,6 +31,5 @@ class AppPages {
     GetPage(name: RouteName.profilePage, page: () => const ProfilePage(), binding: ProfileBindings()),
     GetPage(name: RouteName.editPage, page: () => const EditPage(), binding: ProfileBindings()),
     GetPage(name: RouteName.camera2, page: () => const Camera2(), binding: CameraBinding()),
-    GetPage(name: RouteName.chatbot, page: () => const ChatbotPage(), binding: ChatBotBindings())
   ];
 }

@@ -2,16 +2,20 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/practice_model.dart';
+import 'package:lingo_pal_mobile/presentation/model/home_model/practice_progress_model.dart';
 
 class PracticeCourseController extends GetxController {
   Rx<PracticeModel?> practices = Rx<PracticeModel?>(null);
+  var controllerProfile = Get.find<GetProfileController>();
+  Rx<PracticeProgressModel?> practiceProgress = Rx<PracticeProgressModel?>(null);
   
-  Future<Either<Failure, PracticeModel>> getPractices() async {
+  Future<Either<Failure, PracticeModel>> getPractices(courseId) async {
     try {
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/practice',
-        queryParameters: {'course_id': 1},
+        queryParameters: {'course_id': courseId},
         options: Options(
           headers: {"Accept": "application/json"}
         )
@@ -29,61 +33,39 @@ class PracticeCourseController extends GetxController {
     }
   }
 
+
+  Future<Either<Failure, PracticeProgressModel>> getUserPractices() async {
+    var userId = controllerProfile.profile.value?.body?.data?.first.userId;
+    try {
+      final response = await Dio().get(
+        'https://lingo-pal-backend-v1.vercel.app/api/practice/progress',
+        queryParameters: {'user_id': userId},
+        options: Options(
+          headers: {'accept' : 'application/json'}
+        )
+      );
+
+      var userPractices = PracticeProgressModel.fromJson(response.data);
+      print("Practice Progress Response: {$response.data}");
+      practiceProgress(userPractices);
+      return Right(userPractices);
+
+    } catch (e) {
+      print("Error: $e");
+      return Left(Failure("$e"));
+    }
+  }
+
   @override
   void onInit(){
     super.onInit();
-    getPractices();
+    // getPractices();
   }
 
   @override
   void onClose(){
     super.onClose();
-    getPractices();
+    // getPractices();
   }
   
 }
-
-// class ProgressAPIController extends GetxController {
-//   var controllerLogin = Get.find<LoginAPIController>(); // buat manggil controller lain
-//   Rx<ProgressUserModel?> progress = Rx<ProgressUserModel?>(null); // variabel buat dipanggil di ui
-//   Future<Either<Failure, ProgressUserModel>> getProgress() async { // function buat fetch
-//     try {
-//       final response = await Dio().get( // jenis api nya
-//         'https://lingo-pal-backend-v1.vercel.app/api/users/status', // url
-//         queryParameters: {'user_id': controllerLogin.login.value?.user?.userId}, // param/filter
-//         options: Options( // header - liat di api apa ada "-H" nya
-//           headers: {"Accept": "application/json"},
-//         ),
-//       );
-
-//       var progressModel = ProgressUserModel.fromJson(response.data); // masukin response ke variabel model
-//       print("AMAN BANG");
-//       progress(progressModel); // masukin model ke variabel buat dipanggil di ui
-//       print(response.data);
-//       return Right(progressModel); // return data
-//     } on DioException catch (e) { // kalau gagal ambil data
-//       print("Ga AMAN COK");
-//       print("DioException: ${e.response?.statusCode}");
-//       if (e.response?.statusCode == 401) { // error
-//         print("Error 401");
-//       }
-//       return Left(Failure('Error: ${e.message}'));
-//     } catch (e) {
-//       return Left(Failure("$e")); // error
-//     }
-//   }
-
-//   @override
-//   void onInit() {
-//     // TODO: implement onInit
-//     super.onInit();
-//     getProgress();
-//   }
-
-//   @override
-//   void onClose() {
-//     // TODO: implement onClose
-//     super.onClose();
-//     getProgress();
-//   }
-// }

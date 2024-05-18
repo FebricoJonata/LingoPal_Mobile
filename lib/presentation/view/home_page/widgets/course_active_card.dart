@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 
 class CourseActiveCard extends StatelessWidget {
-  const CourseActiveCard({super.key});
+  const CourseActiveCard({super.key, required this.course});
+
+  final Course course;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class CourseActiveCard extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          "A1 - Basic",
+                          course.courseName!,
                           style: TextStyle(fontSize: 50.sp),
                         ),
                         SizedBox(
@@ -52,11 +55,11 @@ class CourseActiveCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Pilihan Ganda - Level 6",
+                    "Kategori course - Level 6", // dari BE course
                     style: TextStyle(fontSize: 40.sp),
                   ),
                   Text(
-                    "Deskripsi course",
+                    course.courseDescription!,
                     style: TextStyle(fontSize: 32.sp),
                   )
                 ],
@@ -67,11 +70,11 @@ class CourseActiveCard extends StatelessWidget {
             ),
             PrimaryBtn(
               btnText: "Lihat",
-              width: 350.w,
+              width: 300.w,
               height: 120.h,
               onClick: () {
                 print("Go");
-                Get.toNamed("/practice");
+                Get.toNamed("/practice", arguments: {'course_id': course.courseId!});
               },
             )
           ],

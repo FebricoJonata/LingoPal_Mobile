@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/chatbot_controller/chatbot_API_controller.dart';
 
 class NewMessage extends StatefulWidget {
   const NewMessage({super.key, this.controller, this.onSubmitted});
@@ -10,7 +12,13 @@ class NewMessage extends StatefulWidget {
 }
 
 class _NewMessageState extends State<NewMessage> {
-  final _messageController = TextEditingController();
+  late TextEditingController _messageController;
+  var chatbot = Get.find<ChatBotAPIController>();
+  @override
+  void initState() {
+    super.initState();
+    _messageController = widget.controller ?? TextEditingController();
+  }
 
   @override
   void dispose() {
@@ -18,12 +26,31 @@ class _NewMessageState extends State<NewMessage> {
     super.dispose();
   }
 
-  void _submitMessage() async {
+  Future<void> _submitMessage() async {
     final enteredMessage = _messageController.text;
 
     if (enteredMessage.trim().isEmpty) {
       return;
     }
+
+    // Call the onSubmitted callback if it's provided
+    if (widget.onSubmitted != null) {
+      widget.onSubmitted!(enteredMessage);
+    }
+
+    final response = await chatbot.chatBotAPI(enteredMessage);
+
+    response.fold(
+      (failure) {
+        // Handle error here
+        print('Error: ${failure.message}');
+      },
+      (chatBotResponse) {
+        // Handle success here
+        print('Message: $enteredMessage');
+        print('Response : ' + "${chatbot.chatbotReponse.value?.message}");
+      },
+    );
 
     _messageController.clear();
   }
