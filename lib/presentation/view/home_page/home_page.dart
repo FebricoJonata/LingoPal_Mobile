@@ -92,6 +92,7 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
+import 'package:lingo_pal_mobile/presentation/model/home_model/course_progress_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_active_card.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_disabled.card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -108,6 +109,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _alertShown = false;
+  // List<CourseProgress> activeCourses = [];
 
   @override
   void initState() {
@@ -124,11 +126,10 @@ class _HomePageState extends State<HomePage> {
       });
     }
   }
+  
 
   @override
   Widget build(BuildContext context) {
-    // var controllerCourse = Get.find<CourseController>();
-    // var controllerPractice = Get.find<PracticeCourseController>();
     return Scaffold(
       body: Container(
         width: 1179.w,
@@ -137,16 +138,15 @@ class _HomePageState extends State<HomePage> {
         child: Column(children: [
           CustomAppBar(),
           SizedBox(height: 150.h),
-          CourseDisabledCard(),
           Expanded(
             child: GetBuilder<CourseController>(
               builder: (controllerCourse) {
                 print("masuk ke course controller");
                 return FutureBuilder(
-                  future: controllerCourse.getCourses(), 
+                  future: Future.wait([controllerCourse.getCourses(), controllerCourse.getUserCourseProgress()]), 
                   builder: (context, snapshot) {
                     if(snapshot.connectionState == ConnectionState.waiting){
-                      return CircularProgressIndicator();
+                      return Text("Loading ...");
                     }
                     else if (snapshot.hasError) {
                       return Text("Error");
@@ -155,24 +155,38 @@ class _HomePageState extends State<HomePage> {
                       return Text("No data");
                     }
                     else {
+                      // __checkActiveCourses();
                       var courseList = controllerCourse.courses.value?.body;
+                      var activeCourses = controllerCourse.courseProgress.value?.body;
+                      print("COURSE LIST: {$courseList}");
+                      print("ACTIVE: {$activeCourses}");
+                      int lastCourseId = (activeCourses != null) ? activeCourses.last.courseId! : 0;
+                      
+                      if(courseList==null || courseList.isEmpty){
+                        return Text("No course found");
+                      }
+                      else if(activeCourses==null){
+                        print("harusnya jangan return card dulu kalau masih null");
+                        return Text("No active courses");
+                      }
+
                       return ListView.separated(
                         padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
                         shrinkWrap: true,
-                        itemCount: 4,
+                        itemCount: courseList.length,
                         itemBuilder: (context, index) {
-                          var course = courseList?[index];
-                          if(course==null){
-                            course = Course(courseId: 1, courseCategoryId: 1, courseName: "Default", courseDescription: "Default", );
+                          var course = courseList[index];
+                          if (index < lastCourseId){
+                            return CourseActiveCard(course: course,);
                           }
-                          return CourseActiveCard(course: course,); // nanti diganti return future builder baru dibandingin lagi sama user course progress
+                          return CourseDisabledCard(course: course,);
                         },
                         separatorBuilder: (BuildContext context, int index) {
                           return SizedBox(height: 50.h);
                         },
                       );
                     }
-                  }
+                  },
                 );
               }
             ),

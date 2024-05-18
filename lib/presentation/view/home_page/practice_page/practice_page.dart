@@ -19,6 +19,10 @@ class PracticePage extends StatefulWidget {
 class _PracticePageState extends State<PracticePage> {
   @override
   Widget build(BuildContext context) {
+
+    final int courseId = Get.arguments['course_id'];
+    print('course id in practice page: {$courseId}');
+
     return Scaffold(
       body: Container(
         width: 1179.w,
@@ -33,7 +37,7 @@ class _PracticePageState extends State<PracticePage> {
               child: GetBuilder<PracticeCourseController>(
                 builder: (controllerPractice) {
                   return FutureBuilder(
-                    future: controllerPractice.getPractices(), 
+                    future: controllerPractice.getPractices(courseId), 
                     builder: (context, snapshot){
                       if(snapshot.connectionState == ConnectionState.waiting){
                         return CircularProgressIndicator();

@@ -7,11 +7,11 @@ import 'package:lingo_pal_mobile/presentation/model/home_model/practice_model.da
 class PracticeCourseController extends GetxController {
   Rx<PracticeModel?> practices = Rx<PracticeModel?>(null);
   
-  Future<Either<Failure, PracticeModel>> getPractices() async {
+  Future<Either<Failure, PracticeModel>> getPractices(courseId) async {
     try {
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/practice',
-        queryParameters: {'course_id': 1},
+        queryParameters: {'course_id': courseId},
         options: Options(
           headers: {"Accept": "application/json"}
         )
@@ -32,13 +32,13 @@ class PracticeCourseController extends GetxController {
   @override
   void onInit(){
     super.onInit();
-    getPractices();
+    // getPractices();
   }
 
   @override
   void onClose(){
     super.onClose();
-    getPractices();
+    // getPractices();
   }
   
 }

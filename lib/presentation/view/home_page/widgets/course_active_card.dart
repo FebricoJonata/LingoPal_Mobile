@@ -55,7 +55,7 @@ class CourseActiveCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Pilihan Ganda - Level 6", // dari BE course
+                    "Kategori course - Level 6", // dari BE course
                     style: TextStyle(fontSize: 40.sp),
                   ),
                   Text(
@@ -74,7 +74,7 @@ class CourseActiveCard extends StatelessWidget {
               height: 120.h,
               onClick: () {
                 print("Go");
-                Get.toNamed("/practice");
+                Get.toNamed("/practice", arguments: {'course_id': course.courseId!});
               },
             )
           ],
