@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 
 class NewMessage extends StatefulWidget {
-  const NewMessage({super.key});
-
+  const NewMessage({super.key, this.controller, this.onSubmitted});
+  final TextEditingController? controller;
+  final void Function(String)? onSubmitted;
   @override
   State<NewMessage> createState() => _NewMessageState();
 }
@@ -34,14 +35,14 @@ class _NewMessageState extends State<NewMessage> {
       child: Row(children: [
         Expanded(
           child: TextField(
-            controller: _messageController,
+            onSubmitted: widget.onSubmitted,
+            controller: widget.controller,
             textCapitalization: TextCapitalization.sentences,
             autocorrect: true,
             enableSuggestions: true,
             decoration: const InputDecoration(
               focusColor: MyColors.primaryGreen,
-              focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: MyColors.primaryGreen)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.primaryGreen)),
               labelText: 'Send a message...',
               labelStyle: TextStyle(
                 color: MyColors.primaryGreen, // Custom label text color

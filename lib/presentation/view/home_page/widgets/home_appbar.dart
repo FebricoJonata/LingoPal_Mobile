@@ -27,47 +27,49 @@ class CustomAppBar extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset(AssetConstraints.bgIntroTop),
-                Obx(
-                  () => Container(
-                    height: 350.h,
-                    alignment: Alignment.topCenter,
-                    padding: EdgeInsets.symmetric(horizontal: 100.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: MyColors.primaryGreen,
-                              foregroundColor: MyColors.secondaryYellow,
-                              radius: 60.h,
-                            ),
-                            SizedBox(
-                              width: 50.w,
-                            ),
-                            Text(
-                              controllerProfile.profile.value?.body?.data?.first.name ?? "",
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.sp),
-                            ),
-                            SizedBox(
-                              width: 50.w,
-                            ),
-                            const Icon(
-                              Icons.waving_hand_rounded,
-                              color: MyColors.secondaryYellow,
-                            )
-                          ],
-                        ),
-                        IconButton(
-                          iconSize: 36,
-                          icon: const Icon(Icons.notifications),
-                          onPressed: () {
-                            print("To Notif");
-                          },
-                        )
-                      ],
-                    ),
-                  ),
+                GetBuilder<GetProfileController>(
+                  builder: (_) {
+                    return Container(
+                      height: 350.h,
+                      alignment: Alignment.topCenter,
+                      padding: EdgeInsets.symmetric(horizontal: 100.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: MyColors.primaryGreen,
+                                foregroundColor: MyColors.secondaryYellow,
+                                radius: 60.h,
+                              ),
+                              SizedBox(
+                                width: 50.w,
+                              ),
+                              Text(
+                                controllerProfile.profile.value?.body?.data?.first.name ?? "",
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.sp),
+                              ),
+                              SizedBox(
+                                width: 50.w,
+                              ),
+                              const Icon(
+                                Icons.waving_hand_rounded,
+                                color: MyColors.secondaryYellow,
+                              )
+                            ],
+                          ),
+                          IconButton(
+                            iconSize: 36,
+                            icon: const Icon(Icons.notifications),
+                            onPressed: () {
+                              print("To Notif");
+                            },
+                          )
+                        ],
+                      ),
+                    );
+                  },
                 )
               ],
             )),
