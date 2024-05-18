@@ -53,12 +53,12 @@ class _PracticePageState extends State<PracticePage> {
                         var practices = controllerPractice.practices.value?.body;
                         var course = controllerPractice.practices.value?.body?.first.course;
                         var userPractices = controllerPractice.practiceProgress.value?.body;
-                        var lastPracticeId;
+                        var lastPracticeCode;
                         if(userPractices == null || userPractices.isEmpty){
-                          lastPracticeId = 0;
+                          lastPracticeCode = "0";
                         }
                         else {
-                          lastPracticeId = userPractices.last.practiceId;
+                          lastPracticeCode = userPractices.last;
                         }
                         return Column(
                           children: [
@@ -83,13 +83,13 @@ class _PracticePageState extends State<PracticePage> {
                               shrinkWrap: true,
                               childAspectRatio: (1/1.25),
                               children: [
-                                for (Practice practice in practices!)
-                                  if(practice.practiceId == lastPracticeId+1)
-                                    ActivePractice(id: practice.practiceId!, code: practice.practiceCode!,)
-                                  else if(practice.practiceId! <= lastPracticeId)
-                                    PracticeDone(practiceDone: userPractices![practices.indexOf(practice)],)
-                                  else
-                                    DisablePractice()
+                                // for (Practice practice in practices!)
+                                //   if(practice.practiceId == lastPracticeId+1)
+                                //     ActivePractice(id: practice.practiceId!, code: practice.practiceCode!,)
+                                //   else if(practice.practiceId! <= lastPracticeId)
+                                //     PracticeDone(practiceDone: userPractices![practices.indexOf(practice)],)
+                                //   else
+                                //     DisablePractice()
                                 
                                 // for(int i=0; i<practices!.length; i++)
                                 //   if(i==lastPracticeId+1)
