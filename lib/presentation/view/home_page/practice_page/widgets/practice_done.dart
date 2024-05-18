@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/model/home_model/practice_progress_model.dart';
 
 class PracticeDone extends StatelessWidget {
-  const PracticeDone({super.key, required this.id, required this.code});
+  const PracticeDone({super.key, required this.practiceDone});
 
-  final int id; final String code;
+  final PracticeProgress practiceDone;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +24,16 @@ class PracticeDone extends StatelessWidget {
               color: MyColors.primaryGreen,
               borderRadius: BorderRadius.circular(100),
             ),
-            child: Text(id.toString(), style: TextStyle(color: Colors.white, fontSize: 100.sp, fontWeight: FontWeight.bold),)),
+            child: Text(practiceDone.practiceId.toString(), style: TextStyle(color: Colors.white, fontSize: 100.sp, fontWeight: FontWeight.bold),)),
           SizedBox(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(Icons.star_rounded, size: 70.sp, color: MyColors.primaryGreen,),
-                Icon(Icons.star_border, size: 70.sp, color: MyColors.primaryGreen,),
-                Icon(Icons.star_border, size: 70.sp, color: MyColors.primaryGreen,)
+                for(int i=1; i<=3; i++)
+                  if(i<=practiceDone.progressPoin!)
+                    Icon(Icons.star_rounded, size: 70.sp, color: MyColors.primaryGreen,)
+                  else
+                  Icon(Icons.star_border, size: 70.sp, color: MyColors.primaryGreen,)
               ],
             ),
           )

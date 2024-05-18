@@ -1,6 +1,6 @@
 class PracticeModel {
   final int? status;
-  final List<Body>? body;
+  final List<Practice>? body;
 
   PracticeModel({
     this.status,
@@ -9,7 +9,7 @@ class PracticeModel {
 
   PracticeModel.fromJson(Map<String, dynamic> json)
     : status = json['status'] as int?,
-      body = (json['body'] as List?)?.map((dynamic e) => Body.fromJson(e as Map<String,dynamic>)).toList();
+      body = (json['body'] as List?)?.map((dynamic e) => Practice.fromJson(e as Map<String,dynamic>)).toList();
 
   Map<String, dynamic> toJson() => {
     'status' : status,
@@ -17,20 +17,20 @@ class PracticeModel {
   };
 }
 
-class Body {
+class Practice {
   final int? practiceId;
   final String? practiceCode;
   final int? courseId;
   final CoursePractice? course;
 
-  Body({
+  Practice({
     this.practiceId,
     this.practiceCode,
     this.courseId,
     this.course,
   });
 
-  Body.fromJson(Map<String, dynamic> json)
+  Practice.fromJson(Map<String, dynamic> json)
     : practiceId = json['practice_id'] as int?,
       practiceCode = json['practice_code'] as String?,
       courseId = json['course_id'] as int?,
