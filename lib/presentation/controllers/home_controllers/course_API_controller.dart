@@ -13,18 +13,18 @@ class CourseController extends GetxController {
   // get master course
   Future<Either<Failure, CourseModel>> getCourses() async {
     try {
-      final response = await Dio().get(
-        'https://lingo-pal-backend-v1.vercel.app/api/course',
-        options: Options(
-          headers: {'accept': 'application/json'}
-        )
-      );
+      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course',
+          options: Options(headers: {'accept': 'application/json'}));
 
       var courseModel = CourseModel.fromJson(response.data);
       courses(courseModel);
       print("success retrieve courses: ${response.data}");
-      
+
       return Right(courseModel);
+    } on DioException catch (e) {
+      print("Sattt");
+      print("$e");
+      return Left(Failure("$e"));
     } catch (e) {
       print("error");
       return Left(Failure("$e"));
@@ -36,19 +36,13 @@ class CourseController extends GetxController {
     var userId = controllerProfile.profile.value?.body?.data?.first.userId;
     print('USER ID in Course Controller: {$userId}');
     try {
-      final response = await Dio().get(
-        'https://lingo-pal-backend-v1.vercel.app/api/course/progress',
-        queryParameters: {'user_id' : userId!},
-        options: Options(
-          headers: {'accept' : 'application/json'}
-        )
-      );
+      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course/progress',
+          queryParameters: {'user_id': userId!}, options: Options(headers: {'accept': 'application/json'}));
 
       var userCourseProgress = CourseProgressModel.fromJson(response.data);
-      courseProgress(userCourseProgress);
       print("User Progress Response: ${response.data}");
+      courseProgress(userCourseProgress);
       return Right(userCourseProgress);
-
     } catch (e) {
       print("error: ${e}");
       return Left(Failure("$e"));
@@ -58,14 +52,14 @@ class CourseController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // getCourses();
-    // getUserCourseProgress();
+    getCourses();
+    getUserCourseProgress();
   }
 
   @override
   void onClose() {
     super.onClose();
-    // getCourses();
-    // getUserCourseProgress();
+    getCourses();
+    getUserCourseProgress();
   }
 }

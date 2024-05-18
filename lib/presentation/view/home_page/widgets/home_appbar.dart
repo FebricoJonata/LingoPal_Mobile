@@ -15,7 +15,7 @@ class CustomAppBar extends StatelessWidget {
   var controllerProgress = Get.find<ProgressAPIController>();
   @override
   Widget build(BuildContext context) {
-    final fomattedName = controllerProfile.profile.value?.body?.data?.first.name?.split(' ') ?? [];
+    // final fomattedName = controllerProfile.profile.value?.body?.data?.first.name?.split(' ') ?? [];
     return Stack(
       alignment: Alignment.topCenter,
       clipBehavior: Clip.none,

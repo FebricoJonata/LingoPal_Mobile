@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/base_controller/base_binding.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/camera_controllers/camera_binding.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/chatbot_controller/chatbot_binding.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/home_bindings.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_bindings.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_binding.dart';
@@ -9,7 +8,6 @@ import 'package:lingo_pal_mobile/presentation/controllers/profile_page/profile_p
 import 'package:lingo_pal_mobile/presentation/view/base/base.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/landing_page_controller/landing_binding.dart';
 import 'package:lingo_pal_mobile/presentation/view/camera_screen/camera_screen.dart';
-import 'package:lingo_pal_mobile/presentation/view/chatbot_page/chatbot_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/home_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/practice_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/landing_page/landing_page.dart';

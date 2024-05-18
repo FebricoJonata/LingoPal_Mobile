@@ -90,9 +90,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/course_API_controller.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_course_API_controller.dart';
-import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
-import 'package:lingo_pal_mobile/presentation/model/home_model/course_progress_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_active_card.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_disabled.card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -110,11 +107,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _alertShown = false;
   // List<CourseProgress> activeCourses = [];
-
+  var controller = Get.find<CourseController>();
   @override
   void initState() {
     super.initState();
     _checkAlertStatus();
+    controller.getCourses();
+    controller.getUserCourseProgress();
   }
 
   Future<void> _checkAlertStatus() async {
@@ -159,8 +158,10 @@ class _HomePageState extends State<HomePage> {
                     int lastCourseId = (activeCourses != null) ? activeCourses.last.courseId! : 0;
 
                     if (courseList == null || courseList.isEmpty) {
+                      // controllerCourse.update();
                       return Text("No course found");
                     } else if (activeCourses == null) {
+                      // controllerCourse.update();
                       print("harusnya jangan return card dulu kalau masih null");
                       return Text("No active courses");
                     } else {
@@ -193,7 +194,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 
   void showCustomAlertDialog(BuildContext context) {
     showDialog(
