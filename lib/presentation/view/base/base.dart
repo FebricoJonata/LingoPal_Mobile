@@ -22,6 +22,7 @@ class _HomePageState extends State<BasePage> {
   var controllerProfile = Get.find<GetProfileController>();
   var controllerProgress = Get.find<ProgressAPIController>();
   var controllerCourse = Get.find<CourseController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

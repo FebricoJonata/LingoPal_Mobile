@@ -46,10 +46,6 @@ class _ChatbotPageState extends State<ChatbotPage> {
       messageController.clear();
       chatbot.update();
       messageController.clear();
-      // Simulate receiving a message from the other party
-      // Future.delayed(Duration(milliseconds: 100), () {
-      //   controller.addMessage(chatbot.chatbotReponse.value?.message ?? "", false);
-      // });
     }
     controller.update();
   }
@@ -58,6 +54,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
           width: 1179.w,
           height: 2556.h,
@@ -87,19 +84,11 @@ class _ChatbotPageState extends State<ChatbotPage> {
                               message: message.text,
                               isMe: false);
                         }
-                        // return ListTile(
-                        //   title: Text(message.text),
-                        //   subtitle: Text(message.isFromUser ? 'You' : 'Other'),
-                        // );
                       },
                     );
                   },
                 ),
-                // ],
-                // ),
               ),
-
-              // ),
               NewMessage(
                 controller: messageController,
                 onSubmitted: (value) async {

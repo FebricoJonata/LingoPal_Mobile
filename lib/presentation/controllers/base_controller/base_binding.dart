@@ -19,5 +19,6 @@ class BaseBindings implements Bindings {
     Get.lazyPut(() => CourseController());
     Get.lazyPut(() => ChatBotAPIController());
     Get.lazyPut(() => ChatController());
+    Get.lazyPut(() => CourseController());
   }
 }
