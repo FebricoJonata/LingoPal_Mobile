@@ -45,11 +45,11 @@ class _NewMessageState extends State<NewMessage> {
         // Handle error here
         print('Error: ${failure.message}');
       },
-      (chatBotResponse) {
+      (chatBotResponse) {   
         // Handle success here
         print('Message: $enteredMessage');
         print('Response : ' + "${chatbot.chatbotReponse.value?.message}");
-      },
+      },   
     );
 
     _messageController.clear();

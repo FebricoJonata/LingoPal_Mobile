@@ -90,9 +90,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/course_API_controller.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_course_API_controller.dart';
-import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
-import 'package:lingo_pal_mobile/presentation/model/home_model/course_progress_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_active_card.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_disabled.card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -126,7 +123,6 @@ class _HomePageState extends State<HomePage> {
       });
     }
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -139,57 +135,62 @@ class _HomePageState extends State<HomePage> {
           CustomAppBar(),
           SizedBox(height: 150.h),
           Expanded(
-            child: GetBuilder<CourseController>(
-              builder: (controllerCourse) {
-                print("masuk ke course controller");
-                return FutureBuilder(
-                  future: Future.wait([controllerCourse.getCourses(), controllerCourse.getUserCourseProgress()]), 
-                  builder: (context, snapshot) {
-                    if(snapshot.connectionState == ConnectionState.waiting){
-                      return Text("Loading ...");
-                    }
-                    else if (snapshot.hasError) {
-                      return Text("Error");
-                    }
-                    else if (snapshot.data == null){
-                      return Text("No data");
-                    }
-                    else {
-                      // __checkActiveCourses();
-                      var courseList = controllerCourse.courses.value?.body;
-                      var activeCourses = controllerCourse.courseProgress.value?.body;
-                      print("COURSE LIST: {$courseList}");
-                      print("ACTIVE: {$activeCourses}");
-                      int lastCourseId = (activeCourses != null) ? activeCourses.last.courseId! : 0;
-                      
-                      if(courseList==null || courseList.isEmpty){
-                        return Text("No course found");
-                      }
-                      else if(activeCourses==null){
-                        print("harusnya jangan return card dulu kalau masih null");
-                        return Text("No active courses");
-                      }
+            child: GetBuilder<CourseController>(builder: (controllerCourse) {
+              print("masuk ke course controller");
+              return FutureBuilder(
+                future: Future.wait([
+                  controllerCourse.getCourses(),
+                  controllerCourse.getUserCourseProgress()
+                ]),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text("Loading ...");
+                  } else if (snapshot.hasError) {
+                    return Text("Error");
+                  } else if (snapshot.data == null) {
+                    return Text("No data");
+                  } else {
+                    // __checkActiveCourses();
+                    var courseList = controllerCourse.courses.value?.body;
+                    var activeCourses =
+                        controllerCourse.courseProgress.value?.body;
+                    print("COURSE LIST: {$courseList}");
+                    print("ACTIVE: {$activeCourses}");
+                    int lastCourseId = (activeCourses != null)
+                        ? activeCourses.last.courseId!
+                        : 0;
 
-                      return ListView.separated(
-                        padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
-                        shrinkWrap: true,
-                        itemCount: courseList.length,
-                        itemBuilder: (context, index) {
-                          var course = courseList[index];
-                          if (index < lastCourseId){
-                            return CourseActiveCard(course: course,);
-                          }
-                          return CourseDisabledCard(course: course,);
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(height: 50.h);
-                        },
-                      );
+                    if (courseList == null || courseList.isEmpty) {
+                      return Text("No course found");
+                    } else if (activeCourses == null) {
+                      print(
+                          "harusnya jangan return card dulu kalau masih null");
+                      return Text("No active courses");
                     }
-                  },
-                );
-              }
-            ),
+
+                    return ListView.separated(
+                      padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
+                      shrinkWrap: true,
+                      itemCount: courseList.length,
+                      itemBuilder: (context, index) {
+                        var course = courseList[index];
+                        if (index < lastCourseId) {
+                          return CourseActiveCard(
+                            course: course,
+                          );
+                        }
+                        return CourseDisabledCard(
+                          course: course,
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(height: 50.h);
+                      },
+                    );
+                  }
+                },
+              );
+            }),
           ),
         ]),
       ),
