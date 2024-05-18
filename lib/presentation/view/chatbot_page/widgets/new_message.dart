@@ -59,36 +59,30 @@ class _NewMessageState extends State<NewMessage> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 1, bottom: 15),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              onSubmitted: (value) {
-                _submitMessage();
-              },
-              controller: _messageController,
-              textCapitalization: TextCapitalization.sentences,
-              autocorrect: true,
-              enableSuggestions: true,
-              decoration: const InputDecoration(
-                focusColor: MyColors.primaryGreen,
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: MyColors.primaryGreen),
-                ),
-                labelText: 'Send a message...',
-                labelStyle: TextStyle(
-                  color: MyColors.primaryGreen, // Custom label text color
-                ),
+      child: Row(children: [
+        Expanded(
+          child: TextField(
+            onSubmitted: widget.onSubmitted,
+            controller: widget.controller,
+            textCapitalization: TextCapitalization.sentences,
+            autocorrect: true,
+            enableSuggestions: true,
+            decoration: const InputDecoration(
+              focusColor: MyColors.primaryGreen,
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.primaryGreen)),
+              labelText: 'Send a message...',
+              labelStyle: TextStyle(
+                color: MyColors.primaryGreen, // Custom label text color
               ),
             ),
           ),
-          IconButton(
-            onPressed: _submitMessage,
-            icon: const Icon(Icons.send),
-            color: MyColors.primaryGreen,
-          ),
-        ],
-      ),
+        ),
+        IconButton(
+          onPressed: _submitMessage,
+          icon: const Icon(Icons.send),
+          color: MyColors.primaryGreen,
+        )
+      ]),
     );
   }
 }

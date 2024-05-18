@@ -107,11 +107,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _alertShown = false;
   // List<CourseProgress> activeCourses = [];
-
+  var controller = Get.find<CourseController>();
   @override
   void initState() {
     super.initState();
     _checkAlertStatus();
+    controller.getCourses();
+    controller.getUserCourseProgress();
   }
 
   Future<void> _checkAlertStatus() async {
@@ -138,10 +140,7 @@ class _HomePageState extends State<HomePage> {
             child: GetBuilder<CourseController>(builder: (controllerCourse) {
               print("masuk ke course controller");
               return FutureBuilder(
-                future: Future.wait([
-                  controllerCourse.getCourses(),
-                  controllerCourse.getUserCourseProgress()
-                ]),
+                future: Future.wait([controllerCourse.getCourses(), controllerCourse.getUserCourseProgress()]),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Text("Loading ...");
@@ -152,41 +151,40 @@ class _HomePageState extends State<HomePage> {
                   } else {
                     // __checkActiveCourses();
                     var courseList = controllerCourse.courses.value?.body;
-                    var activeCourses =
-                        controllerCourse.courseProgress.value?.body;
+                    var activeCourses = controllerCourse.courseProgress.value?.body;
                     print("COURSE LIST: {$courseList}");
                     print("ACTIVE: {$activeCourses}");
-                    int lastCourseId = (activeCourses != null)
-                        ? activeCourses.last.courseId!
-                        : 0;
+
+                    int lastCourseId = (activeCourses != null) ? activeCourses.last.courseId! : 0;
 
                     if (courseList == null || courseList.isEmpty) {
+                      // controllerCourse.update();
                       return Text("No course found");
                     } else if (activeCourses == null) {
-                      print(
-                          "harusnya jangan return card dulu kalau masih null");
+                      // controllerCourse.update();
+                      print("harusnya jangan return card dulu kalau masih null");
                       return Text("No active courses");
-                    }
-
-                    return ListView.separated(
-                      padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
-                      shrinkWrap: true,
-                      itemCount: courseList.length,
-                      itemBuilder: (context, index) {
-                        var course = courseList[index];
-                        if (index < lastCourseId) {
-                          return CourseActiveCard(
+                    } else {
+                      return ListView.separated(
+                        padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
+                        shrinkWrap: true,
+                        itemCount: courseList.length,
+                        itemBuilder: (context, index) {
+                          var course = courseList[index];
+                          if (index < lastCourseId) {
+                            return CourseActiveCard(
+                              course: course,
+                            );
+                          }
+                          return CourseDisabledCard(
                             course: course,
                           );
-                        }
-                        return CourseDisabledCard(
-                          course: course,
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return SizedBox(height: 50.h);
-                      },
-                    );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return SizedBox(height: 50.h);
+                        },
+                      );
+                    }
                   }
                 },
               );
