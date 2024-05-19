@@ -31,9 +31,9 @@ class ActivePractice extends StatelessWidget {
                 color: MyColors.secondaryGreen,
                 borderRadius: BorderRadius.circular(100),
               ),
-              child: Text(id.toString(), style: TextStyle(color: Colors.white, fontSize: 100.sp, fontWeight: FontWeight.bold),)),
+              child: Text(code, style: TextStyle(color: Colors.white, fontSize: 100.sp, fontWeight: FontWeight.bold),)),
           ),
-          const Text("DISINI", style: TextStyle(fontWeight: FontWeight.bold),)
+          const Text("MULAI", style: TextStyle(fontWeight: FontWeight.bold),)
         ]),
     );
   }
