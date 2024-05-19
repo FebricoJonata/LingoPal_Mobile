@@ -74,7 +74,7 @@ class CourseActiveCard extends StatelessWidget {
               height: 120.h,
               onClick: () {
                 print("Go");
-                Get.toNamed("/practice", arguments: {'course_id': course.courseId!});
+                Get.toNamed("/practice", arguments: {'course': course});
               },
             )
           ],
