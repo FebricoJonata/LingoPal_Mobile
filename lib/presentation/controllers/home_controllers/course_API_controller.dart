@@ -52,6 +52,7 @@ class CourseController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    controllerProfile.profileAPI();
     getCourses();
     getUserCourseProgress();
   }
@@ -59,6 +60,7 @@ class CourseController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    controllerProfile.profileAPI();
     getCourses();
     getUserCourseProgress();
   }

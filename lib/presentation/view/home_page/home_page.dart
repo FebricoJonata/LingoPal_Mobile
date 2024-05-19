@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
             child: GetBuilder<CourseController>(builder: (controllerCourse) {
               print("masuk ke course controller");
               return FutureBuilder(
-                future: Future.wait([controllerCourse.getCourses(), controllerCourse.getUserCourseProgress()]),
+                future: Future.wait([controllerCourse.getUserCourseProgress(),controllerCourse.getCourses()]),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Text("Loading ...");
