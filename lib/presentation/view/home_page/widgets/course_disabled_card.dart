@@ -36,12 +36,12 @@ class CourseDisabledCard extends StatelessWidget {
                       Text(course.courseName!, style: TextStyle(fontSize: 50.sp),),
                       SizedBox(width: 200.w,),
                       Row(
-                        children: [Icon(Icons.star, size: 50.w,), Text("0/45", style: TextStyle(fontSize: 40.sp),)],
+                        children: [Icon(Icons.star, size: 50.w,), Text("0", style: TextStyle(fontSize: 40.sp),)],
                       )
                     ],
                   ),
                 ),
-                Text("Kategori course - Level 6", style: TextStyle(fontSize: 40.sp),),
+                Text(course.category!.courseCategoryName!, style: TextStyle(fontSize: 40.sp),),
                 Text(course.courseDescription!, style: TextStyle(fontSize: 32.sp),)
               ],),
             ),

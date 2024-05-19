@@ -24,6 +24,7 @@ class PracticeProgress {
   final int? progressPoin;
   final bool? isActive;
   final bool? isPassed;
+  final PracticeCode? practice;
 
   PracticeProgress({
     this.progressPracticeId,
@@ -32,6 +33,7 @@ class PracticeProgress {
     this.progressPoin,
     this.isActive,
     this.isPassed,
+    this.practice,
   });
 
   PracticeProgress.fromJson(Map<String, dynamic> json)
@@ -40,7 +42,8 @@ class PracticeProgress {
       practiceId = json['practice_id'] as int?,
       progressPoin = json['progress_poin'] as int?,
       isActive = json['is_active'] as bool?,
-      isPassed = json['is_passed'] as bool?;
+      isPassed = json['is_passed'] as bool?,
+      practice = (json['practice'] as Map<String,dynamic>?) != null ? PracticeCode.fromJson(json['practice'] as Map<String,dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
     'progress_practice_id' : progressPracticeId,
@@ -48,6 +51,22 @@ class PracticeProgress {
     'practice_id' : practiceId,
     'progress_poin' : progressPoin,
     'is_active' : isActive,
-    'is_passed' : isPassed
+    'is_passed' : isPassed,
+    'practice' : practice?.toJson()
+  };
+}
+
+class PracticeCode {
+  final String? practiceCode;
+
+  PracticeCode({
+    this.practiceCode,
+  });
+
+  PracticeCode.fromJson(Map<String, dynamic> json)
+    : practiceCode = json['practice_code'] as String?;
+
+  Map<String, dynamic> toJson() => {
+    'practice_code' : practiceCode
   };
 }

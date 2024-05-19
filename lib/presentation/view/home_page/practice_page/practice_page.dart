@@ -5,6 +5,7 @@ import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/practice_model.dart';
+import 'package:lingo_pal_mobile/presentation/model/home_model/practice_progress_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/back_btn.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widgets/practice_active.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widgets/practice_disable.dart';
@@ -15,6 +16,34 @@ class PracticePage extends StatefulWidget {
 
   @override
   State<PracticePage> createState() => _PracticePageState();
+}
+
+List<PracticeProgress> mapPracticeProgress(List<Practice>practices, List<PracticeProgress>userPractices){
+  List<PracticeProgress> practiceProgress = [];
+  if(userPractices.isEmpty ){
+    return practiceProgress;
+  }
+
+  for (var userPractice in userPractices) {
+    for (var practice in practices) {
+      if(userPractice.practiceId==practice.practiceId){
+        practiceProgress.add(userPractice);
+      }
+      else {
+        print("No matching things");
+      }
+    }
+  }
+  print(practiceProgress);
+  return practiceProgress;
+}
+
+void checkPracticeProgress(practiceProgress){
+  for (PracticeProgress practiceProgress in practiceProgress) {
+    String? levelNum = practiceProgress.practice?.practiceCode;
+    int? levelId = practiceProgress.practiceId;
+    print("After mapping Practices: $levelNum, $levelId");
+  }
 }
 
 class _PracticePageState extends State<PracticePage> {
@@ -40,26 +69,54 @@ class _PracticePageState extends State<PracticePage> {
                   return FutureBuilder(
                     future: Future.wait([controllerPractice.getPractices(courseId), controllerPractice.getUserPractices()]), 
                     builder: (context, snapshot){
+                      var practices = controllerPractice.practices.value?.body;
+                      // print("Here");
+                      // print(practices);
+                      var userPractices = controllerPractice.practiceProgress.value?.body;
+
                       if(snapshot.connectionState == ConnectionState.waiting){
                         return CircularProgressIndicator();
                       }
                       else if(snapshot.hasError){
                         return Text("Error retrieve data");
                       }
-                      else if (snapshot.data == null){
+                      else if (snapshot.data == null || practices == null || userPractices==null){
                         return Text("No data");
                       }
                       else {
-                        var practices = controllerPractice.practices.value?.body;
+                        if(practices.isEmpty){
+                          print("Empty practices");
+                          return Row(
+                            children: [
+                              BackBtn(),
+                              SizedBox(width: 30.w,),
+                              Text("No practices"),
+                            ],
+                          );
+                        }
+
                         var course = controllerPractice.practices.value?.body?.first.course;
-                        var userPractices = controllerPractice.practiceProgress.value?.body;
-                        var lastPracticeId;
-                        if(userPractices == null || userPractices.isEmpty){
-                          lastPracticeId = 0;
+                        String lastPracticeCode; List<PracticeProgress>practiceProgress;
+                        if(userPractices.isEmpty){
+                          practiceProgress = [];
                         }
                         else {
-                          lastPracticeId = userPractices.last.practiceId;
+                          practiceProgress = mapPracticeProgress(practices, userPractices);
                         }
+
+                        if(practiceProgress.isEmpty){
+                          lastPracticeCode = "0";
+                        }
+                        else {
+                          checkPracticeProgress(practiceProgress);
+                          lastPracticeCode = practiceProgress.last.practice!.practiceCode!;
+                        }
+
+                        var activePracticeInt = (int.parse(lastPracticeCode) + 1).toString;
+                        int lastPracticeNum = int.parse(lastPracticeCode);
+                        int activePracticeNum = lastPracticeNum + 1;
+                        String activePracticeCode = activePracticeNum.toString();
+                        print("Active Level: $activePracticeCode");
                         return Column(
                           children: [
                             Row(
@@ -84,10 +141,10 @@ class _PracticePageState extends State<PracticePage> {
                               childAspectRatio: (1/1.25),
                               children: [
                                 for (Practice practice in practices!)
-                                  if(practice.practiceId == lastPracticeId+1)
+                                  if(practice.practiceCode == activePracticeCode)
                                     ActivePractice(id: practice.practiceId!, code: practice.practiceCode!,)
-                                  else if(practice.practiceId! <= lastPracticeId)
-                                    PracticeDone(practiceDone: userPractices![practices.indexOf(practice)],)
+                                  else if(int.parse(practice.practiceCode!) <= lastPracticeNum)
+                                    PracticeDone(practiceDone: practiceProgress[practices.indexOf(practice)],)
                                   else
                                     DisablePractice()
                                 
