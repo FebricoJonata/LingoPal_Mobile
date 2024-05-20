@@ -90,6 +90,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/course_API_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_active_card.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_disabled_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -106,14 +107,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _alertShown = false;
-  // List<CourseProgress> activeCourses = [];
-  var controller = Get.find<CourseController>();
+  // var courseController = Get.find<CourseController>();
+  // var profileController = Get.find<GetProfileController>();
+  // var 
   @override
   void initState() {
     super.initState();
+    // profileController.profileAPI();
     _checkAlertStatus();
-    controller.getCourses();
-    controller.getUserCourseProgress();
+    // controller.getCourses();
+    // controller.getUserCourseProgress();
   }
 
   Future<void> _checkAlertStatus() async {
@@ -140,31 +143,24 @@ class _HomePageState extends State<HomePage> {
             child: GetBuilder<CourseController>(builder: (controllerCourse) {
               print("masuk ke course controller");
               return FutureBuilder(
-                future: Future.wait([controllerCourse.getUserCourseProgress(),controllerCourse.getCourses()]),
+                future: Future.wait([controllerCourse.getCourses(),controllerCourse.getUserCourseProgress()]),
                 builder: (context, snapshot) {
+                  var courseList = controllerCourse.courses.value?.body;
+                  var activeCourses = controllerCourse.courseProgress.value?.body;
+                  print("COURSE LIST: {$courseList}");
+                  print("ACTIVE: {$activeCourses}");
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Text("Loading ...");
                   } else if (snapshot.hasError) {
                     return Text("Error");
                   } else if (snapshot.data == null) {
                     return Text("No data");
-                  } else {
-                    // __checkActiveCourses();
-                    var courseList = controllerCourse.courses.value?.body;
-                    var activeCourses = controllerCourse.courseProgress.value?.body;
-                    print("COURSE LIST: {$courseList}");
-                    print("ACTIVE: {$activeCourses}");
-
+                  } 
+                  else if(courseList == null){
+                    return Text("Tidak ada latihan yang dapat ditemukan");
+                  }
+                  else if(snapshot.connectionState == ConnectionState.done) {
                     int lastCourseId = (activeCourses != null) ? activeCourses.last.courseId! : 0;
-
-                    if (courseList == null || courseList.isEmpty) {
-                      // controllerCourse.update();
-                      return Text("No course found");
-                    } else if (activeCourses == null) {
-                      // controllerCourse.update();
-                      print("harusnya jangan return card dulu kalau masih null");
-                      return Text("No active courses");
-                    } else {
                       return ListView.separated(
                         padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
                         shrinkWrap: true,
@@ -174,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                           if (index < lastCourseId) {
                             return CourseActiveCard(
                               course: course,
-                              userProgressPoin: activeCourses[index].progressPoin!,
+                              userProgressPoin: activeCourses![index].progressPoin!,
                             );
                           }
                           return CourseDisabledCard(
@@ -185,7 +181,10 @@ class _HomePageState extends State<HomePage> {
                           return SizedBox(height: 50.h);
                         },
                       );
-                    }
+                    // }
+                  }
+                  else {
+                    return RefreshProgressIndicator();
                   }
                 },
               );

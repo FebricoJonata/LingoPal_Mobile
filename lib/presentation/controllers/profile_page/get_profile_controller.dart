@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
@@ -10,6 +11,7 @@ class GetProfileController extends GetxController {
   var controllerLogin = Get.find<LoginAPIController>();
   Rx<Profile?> profile = Rx<Profile?>(null);
   Future<Either<Failure, Profile>> profileAPI() async {
+    print("User in profile controller: ${controllerLogin.emailName.value.toString()}");
     try {
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/users',
@@ -23,6 +25,9 @@ class GetProfileController extends GetxController {
       profile(profileModel);
       print("AHHAHAHAHAH ${response.data}");
       print("OI ${profile.value?.body?.data?.first.userId}");
+      while (profile.value?.body?.data?.first.userId == null) {
+        AsyncSnapshot.nothing();
+      }
       return Right(profileModel);
     } on DioException catch (e) {
       print("DioException: ${e.response?.statusCode}");

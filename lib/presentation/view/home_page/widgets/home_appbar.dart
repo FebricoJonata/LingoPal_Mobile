@@ -9,10 +9,18 @@ import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/progr
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/progress_model.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends StatefulWidget {
   CustomAppBar({super.key});
+
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+  
   var controllerProfile = Get.find<GetProfileController>();
   var controllerProgress = Get.find<ProgressAPIController>();
+
   @override
   Widget build(BuildContext context) {
     // final fomattedName = controllerProfile.profile.value?.body?.data?.first.name?.split(' ') ?? [];
@@ -30,6 +38,9 @@ class CustomAppBar extends StatelessWidget {
                 Image.asset(AssetConstraints.bgIntroTop),
                 GetBuilder<GetProfileController>(
                   builder: (_) {
+                    // Future.wait([controllerProfile.profileAPI()]);
+                    var userName = controllerProfile.profile.value?.body?.data?.first.name;
+                    print("Nama Profile di appbar: $userName");
                     return Container(
                       height: 350.h,
                       alignment: Alignment.topCenter,
@@ -48,7 +59,7 @@ class CustomAppBar extends StatelessWidget {
                                 width: 50.w,
                               ),
                               Text(
-                                controllerProfile.profile.value?.body?.data?.first.name ?? "",
+                                userName ?? "",
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.sp),
                               ),
                               SizedBox(
@@ -102,8 +113,9 @@ class CustomAppBar extends StatelessWidget {
                       final progressData = snapshot.data!.fold((failure) => <ProgressUserModel>[], (l) => l.body);
 
                       if (progressData == null) {
+                        print("Data in home appbar");
                         return const Center(
-                          child: Text('No'),
+                          child: Text('Missing data in appbar'),
                         );
                       } else {
                         return Container(

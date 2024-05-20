@@ -33,11 +33,13 @@ class CourseController extends GetxController {
 
   // get user course progress
   Future<Either<Failure, CourseProgressModel>> getUserCourseProgress() async {
+    // await controllerProfile.profileAPI().whenComplete(() => null);
+    // controllerProfile.getprofil
     var userId = controllerProfile.profile.value?.body?.data?.first.userId;
-    print('USER ID in Course Controller: {$userId}');
+    print('USER ID in Course Controller: ${userId}');
     try {
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course/progress',
-          queryParameters: {'user_id': userId!}, options: Options(headers: {'accept': 'application/json'}));
+          queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
 
       var userCourseProgress = CourseProgressModel.fromJson(response.data);
       print("User Progress Response: ${response.data}");
@@ -49,9 +51,15 @@ class CourseController extends GetxController {
     }
   }
 
+
+  // Future fetchProgressAfterProfile() async {
+  //   controllerProfile.profileAPI().whenComplete(() => getUserCourseProgress());
+  // }
+
   @override
   void onInit() {
     super.onInit();
+    // fetchProgressAfterProfile();
     controllerProfile.profileAPI();
     getCourses();
     getUserCourseProgress();
@@ -60,8 +68,8 @@ class CourseController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    controllerProfile.profileAPI();
+    // controllerProfile.profileAPI();
     getCourses();
-    getUserCourseProgress();
+    // getUserCourseProgress();
   }
 }
