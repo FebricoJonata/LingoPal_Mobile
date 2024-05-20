@@ -15,6 +15,7 @@ import 'package:lingo_pal_mobile/presentation/view/login_page/login_page.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/register_page_binding.dart';
 import 'package:lingo_pal_mobile/presentation/view/profile_page/edit_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/profile_page/profile_page.dart';
+import 'package:lingo_pal_mobile/presentation/view/quiz_page/quiz_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/register_page/register_page.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
@@ -29,5 +30,6 @@ class AppPages {
     GetPage(name: RouteName.profilePage, page: () => const ProfilePage(), binding: ProfileBindings()),
     GetPage(name: RouteName.editPage, page: () => const EditPage(), binding: ProfileBindings()),
     GetPage(name: RouteName.camera2, page: () => const Camera2(), binding: CameraBinding()),
+    GetPage(name: RouteName.quiz, page: () => const QuizPage())
   ];
 }

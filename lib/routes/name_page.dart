@@ -9,4 +9,5 @@ abstract class RouteName {
   static const editPage = "/edit";
   static const camera2 = "/camera";
   static const chatbot = "/chatbot";
+  static const quiz = "/quiz";
 }

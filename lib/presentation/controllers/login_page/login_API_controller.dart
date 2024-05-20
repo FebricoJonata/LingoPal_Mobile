@@ -4,6 +4,7 @@ import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/model/login_model/login_model.dart';
 import 'package:dio/dio.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
+import 'package:lingo_pal_mobile/presentation/view/recorder/recorder_main.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class LoginAPIController extends GetxController {
@@ -11,18 +12,14 @@ class LoginAPIController extends GetxController {
   RxString emailName = "".obs;
   Rx<LoginModel?> login = Rx<LoginModel?>(null);
   RxBool get isLoading => _isLoading;
-  Future<Either<Failure, LoginModel>> loginAPI(
-      String email, String password) async {
+  Future<Either<Failure, LoginModel>> loginAPI(String email, String password) async {
     _isLoading.value = true;
     try {
       final response = await Dio().post(
         'https://lingo-pal-backend-v1.vercel.app/api/users/signin',
         data: {'email': email, 'password': password},
         options: Options(
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-          },
+          headers: {"Accept": "application/json", "Content-Type": "application/json"},
         ),
       );
       final loginModel = LoginModel.fromJson(response.data);
