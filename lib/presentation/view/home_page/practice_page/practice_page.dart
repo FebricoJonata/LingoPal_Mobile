@@ -73,7 +73,7 @@ class _PracticePageState extends State<PracticePage> {
                       var userPractices = controllerPractice.practiceProgress.value?.body;
 
                       if(snapshot.connectionState == ConnectionState.waiting){
-                        return const CircularProgressIndicator();
+                        return const CircularProgressIndicator(color: Colors.white, strokeWidth: 2.0,);
                       }
                       else if(snapshot.hasError){
                         return const Text("Error retrieve data");
@@ -107,7 +107,7 @@ class _PracticePageState extends State<PracticePage> {
                                 )
                               ],
                             ),
-                            SizedBox(height: 200.h),
+                            SizedBox(height: 100.h),
                             if(practices.isEmpty)
                               const Text("Belum terdapat latihan untuk course ini")
                             else

@@ -90,7 +90,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/course_API_controller.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_active_card.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_disabled_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -107,16 +106,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _alertShown = false;
-  // var courseController = Get.find<CourseController>();
-  // var profileController = Get.find<GetProfileController>();
-  // var 
   @override
   void initState() {
     super.initState();
-    // profileController.profileAPI();
     _checkAlertStatus();
-    // controller.getCourses();
-    // controller.getUserCourseProgress();
   }
 
   Future<void> _checkAlertStatus() async {
@@ -159,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                   else if(courseList == null){
                     return Text("Tidak ada latihan yang dapat ditemukan");
                   }
-                  else if(snapshot.connectionState == ConnectionState.done) {
+                  else {
                     int lastCourseId = (activeCourses != null) ? activeCourses.last.courseId! : 0;
                       return ListView.separated(
                         padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
@@ -182,9 +175,6 @@ class _HomePageState extends State<HomePage> {
                         },
                       );
                     // }
-                  }
-                  else {
-                    return RefreshProgressIndicator();
                   }
                 },
               );
