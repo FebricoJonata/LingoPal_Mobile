@@ -33,8 +33,6 @@ class CourseController extends GetxController {
 
   // get user course progress
   Future<Either<Failure, CourseProgressModel>> getUserCourseProgress() async {
-    // await controllerProfile.profileAPI().whenComplete(() => null);
-    // controllerProfile.getprofil
     var userId = controllerProfile.profile.value?.body?.data?.first.userId;
     print('USER ID in Course Controller: ${userId}');
     try {
@@ -50,11 +48,6 @@ class CourseController extends GetxController {
       return Left(Failure("$e"));
     }
   }
-
-
-  // Future fetchProgressAfterProfile() async {
-  //   controllerProfile.profileAPI().whenComplete(() => getUserCourseProgress());
-  // }
 
   @override
   void onInit() {

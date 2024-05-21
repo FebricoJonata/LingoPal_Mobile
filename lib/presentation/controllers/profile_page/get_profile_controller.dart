@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
@@ -25,9 +24,6 @@ class GetProfileController extends GetxController {
       profile(profileModel);
       print("AHHAHAHAHAH ${response.data}");
       print("OI ${profile.value?.body?.data?.first.userId}");
-      while (profile.value?.body?.data?.first.userId == null) {
-        AsyncSnapshot.nothing();
-      }
       return Right(profileModel);
     } on DioException catch (e) {
       print("DioException: ${e.response?.statusCode}");
