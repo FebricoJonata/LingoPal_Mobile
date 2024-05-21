@@ -75,6 +75,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/robots/
+    - assets/images/flags/
     - assets/images/background_asset/
     - assets/images/splash_screen_asset/
     - assets/images/carousel_assets/
