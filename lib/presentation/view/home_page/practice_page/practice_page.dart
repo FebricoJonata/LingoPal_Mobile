@@ -19,16 +19,15 @@ class PracticePage extends StatefulWidget {
   State<PracticePage> createState() => _PracticePageState();
 }
 
-
-List<PracticeProgress> mapPracticeProgress(practices, userPractices){
+List<PracticeProgress> mapPracticeProgress(practices, userPractices) {
   List<PracticeProgress> practiceProgress = [];
-  if(userPractices.isEmpty ){
+  if (userPractices.isEmpty) {
     return practiceProgress;
   }
 
   for (var userPractice in userPractices) {
     for (var practice in practices) {
-      if(userPractice.practiceId==practice.practiceId){
+      if (userPractice.practiceId == practice.practiceId) {
         practiceProgress.add(userPractice);
       }
     }
@@ -36,8 +35,7 @@ List<PracticeProgress> mapPracticeProgress(practices, userPractices){
   return practiceProgress;
 }
 
-
-void checkPracticeProgress(practiceProgress){
+void checkPracticeProgress(practiceProgress) {
   for (PracticeProgress practiceProgress in practiceProgress) {
     String? levelNum = practiceProgress.practice?.practiceCode;
     int? levelId = practiceProgress.practiceId;
@@ -45,35 +43,33 @@ void checkPracticeProgress(practiceProgress){
   }
 }
 
-
 class _PracticePageState extends State<PracticePage> {
   @override
   Widget build(BuildContext context) {
-
     Course course = Get.arguments['course'];
     print('course id in practice page: ${course.courseId}');
 
     return Scaffold(
-      body: Container(
-        width: 1179.w,
-        height: 2556.h,
-        color: MyColors.secondaryYellow,
-        child: Column(
-          children: [
-            Image.asset(AssetConstraints.bgIntroTop),
-            SizedBox(height: 100.h),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: GetBuilder<PracticeCourseController>(
-                builder: (controllerPractice) {
-                  return FutureBuilder(
-                    future: Future.wait([controllerPractice.getPractices(course.courseId!), controllerPractice.getUserPractices()]), 
-                    builder: (context, snapshot){
-                      var practices = controllerPractice.practices.value?.body;
-                      var userPractices = controllerPractice.practiceProgress.value?.body;
+        body: Container(
+      width: 1179.w,
+      height: 2556.h,
+      color: MyColors.secondaryYellow,
+      child: Column(
+        children: [
+          Image.asset(AssetConstraints.bgIntroTop),
+          SizedBox(height: 100.h),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: GetBuilder<PracticeCourseController>(builder: (controllerPractice) {
+              return FutureBuilder(
+                  future: Future.wait(
+                      [controllerPractice.getPractices(course.courseId!), controllerPractice.getUserPractices()]),
+                  builder: (context, snapshot) {
+                    var practices = controllerPractice.practices.value?.body;
+                    var userPractices = controllerPractice.practiceProgress.value?.body;
 
                       if(snapshot.connectionState == ConnectionState.waiting){
-                        return const CircularProgressIndicator(color: Colors.white, strokeWidth: 2.0,);
+                        return const CircularProgressIndicator();
                       }
                       else if(snapshot.hasError){
                         return const Text("Error retrieve data");
@@ -87,9 +83,9 @@ class _PracticePageState extends State<PracticePage> {
                         checkPracticeProgress(practiceProgress);
                         lastPracticeCode = (practiceProgress.isEmpty)? "0" : practiceProgress.last.practice!.practiceCode!;
 
-                        int lastPracticeNum = int.parse(lastPracticeCode);
-                        String activePracticeCode = (lastPracticeNum+1).toString();
-                        print("Active Level: $activePracticeCode");
+                      int lastPracticeNum = int.parse(lastPracticeCode);
+                      String activePracticeCode = (lastPracticeNum + 1).toString();
+                      print("Active Level: $activePracticeCode");
 
                         return Column(
                           children: [
@@ -107,7 +103,7 @@ class _PracticePageState extends State<PracticePage> {
                                 )
                               ],
                             ),
-                            SizedBox(height: 100.h),
+                            SizedBox(height: 200.h),
                             if(practices.isEmpty)
                               const Text("Belum terdapat latihan untuk course ini")
                             else
