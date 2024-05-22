@@ -36,12 +36,12 @@ class ActivePractice extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: Text(
-                  id.toString(),
+                  code,
                   style: TextStyle(color: Colors.white, fontSize: 100.sp, fontWeight: FontWeight.bold),
                 )),
           ),
           const Text(
-            "DISINI",
+            "MULAI",
             style: TextStyle(fontWeight: FontWeight.bold),
           )
         ]),

@@ -7,9 +7,9 @@ import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 
 class CourseActiveCard extends StatelessWidget {
-  const CourseActiveCard({super.key, required this.course});
+  const CourseActiveCard({super.key, required this.course, required this.userProgressPoin});
 
-  final Course course;
+  final Course course; final int userProgressPoin;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class CourseActiveCard extends StatelessWidget {
                               size: 50.w,
                             ),
                             Text(
-                              "11/45",
+                              userProgressPoin.toString(),
                               style: TextStyle(fontSize: 40.sp),
                             )
                           ],
@@ -55,7 +55,7 @@ class CourseActiveCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Kategori course - Level 6", // dari BE course
+                    course.category!.courseCategoryName!, // dari BE course
                     style: TextStyle(fontSize: 40.sp),
                   ),
                   Text(
@@ -74,7 +74,7 @@ class CourseActiveCard extends StatelessWidget {
               height: 120.h,
               onClick: () {
                 print("Go");
-                Get.toNamed("/practice", arguments: {'course_id': course.courseId!});
+                Get.toNamed("/practice", arguments: {'course': course});
               },
             )
           ],

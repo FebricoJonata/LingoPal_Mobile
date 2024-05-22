@@ -91,7 +91,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_active_card.dart';
-import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_disabled.card.dart';
+import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_disabled_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
             child: GetBuilder<CourseController>(builder: (controllerCourse) {
               print("masuk ke course controller");
               return FutureBuilder(
-                future: Future.wait([controllerCourse.getCourses(), controllerCourse.getUserCourseProgress()]),
+                future: Future.wait([controllerCourse.getUserCourseProgress(),controllerCourse.getCourses()]),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Text("Loading ...");
@@ -174,6 +174,7 @@ class _HomePageState extends State<HomePage> {
                           if (index < lastCourseId) {
                             return CourseActiveCard(
                               course: course,
+                              userProgressPoin: activeCourses[index].progressPoin!,
                             );
                           }
                           return CourseDisabledCard(

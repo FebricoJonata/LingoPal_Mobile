@@ -23,7 +23,7 @@ class Course {
   final String? courseDescription;
   final dynamic minPoin;
   final int? userLevelId;
-  final int? courseCategoryId;
+  final Category? category;
 
   Course({
     this.courseId,
@@ -31,7 +31,7 @@ class Course {
     this.courseDescription,
     this.minPoin,
     this.userLevelId,
-    this.courseCategoryId,
+    this.category,
   });
 
   Course.fromJson(Map<String, dynamic> json)
@@ -40,7 +40,7 @@ class Course {
       courseDescription = json['course_description'] as String?,
       minPoin = json['min_poin'],
       userLevelId = json['user_level_id'] as int?,
-      courseCategoryId = json['course_category_id'] as int?;
+      category = (json['category'] as Map<String,dynamic>?) != null ? Category.fromJson(json['category'] as Map<String,dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
     'course_id' : courseId,
@@ -48,6 +48,21 @@ class Course {
     'course_description' : courseDescription,
     'min_poin' : minPoin,
     'user_level_id' : userLevelId,
-    'course_category_id' : courseCategoryId
+    'category' : category?.toJson()
+  };
+}
+
+class Category {
+  final String? courseCategoryName;
+
+  Category({
+    this.courseCategoryName,
+  });
+
+  Category.fromJson(Map<String, dynamic> json)
+    : courseCategoryName = json['course_category_name'] as String?;
+
+  Map<String, dynamic> toJson() => {
+    'course_category_name' : courseCategoryName
   };
 }
