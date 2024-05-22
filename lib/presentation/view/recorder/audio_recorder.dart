@@ -1,8 +1,10 @@
 import 'dart:async';
-
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:record/record.dart';
 
 import 'platform/audio_recorder_platform.dart';
@@ -16,6 +18,87 @@ class Recorder extends StatefulWidget {
   State<Recorder> createState() => _RecorderState();
 }
 
+// final FlutterFFmpeg _flutterFFmpeg = FlutterFFmpeg();
+// final FlutterFFmpegConfig _flutterFFmpegConfig = FlutterFFmpegConfig();
+
+// Future<String?> convertToWav(String inputPath) async {
+//   try {
+//     // Dapatkan direktori sementara
+//     final Directory tempDir = await getTemporaryDirectory();
+//     final String outputPath = "${tempDir.path}/output.wav";
+
+//     // Jalankan perintah FFmpeg
+//     await FFmpegKit.execute('-i $inputPath $outputPath').then((session) async {
+//       final returnCode = await session.getReturnCode();
+
+//       if (ReturnCode.isSuccess(returnCode)) {
+//         print("Conversion successful: $outputPath");
+//         return outputPath;
+//       } else if (ReturnCode.isCancel(returnCode)) {
+//         print("Conversion canceled");
+//         return null;
+//       } else {
+//         print("Conversion failed");
+//         return null;
+//       }
+//     });
+//   } catch (e) {
+//     print("Error during conversion: $e");
+//     return null;
+//   }
+//   return null;
+
+//   // // Dapatkan direktori temporer
+//   // final Directory tempDir = await getTemporaryDirectory();
+//   // final String outputPath = "${tempDir.path}/output.wav";
+
+//   // // Perintah konversi menggunakan FFmpeg
+//   // final String command = '-i $inputPath $outputPath';
+
+//   // // Jalankan perintah FFmpeg
+//   // int rc = await _flutterFFmpeg.execute(command);
+//   // if (rc == 0) {
+//   //   print("Conversion successful: $outputPath");
+//   //   return outputPath;
+//   // } else {
+//   //   print("Conversion failed with rc $rc");
+//   //   return null;
+//   // }
+// }
+// class AudioConverter {
+//   static final FlutterFFmpeg _flutterFFmpeg = FlutterFFmpeg();
+
+//   static Future<String?> convertM4AToWAV(String inputPath) async {
+//     try {
+//       final Directory tempDir = await getTemporaryDirectory();
+//       final String outputPath = '${tempDir.path}/output.wav';
+
+//       // Initialize FFmpeg
+//       await _flutterFFmpeg.getFFmpegVersion();
+
+//       // Command to convert M4A to WAV
+//       final String command = '-i $inputPath $outputPath';
+
+//       // Execute FFmpeg command
+//       final int returnCode = await _flutterFFmpeg.execute(command);
+//       if (returnCode == 0) {
+//         // Check if the output file exists
+//         final File outputFile = File(outputPath);
+//         if (await outputFile.exists()) {
+//           return outputPath;
+//         } else {
+//           return null;
+//         }
+//       } else {
+//         return null;
+//       }
+//     } catch (e) {
+//       debugPrint('Error converting file: $e');
+//       return null;
+//     }
+//   }
+// }
+
 class _RecorderState extends State<Recorder> with AudioRecorderMixin {
   int _recordDuration = 0;
   Timer? _timer;
@@ -23,7 +106,7 @@ class _RecorderState extends State<Recorder> with AudioRecorderMixin {
   StreamSubscription<RecordState>? _recordSub;
   RecordState _recordState = RecordState.stop;
   StreamSubscription<Amplitude>? _amplitudeSub;
-  Amplitude? _amplitude;
+  // Amplitude? _amplitude;
 
   @override
   void initState() {
@@ -33,9 +116,9 @@ class _RecorderState extends State<Recorder> with AudioRecorderMixin {
       _updateRecordState(recordState);
     });
 
-    _amplitudeSub = _audioRecorder.onAmplitudeChanged(const Duration(milliseconds: 300)).listen((amp) {
-      setState(() => _amplitude = amp);
-    });
+    // _amplitudeSub = _audioRecorder.onAmplitudeChanged(const Duration(milliseconds: 300)).listen((amp) {
+    //   // setState(() => _amplitude = amp);
+    // });
 
     super.initState();
   }
@@ -75,9 +158,20 @@ class _RecorderState extends State<Recorder> with AudioRecorderMixin {
     final path = await _audioRecorder.stop();
 
     if (path != null) {
-      widget.onStop(path);
-
-      downloadWebData(path);
+      // Update the input filename to match the recorded file extension (m4a)
+      FFmpegKit.execute('-i $path output.wav').then((session) async {
+        final returnCode = await session.getReturnCode();
+        if (ReturnCode.isSuccess(returnCode)) {
+          // Konversi berhasil (Conversion successful)
+          print('Konversi berhasil!');
+          print('File WAV tersimpan di: $path');
+        } else if (ReturnCode.isCancel(returnCode)) {
+          // Konversi dibatalkan (Conversion cancelled)
+          print('Konversi gagal!');
+        } else {
+          // Terjadi kesalahan (Error occurred)
+        }
+      });
     }
   }
 
@@ -123,28 +217,27 @@ class _RecorderState extends State<Recorder> with AudioRecorderMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 1179.w,
       height: 600.h,
-      color: Colors.red,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _buildRecordStopControl(),
+              SizedBox(width: 300.w, height: 300.w, child: _buildRecordStopControl()),
               // const SizedBox(width: 20),
-              _buildPauseResumeControl(),
+              // _buildPauseResumeControl(),
               // const SizedBox(width: 20),
               _buildText(),
             ],
           ),
-          if (_amplitude != null) ...[
-            // const SizedBox(height: 40),
-            Text('Current: ${_amplitude?.current ?? 0.0}'),
-            Text('Max: ${_amplitude?.max ?? 0.0}'),
-          ],
+          // if (_amplitude != null) ...[
+          //   // const SizedBox(height: 40),
+          //   Text('Current: ${_amplitude?.current ?? 0.0}'),
+          //   Text('Max: ${_amplitude?.max ?? 0.0}'),
+          // ],
         ],
       ),
     );
@@ -164,12 +257,11 @@ class _RecorderState extends State<Recorder> with AudioRecorderMixin {
     late Color color;
 
     if (_recordState != RecordState.stop) {
-      icon = const Icon(Icons.stop, color: Colors.red, size: 30);
-      color = Colors.red.withOpacity(0.1);
+      icon = Icon(Icons.stop, color: MyColors.white, size: 120.sp);
+      color = MyColors.primaryGreen;
     } else {
-      final theme = Theme.of(context);
-      icon = Icon(Icons.mic, color: theme.primaryColor, size: 30);
-      color = theme.primaryColor.withOpacity(0.1);
+      icon = Icon(Icons.mic, color: MyColors.white, size: 120.sp);
+      color = MyColors.primaryGreen;
     }
 
     return ClipOval(
@@ -229,7 +321,7 @@ class _RecorderState extends State<Recorder> with AudioRecorderMixin {
 
     return Text(
       '$minutes : $seconds',
-      style: const TextStyle(color: Colors.red),
+      style: const TextStyle(color: MyColors.primaryGreen),
     );
   }
 

@@ -87,13 +87,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Obx(() => CircleAvatar(
+                          GetBuilder<GetProfileController>(
+                            builder: (controllerProfile) {
+                              return CircleAvatar(
                                 radius: 150.w,
-                                backgroundImage: controllerProfile.profile.value!.body!.data!.first.image == null
-                                    ? NetworkImage(
+                                backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null
+                                    ? const NetworkImage(
                                         "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
-                                    : NetworkImage(controllerProfile.profile.value!.body!.data!.first.image ?? ""),
-                              )),
+                                    : NetworkImage(controllerProfile.profile.value?.body?.data?.first.image ?? ""),
+                              );
+                            },
+                          ),
                           SizedBox(
                             width: 80.w,
                           ),
@@ -107,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    controllerProfile.profile.value!.body!.data!.first.name ?? "",
+                                    controllerProfile.profile.value?.body?.data?.first.name ?? "",
                                     style: TextStyle(
                                       fontSize: 40.sp,
                                       fontWeight: FontWeight.w500,

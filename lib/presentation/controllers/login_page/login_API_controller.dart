@@ -1,10 +1,11 @@
+// ignore_for_file: file_names
+
 import 'package:get/get.dart';
 import 'package:dartz/dartz.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/model/login_model/login_model.dart';
 import 'package:dio/dio.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
-import 'package:lingo_pal_mobile/presentation/view/recorder/recorder_main.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class LoginAPIController extends GetxController {

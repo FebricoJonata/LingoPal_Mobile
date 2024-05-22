@@ -50,7 +50,11 @@ dependencies:
   video_player: ^2.8.6
   mime: ^1.0.5
   record: ^5.0.5
-  audioplayers: ^6.0.0
+  audioplayers: 
+  just_audio:
+  ffmpeg_kit_flutter:  6.0.3
+  path_provider:
+  flutter_ffmpeg: ^0.4.2
 
 dev_dependencies:
   flutter_test:

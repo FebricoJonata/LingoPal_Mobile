@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       iconTxt: Icons.email,
                       iconSize: 40.sp,
-                      labelTxt: "Email",
+                      labelTxt: "",
                       maxHeight: 100.h,
                     ),
                     SizedBox(height: 20.h),
