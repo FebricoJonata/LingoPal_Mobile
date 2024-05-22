@@ -12,13 +12,10 @@ class BaseBindings implements Bindings {
   void dependencies() {
     Get.lazyPut(() => BaseController());
     Get.lazyPut(() => LoginAPIController());
-    Get.lazyPut(() => LoginAPIController());
     Get.lazyPut(() => ProgressAPIController());
     Get.lazyPut(() => GetProfileController());
-    // Get.lazyPut(() => PracticeCourseController());
     Get.lazyPut(() => CourseController());
     Get.lazyPut(() => ChatBotAPIController());
     Get.lazyPut(() => ChatController());
-    Get.lazyPut(() => CourseController());
   }
 }
