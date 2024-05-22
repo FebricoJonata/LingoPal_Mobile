@@ -19,9 +19,9 @@ class _HomePageState extends State<BasePage> {
   // int _currentIndex = 0;
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   var controllerPage = Get.find<BaseController>();
-  var controllerProfile = Get.find<GetProfileController>();
-  var controllerProgress = Get.find<ProgressAPIController>();
-  var controllerCourse = Get.find<CourseController>();
+  // var controllerProfile = Get.find<GetProfileController>();
+  // var controllerProgress = Get.find<ProgressAPIController>();
+  // var controllerCourse = Get.find<CourseController>();
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class _HomePageState extends State<BasePage> {
                         controllerPage.pageController
                             .animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                       case 4:
-                        controllerProfile.profileAPI();
+                        // controllerProfile.profileAPI();
                         controllerPage.pageController
                             .animateToPage(4, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                       default:

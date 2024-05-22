@@ -49,6 +49,12 @@ dependencies:
   image_picker: ^1.1.1
   video_player: ^2.8.6
   mime: ^1.0.5
+  record: ^5.0.5
+  audioplayers: 
+  just_audio:
+  ffmpeg_kit_flutter: ^6.0.3
+  path_provider:
+
 
 dev_dependencies:
   flutter_test:

@@ -15,7 +15,5 @@ class AssetConstraints {
 
   //Robots
   static const robotCool = "$baseImages/robots/cool.png";
-
-  //Flags
-  static const englishFlag = "$baseImages/flags/english.png";
+  static const robotQuiz = "$baseImages/robots/6.png";
 }

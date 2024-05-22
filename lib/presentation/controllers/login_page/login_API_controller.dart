@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:get/get.dart';
 import 'package:dartz/dartz.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
@@ -11,18 +13,14 @@ class LoginAPIController extends GetxController {
   RxString emailName = "".obs;
   Rx<LoginModel?> login = Rx<LoginModel?>(null);
   RxBool get isLoading => _isLoading;
-  Future<Either<Failure, LoginModel>> loginAPI(
-      String email, String password) async {
+  Future<Either<Failure, LoginModel>> loginAPI(String email, String password) async {
     _isLoading.value = true;
     try {
       final response = await Dio().post(
         'https://lingo-pal-backend-v1.vercel.app/api/users/signin',
         data: {'email': email, 'password': password},
         options: Options(
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-          },
+          headers: {"Accept": "application/json", "Content-Type": "application/json"},
         ),
       );
       final loginModel = LoginModel.fromJson(response.data);

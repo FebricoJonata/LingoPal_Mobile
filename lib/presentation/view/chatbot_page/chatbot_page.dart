@@ -38,7 +38,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
           // Handle success here
           controller.update();
           print('Message: $message');
-          controller.addMessage(chatbot.chatbotReponse.value?.message ?? "", false);
+          controller.addMessage(
+              chatbot.chatbotReponse.value?.message ?? "", false);
           print('Response : ${chatbot.chatbotReponse.value?.message}');
         },
       );
@@ -71,18 +72,25 @@ class _ChatbotPageState extends State<ChatbotPage> {
                 child: GetBuilder<ChatController>(
                   builder: (controller) {
                     return ListView.builder(
-                      shrinkWrap: true, // Ini penting untuk mencegah konflik ukuran
+                      shrinkWrap:
+                          true, // Ini penting untuk mencegah konflik ukuran
                       itemCount: controller.messages.length,
                       itemBuilder: (context, index) {
                         Message message = controller.messages[index];
                         if (message.isFromUser) {
-                          return MessageBubble.next(message: message.text, isMe: true);
+                          return MessageBubble.next(
+                              message: message.text, isMe: true);
                         } else {
                           return MessageBubble.first(
-                              userImage: AssetConstraints.robotCool,
-                              username: "Lingo",
-                              message: message.text,
-                              isMe: false);
+                            userImage: AssetConstraints.robotCool,
+                            username: "Lingo",
+                            message: message.text,
+                            isMe: false,
+                            onSpeechPressed: () {
+                              print(controller.messages.value.last.text);
+                            },
+                            isLastMessage: true,
+                          );
                         }
                       },
                     );
