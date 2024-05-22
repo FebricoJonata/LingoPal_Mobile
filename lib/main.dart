@@ -9,7 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
   // Init Supabase
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
   // FlutterFFmpegConfig().enableLogCallback(logCallback);
   Supabase.initialize(
     url: 'https://vfsijkhnwxfbsanoefua.supabase.co',

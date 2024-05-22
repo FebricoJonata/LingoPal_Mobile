@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
-// import 'package:lingo_pal_mobile/presentation/view/recorder/recorder_main.dart';
+import 'package:lingo_pal_mobile/presentation/view/recorder/recorder_main.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
@@ -37,7 +37,7 @@ class _QuizPageState extends State<QuizPage> {
                 ],
               ),
             ),
-            // Flexible(child: Container(color: Colors.blue, child: Record()))
+            Flexible(child: Container(color: Colors.blue, child: Record()))
           ],
         ),
       ),
