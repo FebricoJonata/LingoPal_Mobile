@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
-import 'package:flutter_ffmpeg/log.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
   // Init Supabase
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
   // FlutterFFmpegConfig().enableLogCallback(logCallback);
   Supabase.initialize(
     url: 'https://vfsijkhnwxfbsanoefua.supabase.co',
@@ -19,10 +18,6 @@ void main() {
   );
 
   runApp(const MyApp());
-}
-
-void logCallback(Log log) {
-  print(log.message);
 }
 
 class MyApp extends StatelessWidget {

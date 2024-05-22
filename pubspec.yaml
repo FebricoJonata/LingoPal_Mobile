@@ -52,9 +52,9 @@ dependencies:
   record: ^5.0.5
   audioplayers: 
   just_audio:
-  ffmpeg_kit_flutter:  6.0.3
+  ffmpeg_kit_flutter: ^6.0.3
   path_provider:
-  flutter_ffmpeg: ^0.4.2
+
 
 dev_dependencies:
   flutter_test:
