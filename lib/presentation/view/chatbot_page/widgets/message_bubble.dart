@@ -4,13 +4,15 @@ import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 // A MessageBubble for showing a single chat message on the ChatScreen.
 class MessageBubble extends StatelessWidget {
   // Create a message bubble which is meant to be the first in the sequence.
-  const MessageBubble.first({
-    super.key,
-    required this.userImage,
-    required this.username,
-    required this.message,
-    required this.isMe,
-  }) : isFirstInSequence = true;
+  const MessageBubble.first(
+      {super.key,
+      required this.userImage,
+      required this.username,
+      required this.message,
+      required this.isMe,
+      required this.onSpeechPressed,
+      required this.isLastMessage})
+      : isFirstInSequence = true;
 
   // Create a amessage bubble that continues the sequence.
   const MessageBubble.next({
@@ -19,7 +21,9 @@ class MessageBubble extends StatelessWidget {
     required this.isMe,
   })  : isFirstInSequence = false,
         userImage = null,
-        username = null;
+        username = null,
+        onSpeechPressed = null,
+        isLastMessage = false;
 
   // Whether or not this message bubble is the first in a sequence of messages
   // from the same user.
@@ -39,6 +43,9 @@ class MessageBubble extends StatelessWidget {
 
   // Controls how the MessageBubble will be aligned.
   final bool isMe;
+
+  final VoidCallback? onSpeechPressed;
+  final bool isLastMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +74,12 @@ class MessageBubble extends StatelessWidget {
           margin: !isMe ? const EdgeInsets.symmetric(horizontal: 46) : null,
           child: Row(
             // The side of the chat screen the message should show at.
-            mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+            mainAxisAlignment:
+                isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
               Column(
-                crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                 children: [
                   // First messages in the sequence provide a visual buffer at
                   // the top.
@@ -81,26 +90,42 @@ class MessageBubble extends StatelessWidget {
                         left: 13,
                         right: 13,
                       ),
-                      child: Text(
-                        username!,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
+                      child: Row(
+                        children: [
+                          Text(
+                            username!,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          if (onSpeechPressed != null && isLastMessage)
+                            IconButton(
+                              icon: Icon(Icons.volume_up),
+                              onPressed: onSpeechPressed,
+                              iconSize: 16,
+                            ),
+                        ],
                       ),
                     ),
 
                   // The "speech" box surrounding the message.
                   Container(
                     decoration: BoxDecoration(
-                      color: isMe ? MyColors.primaryGreen : MyColors.secondaryGreen,
+                      color: isMe
+                          ? MyColors.primaryGreen
+                          : MyColors.secondaryGreen,
                       // Only show the message bubble's "speaking edge" if first in
                       // the chain.
                       // Whether the "speaking edge" is on the left or right depends
                       // on whether or not the message bubble is the current user.
                       borderRadius: BorderRadius.only(
-                        topLeft: !isMe && isFirstInSequence ? Radius.zero : const Radius.circular(12),
-                        topRight: isMe && isFirstInSequence ? Radius.zero : const Radius.circular(12),
+                        topLeft: !isMe && isFirstInSequence
+                            ? Radius.zero
+                            : const Radius.circular(12),
+                        topRight: isMe && isFirstInSequence
+                            ? Radius.zero
+                            : const Radius.circular(12),
                         bottomLeft: const Radius.circular(12),
                         bottomRight: const Radius.circular(12),
                       ),

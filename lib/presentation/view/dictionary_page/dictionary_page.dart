@@ -37,7 +37,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                   padding: const EdgeInsets.only(right: 30, left: 30),
                   child: Column(
                     children: [
-                      const SearchBarDictonary(),
+                      SearchBarDictonary(),
                       const SizedBox(height: 24),
                       const Row(
                         children: [

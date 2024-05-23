@@ -7,9 +7,9 @@ import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profi
 class HomeBindings implements Bindings {
   @override
   void dependencies() {
-    Get.put(() => LoginAPIController());
+    Get.lazyPut(() => LoginAPIController());
     Get.lazyPut(() => GetProfileController());
     Get.lazyPut(() => ProgressAPIController());
-    Get.put(() => CourseController());
+    Get.lazyPut(() => CourseController());
   }
 }

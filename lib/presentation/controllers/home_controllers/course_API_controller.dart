@@ -33,7 +33,6 @@ class CourseController extends GetxController {
 
   // get user course progress
   Future<Either<Failure, CourseProgressModel>> getUserCourseProgress() async {
-
     var userId = controllerLogin.login.value?.user?.userId;
     print('USER ID in Course Controller: ${userId}');
     try {
