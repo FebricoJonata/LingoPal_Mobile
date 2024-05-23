@@ -2,13 +2,13 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_progress_model.dart';
 
 class CourseController extends GetxController {
   Rx<CourseModel?> courses = Rx<CourseModel?>(null);
-  var controllerProfile = Get.find<GetProfileController>();
+  var controllerLogin = Get.find<LoginAPIController>();
   Rx<CourseProgressModel?> courseProgress = Rx<CourseProgressModel?>(null);
   // get master course
   Future<Either<Failure, CourseModel>> getCourses() async {
@@ -33,7 +33,7 @@ class CourseController extends GetxController {
 
   // get user course progress
   Future<Either<Failure, CourseProgressModel>> getUserCourseProgress() async {
-    var userId = controllerProfile.profile.value?.body?.data?.first.userId;
+    var userId = controllerLogin.login.value?.user?.userId;
     print('USER ID in Course Controller: ${userId}');
     try {
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course/progress',
@@ -52,8 +52,6 @@ class CourseController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // fetchProgressAfterProfile();
-    controllerProfile.profileAPI();
     getCourses();
     getUserCourseProgress();
   }
@@ -61,8 +59,7 @@ class CourseController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    // controllerProfile.profileAPI();
     getCourses();
-    // getUserCourseProgress();
+    getUserCourseProgress();
   }
 }

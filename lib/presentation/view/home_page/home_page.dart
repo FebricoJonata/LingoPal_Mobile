@@ -90,7 +90,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/course_API_controller.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_active_card.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_disabled_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -107,7 +106,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _alertShown = false;
-  // var courseController = Get.find<CourseController>();
+  var courseController = Get.find<CourseController>();
   // var profileController = Get.find<GetProfileController>();
   // var 
   @override
