@@ -21,7 +21,7 @@ class SearchBarDictonary extends StatelessWidget {
       shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))),
       onSubmitted: (value) {
         print(value);
-      },
+      }, 
     );
 
     // return Container(
