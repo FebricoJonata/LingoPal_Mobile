@@ -14,7 +14,7 @@ mixin AudioRecorderMixin {
 
   Future<void> recordStream(AudioRecorder recorder, RecordConfig config) async {
     final path = await _getPath();
-    
+
     final file = File(path);
 
     final stream = await recorder.startStream(config);
@@ -41,7 +41,7 @@ mixin AudioRecorderMixin {
     final dir = await getApplicationDocumentsDirectory();
     return p.join(
       dir.path,
-      'audio_${DateTime.now().millisecondsSinceEpoch}.m4a',
+      'audio_${DateTime.now().millisecondsSinceEpoch}.wav',
     );
   }
 }

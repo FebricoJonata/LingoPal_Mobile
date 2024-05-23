@@ -1,12 +1,12 @@
 import 'dart:async';
-import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/pronoun_quiz.dart';
 import 'package:record/record.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'platform/audio_recorder_platform.dart';
 
 class Recorder extends StatefulWidget {
@@ -18,87 +18,6 @@ class Recorder extends StatefulWidget {
   State<Recorder> createState() => _RecorderState();
 }
 
-// final FlutterFFmpeg _flutterFFmpeg = FlutterFFmpeg();
-// final FlutterFFmpegConfig _flutterFFmpegConfig = FlutterFFmpegConfig();
-
-// Future<String?> convertToWav(String inputPath) async {
-//   try {
-//     // Dapatkan direktori sementara
-//     final Directory tempDir = await getTemporaryDirectory();
-//     final String outputPath = "${tempDir.path}/output.wav";
-
-//     // Jalankan perintah FFmpeg
-//     await FFmpegKit.execute('-i $inputPath $outputPath').then((session) async {
-//       final returnCode = await session.getReturnCode();
-
-//       if (ReturnCode.isSuccess(returnCode)) {
-//         print("Conversion successful: $outputPath");
-//         return outputPath;
-//       } else if (ReturnCode.isCancel(returnCode)) {
-//         print("Conversion canceled");
-//         return null;
-//       } else {
-//         print("Conversion failed");
-//         return null;
-//       }
-//     });
-//   } catch (e) {
-//     print("Error during conversion: $e");
-//     return null;
-//   }
-//   return null;
-
-//   // // Dapatkan direktori temporer
-//   // final Directory tempDir = await getTemporaryDirectory();
-//   // final String outputPath = "${tempDir.path}/output.wav";
-
-//   // // Perintah konversi menggunakan FFmpeg
-//   // final String command = '-i $inputPath $outputPath';
-
-//   // // Jalankan perintah FFmpeg
-//   // int rc = await _flutterFFmpeg.execute(command);
-//   // if (rc == 0) {
-//   //   print("Conversion successful: $outputPath");
-//   //   return outputPath;
-//   // } else {
-//   //   print("Conversion failed with rc $rc");
-//   //   return null;
-//   // }
-// }
-// class AudioConverter {
-//   static final FlutterFFmpeg _flutterFFmpeg = FlutterFFmpeg();
-
-//   static Future<String?> convertM4AToWAV(String inputPath) async {
-//     try {
-//       final Directory tempDir = await getTemporaryDirectory();
-//       final String outputPath = '${tempDir.path}/output.wav';
-
-//       // Initialize FFmpeg
-//       await _flutterFFmpeg.getFFmpegVersion();
-
-//       // Command to convert M4A to WAV
-//       final String command = '-i $inputPath $outputPath';
-
-//       // Execute FFmpeg command
-//       final int returnCode = await _flutterFFmpeg.execute(command);
-//       if (returnCode == 0) {
-//         // Check if the output file exists
-//         final File outputFile = File(outputPath);
-//         if (await outputFile.exists()) {
-//           return outputPath;
-//         } else {
-//           return null;
-//         }
-//       } else {
-//         return null;
-//       }
-//     } catch (e) {
-//       debugPrint('Error converting file: $e');
-//       return null;
-//     }
-//   }
-// }
-
 class _RecorderState extends State<Recorder> with AudioRecorderMixin {
   int _recordDuration = 0;
   Timer? _timer;
@@ -106,6 +25,7 @@ class _RecorderState extends State<Recorder> with AudioRecorderMixin {
   StreamSubscription<RecordState>? _recordSub;
   RecordState _recordState = RecordState.stop;
   StreamSubscription<Amplitude>? _amplitudeSub;
+  var controllerSpeech = Get.find<PronounQuizController>();
   // Amplitude? _amplitude;
 
   @override
@@ -126,7 +46,7 @@ class _RecorderState extends State<Recorder> with AudioRecorderMixin {
   Future<void> _start() async {
     try {
       if (await _audioRecorder.hasPermission()) {
-        const encoder = AudioEncoder.aacLc;
+        const encoder = AudioEncoder.wav;
 
         if (!await _isEncoderSupported(encoder)) {
           return;
@@ -141,7 +61,7 @@ class _RecorderState extends State<Recorder> with AudioRecorderMixin {
         await recordFile(_audioRecorder, config);
 
         // Record to stream
-        // await recordStream(_audioRecorder, config);
+        await recordStream(_audioRecorder, config);
 
         _recordDuration = 0;
 
@@ -154,24 +74,27 @@ class _RecorderState extends State<Recorder> with AudioRecorderMixin {
     }
   }
 
+  void openFileInBrowser(String path) async {
+    final url = 'file://$path'; // URL file lokal
+    try {
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Tidak dapat membuka file';
+      }
+    } catch (e) {
+      print('Error saat membuka file: $e');
+    }
+  }
+
   Future<void> _stop() async {
     final path = await _audioRecorder.stop();
 
     if (path != null) {
-      // Update the input filename to match the recorded file extension (m4a)
-      FFmpegKit.execute('-i $path output.wav').then((session) async {
-        final returnCode = await session.getReturnCode();
-        if (ReturnCode.isSuccess(returnCode)) {
-          // Konversi berhasil (Conversion successful)
-          print('Konversi berhasil!');
-          print('File WAV tersimpan di: $path');
-        } else if (ReturnCode.isCancel(returnCode)) {
-          // Konversi dibatalkan (Conversion cancelled)
-          print('Konversi gagal!');
-        } else {
-          // Terjadi kesalahan (Error occurred)
-        }
-      });
+      controllerSpeech.sstAPI(path);
+      widget.onStop(path);
+      openFileInBrowser(path);
+      // downloadWebData(path);
     }
   }
 
