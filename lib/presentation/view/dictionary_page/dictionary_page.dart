@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/search_bar_dictonary.dart';
+import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/word_card.dart';
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/word_list.dart';
 
 class DictionaryPage extends StatefulWidget {
@@ -54,7 +55,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                     if(searches=="")
                       Expanded(child: WordList())
                     else
-                      Text(searches)
+                      Expanded(child: WordCard(searchWord: searches,))
                   ],
                 ),
               ),

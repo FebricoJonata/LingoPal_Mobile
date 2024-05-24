@@ -27,7 +27,7 @@ class AudioController extends GetxController {
       print("AMAN TTS");
       _audioUrl = response.data;
       print(_audioUrl);
-      // playAudio();
+      playAudio();
     } on DioException catch (e) {
       print("DioException: ${e.message}");
       // return Left(Failure('Error: ${e.message}'));
