@@ -93,7 +93,7 @@ class _RecorderState extends State<Recorder> with AudioRecorderMixin {
     if (path != null) {
       controllerSpeech.sstAPI(path);
       widget.onStop(path);
-      openFileInBrowser(path);
+      // openFileInBrowser(path);
       // downloadWebData(path);
     }
   }
