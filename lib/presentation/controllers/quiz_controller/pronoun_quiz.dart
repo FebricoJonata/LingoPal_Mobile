@@ -17,18 +17,21 @@ class PronounQuizController extends GetxController {
     try {
       File audioFile = File(audioPath);
       final audioBytes = await audioFile.readAsBytes();
-      String? photoName = audioFile.path.split(Platform.pathSeparator).last;
-      print(photoName);
+      // String? photoName = audioFile.path.split(Platform.pathSeparator).last;
+      // print(photoName);
 
       final response = await Dio().post(
         'https://lingo-pal-backend-v1.vercel.app/api/speech/speech-to-text',
         data: audioBytes,
         options: Options(
           headers: {
-            "Content-Type": "audio/wave",
+            "Content-Type": "audio/wave"
+            // application/octet-stream
+            // "Content-Type": "audio/wave",
           },
         ),
       );
+
       final speechTextModel = SpeechToText.fromJson(response.data);
       speechText(speechTextModel);
       print('Berhasil sst');
@@ -55,6 +58,7 @@ class PronounQuizController extends GetxController {
       return Right(speechTextModel);
     } on DioException catch (e) {
       print("errorExp ${e.response?.data}");
+      print("errorExp22 ${e.response?.statusCode}");
       if (e.response?.statusCode == 401) {
         print("Error 401");
       } else if (e.response?.statusCode == 500) {
@@ -68,7 +72,7 @@ class PronounQuizController extends GetxController {
       }
       return Left(Failure('Error: ${e.message}'));
     } catch (e) {
-      print("$e");
+      print("HAHAHA $e");
       return Left(Failure("$e"));
     }
   }

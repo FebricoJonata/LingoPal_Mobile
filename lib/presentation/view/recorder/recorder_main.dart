@@ -37,25 +37,26 @@ class _RecordBodyState extends State<RecordBody> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: showPlayer
-          ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: AudioPlayer(
-                source: audioPath,
-                onDelete: () {
-                  setState(() => showPlayer = false);
-                },
-              ),
-            )
-          : Recorder(
-              onStop: (path) {
-                if (kDebugMode) print('Recorded file path: $path');
-                setState(() {
-                  audioPath = path;
-                  showPlayer = true;
-                });
-              },
-            ),
+      // child: showPlayer
+      // ? Padding(
+      //     padding: const EdgeInsets.symmetric(horizontal: 25),
+      //     child: AudioPlayer(
+      //       source: audioPath,
+      //       onDelete: () {
+      //         setState(() => showPlayer = false);
+      //       },
+      //     ),
+      //   )
+      // :
+      child: Recorder(
+        onStop: (path) {
+          if (kDebugMode) print('Recorded file path: $path');
+          setState(() {
+            audioPath = path;
+            showPlayer = true;
+          });
+        },
+      ),
     );
   }
 }

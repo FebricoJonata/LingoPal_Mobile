@@ -37,7 +37,7 @@ class AudioController extends GetxController {
       print("AMAN TTS");
       final audio = await TTSModel.fromJson(response.data);
       print(audio.audioContent);
-      final List<int> audioBytes = base64Decode(audio.audioContent ?? "");
+      // final List<int> audioBytes = base64Decode(audio.audioContent ?? "");
 
       // Memainkan audio dari bytes menggunakan package audioplayers
 
@@ -67,9 +67,4 @@ class AudioController extends GetxController {
     // final audioSource = audioPlayer.setSource(AssetSource('ambient_c_motion.mp3'));
     await audioPlayer.play(UrlSource(audioFilePath));
   }
-  // void playAudio(String audioUrlPath) {
-  //   final audioSource = AudioSource.uri(Uri.parse(audioUrlPath));
-  //   // final assetSource = AssetSource(audioUrlPath); // Replace 'assets/audio.mp3' with your actual asset path
-  //   audioPlayer.play(audioSource as Source);
-  // }
 }
