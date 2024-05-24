@@ -1,14 +1,16 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:audioplayers/audioplayers.dart';
+// import 'package:just_audio/just_audio.dart' hide AudioPlayer;
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/model/chatbot_model/tts.model.dart';
-import 'package:base64_audio_source/base64_audio_source.dart';
-import 'package:just_audio/just_audio.dart' hide AudioPlayer;
+// import 'package:base64_audio_source/base64_audio_source.dart';
+// import 'package:just_audio/just_audio.dart' hide AudioPlayer;
+import 'package:path_provider/path_provider.dart';
 
 class AudioController extends GetxController {
   late AudioPlayer audioPlayer;
@@ -38,21 +40,16 @@ class AudioController extends GetxController {
       final List<int> audioBytes = base64Decode(audio.audioContent ?? "");
 
       // Memainkan audio dari bytes menggunakan package audioplayers
-      AudioPlayer audioPlayer = AudioPlayer();
-//  await audioPlayer.play(
-      // AudioSource.bytes(Uint8List.fromList(audioBytes)));
-      // final base64Audio = audio.audioContent;
-      // final decodedBytes = base64Decode(base64Audio);
 
-      // final player = AudioPlayer();
-      // final audioSource = Base64AudioSource(base64Audio);
-      // await player.setAudioSource(audioSource);
-      // await player.play();
-      // final base64Audio = audio.audioContent;
-      // final decodedBytes = base64Decode(base64Audio ?? "");
-      // final audioSource = AudioSource.bytes(decodedBytes);
-      // await audioPlayer.play(audioSource);
-      // playAudio();
+      List<int> bytes = base64Decode(audio.audioContent ?? "");
+
+      // Get the application directory
+      Directory appDocDir = await getTemporaryDirectory();
+      String appDocPath = appDocDir.path;
+      File audioFile = File('$appDocPath/audio.wav');
+      await audioFile.writeAsBytes(bytes);
+      print(audioFile.path);
+      playAudio(audioFile.path);
       return Right(audio);
     } on DioException catch (e) {
       print("DioException: ${e.message}");
@@ -64,11 +61,15 @@ class AudioController extends GetxController {
     }
   }
 
-//   void playAudio() {
-//     String base64Audio = audio.audioContent;
-// Uint8List decodedBytes = base64Decode(base64Audio);
-//     final assetSource = AssetSource(audioUrl); // Replace 'assets/audio.mp3' with your actual asset path
-//     _audioPlayer.play(assetSource);
-//     // Ganti isLocal menjadi true jika audio diunduh dan disimpan lokal sebelum dimainkan
-//   }
+  Future<void> playAudio(String audioFilePath) async {
+    AudioPlayer audioPlayer = AudioPlayer();
+    // final audioSource = await audioPlayer.setFilePath(audioFilePath);
+    // final audioSource = audioPlayer.setSource(AssetSource('ambient_c_motion.mp3'));
+    await audioPlayer.play(UrlSource(audioFilePath));
+  }
+  // void playAudio(String audioUrlPath) {
+  //   final audioSource = AudioSource.uri(Uri.parse(audioUrlPath));
+  //   // final assetSource = AssetSource(audioUrlPath); // Replace 'assets/audio.mp3' with your actual asset path
+  //   audioPlayer.play(audioSource as Source);
+  // }
 }
