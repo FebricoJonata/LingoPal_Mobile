@@ -5,6 +5,7 @@ import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/home_
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_bindings.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_binding.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/profile_page_binding.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/quiz_binding.dart';
 import 'package:lingo_pal_mobile/presentation/view/base/base.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/landing_page_controller/landing_binding.dart';
 import 'package:lingo_pal_mobile/presentation/view/camera_screen/camera_screen.dart';
@@ -30,6 +31,6 @@ class AppPages {
     GetPage(name: RouteName.profilePage, page: () => const ProfilePage(), binding: ProfileBindings()),
     GetPage(name: RouteName.editPage, page: () => const EditPage(), binding: ProfileBindings()),
     GetPage(name: RouteName.camera2, page: () => const Camera2(), binding: CameraBinding()),
-    GetPage(name: RouteName.quiz, page: () => const QuizPage())
+    GetPage(name: RouteName.quiz, page: () => const QuizPage(), binding: QuizBindings()),
   ];
 }

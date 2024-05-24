@@ -51,8 +51,7 @@ class Alert extends StatelessWidget {
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
               Image.asset(
@@ -74,8 +73,7 @@ class Alert extends StatelessWidget {
                 alignment: Alignment.center,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(MyColors.primaryGreen),
+                    backgroundColor: MaterialStateProperty.all(MyColors.primaryGreen),
                   ),
                   onPressed: onClose,
                   child: const Text(

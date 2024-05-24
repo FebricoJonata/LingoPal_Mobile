@@ -16,25 +16,25 @@ class WordList extends StatelessWidget {
     ];
 
     return SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const Row(
-                            children: [
-                              Text(
-                                "Glossary",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
-                              ),
-                              // Spacer(),
-                              // Icon(Icons.list),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          VocabularyContainer(header: "A", vocabulary: vocabulary),
-                          VocabularyContainer(header: "B", vocabulary: vocabulary),
-                          VocabularyContainer(header: "C", vocabulary: vocabulary),
-                        ],
-                      ),
-                    );
+      child: Column(
+        children: [
+          const Row(
+                      children: [
+                        Text(
+                          "Glossary",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                        // Spacer(),
+                        // Icon(Icons.list),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+          VocabularyContainer(header: "A", vocabulary: vocabulary),
+          VocabularyContainer(header: "B", vocabulary: vocabulary),
+          VocabularyContainer(header: "C", vocabulary: vocabulary),
+        ],
+      ),
+    );
   }
 }

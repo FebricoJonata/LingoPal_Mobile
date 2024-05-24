@@ -21,6 +21,7 @@ mixin AudioRecorderMixin {
   }
 
   void downloadWebData(String path) {
+    print("AAAAAAAAAAAA");
     // Simple download code for web testing
     final anchor = html.document.createElement('a') as html.AnchorElement
       ..href = path
@@ -29,5 +30,6 @@ mixin AudioRecorderMixin {
     html.document.body!.children.add(anchor);
     anchor.click();
     html.document.body!.children.remove(anchor);
+    return print("AAAAAAAAA");
   }
 }

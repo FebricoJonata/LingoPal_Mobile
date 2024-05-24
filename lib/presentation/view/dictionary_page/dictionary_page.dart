@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/search_bar_dictonary.dart';
-import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/vocabulary_container.dart';
+import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/word_card.dart';
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/word_list.dart';
 
 class DictionaryPage extends StatefulWidget {
@@ -15,11 +15,11 @@ class DictionaryPage extends StatefulWidget {
 
 class _DictionaryPageState extends State<DictionaryPage> {
 
-  String searchWord = "";
+  String searches = "";
 
-  void setSearchWord(search){
+  void _setSearchWord(searchWord){
     setState(() {
-      searchWord = search;
+      searches = searchWord;
     });
   }
 
@@ -34,17 +34,21 @@ class _DictionaryPageState extends State<DictionaryPage> {
         child: Column(
           children: [
             Image.asset(AssetConstraints.bgIntroTop),
-            Padding(
-              padding: const EdgeInsets.only(right: 30, left: 30),
-              child: Expanded(
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 30, left: 30, bottom: 100.h),
                 child: Column(
                   children: [
-                    SearchBarDictonary(setSearch: setSearchWord,),
+                    SearchBarDictionary(setSearchMethod: _setSearchWord,),
                     const SizedBox(height: 24),
-                    if(searchWord=="")
-                      WordList()
+                    
+                    // VocabularyContainer(header: "A", vocabulary: vocabulary),
+                    // VocabularyContainer(header: "B", vocabulary: vocabulary),
+                    // VocabularyContainer(header: "C", vocabulary: vocabulary),
+                    if(searches=="")
+                      Expanded(child: WordList())
                     else
-                      Text(searchWord)
+                      Expanded(child: WordCard(searchWord: searches,))
                   ],
                 ),
               ),
