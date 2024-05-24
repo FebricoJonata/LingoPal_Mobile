@@ -105,6 +105,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  base64_audio_source:
+    dependency: "direct main"
+    description:
+      name: base64_audio_source
+      sha256: b58228e87dbd44f4423e5dc9a652eee06872db04463fb9c84f86e301ac54b10a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   boolean_selector:
     dependency: transitive
     description:

@@ -54,6 +54,7 @@ dependencies:
   just_audio:
   ffmpeg_kit_flutter: ^6.0.3
   path_provider:
+  base64_audio_source: ^1.0.1  
   dictionaryx: ^0.3.5
 
 

@@ -72,7 +72,7 @@ class _WordCardState extends State<WordCard> {
                           SizedBox(width: 50.w,),
                           IconButton(
                             onPressed: () {
-                              controllerTTS.fetchAudioFromApi("test string");
+                              controllerTTS.fetchAudioFromApi(wordforCard);
                             }, icon: Icon(Icons.volume_up_rounded, color: MyColors.white,)
                           )
                         ],

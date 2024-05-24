@@ -1,18 +1,28 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:audioplayers/audioplayers.dart';
+// import 'package:just_audio/just_audio.dart' hide AudioPlayer;
+import 'package:lingo_pal_mobile/core/color/error/failure.dart';
+import 'package:lingo_pal_mobile/presentation/model/chatbot_model/tts.model.dart';
+// import 'package:base64_audio_source/base64_audio_source.dart';
+// import 'package:just_audio/just_audio.dart' hide AudioPlayer;
+import 'package:path_provider/path_provider.dart';
 
 class AudioController extends GetxController {
-  late AudioPlayer _audioPlayer;
-  String _audioUrl = ''; // URL audio dari response API
+  late AudioPlayer audioPlayer;
+  String audioUrl = ''; // URL audio dari response API
 
   @override
   void onInit() {
     super.onInit();
-    _audioPlayer = AudioPlayer();
+    audioPlayer = AudioPlayer();
   }
 
-  Future<void> fetchAudioFromApi(String text) async {
+  Future<Either<Failure, TTSModel>> fetchAudioFromApi(String text) async {
     try {
       final response = await Dio().post(
         'https://lingo-pal-backend-v1.vercel.app/api/speech/text-to-speech',
@@ -25,20 +35,41 @@ class AudioController extends GetxController {
         ),
       );
       print("AMAN TTS");
-      _audioUrl = response.data;
-      print(_audioUrl);
-      playAudio();
+      final audio = await TTSModel.fromJson(response.data);
+      print(audio.audioContent);
+      final List<int> audioBytes = base64Decode(audio.audioContent ?? "");
+
+      // Memainkan audio dari bytes menggunakan package audioplayers
+
+      List<int> bytes = base64Decode(audio.audioContent ?? "");
+
+      // Get the application directory
+      Directory appDocDir = await getTemporaryDirectory();
+      String appDocPath = appDocDir.path;
+      File audioFile = File('$appDocPath/audio.wav');
+      await audioFile.writeAsBytes(bytes);
+      print(audioFile.path);
+      playAudio(audioFile.path);
+      return Right(audio);
     } on DioException catch (e) {
       print("DioException: ${e.message}");
+      return Left(Failure("$e"));
       // return Left(Failure('Error: ${e.message}'));
     } catch (error) {
       print('Error fetching audio: $error');
+      return Left(Failure("$error"));
     }
   }
 
-  void playAudio() {
-    final assetSource = AssetSource(_audioUrl); // Replace 'assets/audio.mp3' with your actual asset path
-    _audioPlayer.play(assetSource);
-    // Ganti isLocal menjadi true jika audio diunduh dan disimpan lokal sebelum dimainkan
+  Future<void> playAudio(String audioFilePath) async {
+    AudioPlayer audioPlayer = AudioPlayer();
+    // final audioSource = await audioPlayer.setFilePath(audioFilePath);
+    // final audioSource = audioPlayer.setSource(AssetSource('ambient_c_motion.mp3'));
+    await audioPlayer.play(UrlSource(audioFilePath));
   }
+  // void playAudio(String audioUrlPath) {
+  //   final audioSource = AudioSource.uri(Uri.parse(audioUrlPath));
+  //   // final assetSource = AssetSource(audioUrlPath); // Replace 'assets/audio.mp3' with your actual asset path
+  //   audioPlayer.play(audioSource as Source);
+  // }
 }
