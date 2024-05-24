@@ -37,7 +37,7 @@ class _QuizPageState extends State<QuizPage> {
                 ],
               ),
             ),
-            Flexible(child: Container(color: Colors.blue, child: Record()))
+            const Flexible(child: Record())
           ],
         ),
       ),

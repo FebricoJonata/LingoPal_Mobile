@@ -4,10 +4,14 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
+import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
+import 'package:lingo_pal_mobile/presentation/view/components/alert_score.dart';
 
 import '../../model/quiz_model/pronoun_model.dart';
 
 class PronounQuizController extends GetxController {
+  RxInt flag = 0.obs;
   Rx<SpeechToText?> speechText = Rx<SpeechToText?>(null);
   Future<Either<Failure, SpeechToText>> sstAPI(String audioPath) async {
     try {
@@ -28,11 +32,21 @@ class PronounQuizController extends GetxController {
       final speechTextModel = SpeechToText.fromJson(response.data);
       speechText(speechTextModel);
       print('Berhasil sst');
+      flag.value = 1;
       return Right(speechTextModel);
     } on DioException catch (e) {
       print("errorExp ${e.response?.data}");
       if (e.response?.statusCode == 401) {
         print("Error 401");
+      } else if (e.response?.statusCode == 500) {
+        Get.dialog(AlertGood(
+            score: "60/100",
+            title: "Please, Retake",
+            message: "Your voice is not in English",
+            onClose: () {
+              Get.back();
+            },
+            imagePath: AssetConstraints.robotCool));
       }
       return Left(Failure('Error: ${e.message}'));
     } catch (e) {

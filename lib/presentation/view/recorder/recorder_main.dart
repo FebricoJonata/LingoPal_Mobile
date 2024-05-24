@@ -52,6 +52,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/recorder/audio_player.dart';
 import 'package:lingo_pal_mobile/presentation/view/recorder/audio_recorder.dart';
 
@@ -63,6 +64,7 @@ class Record extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: MyColors.primaryYellow,
         body: RecordBody(),
       ),
     );
