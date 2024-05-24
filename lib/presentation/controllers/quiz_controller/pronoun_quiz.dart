@@ -32,6 +32,25 @@ class PronounQuizController extends GetxController {
       final speechTextModel = SpeechToText.fromJson(response.data);
       speechText(speechTextModel);
       print('Berhasil sst');
+      if (speechTextModel.pronunciationScores!.accuracyScore! < 65) {
+        Get.dialog(AlertGood(
+            title: "Try Again",
+            message: "Haha",
+            onClose: () {
+              Get.back();
+            },
+            imagePath: AssetConstraints.robotSad,
+            score: "${speechTextModel.pronunciationScores?.accuracyScore}"));
+      } else {
+        Get.dialog(AlertGood(
+            title: "Good Job",
+            message: "Haha",
+            onClose: () {
+              Get.back();
+            },
+            imagePath: AssetConstraints.robotQuiz,
+            score: "${speechTextModel.pronunciationScores?.accuracyScore}"));
+      }
       flag.value = 1;
       return Right(speechTextModel);
     } on DioException catch (e) {
@@ -39,8 +58,7 @@ class PronounQuizController extends GetxController {
       if (e.response?.statusCode == 401) {
         print("Error 401");
       } else if (e.response?.statusCode == 500) {
-        Get.dialog(AlertGood(
-            score: "60/100",
+        Get.dialog(Alert(
             title: "Please, Retake",
             message: "Your voice is not in English",
             onClose: () {
