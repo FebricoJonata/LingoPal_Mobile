@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
-import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 
 class AlertGood extends StatelessWidget {
   final String title;
@@ -57,7 +56,7 @@ class AlertGood extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Image.asset(AssetConstraints.robotSad),
+                Image.asset(imagePath),
                 Flexible(
                   child: Column(
                     children: [
