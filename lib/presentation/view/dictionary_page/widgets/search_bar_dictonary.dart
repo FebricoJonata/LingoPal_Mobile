@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 
 class SearchBarDictonary extends StatelessWidget {
-  SearchBarDictonary({super.key});
+  SearchBarDictonary({super.key, required this.setSearch});
+
+  Function setSearch;
 
   TextEditingController searchController = TextEditingController();
 
@@ -21,6 +25,7 @@ class SearchBarDictonary extends StatelessWidget {
       shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))),
       onSubmitted: (value) {
         print(value);
+        setSearch(value);
       }, 
     );
 
