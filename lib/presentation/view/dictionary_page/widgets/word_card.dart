@@ -21,13 +21,20 @@ class _WordCardState extends State<WordCard> {
       child: Column(
         children: [
           Container(
-            color: MyColors.primaryGreen,
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50.sp),
+              color: MyColors.primaryGreen, 
+            ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(search),
+                Text(search, style: TextStyle(color: MyColors.secondaryYellow, fontSize: 60.sp, fontWeight: FontWeight.bold),),
                 SizedBox(height: 50.h,),
-                Text("Determiner"),
-                Text("Meaning Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum", softWrap: true,)
+                Text("(determiner)", style: TextStyle(color: MyColors.primaryYellow),),
+                SizedBox(height: 50.h,),
+                Text("Meaning Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum", softWrap: true,
+                style: TextStyle(color: MyColors.white),)
               ],
             ),
           ),
