@@ -41,10 +41,6 @@ class _DictionaryPageState extends State<DictionaryPage> {
                   children: [
                     SearchBarDictionary(setSearchMethod: _setSearchWord,),
                     const SizedBox(height: 24),
-                    
-                    // VocabularyContainer(header: "A", vocabulary: vocabulary),
-                    // VocabularyContainer(header: "B", vocabulary: vocabulary),
-                    // VocabularyContainer(header: "C", vocabulary: vocabulary),
                     if(searches=="")
                       Expanded(child: WordList())
                     else
