@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/search_bar_dictonary.dart';
-import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/vocabulary_container.dart';
+import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/word_card.dart';
+import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/word_list.dart';
 
 class DictionaryPage extends StatefulWidget {
   const DictionaryPage({super.key});
@@ -13,49 +14,38 @@ class DictionaryPage extends StatefulWidget {
 }
 
 class _DictionaryPageState extends State<DictionaryPage> {
+
+  String searches = "";
+
+  void _setSearchWord(searchWord){
+    setState(() {
+      searches = searchWord;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Dummy Data
-    List<Map<String, String>> vocabulary = [
-      {'word': 'a / an', 'type': 'determiner'},
-      {'word': 'ability', 'type': 'noun'},
-      {'word': 'able', 'type': 'adjective'},
-      {'word': 'about', 'type': 'adverb / preposition'},
-    ];
-
     return Scaffold(
       body: Container(
         width: 1179.w,
         height: 2556.h,
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 200.h),
         color: MyColors.secondaryYellow,
         child: Column(
           children: [
             Image.asset(AssetConstraints.bgIntroTop),
             Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 30, left: 30),
-                  child: Column(
-                    children: [
-                      SearchBarDictonary(),
-                      const SizedBox(height: 24),
-                      const Row(
-                        children: [
-                          Text(
-                            "Glossary",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
-                          Spacer(),
-                          Icon(Icons.list),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      VocabularyContainer(header: "A", vocabulary: vocabulary),
-                      VocabularyContainer(header: "B", vocabulary: vocabulary),
-                      VocabularyContainer(header: "C", vocabulary: vocabulary),
-                    ],
-                  ),
+              child: Padding(
+                padding: EdgeInsets.only(right: 30, left: 30, bottom: 100.h),
+                child: Column(
+                  children: [
+                    SearchBarDictionary(setSearchMethod: _setSearchWord,),
+                    const SizedBox(height: 24),
+                    if(searches=="")
+                      Expanded(child: WordList())
+                    else
+                      Expanded(child: WordCard(searchWord: searches,))
+                  ],
                 ),
               ),
             ),

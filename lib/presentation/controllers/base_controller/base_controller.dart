@@ -8,7 +8,9 @@ import 'package:lingo_pal_mobile/presentation/view/profile_page/profile_page.dar
 
 class BaseController extends GetxController {
   late PageController pageController;
-  final List<Widget> pages = [HomePage(), DictionaryPage(), ChatbotPage(), MaterialPage(), ProfilePage()];
+  final List<Widget> pages = [HomePage(), DictionaryPage(), ChatbotPage(), 
+  // MaterialPage(), 
+  ProfilePage()];
   RxInt currentPageIndex = 0.obs;
 
   @override
