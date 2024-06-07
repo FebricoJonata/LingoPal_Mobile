@@ -7,6 +7,26 @@ import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/vocab
 class WordList extends StatelessWidget {
   const WordList({super.key});
 
+  List<Vocab> mapWords (wordList, index) {
+    List<Vocab> listVocab = [];
+    List<String> letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+    // int idx = 0;
+
+    for (var i = 0; i < wordList.length; i++) {
+
+      if(wordList[i].alphabet == letters[index]){
+        listVocab.add(wordList[i]);
+      }
+    }
+
+    for (var word in listVocab) {
+      print("${word.alphabet} : ${word.word}");
+    }
+
+    return listVocab;
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -65,18 +85,22 @@ class WordList extends StatelessWidget {
                   var listWords = controllerWord.words.value!.body;
                   print("List Words: $listWords");
                   return ListView.builder(
+                    shrinkWrap: true,
                     itemCount: 26,
                     itemBuilder: (context, index) {
                       List<Vocab> listVocab= [];
-                      if(index==0){listVocab.add(listWords![0]);}
-                      if(listWords![index].alphabet!=listWords[index-1].alphabet){
-                        listVocab.clear();
-                      }
-                      listVocab.add(listWords[index]);
-                      for (var vocab in listVocab) {
-                        print("${vocab.alphabet} : ${vocab.word}");
-                      }
-                      // return VocabularyContainer(header: listVocab, vocabulary: listVocab);
+                      listVocab = mapWords(listWords, index);
+                      // return Text("${listVocab[index].alphabet}");
+                      // if(index==0){listVocab.add(listWords![0]);}
+                      // else if(listWords![index].alphabet!=listWords[index-1].alphabet){
+                      //   listVocab.clear();
+                      //   listVocab.add(listWords[index]);
+                      // }
+                      // print("Current letter: ${listVocab.first.alphabet}");
+                      // for (var vocab in listVocab) {
+                      //   print("${vocab.alphabet} : ${vocab.word}");
+                      // }
+                      return VocabularyContainer(header: listVocab.first.alphabet!, vocabulary: listVocab);
                     }
                   );
                 }

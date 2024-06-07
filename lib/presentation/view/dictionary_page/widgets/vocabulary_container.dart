@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_model.dart';
 
 class VocabularyContainer extends StatelessWidget {
   final String header;
-  final List<Map<String, String>> vocabulary;
+  // final List<Map<String, String>> vocabulary;
+  final List<Vocab> vocabulary;
 
   const VocabularyContainer({
     Key? key,
@@ -58,16 +60,16 @@ class VocabularyContainer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Text(
-                      item['word']!,
+                      item.word!,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  Text(
-                    '(${item['type']})',
-                    style: const TextStyle(fontSize: 16, color: Colors.black54),
-                  ),
+                  // Text(
+                  //   '(${item['type']})',
+                  //   style: const TextStyle(fontSize: 16, color: Colors.black54),
+                  // ),
                 ],
               ),
             );
