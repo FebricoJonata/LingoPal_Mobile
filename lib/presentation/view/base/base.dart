@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/base_controller/base_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/dictionary_controller/word_list_controller.dart';
 
 class BasePage extends StatefulWidget {
   const BasePage({super.key});
@@ -19,6 +20,7 @@ class _HomePageState extends State<BasePage> {
   // var controllerProfile = Get.find<GetProfileController>();
   // var controllerProgress = Get.find<ProgressAPIController>();
   // var controllerCourse = Get.find<CourseController>();
+  var controllerWord = Get.find<WordListController>();
 
   @override
   Widget build(BuildContext context) {

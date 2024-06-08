@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                   print("COURSE LIST: {$courseList}");
                   print("ACTIVE: {$activeCourses}");
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text("Loading ...");
+                    return Text("Memuat Data...");
                   } else if (snapshot.hasError) {
                     return Text("Error");
                   } else if (snapshot.data == null) {

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_model.dart';
 
 class VocabularyContainer extends StatelessWidget {
   final String header;
-  final List<Map<String, String>> vocabulary;
+  // final List<Map<String, String>> vocabulary;
+  final List<Vocab> vocabulary;
+  Function onsearch;
 
-  const VocabularyContainer({
+  VocabularyContainer({
     Key? key,
     required this.header,
     required this.vocabulary,
+    required this.onsearch,
   }) : super(key: key);
 
   @override
@@ -50,24 +54,27 @@ class VocabularyContainer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: Row(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 4.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Text(
-                      item['word']!,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                  InkWell(
+                    onTap: () => {onsearch(item.word!)},
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 4.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Text(
+                        item.word!,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  Text(
-                    '(${item['type']})',
-                    style: const TextStyle(fontSize: 16, color: Colors.black54),
-                  ),
+                  // Text(
+                  //   '(${item['type']})',
+                  //   style: const TextStyle(fontSize: 16, color: Colors.black54),
+                  // ),
                 ],
               ),
             );

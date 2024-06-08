@@ -25,6 +25,9 @@ class _DictionaryPageState extends State<DictionaryPage> {
 
   @override
   Widget build(BuildContext context) {
+    
+    print("Searches: $searches");
+    print("Search method: $_setSearchWord");
     return Scaffold(
       body: Container(
         width: 1179.w,
@@ -39,11 +42,11 @@ class _DictionaryPageState extends State<DictionaryPage> {
                 padding: EdgeInsets.only(right: 30, left: 30, bottom: 100.h),
                 child: Column(
                   children: [
-                    SearchBarDictionary(setSearchMethod: _setSearchWord,),
+                    SearchBarDictionary(setSearchMethod: _setSearchWord, searchWord: searches,),
                     const SizedBox(height: 24),
                     if(searches=="")
-                      Expanded(child: WordList())
-                    else
+                      Expanded(child: WordList(onSearch: _setSearchWord))
+                    else 
                       Expanded(child: WordCard(searchWord: searches,))
                   ],
                 ),

@@ -6,9 +6,9 @@ import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 
 class SearchBarDictionary extends StatefulWidget {
-  SearchBarDictionary({super.key, required this.setSearchMethod});
+  SearchBarDictionary({super.key, required this.setSearchMethod, required this.searchWord});
 
-  Function setSearchMethod;
+  Function setSearchMethod; String searchWord;
 
   @override
   State<SearchBarDictionary> createState() => _SearchBarDictionaryState();
@@ -30,27 +30,24 @@ class _SearchBarDictionaryState extends State<SearchBarDictionary> {
           // Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.search)),
           Expanded(
             child: SearchBar(
-              controller: searchController,
+              controller: searchController..text = widget.searchWord,
               hintText: "Search for words...",
               leading: Icon(Icons.search),
               elevation: MaterialStatePropertyAll(0),
               padding: MaterialStatePropertyAll(const EdgeInsets.symmetric(horizontal: 8)),
               surfaceTintColor: MaterialStatePropertyAll(MyColors.white),
+              backgroundColor: MaterialStatePropertyAll(MyColors.white),
               shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
             ),
           ),
           Builder(builder: (context) {
             if (searchController.text != "") {
               return IconButton(
-                  onPressed: () {
-                    searchController.text = "";
-                    widget.setSearchMethod(searchController.text);
-                  },
-                  icon: Icon(Icons.close));
-            } else {
-              return SizedBox(
-                width: 8,
-              );
+                onPressed: (){widget.setSearchMethod("");}, 
+                icon: Icon(Icons.close));
+            }
+            else {
+              return SizedBox(width: 8,);
             }
           }),
           PrimaryBtn(
