@@ -37,6 +37,7 @@ class _SearchBarDictionaryState extends State<SearchBarDictionary> {
               elevation: MaterialStatePropertyAll(0),
               padding: MaterialStatePropertyAll(const EdgeInsets.symmetric(horizontal: 8)),
               surfaceTintColor: MaterialStatePropertyAll(MyColors.white),
+              backgroundColor: MaterialStatePropertyAll(MyColors.white),
               shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
             ),
           ),
