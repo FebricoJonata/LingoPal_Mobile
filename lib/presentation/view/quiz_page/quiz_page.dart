@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
-import 'package:lingo_pal_mobile/presentation/view/recorder/recorder_main.dart';
-// import 'package:lingo_pal_mobile/presentation/view/quiz_page/recorder.dart';
-// import 'package:lingo_pal_mobile/presentation/view/recorder/audio_recorder.dart';
-// import 'package:lingo_pal_mobile/presentation/view/quiz_page/recorder.dart';
-// import 'package:lingo_pal_mobile/presentation/view/recorder/recorder_main.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/pronoun_quiz.dart';
+import 'package:lingo_pal_mobile/presentation/view/quiz_page/recorder.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
@@ -16,35 +14,41 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  var controllerQuiz = Get.find<PronounQuizController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.secondaryYellow,
-      body: SizedBox(
-        width: 1179.w,
-        height: 2700.h,
-        child: Column(
-          children: [
-            Image.asset(AssetConstraints.bgIntroTop),
-            SizedBox(
-              width: 1179.w,
-              height: 1300.h,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(AssetConstraints.robotQuiz),
-                  Text(
-                    "Its a sunny day",
-                    style: TextStyle(color: MyColors.primaryGreen, fontSize: 100.sp),
-                  )
-                ],
-              ),
+      body: Obx(() => SizedBox(
+            width: 1179.w,
+            height: 2700.h,
+            child: Column(
+              children: [
+                Image.asset(AssetConstraints.bgIntroTop),
+                SizedBox(
+                  width: 1179.w,
+                  height: 1300.h,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      controllerQuiz.isRecord == 0
+                          ? Image.asset(AssetConstraints.robotQuiz)
+                          : CircularProgressIndicator(
+                              color: MyColors.primaryGreen,
+                            ),
+                      Text(
+                        "Its a sunny day",
+                        style: TextStyle(color: MyColors.primaryGreen, fontSize: 100.sp),
+                      )
+                    ],
+                  ),
+                ),
+                Flexible(
+                    child: Container(width: 1179.w, color: MyColors.primaryYellow, child: Center(child: Recorder())))
+              ],
             ),
-            Flexible(child: Record())
-          ],
-        ),
-      ),
+          )),
     );
   }
 }

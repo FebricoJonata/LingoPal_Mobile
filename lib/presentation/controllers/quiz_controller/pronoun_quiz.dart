@@ -13,8 +13,10 @@ import '../../model/quiz_model/pronoun_model.dart';
 class PronounQuizController extends GetxController {
   RxInt flag = 0.obs;
   Rx<SpeechToText?> speechText = Rx<SpeechToText?>(null);
+  var isRecord = 0.obs;
   Future<Either<Failure, SpeechToText>> sstAPI(String audioPath) async {
     try {
+      isRecord.value = 1;
       File audioFile = File(audioPath);
       final audioBytes = await audioFile.readAsBytes();
       // String? photoName = audioFile.path.split(Platform.pathSeparator).last;
@@ -74,6 +76,8 @@ class PronounQuizController extends GetxController {
     } catch (e) {
       print("HAHAHA $e");
       return Left(Failure("$e"));
+    } finally {
+      isRecord.value = 0;
     }
   }
 }

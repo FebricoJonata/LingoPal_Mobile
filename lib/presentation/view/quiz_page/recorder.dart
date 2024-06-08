@@ -1,138 +1,112 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import 'package:just_audio/just_audio.dart';
+import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/pronoun_quiz.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:record/record.dart';
 
-class AudioRecorder extends StatefulWidget {
+class Recorder extends StatefulWidget {
+  const Recorder({super.key});
+
   @override
-  _AudioRecorderState createState() => _AudioRecorderState();
+  State<Recorder> createState() => _RecorderState();
 }
 
-class _AudioRecorderState extends State<AudioRecorder> {
-  late AudioPlayer _audioPlayer;
-  late Recording _recording;
+class _RecorderState extends State<Recorder> {
+  var controllerSpeech = Get.find<PronounQuizController>();
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioRecorder _recorder = AudioRecorder();
   bool _isRecording = false;
 
-  var controllerSpeech = Get.find<PronounQuizController>();
+  String? _filePath;
+  double _currentPosition = 0;
+  double _totalDuration = 0;
+
   @override
-  void initState() {
-    super.initState();
-    _audioPlayer = AudioPlayer();
-    _recording = Recording();
+  void dispose() {
+    _audioPlayer.dispose();
+    _recorder.dispose();
+    super.dispose();
+  }
+
+  Future<void> _startRecording() async {
+    final bool isPermissionGranted = await _recorder.hasPermission();
+    if (!isPermissionGranted) {
+      return;
+    }
+
+    final directory = await getApplicationDocumentsDirectory();
+    // Generate a unique file name using the current timestamp
+    String fileName = 'recording_${DateTime.now().millisecondsSinceEpoch}.wav';
+    _filePath = '${directory.path}/$fileName';
+
+    // Define the configuration for the recording
+    const config = RecordConfig(
+      // Specify the format, encoder, sample rate, etc., as needed
+      encoder: AudioEncoder.wav, // For example, using AAC codec
+      sampleRate: 44100, // Sample rate
+      bitRate: 128000, // Bit rate
+    );
+
+    // Start recording to file with the specified configuration
+    await _recorder.start(config, path: _filePath!);
+    setState(() {
+      _isRecording = true;
+    });
+  }
+
+  Future<void> _stopRecording() async {
+    final path = await _recorder.stop();
+    setState(() {
+      _isRecording = false;
+    });
+    controllerSpeech.sstAPI(path ?? "");
+  }
+
+  Future<void> _playRecording() async {
+    if (_filePath != null) {
+      await _audioPlayer.setFilePath(_filePath!);
+      _totalDuration = _audioPlayer.duration?.inSeconds.toDouble() ?? 0;
+      _audioPlayer.play();
+
+      _audioPlayer.positionStream.listen((position) {
+        setState(() {
+          _currentPosition = position.inSeconds.toDouble();
+        });
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Audio Recorder'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _isRecording
-                ? Text('Recording...')
-                : ElevatedButton(
-                    onPressed: _startRecording,
-                    child: Text('Start Recording'),
-                  ),
-            SizedBox(height: 20),
-            _isRecording
-                ? ElevatedButton(
-                    onPressed: _stopRecording,
-                    child: Text('Stop Recording'),
-                  )
-                : Container(),
-            SizedBox(height: 20),
-            // ElevatedButton(
-            //   onPressed: _playRecording,
-            //   child: Text('Play Recording'),
-            // ),
-          ],
+    return InkWell(
+      onTap: () {
+        if (!_isRecording) {
+          _startRecording();
+        } else {
+          _stopRecording();
+        }
+      },
+      child: CircleAvatar(
+        radius: 200.sp,
+        backgroundColor: MyColors.primaryGreen,
+        child: Center(
+          child: _isRecording == false
+              ? Icon(
+                  Icons.play_arrow,
+                  color: MyColors.white,
+                  size: 100.sp,
+                )
+              : Icon(
+                  Icons.stop,
+                  color: MyColors.white,
+                  size: 100.sp,
+                ),
         ),
       ),
     );
   }
-
-  Future<void> _startRecording() async {
-    if (await Permission.microphone.request().isGranted) {
-      try {
-        await _audioPlayer.stop();
-        await _recording.start();
-        setState(() {
-          _isRecording = true;
-        });
-      } catch (e) {
-        print('Error starting recording: $e');
-      }
-    } else {
-      print('Microphone permission not granted');
-    }
-  }
-
-  Future<void> _stopRecording() async {
-    try {
-      await _recording.stop();
-      final path = _recording.path;
-      // String? audioName = path.split(Platform.pathSeparator).last;
-      // print(audioName);
-      print(path);
-      // await _audioPlayer.play(UrlSource(path));
-      await controllerSpeech.sstAPI(path);
-
-      setState(() {
-        _isRecording = false;
-      });
-    } catch (e) {
-      print('Error stopping recording: $e');
-    }
-  }
-}
-
-class Recording {
-  late String path;
-  late bool isRecording;
-
-  Recording() {
-    isRecording = false;
-  }
-
-  Future<void> start() async {
-    if (!isRecording) {
-      try {
-        Directory appDocDir = await getTemporaryDirectory();
-        String appDocPath = appDocDir.path;
-        path = '$appDocPath/audio.wav';
-        File audioFile = File(path);
-        audioFile.create();
-      } catch (e) {
-        print('Error starting recording: $e');
-        isRecording = false;
-      }
-    }
-  }
-
-  Future<void> stop() async {
-    if (isRecording) {
-      try {
-        await Process.run('killall', ['rec']);
-        isRecording = false;
-      } catch (e) {
-        print('Error stopping recording: $e');
-        isRecording = false;
-      }
-    }
-  }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: AudioRecorder(),
-  ));
 }
