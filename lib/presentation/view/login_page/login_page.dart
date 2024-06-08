@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
-// import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/back_btn.dart';
 import '../../../core/color/color_constraint.dart';
@@ -48,13 +47,14 @@ class _LoginPageState extends State<LoginPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          BackBtn(),
+                          const BackBtn(),
                           SizedBox(
                             width: 80.w,
                           ),
                           Text(
                             "Sign In",
-                            style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w900),
+                            style: TextStyle(
+                                fontSize: 70.sp, fontWeight: FontWeight.w900),
                           )
                         ],
                       ),
@@ -66,7 +66,8 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Email",
-                        style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            fontSize: 50.sp, fontWeight: FontWeight.w500),
                       ),
                     ),
                     ReuseTextField(
@@ -88,7 +89,8 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Password",
-                        style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            fontSize: 50.sp, fontWeight: FontWeight.w500),
                       ),
                     ),
                     ReuseTextField(
@@ -116,8 +118,11 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           const Text("New here? Register your account "),
                           TextButton(
-                              onPressed: () => {Navigator.pushNamed(context, '/register')},
-                              style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
+                              onPressed: () =>
+                                  {Navigator.pushNamed(context, '/register')},
+                              style: TextButton.styleFrom(
+                                  minimumSize: Size.zero,
+                                  padding: EdgeInsets.zero),
                               child: const Text(
                                 "here",
                                 style: TextStyle(
@@ -138,8 +143,6 @@ class _LoginPageState extends State<LoginPage> {
                       onClick: () {
                         String? email = emailController.text;
                         String? pass = passController.text;
-                        // controllerCourse.getCourses();
-                        // controllerCourse.getUserCourseProgress();
                         controllerLogin.loginAPI(email, pass);
                       },
                     ),

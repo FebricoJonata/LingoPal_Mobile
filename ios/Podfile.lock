@@ -5,23 +5,25 @@ PODS:
     - Flutter
   - audioplayers_darwin (0.0.1):
     - Flutter
-  - ffmpeg-kit-ios-https (6.0)
-  - ffmpeg_kit_flutter (6.0.3):
-    - ffmpeg_kit_flutter/https (= 6.0.3)
-    - Flutter
-  - ffmpeg_kit_flutter/https (6.0.3):
-    - ffmpeg-kit-ios-https (= 6.0)
-    - Flutter
   - Flutter (1.0.0)
+  - flutter_ffmpeg (0.4.2):
+    - Flutter
+    - flutter_ffmpeg/https (= 0.4.2)
+  - flutter_ffmpeg/https (0.4.2):
+    - Flutter
+    - mobile-ffmpeg-https (= 4.4)
   - flutter_native_splash (0.0.1):
     - Flutter
   - image_picker_ios (0.0.1):
     - Flutter
   - just_audio (0.0.1):
     - Flutter
+  - mobile-ffmpeg-https (4.4)
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - permission_handler_apple (9.3.0):
+    - Flutter
   - record_darwin (1.0.0):
     - Flutter
     - FlutterMacOS
@@ -38,12 +40,13 @@ DEPENDENCIES:
   - app_links (from `.symlinks/plugins/app_links/ios`)
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
-  - ffmpeg_kit_flutter (from `.symlinks/plugins/ffmpeg_kit_flutter/ios`)
   - Flutter (from `Flutter`)
+  - flutter_ffmpeg (from `.symlinks/plugins/flutter_ffmpeg/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - just_audio (from `.symlinks/plugins/just_audio/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - record_darwin (from `.symlinks/plugins/record_darwin/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
@@ -51,7 +54,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - ffmpeg-kit-ios-https
+    - mobile-ffmpeg-https
 
 EXTERNAL SOURCES:
   app_links:
@@ -60,10 +63,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/audio_session/ios"
   audioplayers_darwin:
     :path: ".symlinks/plugins/audioplayers_darwin/ios"
-  ffmpeg_kit_flutter:
-    :path: ".symlinks/plugins/ffmpeg_kit_flutter/ios"
   Flutter:
     :path: Flutter
+  flutter_ffmpeg:
+    :path: ".symlinks/plugins/flutter_ffmpeg/ios"
   flutter_native_splash:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   image_picker_ios:
@@ -72,6 +75,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/just_audio/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
   record_darwin:
     :path: ".symlinks/plugins/record_darwin/ios"
   shared_preferences_foundation:
@@ -85,13 +90,14 @@ SPEC CHECKSUMS:
   app_links: e70ca16b4b0f88253b3b3660200d4a10b4ea9795
   audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
-  ffmpeg-kit-ios-https: f9c838aa5400a6c5ba12324c6b798f52197ba354
-  ffmpeg_kit_flutter: b4ca70cac3fc1d8ac14cdc660754b60870358732
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_ffmpeg: 26a01318e1fa4ebdbd1561848050aadc807d51a9
   flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
   image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
+  mobile-ffmpeg-https: 311fc4a8f671cf36d1d6b8f421e8246b790978d9
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
   record_darwin: 1f6619f2abac4d1ca91d3eeab038c980d76f1517
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
