@@ -9,6 +9,7 @@ class WordListController extends GetxController{
   Rx<WordModel?> words = Rx<WordModel?>(null);
 
   Future <Either<Failure, WordModel>> getVocabs() async {
+    print("In word list controller");
     try {
       
       final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/word", 
@@ -29,11 +30,13 @@ class WordListController extends GetxController{
   @override
   void onInit() {
     super.onInit();
+    getVocabs();
   }
 
   @override
   void onClose() {
     super.onClose();
+    getVocabs();
   }
 
 }

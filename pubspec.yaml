@@ -56,6 +56,7 @@ dependencies:
   path_provider:
   base64_audio_source: ^1.0.1  
   dictionaryx: ^0.3.5
+  alphabet_list_view: ^1.1.0
 
 
 dev_dependencies:

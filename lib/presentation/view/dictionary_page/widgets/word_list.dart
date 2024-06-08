@@ -5,7 +5,9 @@ import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_model.
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/vocabulary_container.dart';
 
 class WordList extends StatelessWidget {
-  const WordList({super.key});
+  WordList({super.key, required this.onSearch});
+
+  Function onSearch;
 
   List<Vocab> mapWords (wordList, index) {
     List<Vocab> listVocab = [];
@@ -29,7 +31,7 @@ class WordList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    print("Berhasil masuk search");
     return Column(
       children: [
         const Row(
@@ -45,6 +47,8 @@ class WordList extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         GetBuilder<WordListController>(builder: (controllerWord) {
+          print("Masuk controller word");
+          print(controllerWord);
           return FutureBuilder(
             future: controllerWord.getVocabs(), 
             builder: (context, snapshot) {
@@ -62,7 +66,6 @@ class WordList extends StatelessWidget {
                 print("List Words: $listWords");
                 return Expanded(
                   child: ListView.builder(
-                    controller: ,
                     shrinkWrap: true,
                     itemCount: 26,
                     itemBuilder: (context, index) {
@@ -79,7 +82,7 @@ class WordList extends StatelessWidget {
                       // for (var vocab in listVocab) {
                       //   print("${vocab.alphabet} : ${vocab.word}");
                       // }
-                      return VocabularyContainer(header: listVocab.first.alphabet!, vocabulary: listVocab);
+                      return VocabularyContainer(header: listVocab.first.alphabet!, vocabulary: listVocab, onsearch: onSearch,);
                     }
                   ),
                 );
