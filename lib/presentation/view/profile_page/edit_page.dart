@@ -48,8 +48,7 @@ class _EditPageState extends State<EditPage> {
                 child: Column(
                   children: [
                     Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 45.w, vertical: 2.h),
+                      margin: EdgeInsets.symmetric(horizontal: 45.w, vertical: 2.h),
                       width: 1179.w,
                       height: 400.h,
                       child: Row(
@@ -85,22 +84,17 @@ class _EditPageState extends State<EditPage> {
                                       return CircleAvatar(
                                         radius: 200.sp,
                                         backgroundColor: Colors.blue,
-                                        backgroundImage: controller
-                                                    .imageUrl.value ==
-                                                ""
+                                        backgroundImage: controller.imageUrl.value == ""
                                             ? NetworkImage(
                                                 "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
-                                            : NetworkImage(
-                                                controller.imageUrl.value),
+                                            : NetworkImage(controller.imageUrl.value),
                                       );
                                     },
                                   ),
                                   SizedBox(
                                     width: 393.w,
                                     height: 400.h,
-                                    child: const Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Camera2()),
+                                    child: const Align(alignment: Alignment.bottomRight, child: Camera2()),
                                   )
                                 ],
                               ),
@@ -127,8 +121,7 @@ class _EditPageState extends State<EditPage> {
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Full Name",
-                              style: TextStyle(
-                                  fontSize: 50.sp, fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
                           ),
                           ReuseTextField(
@@ -153,8 +146,7 @@ class _EditPageState extends State<EditPage> {
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Phone Number",
-                              style: TextStyle(
-                                  fontSize: 50.sp, fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
                           ),
                           ReuseTextField(
@@ -179,8 +171,7 @@ class _EditPageState extends State<EditPage> {
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Gender",
-                              style: TextStyle(
-                                  fontSize: 50.sp, fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
                           ),
                           SizedBox(
@@ -192,13 +183,12 @@ class _EditPageState extends State<EditPage> {
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Birth Date",
-                              style: TextStyle(
-                                  fontSize: 50.sp, fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
                           ),
                           DatePicker(
                               controller: datePickerController,
-                              labelTxt: "BirtDay",
+                              labelTxt: "BirthDay",
                               iconTxt: Icons.calendar_month,
                               linesMax: 1,
                               linesMin: 1,

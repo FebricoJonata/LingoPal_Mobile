@@ -1,7 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 
@@ -15,7 +15,6 @@ class SearchBarDictionary extends StatefulWidget {
 }
 
 class _SearchBarDictionaryState extends State<SearchBarDictionary> {
-
   SearchController searchController = SearchController();
 
   @override
@@ -41,21 +40,30 @@ class _SearchBarDictionaryState extends State<SearchBarDictionary> {
             ),
           ),
           Builder(builder: (context) {
-            if(searchController.text!=""){
+            if (searchController.text != "") {
               return IconButton(
-                onPressed: (){searchController.text=""; widget.setSearchMethod(searchController.text);}, 
-                icon: Icon(Icons.close));
-            }
-            else {
-              return SizedBox(width: 8,);
+                  onPressed: () {
+                    searchController.text = "";
+                    widget.setSearchMethod(searchController.text);
+                  },
+                  icon: Icon(Icons.close));
+            } else {
+              return SizedBox(
+                width: 8,
+              );
             }
           }),
-          PrimaryBtn(btnText: "Search", width: 180.w, height: 150.h, onClick: (){
-            print(searchController.text);
-            if(searchController.text!=""){
-              widget.setSearchMethod(searchController.text);
-            }
-          },)
+          PrimaryBtn(
+            btnText: "Search",
+            width: 180.w,
+            height: 150.h,
+            onClick: () {
+              print(searchController.text);
+              if (searchController.text != "") {
+                widget.setSearchMethod(searchController.text);
+              }
+            },
+          )
         ],
       ),
     );
