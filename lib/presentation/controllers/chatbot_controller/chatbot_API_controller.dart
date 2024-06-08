@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:get/get.dart';
 import 'package:dartz/dartz.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';

@@ -74,12 +74,10 @@ class MessageBubble extends StatelessWidget {
           margin: !isMe ? const EdgeInsets.symmetric(horizontal: 46) : null,
           child: Row(
             // The side of the chat screen the message should show at.
-            mainAxisAlignment:
-                isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+            mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
               Column(
-                crossAxisAlignment:
-                    isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                 children: [
                   // First messages in the sequence provide a visual buffer at
                   // the top.
@@ -112,20 +110,14 @@ class MessageBubble extends StatelessWidget {
                   // The "speech" box surrounding the message.
                   Container(
                     decoration: BoxDecoration(
-                      color: isMe
-                          ? MyColors.primaryGreen
-                          : MyColors.secondaryGreen,
+                      color: isMe ? MyColors.primaryGreen : MyColors.secondaryGreen,
                       // Only show the message bubble's "speaking edge" if first in
                       // the chain.
                       // Whether the "speaking edge" is on the left or right depends
                       // on whether or not the message bubble is the current user.
                       borderRadius: BorderRadius.only(
-                        topLeft: !isMe && isFirstInSequence
-                            ? Radius.zero
-                            : const Radius.circular(12),
-                        topRight: isMe && isFirstInSequence
-                            ? Radius.zero
-                            : const Radius.circular(12),
+                        topLeft: !isMe && isFirstInSequence ? Radius.zero : const Radius.circular(12),
+                        topRight: isMe && isFirstInSequence ? Radius.zero : const Radius.circular(12),
                         bottomLeft: const Radius.circular(12),
                         bottomRight: const Radius.circular(12),
                       ),
