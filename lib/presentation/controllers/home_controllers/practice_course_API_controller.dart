@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -10,16 +12,11 @@ class PracticeCourseController extends GetxController {
   Rx<PracticeModel?> practices = Rx<PracticeModel?>(null);
   var controllerProfile = Get.find<GetProfileController>();
   Rx<PracticeProgressModel?> practiceProgress = Rx<PracticeProgressModel?>(null);
-  
+
   Future<Either<Failure, PracticeModel>> getPractices(courseId) async {
     try {
-      final response = await Dio().get(
-        'https://lingo-pal-backend-v1.vercel.app/api/practice',
-        queryParameters: {'course_id': courseId},
-        options: Options(
-          headers: {"Accept": "application/json"}
-        )
-      );
+      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice',
+          queryParameters: {'course_id': courseId}, options: Options(headers: {"Accept": "application/json"}));
 
       var practiceModel = PracticeModel.fromJson(response.data);
       practices(practiceModel);
@@ -34,23 +31,16 @@ class PracticeCourseController extends GetxController {
     }
   }
 
-
   Future<Either<Failure, PracticeProgressModel>> getUserPractices() async {
     var userId = controllerProfile.profile.value?.body?.data?.first.userId;
     try {
-      final response = await Dio().get(
-        'https://lingo-pal-backend-v1.vercel.app/api/practice/progress',
-        queryParameters: {'user_id': userId},
-        options: Options(
-          headers: {'accept' : 'application/json'}
-        )
-      );
+      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice/progress',
+          queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
 
       var userPractices = PracticeProgressModel.fromJson(response.data);
       print("Practice Progress Response: {$response.data}");
       practiceProgress(userPractices);
       return Right(userPractices);
-
     } catch (e) {
       print("Error: $e");
       return Left(Failure("$e"));
@@ -58,15 +48,14 @@ class PracticeCourseController extends GetxController {
   }
 
   @override
-  void onInit(){
+  void onInit() {
     super.onInit();
     // getPractices();
   }
 
   @override
-  void onClose(){
+  void onClose() {
     super.onClose();
     // getPractices();
   }
-  
 }
