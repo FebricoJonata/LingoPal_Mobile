@@ -7,6 +7,7 @@ class AssetConstraints {
   static const bgIntroTop = "$baseBgImages/bg_intro_top.png";
   static const bgIntroBot = "$baseBgImages/bg_intro_bot.png";
   static const bgAppLogo = "$baseBgImages/bg_app_logo.png";
+  static const bgQuiz = "$baseBgImages/bg_quiz.png";
 
   //landing
   static const page1 = "$baseLandingImages/page1.png";
