@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/routes/app_page.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -20,6 +21,24 @@ void main() {
   runApp(const MyApp());
 }
 
+ThemeData lightTheme = ThemeData(
+    brightness: Brightness.dark,
+    primaryColor: MyColors.primaryGreen,
+    buttonTheme: const ButtonThemeData(
+      buttonColor: MyColors.primaryGreen,
+      disabledColor: Colors.grey,
+    ));
+
+ThemeData darkTheme = ThemeData(
+    hintColor: Colors.pink,
+    brightness: Brightness.light,
+    primaryColor: Colors.blue,
+    scaffoldBackgroundColor: Colors.amber,
+    buttonTheme: const ButtonThemeData(
+      buttonColor: Colors.blue,
+      disabledColor: Colors.grey,
+    ));
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -34,8 +53,11 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'LingoPal',
           initialRoute: RouteName.landingPage,
+          // themeMode: lightTheme,
           getPages: AppPages.pages,
-          theme: ThemeData(textTheme: GoogleFonts.latoTextTheme()),
+          theme: ThemeData(
+            textTheme: GoogleFonts.latoTextTheme(),
+          ),
         );
       },
     );

@@ -11,4 +11,5 @@ abstract class RouteName {
   static const chatbot = "/chatbot";
   static const quiz = "/quiz";
   static const dictionary = "/dictionary";
+  static const multipleChoice = '/multiple';
 }

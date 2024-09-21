@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/pronoun_quiz.dart';
-import 'package:lingo_pal_mobile/presentation/view/quiz_page/recorder.dart';
+import 'package:lingo_pal_mobile/presentation/view/quiz_page/voice_assesment/recorder.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
