@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_model.dart';
@@ -57,16 +59,14 @@ class VocabularyContainer extends StatelessWidget {
                   InkWell(
                     onTap: () => {onsearch(item.word!)},
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Text(
                         item.word!,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),

@@ -39,17 +39,13 @@ class _QuizPageState extends State<QuizPage> {
                             ),
                       Text(
                         "Its a sunny day",
-                        style: TextStyle(
-                            color: MyColors.primaryGreen, fontSize: 100.sp),
+                        style: TextStyle(color: MyColors.primaryGreen, fontSize: 100.sp),
                       )
                     ],
                   ),
                 ),
                 Flexible(
-                    child: Container(
-                        width: 1179.w,
-                        color: MyColors.primaryYellow,
-                        child: Center(child: Recorder())))
+                    child: Container(width: 1179.w, color: MyColors.primaryYellow, child: Center(child: Recorder())))
               ],
             ),
           )),
