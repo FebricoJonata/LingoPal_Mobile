@@ -35,16 +35,14 @@ class ChatBotAPIController extends GetxController {
       );
       final chatBotResponseModel = ChatBotResponse.fromJson(response.data);
       chatbotReponse(chatBotResponseModel);
-      print("Chatbot Response: ${chatBotResponseModel}");
+
       return Right(chatBotResponseModel);
     } on DioException catch (e) {
       _isLoading.value = false;
       showError(e.message);
-      print("DioException: ${e.message}");
       return Left(Failure('Error: ${e.message}'));
     } catch (e) {
       _isLoading.value = false;
-      print("General Exception: $e");
       return Left(Failure('An unexpected error occurred'));
     } finally {
       _isLoading.value = false;

@@ -18,11 +18,9 @@ class CourseController extends GetxController {
 
       var courseModel = CourseModel.fromJson(response.data);
       courses(courseModel);
-      print("success retrieve courses: ${response.data}");
 
       return Right(courseModel);
     } on DioException catch (e) {
-      print("Sattt");
       print("$e");
       return Left(Failure("$e"));
     } catch (e) {
@@ -34,7 +32,7 @@ class CourseController extends GetxController {
   // get user course progress
   Future<Either<Failure, CourseProgressModel>> getUserCourseProgress() async {
     var userId = controllerLogin.login.value?.user?.userId;
-    print('USER ID in Course Controller: ${userId}');
+
     try {
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course/progress',
           queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
@@ -44,7 +42,7 @@ class CourseController extends GetxController {
       courseProgress(userCourseProgress);
       return Right(userCourseProgress);
     } catch (e) {
-      print("error: ${e}");
+      print("error: $e");
       return Left(Failure("$e"));
     }
   }
