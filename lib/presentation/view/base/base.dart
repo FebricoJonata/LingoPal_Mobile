@@ -56,7 +56,7 @@ class _HomePageState extends State<BasePage> {
                   Icon(Icons.home, color: MyColors.primaryGreen),
                   Icon(Icons.menu_book_rounded, color: MyColors.primaryGreen),
                   Icon(Icons.chat_bubble, color: MyColors.primaryGreen),
-                  // Icon(Icons.video_collection, color: MyColors.primaryGreen),
+                  Icon(Icons.video_collection, color: MyColors.primaryGreen),
                   Icon(Icons.person, color: MyColors.primaryGreen),
                 ],
                 onTap: (index) {
@@ -65,15 +65,23 @@ class _HomePageState extends State<BasePage> {
                       case 0:
                         controllerPage.pageController
                             .animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                        break;
                       case 1:
                         controllerPage.pageController
                             .animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                        break;
                       case 2:
                         controllerPage.pageController
                             .animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                        break;
                       case 3:
                         controllerPage.pageController
                             .animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                        break;
+                      case 4:
+                        controllerPage.pageController
+                            .animateToPage(4, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                      //   break;
                       // case 4:
                       //   // controllerProfile.profileAPI();
                       //   controllerPage.pageController

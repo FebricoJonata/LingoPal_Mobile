@@ -27,7 +27,8 @@ class LoginAPIController extends GetxController {
       login(loginModel);
       emailName.value = loginModel.user?.email ?? "";
       print("Response code login ${response}");
-      Get.toNamed(RouteName.multipleChoice);
+      // Get.toNamed(RouteName.multipleChoice);
+      Get.toNamed(RouteName.basePage);
       return Right(loginModel);
     } on DioException catch (e) {
       _isLoading.value = false;
