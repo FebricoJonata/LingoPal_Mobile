@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
-import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/search_bar_dictonary.dart';
+import 'package:lingo_pal_mobile/presentation/view/components/search_bar_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/word_card.dart';
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/word_list.dart';
 
@@ -42,7 +42,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                 padding: EdgeInsets.only(right: 30, left: 30, bottom: 100.h),
                 child: Column(
                   children: [
-                    SearchBarDictionary(setSearchMethod: _setSearchWord, searchWord: searches,),
+                    ReuseSearchBar(setSearchMethod: _setSearchWord, searchWord: searches,),
                     const SizedBox(height: 24),
                     if(searches=="")
                       Expanded(child: WordList(onSearch: _setSearchWord))

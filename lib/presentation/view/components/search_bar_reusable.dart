@@ -5,16 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 
-class SearchBarDictionary extends StatefulWidget {
-  SearchBarDictionary({super.key, required this.setSearchMethod, required this.searchWord});
+class ReuseSearchBar extends StatefulWidget {
+  ReuseSearchBar({super.key, required this.setSearchMethod, required this.searchWord});
 
   Function setSearchMethod; String searchWord;
 
   @override
-  State<SearchBarDictionary> createState() => _SearchBarDictionaryState();
+  State<ReuseSearchBar> createState() => _ReuseSearchBarState();
 }
 
-class _SearchBarDictionaryState extends State<SearchBarDictionary> {
+class _ReuseSearchBarState extends State<ReuseSearchBar> {
   SearchController searchController = SearchController();
 
   @override
@@ -31,7 +31,7 @@ class _SearchBarDictionaryState extends State<SearchBarDictionary> {
           Expanded(
             child: SearchBar(
               controller: searchController..text = widget.searchWord,
-              hintText: "Search for words...",
+              hintText: "Search ...",
               leading: Icon(Icons.search),
               elevation: MaterialStatePropertyAll(0),
               padding: MaterialStatePropertyAll(const EdgeInsets.symmetric(horizontal: 8)),
