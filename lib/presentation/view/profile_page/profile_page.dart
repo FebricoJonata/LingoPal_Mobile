@@ -91,7 +91,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             builder: (controllerProfile) {
                               return CircleAvatar(
                                 radius: 150.w,
-                                backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null
+                                backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null ||
+                                        controllerProfile.profile.value?.body?.data?.first.image == ''
                                     ? const NetworkImage(
                                         "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
                                     : NetworkImage(controllerProfile.profile.value?.body?.data?.first.image ?? ""),

@@ -38,10 +38,4 @@ class GetProfileController extends GetxController {
     super.onInit();
     profileAPI();
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-    profileAPI();
-  }
 }

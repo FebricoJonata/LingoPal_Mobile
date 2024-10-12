@@ -20,11 +20,11 @@ class _NewMessageState extends State<NewMessage> {
     _messageController = widget.controller ?? TextEditingController();
   }
 
-  @override
-  void dispose() {
-    _messageController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _messageController.dispose();
+  //   super.dispose();
+  // }
 
   Future<void> _submitMessage() async {
     final enteredMessage = _messageController.text;
