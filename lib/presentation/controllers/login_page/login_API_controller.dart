@@ -26,20 +26,17 @@ class LoginAPIController extends GetxController {
       final loginModel = LoginModel.fromJson(response.data);
       login(loginModel);
       emailName.value = loginModel.user?.email ?? "";
-      print("Response code login ${response}");
-      Get.toNamed(RouteName.multipleChoice);
+      Get.toNamed(RouteName.basePage);
       return Right(loginModel);
     } on DioException catch (e) {
       _isLoading.value = false;
       showError(e.message);
-      print("errorExp");
       if (e.response?.statusCode == 401) {
         print("Error 401");
       }
       return Left(Failure('Error: ${e.message}'));
     } catch (e) {
       _isLoading.value = false;
-      print("Error");
       return Left(Failure('An unexpected error occurred'));
     }
   }

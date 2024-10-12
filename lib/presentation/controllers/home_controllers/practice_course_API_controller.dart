@@ -20,7 +20,7 @@ class PracticeCourseController extends GetxController {
 
       var practiceModel = PracticeModel.fromJson(response.data);
       practices(practiceModel);
-      print(practices.value?.body);
+
       return Right(practiceModel);
     } catch (e) {
       print("Error");
@@ -35,24 +35,12 @@ class PracticeCourseController extends GetxController {
           queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
 
       var userPractices = PracticeProgressModel.fromJson(response.data);
-      print("Practice Progress Response: {$response.data}");
+
       practiceProgress(userPractices);
       return Right(userPractices);
     } catch (e) {
       print("Error: $e");
       return Left(Failure("$e"));
     }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    // getPractices();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-    // getPractices();
   }
 }

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
@@ -9,13 +7,14 @@ import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusab
 class CourseActiveCard extends StatelessWidget {
   const CourseActiveCard({super.key, required this.course, required this.userProgressPoin});
 
-  final Course course; final int userProgressPoin;
+  final Course course;
+  final int userProgressPoin;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 15,
-      shadowColor: Color.fromRGBO(0, 0, 0, 0.25),
+      shadowColor: const Color.fromRGBO(0, 0, 0, 0.25),
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(30.sp)), color: Colors.white),
         // color: Colors.white,
@@ -73,7 +72,6 @@ class CourseActiveCard extends StatelessWidget {
               width: 300.w,
               height: 120.h,
               onClick: () {
-                print("Go");
                 Get.toNamed("/practice", arguments: {'course': course});
               },
             )

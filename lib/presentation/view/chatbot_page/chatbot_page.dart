@@ -62,50 +62,51 @@ class _ChatbotPageState extends State<ChatbotPage> {
           width: 1179.w,
           height: 2556.h,
           color: MyColors.secondaryYellow,
-          child: Column(
-            children: [
-              Image.asset(AssetConstraints.bgIntroTop),
-              // SingleChildScrollView(
-              SizedBox(
-                width: 1179.w,
-                height: 1600.h,
-                // child: Column(
-                //   children: [
-                child: GetBuilder<ChatController>(
-                  builder: (controller) {
-                    return ListView.builder(
-                      shrinkWrap: true, // Ini penting untuk mencegah konflik ukuran
-                      itemCount: controller.messages.length,
-                      itemBuilder: (context, index) {
-                        Message message = controller.messages[index];
-                        if (message.isFromUser) {
-                          return MessageBubble.next(message: message.text, isMe: true);
-                        } else {
-                          return MessageBubble.first(
-                            userImage: AssetConstraints.robotCool,
-                            username: "Lingo",
-                            message: message.text,
-                            isMe: false,
-                            onSpeechPressed: () {
-                              print(controller.messages.value.last.text);
-                              controllerTTS.fetchAudioFromApi(controller.messages.value.last.text);
-                            },
-                            isLastMessage: true,
-                          );
-                        }
-                      },
-                    );
-                  },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(AssetConstraints.bgIntroTop),
+                // SingleChildScrollView(
+                SizedBox(
+                  width: 1179.w,
+                  height: 1600.h,
+                  // child: Column(
+                  //   children: [
+                  child: GetBuilder<ChatController>(
+                    builder: (controller) {
+                      return ListView.builder(
+                        shrinkWrap: true, // Ini penting untuk mencegah konflik ukuran
+                        itemCount: controller.messages.length,
+                        itemBuilder: (context, index) {
+                          Message message = controller.messages[index];
+                          if (message.isFromUser) {
+                            return MessageBubble.next(message: message.text, isMe: true);
+                          } else {
+                            return MessageBubble.first(
+                              userImage: AssetConstraints.robotCool,
+                              username: "Lingo",
+                              message: message.text,
+                              isMe: false,
+                              onSpeechPressed: () async {
+                                controllerTTS.fetchAudioFromApi(controller.messages.value[index].text);
+                              },
+                              isLastMessage: true,
+                            );
+                          }
+                        },
+                      );
+                    },
+                  ),
                 ),
-              ),
-              NewMessage(
-                controller: messageController,
-                onSubmitted: (value) async {
-                  String message = messageController.text;
-                  await handleSubmittedMessage(message);
-                },
-              )
-            ],
+                NewMessage(
+                  controller: messageController,
+                  onSubmitted: (value) async {
+                    String message = messageController.text;
+                    await handleSubmittedMessage(message);
+                  },
+                )
+              ],
+            ),
           )),
     );
   }

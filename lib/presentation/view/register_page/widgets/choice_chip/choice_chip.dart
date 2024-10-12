@@ -12,46 +12,43 @@ class choiChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ChoiceController>(builder: (controller) {
-      return Container(
-        // margin: EdgeInsets.symmetric(vertical: 30.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Wrap(
-              spacing: 20.w,
-              children: controller.choices
-                  .map((choice) => ChoiceChip(
-                        backgroundColor: controller.selectedChoice.value?.id == choice.id
-                            ? MyColors.primaryGreen
-                            : MyColors.primaryYellow,
-                        selectedColor: controller.selectedChoice.value?.id == choice.id
-                            ? MyColors.primaryGreen
-                            : MyColors.primaryYellow,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.h),
-                          side: controller.selectedChoice.value?.id == choice.id
-                              ? BorderSide.none
-                              : const BorderSide(color: Colors.transparent),
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Wrap(
+            spacing: 20.w,
+            children: controller.choices
+                .map((choice) => ChoiceChip(
+                      backgroundColor: controller.selectedChoice.value?.id == choice.id
+                          ? MyColors.primaryGreen
+                          : MyColors.primaryYellow,
+                      selectedColor: controller.selectedChoice.value?.id == choice.id
+                          ? MyColors.primaryGreen
+                          : MyColors.primaryYellow,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.h),
+                        side: controller.selectedChoice.value?.id == choice.id
+                            ? BorderSide.none
+                            : const BorderSide(color: Colors.transparent),
+                      ),
+                      showCheckmark: false,
+                      label: Text(
+                        choice.label,
+                        style: TextStyle(
+                          fontFamily: "Poppins",
+                          fontSize: 35.sp,
+                          color:
+                              controller.selectedChoice.value?.id == choice.id ? Colors.white : MyColors.primaryGreen,
                         ),
-                        showCheckmark: false,
-                        label: Text(
-                          choice.label,
-                          style: TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: 35.sp,
-                            color:
-                                controller.selectedChoice.value?.id == choice.id ? Colors.white : MyColors.primaryGreen,
-                          ),
-                        ),
-                        selected: controller.selectedChoice.value?.id == choice.id,
-                        onSelected: (selected) {
-                          controller.onSelected(choice);
-                        },
-                      ))
-                  .toList(),
-            )
-          ],
-        ),
+                      ),
+                      selected: controller.selectedChoice.value?.id == choice.id,
+                      onSelected: (selected) {
+                        controller.onSelected(choice);
+                      },
+                    ))
+                .toList(),
+          )
+        ],
       );
     });
   }

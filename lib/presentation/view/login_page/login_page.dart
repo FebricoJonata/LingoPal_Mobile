@@ -53,8 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           Text(
                             "Sign In",
-                            style: TextStyle(
-                                fontSize: 70.sp, fontWeight: FontWeight.w900),
+                            style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w900),
                           )
                         ],
                       ),
@@ -66,8 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Email",
-                        style: TextStyle(
-                            fontSize: 50.sp, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                       ),
                     ),
                     ReuseTextField(
@@ -89,8 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Password",
-                        style: TextStyle(
-                            fontSize: 50.sp, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                       ),
                     ),
                     ReuseTextField(
@@ -118,11 +115,8 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           const Text("New here? Register your account "),
                           TextButton(
-                              onPressed: () =>
-                                  {Navigator.pushNamed(context, '/register')},
-                              style: TextButton.styleFrom(
-                                  minimumSize: Size.zero,
-                                  padding: EdgeInsets.zero),
+                              onPressed: () => {Navigator.pushNamed(context, '/register')},
+                              style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
                               child: const Text(
                                 "here",
                                 style: TextStyle(

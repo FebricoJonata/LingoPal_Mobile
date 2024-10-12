@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,6 +23,7 @@ class _MutlipleChoiceState extends State<MutlipleChoice> {
   final RxBool flag = false.obs;
   final RxInt stars = 0.obs;
   var finalScore = 0.0.obs;
+  var argument = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,7 +159,7 @@ class _MutlipleChoiceState extends State<MutlipleChoice> {
                     stars.value = 0;
 
                     // Panggil API lagi (jika diperlukan)
-                    controllerMultiple.fetchMultipleChoice();
+                    controllerMultiple.fetchMultipleChoice(argument);
                   },
                 ),
                 SecondaryBtn(

@@ -26,7 +26,7 @@ class PrimaryBtn extends StatelessWidget {
           minimumSize: Size(width, height),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.sp))),
       child: Text(btnText,
-          style: TextStyle(
+          style: const TextStyle(
             color: MyColors.white,
             // font
             fontSize: 16.0,
