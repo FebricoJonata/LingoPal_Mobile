@@ -8,13 +8,16 @@ class ImagePickerController extends GetxController {
   final RxString imageUrl = ''.obs;
   void setImageFile(String? path) {
     imagePath.value = path ?? "";
+    print("File: ${imagePath.value}");
   }
 
   void setImageName(String? path) {
     imageName.value = path ?? "";
+    print("Name: ${imagePath.value}");
   }
 
   void setUrl(String? path) {
     imageUrl.value = path ?? "";
+    print("URL: ${imagePath.value}");
   }
 }

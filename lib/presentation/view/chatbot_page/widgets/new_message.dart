@@ -20,11 +20,11 @@ class _NewMessageState extends State<NewMessage> {
     _messageController = widget.controller ?? TextEditingController();
   }
 
-  @override
-  void dispose() {
-    _messageController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _messageController.dispose();
+  //   super.dispose();
+  // }
 
   Future<void> _submitMessage() async {
     final enteredMessage = _messageController.text;
@@ -45,11 +45,11 @@ class _NewMessageState extends State<NewMessage> {
         // Handle error here
         print('Error: ${failure.message}');
       },
-      (chatBotResponse) {   
+      (chatBotResponse) {
         // Handle success here
         print('Message: $enteredMessage');
-        print('Response : ' + "${chatbot.chatbotReponse.value?.message}");
-      },   
+        print("Response : ${chatbot.chatbotReponse.value?.message}");
+      },
     );
 
     _messageController.clear();

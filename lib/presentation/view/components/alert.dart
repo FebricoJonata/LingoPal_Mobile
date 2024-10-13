@@ -73,7 +73,7 @@ class Alert extends StatelessWidget {
                 alignment: Alignment.center,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(MyColors.primaryGreen),
+                    backgroundColor: WidgetStateProperty.all(MyColors.primaryGreen),
                   ),
                   onPressed: onClose,
                   child: const Text(

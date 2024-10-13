@@ -6,11 +6,14 @@ import 'package:lingo_pal_mobile/presentation/model/quiz_model/multiple_choice.d
 
 class MultipleChoiceController extends GetxController {
   Rx<MultipleChoiceData?> mutlipleData = Rx<MultipleChoiceData?>(null);
-  Future<Either<Failure, MultipleChoiceData>> fetchMultipleChoice() async {
+
+  Future<Either<Failure, MultipleChoiceData>> fetchMultipleChoice(int practiceID) async {
     try {
-      final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/quiz");
+      final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/quiz",
+          queryParameters: {'pracetice_id': practiceID}, options: Options(headers: {'accept': 'application/json'}));
       var multipleChoiceData = MultipleChoiceData.fromJson(response.data);
       mutlipleData(multipleChoiceData);
+      print("Done multiple");
       return Right(multipleChoiceData);
     } on DioException catch (e) {
       print("DioException: ${e.response?.statusCode}");
@@ -21,16 +24,15 @@ class MultipleChoiceController extends GetxController {
     }
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    fetchMultipleChoice();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   fetchMultipleChoice();
+  // }
 
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
-    fetchMultipleChoice();
-  }
+  // @override
+  // void onClose() {
+  //   super.onClose();
+  //   fetchMultipleChoice();
+  // }
 }

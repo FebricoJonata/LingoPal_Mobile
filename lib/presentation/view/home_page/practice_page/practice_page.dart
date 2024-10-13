@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_course_API_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/multiple_choice.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/practice_model.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/practice_progress_model.dart';
@@ -11,6 +12,7 @@ import 'package:lingo_pal_mobile/presentation/view/components/back_btn.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widgets/practice_active.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widgets/practice_disable.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widgets/practice_done.dart';
+import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class PracticePage extends StatefulWidget {
   const PracticePage({super.key});
@@ -44,6 +46,7 @@ void checkPracticeProgress(practiceProgress) {
 }
 
 class _PracticePageState extends State<PracticePage> {
+  var controllerQuiz = Get.find<MultipleChoiceController>();
   @override
   Widget build(BuildContext context) {
     Course course = Get.arguments['course'];
@@ -130,6 +133,19 @@ class _PracticePageState extends State<PracticePage> {
                                 for (Practice practice in practices)
                                   if (practice.practiceCode == activePracticeCode)
                                     ActivePractice(
+                                      onTap: course.category?.courseCategoryName == "Pelafalan"
+                                          ? () {
+                                              Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
+                                            }
+                                          : () async {
+                                              await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
+                                              Get.toNamed(RouteName.multipleChoice);
+                                            },
+                                      // () {
+                                      //   course.category?.courseCategoryName == "Pelafalan"
+                                      //       ? Get.toNamed(RouteName.quiz)
+                                      //       : Get.toNamed(RouteName.multipleChoice);
+                                      // },
                                       id: practice.practiceId!,
                                       code: practice.practiceCode!,
                                     )

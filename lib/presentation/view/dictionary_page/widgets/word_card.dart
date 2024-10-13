@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:dictionaryx/dictentry.dart';
 import 'package:dictionaryx/dictionary_reduced_msa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,29 +28,26 @@ class _WordCardState extends State<WordCard> {
   @override
   Widget build(BuildContext context) {
     String search = widget.searchWord;
-    var entry;
-    // var entry = dReducedMSA.getEntry(search);
-    // print("masuk pencarian");
+    DictEntry entry;
 
     return SingleChildScrollView(
       child: Builder(
         builder: (context) {
           search = searchLowerCase(search);
           if (!dReducedMSA.hasEntry(search)) {
-            print(dReducedMSA.hasEntry(search));
             return Column(
               children: [
-                Text("Tidak ada data yang ditemukan"),
+                const Text("Tidak ada data yang ditemukan"),
                 SizedBox(
                   height: 50.h,
                 ),
-                Text("Periksa apakah terdapat kesalahan penulisan pada pencarian")
+                const Text("Periksa apakah terdapat kesalahan penulisan pada pencarian")
               ],
             );
           } else {
             // setup kata
             entry = dReducedMSA.getEntry(search);
-            print(entry);
+
             String word = entry.word;
             String wordforCard = word[0].toUpperCase() + word.substring(1);
             // ui
@@ -80,7 +78,7 @@ class _WordCardState extends State<WordCard> {
                               onPressed: () {
                                 controllerTTS.fetchAudioFromApi(wordforCard);
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.volume_up_rounded,
                                 color: MyColors.white,
                               ))
@@ -127,7 +125,7 @@ class _WordCardState extends State<WordCard> {
                   height: 100.h,
                 ),
                 // contoh kalimat
-                Text(
+                const Text(
                   "Example",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -139,7 +137,6 @@ class _WordCardState extends State<WordCard> {
                   shrinkWrap: true,
                   itemCount: entry.meanings.length,
                   itemBuilder: (context, index) {
-                    print(entry.meanings[index].hasExamples());
                     bool checkExamples = entry.meanings[index].hasExamples();
                     if (checkExamples) {
                       String sentence = entry.meanings[index].examples.first;
@@ -168,7 +165,7 @@ class _WordCardState extends State<WordCard> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Synonyms",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -183,7 +180,7 @@ class _WordCardState extends State<WordCard> {
                             itemBuilder: (context, index) {
                               return Text(
                                 entry.synonyms[index],
-                                style: TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
+                                style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
                               );
                             },
                             separatorBuilder: ((context, index) {
@@ -202,7 +199,7 @@ class _WordCardState extends State<WordCard> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Antonyms",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
@@ -217,11 +214,11 @@ class _WordCardState extends State<WordCard> {
                           itemCount: entry.antonyms.length,
                           itemBuilder: (context, index) {
                             if (entry.antonyms.isEmpty) {
-                              return Text("-");
+                              return const Text("-");
                             }
                             return Text(
                               entry.antonyms[index],
-                              style: TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
+                              style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
                             );
                           },
                           separatorBuilder: ((context, index) {

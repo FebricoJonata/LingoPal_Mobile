@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -10,9 +12,12 @@ class CourseController extends GetxController {
   Rx<CourseModel?> courses = Rx<CourseModel?>(null);
   var controllerLogin = Get.find<LoginAPIController>();
   Rx<CourseProgressModel?> courseProgress = Rx<CourseProgressModel?>(null);
+  var isLoading = false.obs;
+  var errorMessage = ''.obs;
   // get master course
   Future<Either<Failure, CourseModel>> getCourses() async {
     try {
+      isLoading.value = true;
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course',
           options: Options(headers: {'accept': 'application/json'}));
 
@@ -26,6 +31,8 @@ class CourseController extends GetxController {
     } catch (e) {
       print("error");
       return Left(Failure("$e"));
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -34,14 +41,17 @@ class CourseController extends GetxController {
     var userId = controllerLogin.login.value?.user?.userId;
 
     try {
+      isLoading.value = true;
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course/progress',
           queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
 
       var userCourseProgress = CourseProgressModel.fromJson(response.data);
+      print(userId);
       print("User Progress Response: ${response.data}");
       courseProgress(userCourseProgress);
       return Right(userCourseProgress);
     } catch (e) {
+      isLoading.value = false;
       print("error: $e");
       return Left(Failure("$e"));
     }
@@ -50,13 +60,7 @@ class CourseController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getCourses();
-    getUserCourseProgress();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
+    print("oninit done");
     getCourses();
     getUserCourseProgress();
   }

@@ -8,7 +8,8 @@ import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusab
 class ReuseSearchBar extends StatefulWidget {
   ReuseSearchBar({super.key, required this.setSearchMethod, required this.searchWord});
 
-  Function setSearchMethod; String searchWord;
+  Function setSearchMethod;
+  String searchWord;
 
   @override
   State<ReuseSearchBar> createState() => _ReuseSearchBarState();
@@ -33,21 +34,24 @@ class _ReuseSearchBarState extends State<ReuseSearchBar> {
               controller: searchController..text = widget.searchWord,
               hintText: "Search ...",
               leading: Icon(Icons.search),
-              elevation: MaterialStatePropertyAll(0),
-              padding: MaterialStatePropertyAll(const EdgeInsets.symmetric(horizontal: 8)),
-              surfaceTintColor: MaterialStatePropertyAll(MyColors.white),
-              backgroundColor: MaterialStatePropertyAll(MyColors.white),
-              shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+              elevation: WidgetStatePropertyAll(0),
+              padding: WidgetStatePropertyAll(const EdgeInsets.symmetric(horizontal: 8)),
+              surfaceTintColor: WidgetStatePropertyAll(MyColors.white),
+              backgroundColor: WidgetStatePropertyAll(MyColors.white),
+              shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
             ),
           ),
           Builder(builder: (context) {
             if (searchController.text != "") {
               return IconButton(
-                onPressed: (){widget.setSearchMethod("");}, 
-                icon: Icon(Icons.close));
-            }
-            else {
-              return SizedBox(width: 8,);
+                  onPressed: () {
+                    widget.setSearchMethod("");
+                  },
+                  icon: const Icon(Icons.close));
+            } else {
+              return const SizedBox(
+                width: 8,
+              );
             }
           }),
           PrimaryBtn(
