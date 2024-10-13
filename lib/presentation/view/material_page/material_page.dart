@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/search_bar_reusable.dart';
+import 'package:lingo_pal_mobile/presentation/view/material_page/material_card.dart';
 
 class MaterialPage extends StatefulWidget {
   const MaterialPage({super.key});
@@ -39,7 +40,16 @@ class _MaterialPageState extends State<MaterialPage> {
                   children: [
                     ReuseSearchBar(setSearchMethod: _setSearchWord, searchWord: searches,),
                     const SizedBox(height: 24),
-                    Text("Material")
+                    Text("Material", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                    const SizedBox(height: 20),
+                    ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: 3,
+                      itemBuilder: (context, index) {
+                        return MaterialCard();
+                      }, 
+                      separatorBuilder: (context, index) => SizedBox(height: 50.h,),
+                    )
                   ],
                 ),
               ),

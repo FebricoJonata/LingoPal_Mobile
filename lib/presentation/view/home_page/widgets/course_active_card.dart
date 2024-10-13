@@ -24,7 +24,7 @@ class CourseActiveCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Flexible(
+            Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,9 +32,11 @@ class CourseActiveCard extends StatelessWidget {
                   SizedBox(
                     child: Row(
                       children: [
-                        Text(
-                          course.courseName!,
-                          style: TextStyle(fontSize: 50.sp),
+                        Expanded(
+                          child: Text(
+                            course.courseName!,
+                            style: TextStyle(fontSize: 44.sp, fontWeight: FontWeight.bold),
+                          ),
                         ),
                         SizedBox(
                           width: 200.w,
@@ -45,9 +47,12 @@ class CourseActiveCard extends StatelessWidget {
                               Icons.star,
                               size: 50.w,
                             ),
-                            Text(
-                              userProgressPoin.toString(),
-                              style: TextStyle(fontSize: 40.sp),
+                            SizedBox(
+                              width: 80.w,
+                              child: Text(
+                                userProgressPoin.toString(),
+                                style: TextStyle(fontSize: 40.sp),
+                              ),
                             )
                           ],
                         )
@@ -56,7 +61,7 @@ class CourseActiveCard extends StatelessWidget {
                   ),
                   Text(
                     course.category!.courseCategoryName!, // dari BE course
-                    style: TextStyle(fontSize: 40.sp),
+                    style: TextStyle(fontSize: 36.sp),
                   ),
                   Text(
                     course.courseDescription!,
