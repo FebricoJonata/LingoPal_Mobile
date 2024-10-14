@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/back_btn.dart';
+import 'package:lingo_pal_mobile/routes/name_page.dart';
 import '../../../core/color/color_constraint.dart';
 import '../components/primary_btn_reusable.dart';
 import '../components/text_field_reusable.dart';
@@ -53,8 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           Text(
                             "Sign In",
-                            style: TextStyle(
-                                fontSize: 70.sp, fontWeight: FontWeight.w900),
+                            style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w900),
                           )
                         ],
                       ),
@@ -66,8 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Email",
-                        style: TextStyle(
-                            fontSize: 50.sp, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                       ),
                     ),
                     ReuseTextField(
@@ -89,8 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Password",
-                        style: TextStyle(
-                            fontSize: 50.sp, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                       ),
                     ),
                     ReuseTextField(
@@ -118,11 +116,8 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           const Text("New here? Register your account "),
                           TextButton(
-                              onPressed: () =>
-                                  {Navigator.pushNamed(context, '/register')},
-                              style: TextButton.styleFrom(
-                                  minimumSize: Size.zero,
-                                  padding: EdgeInsets.zero),
+                              onPressed: () => {Navigator.pushNamed(context, '/register')},
+                              style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
                               child: const Text(
                                 "here",
                                 style: TextStyle(
@@ -144,6 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                         String? email = emailController.text;
                         String? pass = passController.text;
                         controllerLogin.loginAPI(email, pass);
+                        // Get.toNamed(RouteName.basePage);
                       },
                     ),
                   ],

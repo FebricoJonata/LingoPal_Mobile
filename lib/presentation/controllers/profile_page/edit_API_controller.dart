@@ -28,12 +28,10 @@ class EditAPIController extends GetxController {
           headers: {"Accept": "application/json", "Content-Type": "application/json"},
         ),
       );
-      print("AMAN");
       final editModel = EditModel.fromJson(response.data);
       controllerProfile.update();
       return Right(editModel);
     } on DioException catch (e) {
-      print("errorExp");
       if (e.response?.statusCode == 401) {
         print("Error 401");
       }
@@ -54,11 +52,8 @@ class EditAPIController extends GetxController {
         final String publicUrl =
             Supabase.instance.client.storage.from('lingo-pal-storage/profiles/').getPublicUrl(imageName ?? "");
 
-        print(publicUrl);
         return publicUrl;
       }
-    } catch (e) {
-      print('Error uploading image: $e');
-    }
+    } catch (e) {}
   }
 }

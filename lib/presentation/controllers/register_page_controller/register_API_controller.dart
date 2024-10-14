@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -24,11 +26,10 @@ class RegisterAPIController extends GetxController {
         ),
       );
       final signUpModel = SignUp.fromJson(response.data);
-      print("HAIII");
+
       Get.toNamed(RouteName.loginPage);
       return Right(signUpModel);
     } on DioException catch (e) {
-      print("errorExp");
       if (e.response?.statusCode == 401) {
         print("Error 401");
       }

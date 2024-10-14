@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             width: 90.w,
                           ),
                           InkWell(
-                            onTap: () => Get.offNamed(RouteName.editPage,
+                            onTap: () => Get.toNamed(RouteName.editPage,
                                 arguments: controllerProfile.profile.value!.body!.data!.first.userId),
                             child: Container(
                               width: 200.w,
@@ -91,7 +91,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             builder: (controllerProfile) {
                               return CircleAvatar(
                                 radius: 150.w,
-                                backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null
+                                backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null ||
+                                        controllerProfile.profile.value?.body?.data?.first.image == ''
                                     ? const NetworkImage(
                                         "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
                                     : NetworkImage(controllerProfile.profile.value?.body?.data?.first.image ?? ""),
@@ -105,28 +106,28 @@ class _ProfilePageState extends State<ProfilePage> {
                           SizedBox(
                             width: 500.w,
                             height: 375.h,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    controllerProfile.profile.value?.body?.data?.first.name ?? "",
-                                    style: TextStyle(
-                                      fontSize: 40.sp,
-                                      fontWeight: FontWeight.w500,
+                            child: Obx(() => Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        controllerProfile.profile.value?.body?.data?.first.name ?? "",
+                                        style: TextStyle(
+                                          fontSize: 40.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    controllerProfile.profile.value!.body!.data!.first.birthDate ?? "",
-                                    style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                              ],
-                            ),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        controllerProfile.profile.value!.body!.data!.first.birthDate ?? "",
+                                        style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                  ],
+                                )),
                           )
                           // }
                         ],

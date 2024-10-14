@@ -6,22 +6,16 @@ import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/progress_course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
-import 'package:lingo_pal_mobile/presentation/model/home_model/progress_model.dart';
+// import 'package:lingo_pal_mobile/presentation/model/home_model/progress_model.dart';
 
-class CustomAppBar extends StatefulWidget {
+class CustomAppBar extends StatelessWidget {
   CustomAppBar({super.key});
 
-  @override
-  State<CustomAppBar> createState() => _CustomAppBarState();
-}
-
-class _CustomAppBarState extends State<CustomAppBar> {
   var controllerProfile = Get.find<GetProfileController>();
   var controllerProgress = Get.find<ProgressAPIController>();
-  var controllerGetProfile = Get.find<GetProfileController>();
+
   @override
   Widget build(BuildContext context) {
-    // final fomattedName = controllerProfile.profile.value?.body?.data?.first.name?.split(' ') ?? [];
     return Stack(
       alignment: Alignment.topCenter,
       clipBehavior: Clip.none,
@@ -34,124 +28,121 @@ class _CustomAppBarState extends State<CustomAppBar> {
             child: Column(
               children: [
                 Image.asset(AssetConstraints.bgIntroTop),
-                GetBuilder<ProgressAPIController>(builder: (controllerProgress) {
-                  return FutureBuilder(
-                      future: controllerProgress.getProgress(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return SizedBox(
-                            width: 150.w,
-                            height: 300.h,
-                            child: const Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 2.0,
-                              ),
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          return Center(
-                            child: Text('Error: ${snapshot.error}'),
-                          );
-                        } else if (snapshot.data == null) {
-                          return const Text("DATA NULL");
-                        } else {
-                          final progressData = snapshot.data!.fold((failure) => <ProgressUserModel>[], (l) => l.body);
+                Obx(() {
+                  if (controllerProgress.isLoading.value) {
+                    return SizedBox(
+                      width: 150.w,
+                      height: 300.h,
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2.0,
+                        ),
+                      ),
+                    );
+                  } else if (controllerProgress.progress.value == null) {
+                    return const Text("DATA NULL");
+                  } else {
+                    final progressData = controllerProgress.progress.value!.body;
 
-                          if (progressData == null) {
-                            print("Data in home appbar");
-                            return const Center(
-                              child: Text('Missing data in appbar'),
-                            );
-                          } else {
-                            String? userName = controllerProgress.progress.value?.body?.data?.first.user?.name;
-                            print("Nama Profile di appbar: $userName");
-                            return Stack(alignment: Alignment.topCenter, clipBehavior: Clip.none, children: [
-                              Container(
-                                height: 350.h,
-                                alignment: Alignment.topCenter,
-                                padding: EdgeInsets.symmetric(horizontal: 100.w),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    if (progressData == null) {
+                      return const Center(
+                        child: Text('Missing data in appbar'),
+                      );
+                    } else {
+                      String? userName = controllerProfile.profile.value?.body?.data?.first.name;
+
+                      return Stack(
+                        alignment: Alignment.topCenter,
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            height: 350.h,
+                            alignment: Alignment.topCenter,
+                            padding: EdgeInsets.symmetric(horizontal: 100.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
                                   children: [
-                                    Row(
-                                      children: [
-                                        CircleAvatar(
-                                          backgroundImage: NetworkImage(
-                                              controllerGetProfile.profile.value?.body?.data?.first.image ?? ""),
-                                          backgroundColor: MyColors.primaryGreen,
-                                          foregroundColor: MyColors.secondaryYellow,
-                                          radius: 60.h,
-                                        ),
-                                        SizedBox(
-                                          width: 50.w,
-                                        ),
-                                        Text(
-                                          userName ?? "",
-                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.sp),
-                                        ),
-                                        SizedBox(
-                                          width: 50.w,
-                                        ),
-                                        const Icon(
-                                          Icons.waving_hand_rounded,
-                                          color: MyColors.secondaryYellow,
-                                        )
-                                      ],
+                                    CircleAvatar(
+                                      backgroundImage: controllerProfile.profile.value?.body?.data?.first.image ==
+                                                  null ||
+                                              controllerProfile.profile.value?.body?.data?.first.image == ''
+                                          ? const NetworkImage(
+                                              "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
+                                          : NetworkImage(
+                                              controllerProfile.profile.value?.body?.data?.first.image ?? ""),
+                                      backgroundColor: MyColors.primaryGreen,
+                                      foregroundColor: MyColors.secondaryYellow,
+                                      radius: 60.h,
                                     ),
-                                    IconButton(
-                                      iconSize: 36,
-                                      icon: const Icon(Icons.notifications),
-                                      onPressed: () {
-                                        print("To Notif");
-                                      },
+                                    SizedBox(width: 50.w),
+                                    Text(
+                                      userName ?? "",
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.sp),
+                                    ),
+                                    SizedBox(width: 50.w),
+                                    const Icon(
+                                      Icons.waving_hand_rounded,
+                                      color: MyColors.secondaryYellow,
                                     )
                                   ],
                                 ),
+                                IconButton(
+                                  iconSize: 36,
+                                  icon: const Icon(Icons.notifications),
+                                  onPressed: () {
+                                    print("To Notif");
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            bottom: -100.h,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: MyColors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Color.fromRGBO(0, 0, 0, 0.25),
+                                      offset: Offset(1, 1),
+                                      blurRadius: 10,
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.all(Radius.circular(50.sp))),
+                              width: 979.w,
+                              padding: EdgeInsets.symmetric(horizontal: 100.w, vertical: 64.h),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                      "Level: ${controllerProgress.progress.value?.body?.data?.first.level?.userLevelCode} ${controllerProgress.progress.value?.body?.data?.first.level?.userLevelName}",
+                                      style:
+                                          const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
+                                  Container(
+                                    width: 2,
+                                    height: 100.h,
+                                    color: MyColors.lightGrey,
+                                  ),
+                                  Row(children: [
+                                    Text("${controllerProgress.progress.value?.body?.data?.first.totalPoin}",
+                                        style:
+                                            const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
+                                    const Icon(
+                                      Icons.star_rounded,
+                                      color: MyColors.primaryYellow,
+                                    )
+                                  ])
+                                ],
                               ),
-                              Positioned(
-                                  bottom: -100.h,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: MyColors.white,
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color: Color.fromRGBO(0, 0, 0, 0.25),
-                                            offset: Offset(1, 1),
-                                            blurRadius: 10,
-                                          )
-                                        ],
-                                        borderRadius: BorderRadius.all(Radius.circular(50.sp))),
-                                    width: 979.w,
-                                    padding: EdgeInsets.symmetric(horizontal: 100.w, vertical: 64.h),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                            "Level: ${controllerProgress.progress.value?.body?.data?.first.level?.userLevelCode} ${controllerProgress.progress.value?.body?.data?.first.level?.userLevelName}",
-                                            style:
-                                                TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
-                                        Container(
-                                          width: 2,
-                                          height: 100.h,
-                                          color: MyColors.lightGrey,
-                                        ),
-                                        Row(children: [
-                                          Text("${controllerProgress.progress.value?.body?.data?.first.totalPoin}",
-                                              style:
-                                                  TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
-                                          Icon(
-                                            Icons.star_rounded,
-                                            color: MyColors.primaryYellow,
-                                          )
-                                        ])
-                                      ],
-                                    ),
-                                  ))
-                            ]);
-                          }
-                        }
-                      });
+                            ),
+                          )
+                        ],
+                      );
+                    }
+                  }
                 })
               ],
             )),

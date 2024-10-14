@@ -32,8 +32,8 @@ class AudioController extends GetxController {
       Directory appDocDir = await getTemporaryDirectory();
       String appDocPath = appDocDir.path;
       File audioFile = File('$appDocPath/audio.wav');
+      print("OKAY");
       await audioFile.writeAsBytes(bytes);
-
       playAudio(audioFile.path);
       return Right(audio);
     } on DioException catch (e) {

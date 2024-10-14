@@ -12,7 +12,6 @@ import 'package:lingo_pal_mobile/presentation/view/components/date_picker.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/text_field_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/profile_page/widgets/choice_chip/choice_chip_edit.dart';
-import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class EditPage extends StatefulWidget {
   const EditPage({super.key});
@@ -79,18 +78,14 @@ class _EditPageState extends State<EditPage> {
                               height: 400.h,
                               child: Stack(
                                 children: [
-                                  GetBuilder<ImagePickerController>(
-                                    builder: (controller) {
-                                      return CircleAvatar(
+                                  Obx(() => CircleAvatar(
                                         radius: 200.sp,
                                         backgroundColor: Colors.blue,
-                                        backgroundImage: controller.imageUrl.value == ""
-                                            ? NetworkImage(
+                                        backgroundImage: controllerImage.imageUrl.value == ""
+                                            ? const NetworkImage(
                                                 "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
-                                            : NetworkImage(controller.imageUrl.value),
-                                      );
-                                    },
-                                  ),
+                                            : NetworkImage(controllerImage.imageUrl.value),
+                                      )),
                                   SizedBox(
                                     width: 393.w,
                                     height: 400.h,
@@ -217,8 +212,8 @@ class _EditPageState extends State<EditPage> {
                             controllerChoice.selectedChoice.value?.label ?? "",
                             phoneController.text,
                             controllerImage.imageUrl.value);
-                        controllerProfile.update();
-                        Get.toNamed(RouteName.loginPage);
+                        controllerProfile.profileAPI();
+                        Get.back();
                       },
                     )
                   ],

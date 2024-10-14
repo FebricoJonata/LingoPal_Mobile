@@ -10,7 +10,6 @@ class GetProfileController extends GetxController {
   var controllerLogin = Get.find<LoginAPIController>();
   Rx<Profile?> profile = Rx<Profile?>(null);
   Future<Either<Failure, Profile>> profileAPI() async {
-    print("User in profile controller: ${controllerLogin.emailName.value.toString()}");
     try {
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/users',
@@ -20,10 +19,8 @@ class GetProfileController extends GetxController {
         ),
       );
       var profileModel = Profile.fromJson(response.data);
-      print("profile aman");
+
       profile(profileModel);
-      print("AHHAHAHAHAH ${response.data}");
-      print("OI ${profile.value?.body?.data?.first.userId}");
       return Right(profileModel);
     } on DioException catch (e) {
       print("DioException: ${e.response?.statusCode}");
@@ -39,12 +36,6 @@ class GetProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    profileAPI();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
     profileAPI();
   }
 }

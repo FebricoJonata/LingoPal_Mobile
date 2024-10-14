@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -34,7 +36,7 @@ class _QuizPageState extends State<QuizPage> {
                     children: [
                       controllerQuiz.isRecord == 0
                           ? Image.asset(AssetConstraints.robotQuiz)
-                          : CircularProgressIndicator(
+                          : const CircularProgressIndicator(
                               color: MyColors.primaryGreen,
                             ),
                       Text(
@@ -45,7 +47,8 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                 ),
                 Flexible(
-                    child: Container(width: 1179.w, color: MyColors.primaryYellow, child: Center(child: Recorder())))
+                    child:
+                        Container(width: 1179.w, color: MyColors.primaryYellow, child: const Center(child: Recorder())))
               ],
             ),
           )),

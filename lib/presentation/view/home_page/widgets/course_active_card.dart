@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
@@ -9,13 +7,14 @@ import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusab
 class CourseActiveCard extends StatelessWidget {
   const CourseActiveCard({super.key, required this.course, required this.userProgressPoin});
 
-  final Course course; final int userProgressPoin;
+  final Course course;
+  final int userProgressPoin;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 15,
-      shadowColor: Color.fromRGBO(0, 0, 0, 0.25),
+      shadowColor: const Color.fromRGBO(0, 0, 0, 0.25),
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(30.sp)), color: Colors.white),
         // color: Colors.white,
@@ -24,7 +23,7 @@ class CourseActiveCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Flexible(
+            Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,12 +31,14 @@ class CourseActiveCard extends StatelessWidget {
                   SizedBox(
                     child: Row(
                       children: [
-                        Text(
-                          course.courseName!,
-                          style: TextStyle(fontSize: 50.sp),
+                        Expanded(
+                          child: Text(
+                            course.courseName!,
+                            style: TextStyle(fontSize: 44.sp, fontWeight: FontWeight.bold),
+                          ),
                         ),
                         SizedBox(
-                          width: 200.w,
+                          width: 80.w,
                         ),
                         Row(
                           children: [
@@ -45,9 +46,12 @@ class CourseActiveCard extends StatelessWidget {
                               Icons.star,
                               size: 50.w,
                             ),
-                            Text(
-                              userProgressPoin.toString(),
-                              style: TextStyle(fontSize: 40.sp),
+                            SizedBox(
+                              width: 80.w,
+                              child: Text(
+                                userProgressPoin.toString(),
+                                style: TextStyle(fontSize: 40.sp),
+                              ),
                             )
                           ],
                         )
@@ -56,7 +60,7 @@ class CourseActiveCard extends StatelessWidget {
                   ),
                   Text(
                     course.category!.courseCategoryName!, // dari BE course
-                    style: TextStyle(fontSize: 40.sp),
+                    style: TextStyle(fontSize: 36.sp),
                   ),
                   Text(
                     course.courseDescription!,
@@ -73,7 +77,6 @@ class CourseActiveCard extends StatelessWidget {
               width: 300.w,
               height: 120.h,
               onClick: () {
-                print("Go");
                 Get.toNamed("/practice", arguments: {'course': course});
               },
             )

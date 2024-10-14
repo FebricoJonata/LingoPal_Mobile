@@ -75,17 +75,15 @@ class WordList extends StatelessWidget {
         const SizedBox(height: 20),
         GetBuilder<WordListController>(
           builder: (controllerWord) {
-            print("Masuk controller word");
-            print(controllerWord);
             return FutureBuilder(
               future: controllerWord.getVocabs(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text("Memuat kata-kata ...");
+                  return const Text("Memuat kata-kata ...");
                 } else if (snapshot.hasError) {
-                  return Text("Error memuat data");
+                  return const Text("Error memuat data");
                 } else if (!snapshot.hasData) {
-                  return Text("Tidak ditemukan data");
+                  return const Text("Tidak ditemukan data");
                 } else {
                   var listWords = controllerWord.words.value!.body;
                   print("List Words: $listWords");

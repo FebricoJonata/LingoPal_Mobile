@@ -1,4 +1,4 @@
-// ignore_for_file: invalid_use_of_protected_member
+// // ignore_for_file: invalid_use_of_protected_member
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +23,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
   TextEditingController messageController = TextEditingController();
   var chatbot = Get.find<ChatBotAPIController>();
   var controllerTTS = Get.find<AudioController>();
+  var controller = Get.find<ChatController>();
+  ScrollController scrollController = ScrollController(); // Tambahkan ScrollController
 
   Future<void> handleSubmittedMessage(String message) async {
     if (message.isNotEmpty) {
@@ -38,75 +40,179 @@ class _ChatbotPageState extends State<ChatbotPage> {
           print('Error: ${failure.message}');
         },
         (chatBotResponse) {
-          // Handle success here
-          controller.update();
-          print('Message: $message');
           controller.addMessage(chatbot.chatbotReponse.value?.message ?? "", false);
           print('Response : ${chatbot.chatbotReponse.value?.message}');
+          scrollToBottom(); // Scroll ke bawah setelah menerima respons
         },
       );
 
       messageController.clear();
       chatbot.update();
-      messageController.clear();
     }
     controller.update();
+    scrollToBottom(); // Scroll ke bawah setelah mengirim pesan
   }
 
-  var controller = Get.find<ChatController>();
+  // Method untuk scroll otomatis ke chat terbaru
+  void scrollToBottom() {
+    Future.delayed(Duration(milliseconds: 300), () {
+      if (scrollController.hasClients) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Container(
           width: 1179.w,
           height: 2556.h,
           color: MyColors.secondaryYellow,
-          child: Column(
-            children: [
-              Image.asset(AssetConstraints.bgIntroTop),
-              // SingleChildScrollView(
-              SizedBox(
-                width: 1179.w,
-                height: 1600.h,
-                // child: Column(
-                //   children: [
-                child: GetBuilder<ChatController>(
-                  builder: (controller) {
-                    return ListView.builder(
-                      shrinkWrap: true, // Ini penting untuk mencegah konflik ukuran
-                      itemCount: controller.messages.length,
-                      itemBuilder: (context, index) {
-                        Message message = controller.messages[index];
-                        if (message.isFromUser) {
-                          return MessageBubble.next(message: message.text, isMe: true);
-                        } else {
-                          return MessageBubble.first(
-                            userImage: AssetConstraints.robotCool,
-                            username: "Lingo",
-                            message: message.text,
-                            isMe: false,
-                            onSpeechPressed: () {
-                              print(controller.messages.value.last.text);
-                              controllerTTS.fetchAudioFromApi(controller.messages.value.last.text);
-                            },
-                            isLastMessage: true,
-                          );
-                        }
-                      },
-                    );
-                  },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(AssetConstraints.bgIntroTop),
+                SizedBox(
+                  width: 1179.w,
+                  height: 1600.h,
+                  child: GetBuilder<ChatController>(
+                    builder: (controller) {
+                      return ListView.builder(
+                        controller: scrollController, // Tambahkan controller di sini
+                        shrinkWrap: true,
+                        itemCount: controller.messages.length,
+                        itemBuilder: (context, index) {
+                          Message message = controller.messages[index];
+                          if (message.isFromUser) {
+                            return MessageBubble.next(message: message.text, isMe: true);
+                          } else {
+                            return MessageBubble.first(
+                              userImage: AssetConstraints.robotCool,
+                              username: "Lingo",
+                              message: message.text,
+                              isMe: false,
+                              onSpeechPressed: () async {
+                                controllerTTS.fetchAudioFromApi(controller.messages[index].text);
+                              },
+                              isLastMessage: true,
+                            );
+                          }
+                        },
+                      );
+                    },
+                  ),
                 ),
-              ),
-              NewMessage(
-                controller: messageController,
-                onSubmitted: (value) async {
-                  String message = messageController.text;
-                  await handleSubmittedMessage(message);
-                },
-              )
-            ],
-          )),
+                NewMessage(
+                  controller: messageController,
+                  onSubmitted: (value) async {
+                    String message = messageController.text;
+                    await handleSubmittedMessage(message);
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
+
+// class _ChatbotPageState extends State<ChatbotPage> {
+//   TextEditingController messageController = TextEditingController();
+//   var chatbot = Get.find<ChatBotAPIController>();
+//   var controllerTTS = Get.find<AudioController>();
+
+//   Future<void> handleSubmittedMessage(String message) async {
+//     if (message.isNotEmpty) {
+//       if (message.trim().isEmpty) {
+//         return;
+//       }
+//       controller.addMessage(message, true);
+//       final response = await chatbot.chatBotAPI(message);
+
+//       response.fold(
+//         (failure) {
+//           // Handle error here
+//           print('Error: ${failure.message}');
+//         },
+//         (chatBotResponse) {
+//           // Handle success here
+//           controller.update();
+//           print('Message: $message');
+//           controller.addMessage(chatbot.chatbotReponse.value?.message ?? "", false);
+//           print('Response : ${chatbot.chatbotReponse.value?.message}');
+//         },
+//       );
+
+//       messageController.clear();
+//       chatbot.update();
+//       messageController.clear();
+//     }
+//     controller.update();
+//   }
+
+//   var controller = Get.find<ChatController>();
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: GestureDetector(
+//         onTap: () => FocusScope.of(context).unfocus(),
+//         child: Container(
+//             width: 1179.w,
+//             height: 2556.h,
+//             color: MyColors.secondaryYellow,
+//             child: SingleChildScrollView(
+//               child: Column(
+//                 children: [
+//                   Image.asset(AssetConstraints.bgIntroTop),
+//                   SizedBox(
+//                     width: 1179.w,
+//                     height: 1600.h,
+//                     child: GetBuilder<ChatController>(
+//                       builder: (controller) {
+//                         return ListView.builder(
+//                           shrinkWrap: true, // Ini penting untuk mencegah konflik ukuran
+//                           itemCount: controller.messages.length,
+//                           itemBuilder: (context, index) {
+//                             Message message = controller.messages[index];
+//                             if (message.isFromUser) {
+//                               return MessageBubble.next(message: message.text, isMe: true);
+//                             } else {
+//                               return MessageBubble.first(
+//                                 userImage: AssetConstraints.robotCool,
+//                                 username: "Lingo",
+//                                 message: message.text,
+//                                 isMe: false,
+//                                 onSpeechPressed: () async {
+//                                   controllerTTS.fetchAudioFromApi(controller.messages.value[index].text);
+//                                 },
+//                                 isLastMessage: true,
+//                               );
+//                             }
+//                           },
+//                         );
+//                       },
+//                     ),
+//                   ),
+//                   NewMessage(
+//                     controller: messageController,
+//                     onSubmitted: (value) async {
+//                       String message = messageController.text;
+//                       await handleSubmittedMessage(message);
+//                     },
+//                   )
+//                 ],
+//               ),
+//             )),
+//       ),
+//     );
+//   }
+// }
