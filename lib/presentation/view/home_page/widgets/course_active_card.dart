@@ -60,7 +60,7 @@ class CourseActiveCard extends StatelessWidget {
                   ),
                   Text(
                     course.courseDescription!,
-                    style: TextStyle(fontSize: 32.sp),
+                    style: TextStyle(fontSize: 36.sp),
                   )
                 ],
               ),

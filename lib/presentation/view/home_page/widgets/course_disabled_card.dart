@@ -42,7 +42,7 @@ class CourseDisabledCard extends StatelessWidget {
                   ),
                 ),
                 Text(course.category!.courseCategoryName!, style: TextStyle(fontSize: 40.sp),),
-                Text(course.courseDescription!, style: TextStyle(fontSize: 32.sp),)
+                Text(course.courseDescription!, style: TextStyle(fontSize: 36.sp),)
               ],),
             ),
             SizedBox(width: 80.w,),
