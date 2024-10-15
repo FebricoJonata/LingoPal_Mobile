@@ -18,6 +18,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
   String searches = "";
 
   void _setSearchWord(searchWord){
+    print("searches before: " + searches);
     setState(() {
       searches = searchWord;
     });

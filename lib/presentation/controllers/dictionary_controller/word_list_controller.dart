@@ -25,12 +25,12 @@ class WordListController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getVocabs();
+    // getVocabs();
   }
 
   @override
   void onClose() {
     super.onClose();
-    getVocabs();
+    // getVocabs();
   }
 }

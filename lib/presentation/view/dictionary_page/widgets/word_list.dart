@@ -6,11 +6,16 @@ import 'package:lingo_pal_mobile/presentation/controllers/dictionary_controller/
 import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/vocabulary_container.dart';
 
-class WordList extends StatelessWidget {
+class WordList extends StatefulWidget {
   WordList({super.key, required this.onSearch});
 
   Function onSearch;
 
+  @override
+  State<WordList> createState() => _WordListState();
+}
+
+class _WordListState extends State<WordList> {
   List<Vocab> mapWords(wordList, index) {
     List<Vocab> listVocab = [];
     List<String> letters = [
@@ -75,6 +80,8 @@ class WordList extends StatelessWidget {
         const SizedBox(height: 20),
         GetBuilder<WordListController>(
           builder: (controllerWord) {
+            print("ga terpengaruh null disini");
+            // error sebelum kesini
             return FutureBuilder(
               future: controllerWord.getVocabs(),
               builder: (context, snapshot) {
@@ -85,7 +92,7 @@ class WordList extends StatelessWidget {
                 } else if (!snapshot.hasData) {
                   return const Text("Tidak ditemukan data");
                 } else {
-                  var listWords = controllerWord.words.value!.body;
+                  var listWords = controllerWord.words.value!.body ?? [];
                   print("List Words: $listWords");
                   return Expanded(
                     child: ListView.builder(
@@ -95,11 +102,11 @@ class WordList extends StatelessWidget {
                           print("Index: $index");
                           List<Vocab> listVocab = [];
                           listVocab = mapWords(listWords, index);
-
+    
                           return VocabularyContainer(
                             header: listVocab.first.alphabet!,
                             vocabulary: listVocab,
-                            onsearch: onSearch,
+                            onsearch: widget.onSearch,
                           );
                         }),
                   );
