@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
-import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
+import 'package:lingo_pal_mobile/presentation/model/material_model/material_model.dart';
 
 class MaterialCard extends StatelessWidget {
-  const MaterialCard({super.key});
+  MaterialCard({super.key, required this.material});
 
-  // final Course course;
+  final MaterialContent material;
 
   @override
   Widget build(BuildContext context) {
