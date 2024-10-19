@@ -49,22 +49,22 @@ class _HomePageState extends State<HomePage> {
                 return const Text("Memuat Data...");
               } else if (courseController.errorMessage.isNotEmpty) {
                 return const Text("Error");
-              } else if (courseList.isEmpty ||
-                  courseController.courseProgress.value == null ||
-                  courseController.courses.value == null) {
+              } else if (courseList.isEmpty || courseController.courseProgress.value == null || courseController.courses.value == null) {
                 return const Text("Tidak ada latihan yang dapat ditemukan");
               } else {
                 return ListView.separated(
                   padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
                   shrinkWrap: true,
-                  itemCount: activeCourses.length,
+                  itemCount: courseList.length,
                   itemBuilder: (context, index) {
                     var course = courseList[index];
-                    if (activeCourses[index].isActive == true) {
-                      return CourseActiveCard(
-                        course: course,
-                        userProgressPoin: activeCourses[index].progressPoin ?? 0,
-                      );
+                    if (index < activeCourses.length) {
+                      if (activeCourses[index].isActive == true) {
+                        return CourseActiveCard(
+                          course: course,
+                          userProgressPoin: activeCourses[index].progressPoin ?? 0,
+                        );
+                      }
                     }
                     return CourseDisabledCard(
                       course: course,

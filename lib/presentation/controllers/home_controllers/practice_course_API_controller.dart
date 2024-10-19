@@ -12,11 +12,13 @@ class PracticeCourseController extends GetxController {
   Rx<PracticeModel?> practices = Rx<PracticeModel?>(null);
   var controllerProfile = Get.find<GetProfileController>();
   Rx<PracticeProgressModel?> practiceProgress = Rx<PracticeProgressModel?>(null);
-
+  RxInt indexPractice = 0.obs;
+  RxInt courseId = 0.obs;
+  var isLoading = false.obs;
   Future<Either<Failure, PracticeModel>> getPractices(courseId) async {
     try {
-      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice',
-          queryParameters: {'course_id': courseId}, options: Options(headers: {"Accept": "application/json"}));
+      isLoading.value = true;
+      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice', queryParameters: {'course_id': courseId}, options: Options(headers: {"Accept": "application/json"}));
 
       var practiceModel = PracticeModel.fromJson(response.data);
       practices(practiceModel);
@@ -25,14 +27,16 @@ class PracticeCourseController extends GetxController {
     } catch (e) {
       print("Error");
       return Left(Failure("$e"));
+    } finally {
+      isLoading.value = false;
     }
   }
 
   Future<Either<Failure, PracticeProgressModel>> getUserPractices() async {
     var userId = controllerProfile.profile.value?.body?.data?.first.userId;
     try {
-      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice/progress',
-          queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
+      final response =
+          await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice/progress', queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
 
       var userPractices = PracticeProgressModel.fromJson(response.data);
 

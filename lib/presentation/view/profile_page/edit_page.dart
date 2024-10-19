@@ -82,8 +82,7 @@ class _EditPageState extends State<EditPage> {
                                         radius: 200.sp,
                                         backgroundColor: Colors.blue,
                                         backgroundImage: controllerImage.imageUrl.value == ""
-                                            ? const NetworkImage(
-                                                "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
+                                            ? const NetworkImage("https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
                                             : NetworkImage(controllerImage.imageUrl.value),
                                       )),
                                   SizedBox(
@@ -145,6 +144,7 @@ class _EditPageState extends State<EditPage> {
                             ),
                           ),
                           ReuseTextField(
+                            textInputType: TextInputType.phone,
                             controller: phoneController,
                             obscureText: false,
                             linesMax: 1,
@@ -204,14 +204,9 @@ class _EditPageState extends State<EditPage> {
                       btnText: "Update",
                       width: 300.w,
                       height: 150.h,
-                      onClick: () {
-                        controllerEdit.editProfileAPI(
-                            userId,
-                            nameContoller.text,
-                            datePickerController.text,
-                            controllerChoice.selectedChoice.value?.label ?? "",
-                            phoneController.text,
-                            controllerImage.imageUrl.value);
+                      onClick: () async {
+                        await controllerEdit.editProfileAPI(
+                            userId, nameContoller.text, datePickerController.text, controllerChoice.selectedChoice.value?.label ?? "", phoneController.text, controllerImage.imageUrl.value);
                         controllerProfile.profileAPI();
                         Get.back();
                       },

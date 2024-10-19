@@ -61,8 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             width: 90.w,
                           ),
                           InkWell(
-                            onTap: () => Get.toNamed(RouteName.editPage,
-                                arguments: controllerProfile.profile.value!.body!.data!.first.userId),
+                            onTap: () => Get.toNamed(RouteName.editPage, arguments: controllerProfile.profile.value!.body!.data!.first.userId),
                             child: Container(
                               width: 200.w,
                               height: 95.h,
@@ -89,14 +88,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           GetBuilder<GetProfileController>(
                             builder: (controllerProfile) {
-                              return CircleAvatar(
-                                radius: 150.w,
-                                backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null ||
-                                        controllerProfile.profile.value?.body?.data?.first.image == ''
-                                    ? const NetworkImage(
-                                        "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
-                                    : NetworkImage(controllerProfile.profile.value?.body?.data?.first.image ?? ""),
-                              );
+                              return Obx(() => CircleAvatar(
+                                    radius: 150.w,
+                                    backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null || controllerProfile.profile.value?.body?.data?.first.image == ''
+                                        ? const NetworkImage("https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
+                                        : NetworkImage(controllerProfile.profile.value?.body?.data?.first.image ?? ""),
+                                  ));
                             },
                           ),
                           SizedBox(
@@ -322,10 +319,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 width: 1179.w,
                                 height: 100.h,
                                 margin: const EdgeInsets.all(10),
-                                child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child:
-                                        Text("FAQ", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
+                                child: Align(alignment: Alignment.centerLeft, child: Text("FAQ", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
                           ),
                           SizedBox(
                             height: 25.h,
@@ -349,10 +343,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 width: 1179.w,
                                 height: 100.h,
                                 margin: const EdgeInsets.all(10),
-                                child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text("Terms and Conditions",
-                                        style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
+                                child: Align(alignment: Alignment.centerLeft, child: Text("Terms and Conditions", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
                           ),
                           SizedBox(
                             height: 25.h,
@@ -376,10 +367,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 width: 1179.w,
                                 height: 100.h,
                                 margin: const EdgeInsets.all(10),
-                                child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text("Rating and Review",
-                                        style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
+                                child: Align(alignment: Alignment.centerLeft, child: Text("Rating and Review", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
                           ),
                           SizedBox(
                             height: 25.h,
@@ -403,10 +391,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 width: 1179.w,
                                 height: 100.h,
                                 margin: const EdgeInsets.all(10),
-                                child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text("About Us",
-                                        style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
+                                child: Align(alignment: Alignment.centerLeft, child: Text("About Us", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
                           )
                         ],
                       ),
