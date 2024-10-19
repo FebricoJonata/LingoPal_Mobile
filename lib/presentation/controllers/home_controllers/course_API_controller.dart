@@ -18,8 +18,7 @@ class CourseController extends GetxController {
   Future<Either<Failure, CourseModel>> getCourses() async {
     try {
       isLoading.value = true;
-      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course',
-          options: Options(headers: {'accept': 'application/json'}));
+      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course', options: Options(headers: {'accept': 'application/json'}));
 
       var courseModel = CourseModel.fromJson(response.data);
       courses(courseModel);
@@ -42,17 +41,15 @@ class CourseController extends GetxController {
 
     try {
       isLoading.value = true;
-      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course/progress',
-          queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
+      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course/progress', queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
 
       var userCourseProgress = CourseProgressModel.fromJson(response.data);
-      print(userId);
-      print("User Progress Response: ${response.data}");
+
       courseProgress(userCourseProgress);
       return Right(userCourseProgress);
     } catch (e) {
       isLoading.value = false;
-      print("error: $e");
+
       return Left(Failure("$e"));
     }
   }
@@ -60,7 +57,6 @@ class CourseController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print("oninit done");
     getCourses();
     getUserCourseProgress();
   }

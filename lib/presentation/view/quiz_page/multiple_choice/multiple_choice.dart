@@ -190,7 +190,6 @@ class _MutlipleChoiceState extends State<MutlipleChoice> {
         } else {
           finalScore.value = (score.value / controllerMultiple.mutlipleData.value!.body!.length) * 100;
           flag.value = true;
-          // Tentukan jumlah bintang berdasarkan skor
           stars.value = 0;
           if (finalScore == 100) {
             stars.value = 3;
