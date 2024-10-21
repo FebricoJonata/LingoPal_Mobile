@@ -12,4 +12,6 @@ abstract class RouteName {
   static const quiz = "/quiz";
   static const dictionary = "/dictionary";
   static const multipleChoice = '/multiple';
+  static const materialPage = '/material';
+  static const detailMaterial = '/detail-material';
 }

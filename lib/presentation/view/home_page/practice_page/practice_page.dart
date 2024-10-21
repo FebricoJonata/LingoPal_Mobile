@@ -53,7 +53,7 @@ class _PracticePageState extends State<PracticePage> {
     print('course id in practice page: ${course.courseId}');
 
     return Scaffold(
-        body: Container(
+      body: Container(
       width: 1179.w,
       height: 2556.h,
       color: MyColors.secondaryYellow,

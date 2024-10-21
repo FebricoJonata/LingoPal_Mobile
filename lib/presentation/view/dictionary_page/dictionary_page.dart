@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/dictionary_controller/word_list_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/search_bar_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/word_card.dart';
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/word_list.dart';
@@ -16,6 +19,7 @@ class DictionaryPage extends StatefulWidget {
 class _DictionaryPageState extends State<DictionaryPage> {
 
   String searches = "";
+  var controllerWord = Get.find<WordListController>();
 
   void _setSearchWord(searchWord){
     print("searches before: " + searches);
