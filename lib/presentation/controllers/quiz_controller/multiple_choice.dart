@@ -9,11 +9,10 @@ class MultipleChoiceController extends GetxController {
 
   Future<Either<Failure, MultipleChoiceData>> fetchMultipleChoice(int practiceID) async {
     try {
-      final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/quiz",
-          queryParameters: {'pracetice_id': practiceID}, options: Options(headers: {'accept': 'application/json'}));
+      final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/quiz", queryParameters: {'practice_id': practiceID}, options: Options(headers: {'accept': 'application/json'}));
       var multipleChoiceData = MultipleChoiceData.fromJson(response.data);
       mutlipleData(multipleChoiceData);
-      print("Done multiple");
+
       return Right(multipleChoiceData);
     } on DioException catch (e) {
       print("DioException: ${e.response?.statusCode}");

@@ -5,25 +5,28 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/multiple_choice.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/practice_update.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/secondary_btn_reusable.dart';
 
-class MutlipleChoice extends StatefulWidget {
-  const MutlipleChoice({super.key});
+class MutlipleChoice extends StatelessWidget {
+  MutlipleChoice({super.key});
 
-  @override
-  State<MutlipleChoice> createState() => _MutlipleChoiceState();
-}
-
-class _MutlipleChoiceState extends State<MutlipleChoice> {
   final MultipleChoiceController controllerMultiple = Get.find<MultipleChoiceController>();
+  final PracticeUpdateController practiceUpdateController = Get.find<PracticeUpdateController>();
+  var controllerProgress = Get.find<PracticeCourseController>();
   final RxInt currentIndex = 0.obs;
+
   final RxInt score = 0.obs;
+
   final RxBool flag = false.obs;
+
   final RxInt stars = 0.obs;
-  var finalScore = 0.0.obs;
-  var argument = Get.arguments;
+
+  var finalScore = 0.obs;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +59,7 @@ class _MutlipleChoiceState extends State<MutlipleChoice> {
           Image.asset(AssetConstraints.robotQuiz),
           SizedBox(height: 40.h),
           Obx(() {
-            final question = controllerMultiple.mutlipleData.value?.body?[currentIndex.value].question;
+            final question = controllerMultiple.mutlipleData.value?.data?[currentIndex.value].question;
             return SizedBox(
               width: 900.w,
               child: Text(
@@ -91,7 +94,7 @@ class _MutlipleChoiceState extends State<MutlipleChoice> {
             width: 900.w,
             height: 400.h,
             child: Obx(() {
-              final choices = controllerMultiple.mutlipleData.value?.body?[currentIndex.value].choices;
+              final choices = controllerMultiple.mutlipleData.value?.data?[currentIndex.value].choices;
               if (choices == null || choices.isEmpty) {
                 return const Text("No Choices Available");
               }
@@ -157,16 +160,43 @@ class _MutlipleChoiceState extends State<MutlipleChoice> {
                     score.value = 0;
                     flag.value = false;
                     stars.value = 0;
-
-                    // Panggil API lagi (jika diperlukan)
-                    controllerMultiple.fetchMultipleChoice(argument);
+                    controllerMultiple.fetchMultipleChoice(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0);
                   },
                 ),
                 SecondaryBtn(
                   btnText: "Balik ke halaman level",
                   width: 700.w,
                   height: 150.h,
-                  onClick: () {},
+                  onClick: () async {
+                    bool practiceFound = false;
+
+                    for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
+                      if (controllerProgress.indexPractice.value + 1 == progress.practiceId) {
+                        practiceFound = true;
+                        break;
+                      } else {
+                        practiceFound = false;
+                        break;
+                      }
+                    }
+                    if (stars.value >= 1) {
+                      if (practiceFound == true) {
+                        practiceUpdateController.updatePractice(
+                            controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
+                            controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].userId ?? 0,
+                            controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0,
+                            stars.value,
+                            true,
+                            true);
+                      } else {
+                        practiceUpdateController.updatePractice(
+                            0, controllerProgress.practiceProgress.value?.body?[0].userId ?? 0, controllerProgress.indexPractice.value + 1, stars.value, true, true);
+                      }
+                    }
+                    await controllerProgress.getPractices(controllerProgress.courseId.value);
+                    await controllerProgress.getUserPractices();
+                    Get.back();
+                  },
                 )
               ],
             ),
@@ -182,13 +212,13 @@ class _MutlipleChoiceState extends State<MutlipleChoice> {
       width: 400.w,
       height: 160.h,
       onClick: () {
-        if (choiceText == controllerMultiple.mutlipleData.value?.body?[currentIndex.value].answerKey) {
+        if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
           score + 1;
         }
-        if (currentIndex.value < controllerMultiple.mutlipleData.value!.body!.length - 1) {
+        if (currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
           currentIndex.value += 1;
         } else {
-          finalScore.value = (score.value / controllerMultiple.mutlipleData.value!.body!.length) * 100;
+          finalScore.value = ((score.value / controllerMultiple.mutlipleData.value!.data!.length) * 100).toInt();
           flag.value = true;
           stars.value = 0;
           if (finalScore == 100) {

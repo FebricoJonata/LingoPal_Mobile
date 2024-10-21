@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/back_btn.dart';
-import 'package:lingo_pal_mobile/routes/name_page.dart';
 import '../../../core/color/color_constraint.dart';
 import '../components/primary_btn_reusable.dart';
 import '../components/text_field_reusable.dart';
@@ -120,10 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
                               child: const Text(
                                 "here",
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: MyColors.secondaryGreen,
-                                    color: MyColors.secondaryGreen),
+                                style: TextStyle(decoration: TextDecoration.underline, decorationColor: MyColors.secondaryGreen, color: MyColors.secondaryGreen),
                               ))
                         ],
                       ),

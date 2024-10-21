@@ -18,6 +18,7 @@ class ReuseTextField extends StatelessWidget {
     this.onPressed,
     this.controller,
     this.height,
+    this.textInputType,
   });
   final IconData iconTxt;
   final String labelTxt;
@@ -34,6 +35,7 @@ class ReuseTextField extends StatelessWidget {
   final VoidCallback? onPressed;
   final TextEditingController? controller;
   final double? height;
+  final TextInputType? textInputType;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class ReuseTextField extends StatelessWidget {
           obscureText: obscureText,
           minLines: linesMin,
           maxLines: linesMax,
-          keyboardType: TextInputType.multiline,
+          keyboardType: textInputType,
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(radius), borderSide: BorderSide.none),
             fillColor: color,
