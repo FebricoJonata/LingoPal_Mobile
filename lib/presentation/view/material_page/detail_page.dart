@@ -22,11 +22,31 @@ class _MaterialDetailState extends State<MaterialDetail> {
 
   @override
   Widget build(BuildContext context) {
+
     String source = material.source!;
-    // String? vidId;
-    // if(material.type!="Video"){
-    //   vidId = YoutubePlayer.convertUrlToId(material.content!);
+    String? vidId;
+    if(material.type!="Video"){
+      vidId = YoutubePlayer.convertUrlToId(material.content!);
+    }
+    var videoController = YoutubePlayerController(
+      initialVideoId: vidId ?? "1FEP_sNb62k",
+      flags: YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false
+      )
+    );
+
+
+    // void listener(){
+    //   if(mounted){
+    //     PlayerState playerState = PlayerState.cued;
+    //     YoutubeMetaData vidMetaData = const YoutubeMetaData();
+    //     vidMetaData = videoController.metadata;
+    //   }
     // }
+
+    print(videoController.metadata.title);
+
     return Scaffold(
       body: Container(
         width: 1179.w,
@@ -88,7 +108,14 @@ class _MaterialDetailState extends State<MaterialDetail> {
                           ],
                         )
                       else
-                        Text("Video url")
+                        YoutubePlayer(
+                          controller: videoController,
+                          showVideoProgressIndicator: true,
+                          onReady: () {
+                            print(videoController.metadata.title);
+                            // videoController.addListener(listener);
+                          },
+                        )
                     ],
                   ),
                 ),
