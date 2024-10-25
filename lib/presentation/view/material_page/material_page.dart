@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/material_controller/choice_chip_material_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/material_controller/material_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/model/material_model/material_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/search_bar_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/material_page/widgets/choice_chip_material.dart';
@@ -32,28 +33,9 @@ class _MaterialPageState extends State<MaterialPage> {
   String selected = "All";
 
   var controllerChoice = Get.find<ChoiceMaterialController>();
+  var controllerMaterial = Get.find<MaterialController>();
 
-  List<MaterialContent>materials = [
-    MaterialContent(
-      "A poem about poets", 
-      "Video", 
-      "Literature", 
-      "British Council", 
-      "https://img.youtube.com/vi/a41G-6o9Pzs/0.jpg", 
-      "https://youtu.be/a41G-6o9Pzs", 
-      "Do you like poetry? In this video you can listen to a poem … about some of the world's best poets!"
-    ),
-
-    MaterialContent(
-      "Amazing adventurers", 
-      "Article", 
-      "Travel", 
-      "British Council", 
-      "https://learnenglishteens.britishcouncil.org/sites/teens/files/styles/section_block_landing_image/public/field/image/rs7040_thinkstockphotos-490580355-low_4.jpg?itok=OxwLgZDf", 
-      "Ed Stafford from the UK is the first person to walk along the Amazon River from the mountains of Peru to the mouth of the river in Brazil. His amazing journey took two years and four months. There are many dangerous animals in the rainforest, like snakes and crocodiles, but Ed was lucky; he was only bitten by ants and mosquitoes. On his trip, Ed had to find fruit and nuts or catch fish each morning. Sometimes food was hard to find and Ed was often tired and hungry.", 
-      "From climbing Everest to skiing to the South Pole, read about some amazing adventurers!"
-      )
-  ];
+  List<MaterialContent>materials = [];
 
   @override
   Widget build(BuildContext context) {
@@ -78,18 +60,39 @@ class _MaterialPageState extends State<MaterialPage> {
                     const SizedBox(height: 20,),
                     SizedBox(
                       height: 90.h,
-                      child: ChoiceChipMaterial(),
+                      child: ChoiceChipMaterial(), 
                     ),
                     SizedBox(height: 20,),
-                    Expanded(
-                      // list nya ambil parameter dari controllerChoice.selectedChoice.value?.label ?? "All",
-                      child: ListView.separated(
-                        itemCount: 2,
-                        itemBuilder: (context, index) {
-                          return MaterialCard(material: materials[index]);
-                        }, 
-                        separatorBuilder: (context, index) => SizedBox(height: 50.h,), 
-                      )
+                    GetBuilder<MaterialController>(
+                      builder: (controllerMaterial) {
+                        return FutureBuilder(
+                          future: controllerMaterial.getMaterials(), 
+                          builder: (context, snapshot) {
+                            if(snapshot.connectionState == ConnectionState.waiting){
+                              return Text("Memuat data ...");
+                            }
+                            else if(snapshot.hasError){
+                              return Text("Error karena ${snapshot.error}");
+                            }
+                            else if (!snapshot.hasData){
+                              return Text("Data kosong");
+                            }
+                            else {
+                              var materials = controllerMaterial.materials.value!.body ?? [];
+                              return Expanded(
+                                // list nya ambil parameter dari controllerChoice.selectedChoice.value?.label ?? "All",
+                                child: ListView.separated(
+                                  itemCount: materials.length,
+                                  itemBuilder: (context, index) {
+                                    return MaterialCard(material: materials[index]);
+                                  }, 
+                                  separatorBuilder: (context, index) => SizedBox(height: 50.h,), 
+                                )
+                              );
+                            }
+                          },
+                        );
+                      },
                     )
                   ],
                 ),

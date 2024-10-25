@@ -15,10 +15,17 @@ class ChoiceMaterialController extends GetxController {
 
   final Rx<ChoiceMaterial?> selectedChoice = Rx<ChoiceMaterial?>(null);
 
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    selectedChoice.value = choices[0];
+  }
+
   void onSelected(ChoiceMaterial choice) {
     selectedChoice.value = choice;
     for (var item in choices) {
-      item.selected = (item.id == choice.id);
+      item.selected = (item.id == choice.id); // if list choices id nya ada yg sama dengan selected choice id, maka selected menjadi true
     }
     // print(selectedChoice.value?.id);
     update();
