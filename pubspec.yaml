@@ -57,6 +57,8 @@ dependencies:
   permission_handler: ^11.3.1
   flutter_ffmpeg: ^0.4.2
   audioplayers: ^6.0.0
+  url_launcher: ^6.3.1
+  youtube_player_flutter: ^9.1.1
   # flutter_sound: ^9.4.11
 
 dev_dependencies:

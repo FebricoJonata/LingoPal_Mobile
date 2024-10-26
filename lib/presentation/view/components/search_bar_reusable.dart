@@ -59,9 +59,11 @@ class _ReuseSearchBarState extends State<ReuseSearchBar> {
             width: 180.w,
             height: 150.h,
             onClick: () {
+
               print(searchController.text);
               if (searchController.text != "") {
                 widget.setSearchMethod(searchController.text);
+                
               }
             },
           )

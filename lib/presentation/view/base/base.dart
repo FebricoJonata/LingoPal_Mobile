@@ -21,7 +21,7 @@ class _HomePageState extends State<BasePage> {
   // var controllerProfile = Get.find<GetProfileController>();
   // var controllerProgress = Get.find<ProgressAPIController>();
   // var controllerCourse = Get.find<CourseController>();
-  var controllerWord = Get.find<WordListController>(); // ini jangan dikomen nanti error
+  // var controllerWord = Get.find<WordListController>(); // ini jangan dikomen nanti error
 
   @override
   Widget build(BuildContext context) {
