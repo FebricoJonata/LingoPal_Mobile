@@ -45,11 +45,11 @@ class _HomePageState extends State<HomePage> {
               var courseList = courseController.courses.value?.body ?? [];
               var activeCourses = courseController.courseProgress.value?.body ?? [];
 
-              if (courseController.isLoading.isTrue) {
+              if (courseController.isLoading.isTrue || courseController.courseProgress.value == null || courseController.courses.value == null) {
                 return const Text("Memuat Data...");
               } else if (courseController.errorMessage.isNotEmpty) {
                 return const Text("Error");
-              } else if (courseList.isEmpty || courseController.courseProgress.value == null || courseController.courses.value == null) {
+              } else if (courseList.isEmpty) {
                 return const Text("Tidak ada latihan yang dapat ditemukan");
               } else {
                 return ListView.separated(
