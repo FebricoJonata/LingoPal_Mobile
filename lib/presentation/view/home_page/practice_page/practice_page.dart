@@ -140,10 +140,12 @@ class _PracticePageState extends State<PracticePage> {
                                   onTap: course.category?.courseCategoryName == "Pelafalan"
                                       ? () {
                                           Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
+                                          controllerPractice.practiceId.value = practice.practiceId ?? 0;
                                         }
                                       : () async {
                                           await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
+                                          controllerPractice.practiceId.value = practice.practiceId ?? 0;
                                           Get.toNamed(RouteName.multipleChoice);
                                         },
                                   id: practice.practiceId!,
@@ -154,10 +156,12 @@ class _PracticePageState extends State<PracticePage> {
                                   onTap: course.category?.courseCategoryName == "Pelafalan"
                                       ? () {
                                           Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
+                                          controllerPractice.practiceId.value = practice.practiceId ?? 0;
                                         }
                                       : () async {
                                           await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
+                                          controllerPractice.practiceId.value = practice.practiceId ?? 0;
                                           Get.toNamed(RouteName.multipleChoice);
                                         },
                                   // () async {

@@ -19,6 +19,8 @@ class ReuseTextField extends StatelessWidget {
     this.controller,
     this.height,
     this.textInputType,
+    this.validator,
+    this.autovalidateMode,
   });
   final IconData iconTxt;
   final String labelTxt;
@@ -36,6 +38,8 @@ class ReuseTextField extends StatelessWidget {
   final TextEditingController? controller;
   final double? height;
   final TextInputType? textInputType;
+  final FormFieldValidator<String>? validator;
+  final AutovalidateMode? autovalidateMode;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +48,9 @@ class ReuseTextField extends StatelessWidget {
       height: height,
       child: ConstrainedBox(
         constraints: BoxConstraints(maxHeight: maxHeight),
-        child: TextField(
+        child: TextFormField(
+          autovalidateMode: autovalidateMode,
+          validator: validator,
           controller: controller,
           obscureText: obscureText,
           minLines: linesMin,

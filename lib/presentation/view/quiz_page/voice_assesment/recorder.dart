@@ -65,7 +65,7 @@ class _RecorderState extends State<Recorder> {
     setState(() {
       _isRecording = false;
     });
-    controllerSpeech.sstAPI(path ?? "");
+    controllerSpeech.sstAPI(path ?? "", "Its a Sunny Day");
   }
 
   Future<void> _playRecording() async {
