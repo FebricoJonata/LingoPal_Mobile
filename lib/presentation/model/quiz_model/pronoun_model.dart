@@ -1,79 +1,33 @@
 class SpeechToText {
-  final Recognition? recognition;
-  final PronunciationScores? pronunciationScores;
+  final int? status;
+  final Body? body;
 
   SpeechToText({
-    this.recognition,
-    this.pronunciationScores,
+    this.status,
+    this.body,
   });
 
   SpeechToText.fromJson(Map<String, dynamic> json)
-      : recognition = (json['recognition'] as Map<String, dynamic>?) != null
-            ? Recognition.fromJson(json['recognition'] as Map<String, dynamic>)
-            : null,
-        pronunciationScores = (json['pronunciationScores'] as Map<String, dynamic>?) != null
-            ? PronunciationScores.fromJson(json['pronunciationScores'] as Map<String, dynamic>)
-            : null;
+      : status = json['status'] as int?,
+        body = (json['body'] as Map<String, dynamic>?) != null ? Body.fromJson(json['body'] as Map<String, dynamic>) : null;
 
-  Map<String, dynamic> toJson() =>
-      {'recognition': recognition?.toJson(), 'pronunciationScores': pronunciationScores?.toJson()};
+  Map<String, dynamic> toJson() => {'status': status, 'body': body?.toJson()};
 }
 
-class Recognition {
-  final String? recognitionStatus;
-  final int? offset;
-  final int? duration;
-  final List<NBest>? nBest;
-  final String? displayText;
+class Body {
+  final String? text;
+  final PronunciationScores? pronunciationScores;
 
-  Recognition({
-    this.recognitionStatus,
-    this.offset,
-    this.duration,
-    this.nBest,
-    this.displayText,
+  Body({
+    this.text,
+    this.pronunciationScores,
   });
 
-  Recognition.fromJson(Map<String, dynamic> json)
-      : recognitionStatus = json['RecognitionStatus'] as String?,
-        offset = json['Offset'] as int?,
-        duration = json['Duration'] as int?,
-        nBest = (json['NBest'] as List?)?.map((dynamic e) => NBest.fromJson(e as Map<String, dynamic>)).toList(),
-        displayText = json['DisplayText'] as String?;
+  Body.fromJson(Map<String, dynamic> json)
+      : text = json['text'] as String?,
+        pronunciationScores = (json['pronunciationScores'] as Map<String, dynamic>?) != null ? PronunciationScores.fromJson(json['pronunciationScores'] as Map<String, dynamic>) : null;
 
-  Map<String, dynamic> toJson() => {
-        'RecognitionStatus': recognitionStatus,
-        'Offset': offset,
-        'Duration': duration,
-        'NBest': nBest?.map((e) => e.toJson()).toList(),
-        'DisplayText': displayText
-      };
-}
-
-class NBest {
-  final double? confidence;
-  final String? lexical;
-  final String? iTN;
-  final String? maskedITN;
-  final String? display;
-
-  NBest({
-    this.confidence,
-    this.lexical,
-    this.iTN,
-    this.maskedITN,
-    this.display,
-  });
-
-  NBest.fromJson(Map<String, dynamic> json)
-      : confidence = json['Confidence'] as double?,
-        lexical = json['Lexical'] as String?,
-        iTN = json['ITN'] as String?,
-        maskedITN = json['MaskedITN'] as String?,
-        display = json['Display'] as String?;
-
-  Map<String, dynamic> toJson() =>
-      {'Confidence': confidence, 'Lexical': lexical, 'ITN': iTN, 'MaskedITN': maskedITN, 'Display': display};
+  Map<String, dynamic> toJson() => {'text': text, 'pronunciationScores': pronunciationScores?.toJson()};
 }
 
 class PronunciationScores {
@@ -95,10 +49,5 @@ class PronunciationScores {
         completenessScore = json['completenessScore'] as int?,
         fluencyScore = json['fluencyScore'] as int?;
 
-  Map<String, dynamic> toJson() => {
-        'accuracyScore': accuracyScore,
-        'pronunciationScore': pronunciationScore,
-        'completenessScore': completenessScore,
-        'fluencyScore': fluencyScore
-      };
+  Map<String, dynamic> toJson() => {'accuracyScore': accuracyScore, 'pronunciationScore': pronunciationScore, 'completenessScore': completenessScore, 'fluencyScore': fluencyScore};
 }

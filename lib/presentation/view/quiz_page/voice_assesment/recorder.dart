@@ -11,7 +11,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
 class Recorder extends StatefulWidget {
-  const Recorder({super.key});
+  Recorder({super.key, required this.referenceText});
+  final String referenceText;
 
   @override
   State<Recorder> createState() => _RecorderState();
@@ -65,7 +66,7 @@ class _RecorderState extends State<Recorder> {
     setState(() {
       _isRecording = false;
     });
-    controllerSpeech.sstAPI(path ?? "", "Its a Sunny Day");
+    controllerSpeech.sstAPI(path ?? "", widget.referenceText);
   }
 
   Future<void> _playRecording() async {
