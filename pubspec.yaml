@@ -90,8 +90,6 @@ flutter:
     - assets/images/background_asset/
     - assets/images/splash_screen_asset/
     - assets/images/carousel_assets/
-    - assets/images/splash_screen_asset/logo.png
-    - assets/images/splash_screen_asset/logo-color.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -126,7 +124,7 @@ flutter_native_splash:
   android_12:
     color: "#638889"
     icon_background_color: "#638889"
-    image: assets/images/splash_screen_asset/logo-color.png
+    image: assets/images/splash_screen_asset/logo-android.png
 
 flutter_launcher_icons:
   android: true
