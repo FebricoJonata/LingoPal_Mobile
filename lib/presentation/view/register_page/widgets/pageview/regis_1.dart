@@ -10,20 +10,48 @@ import 'package:lingo_pal_mobile/presentation/view/components/text_field_reusabl
 import 'package:lingo_pal_mobile/presentation/view/register_page/widgets/choice_chip/choice_chip.dart';
 
 class Regis1 extends StatelessWidget {
-  const Regis1({super.key});
+  Regis1({super.key});
+
+  final RxBool isFormValid = false.obs;
+
+  final TextEditingController datePickerController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  final controllerRegis = Get.find<RegisterAPIController>();
+  final controllerChoiceChip = Get.find<ChoiceController>();
+
+  String? validateField(String? value, String fieldType) {
+    String? error;
+    switch (fieldType) {
+      case 'Email':
+        error = (value == null || !value.contains('@')) ? 'Email must contain "@"' : null;
+        break;
+      case 'Name':
+        error = (value == null || value.isEmpty) ? 'Cannot be Empty' : null;
+        break;
+      case 'Phone Number':
+        error = (value == null || value.length < 12 || value.length > 15) ? 'Phone number must be between 12 and 15 digits' : null;
+        break;
+      default:
+        error = null;
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      isFormValid.value =
+          (emailController.text.contains('@') && emailController.text.isNotEmpty) && nameController.text.isNotEmpty && (phoneController.text.length >= 12 && phoneController.text.length <= 15);
+    });
+
+    return error;
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController datePickerController = TextEditingController();
-    TextEditingController nameContoller = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-    TextEditingController phoneController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-    var controllerRegis = Get.find<RegisterAPIController>();
-    // var controllerPageView = Get.find<PageViewRegisController>();
-    var controllerChoiceChip = Get.find<ChoiceController>();
     return SingleChildScrollView(
-      child: Column(
+        child: Obx(
+      () => Column(
         children: [
           Align(
             alignment: Alignment.centerLeft,
@@ -45,6 +73,8 @@ class Regis1 extends StatelessWidget {
             iconSize: 40.sp,
             labelTxt: "Email",
             maxHeight: 100.h,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) => validateField(value, 'Email'),
           ),
           SizedBox(height: 10.h),
           Align(
@@ -55,7 +85,7 @@ class Regis1 extends StatelessWidget {
             ),
           ),
           ReuseTextField(
-            controller: nameContoller,
+            controller: nameController,
             obscureText: false,
             linesMax: 1,
             linesMin: 1,
@@ -67,6 +97,8 @@ class Regis1 extends StatelessWidget {
             iconSize: 40.sp,
             labelTxt: "Name",
             maxHeight: 100.h,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) => validateField(value, 'Name'),
           ),
           SizedBox(height: 15.h),
           Align(
@@ -89,6 +121,8 @@ class Regis1 extends StatelessWidget {
             iconSize: 40.sp,
             labelTxt: "Phone Number",
             maxHeight: 100.h,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) => validateField(value, 'Phone Number'),
           ),
           SizedBox(height: 15.h),
           Align(
@@ -175,10 +209,7 @@ class Regis1 extends StatelessWidget {
                   style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
                   child: const Text(
                     "here",
-                    style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        decorationColor: MyColors.secondaryGreen,
-                        color: MyColors.secondaryGreen),
+                    style: TextStyle(decoration: TextDecoration.underline, decorationColor: MyColors.secondaryGreen, color: MyColors.secondaryGreen),
                   ))
             ],
           ),
@@ -189,20 +220,19 @@ class Regis1 extends StatelessWidget {
             btnText: "Lanjutkan",
             width: MediaQuery.of(context).size.width / 2,
             height: 150.h,
-            onClick: () {
-              String? name = nameContoller.text;
-              String? email = emailController.text;
-              String? password = passwordController.text;
-              String? phoneNumber = phoneController.text;
-              String birth = datePickerController.text;
-              print(controllerChoiceChip.selectedChoice.value?.label);
-              controllerRegis.signUpAPI(
-                  name, email, password, phoneNumber, birth, controllerChoiceChip.selectedChoice.value?.label ?? "");
-              // }
-            },
+            onClick: isFormValid.value
+                ? () {
+                    String? name = nameController.text;
+                    String? email = emailController.text;
+                    String? password = passwordController.text;
+                    String? phoneNumber = phoneController.text;
+                    String birth = datePickerController.text;
+                    controllerRegis.signUpAPI(name, email, password, phoneNumber, birth, controllerChoiceChip.selectedChoice.value?.label ?? "");
+                  }
+                : null,
           ),
         ],
       ),
-    );
+    ));
   }
 }

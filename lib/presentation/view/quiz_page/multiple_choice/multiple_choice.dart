@@ -171,12 +171,15 @@ class MutlipleChoice extends StatelessWidget {
                     bool practiceFound = false;
 
                     for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
+                      print(controllerProgress.indexPractice.value + 1);
+                      print(progress.practiceId);
                       if (controllerProgress.indexPractice.value + 1 == progress.practiceId) {
                         practiceFound = true;
+                        print("true");
                         break;
                       } else {
                         practiceFound = false;
-                        break;
+                        print("false");
                       }
                     }
                     if (stars.value >= 1) {
@@ -189,8 +192,7 @@ class MutlipleChoice extends StatelessWidget {
                             true,
                             true);
                       } else {
-                        practiceUpdateController.updatePractice(
-                            0, controllerProgress.practiceProgress.value?.body?[0].userId ?? 0, controllerProgress.indexPractice.value + 1, stars.value, true, true);
+                        practiceUpdateController.updatePractice(0, controllerProgress.practiceProgress.value?.body?[0].userId ?? 0, controllerProgress.practiceId.value, stars.value, true, true);
                       }
                     }
                     await controllerProgress.getPractices(controllerProgress.courseId.value);

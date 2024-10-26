@@ -47,7 +47,9 @@ class LoginAPIController extends GetxController {
         imagePath: "assets/images/robots/cool.png",
         title: "Error!",
         message: message ?? "An unexpected error occurred",
-        onClose: () async {},
+        onClose: () async {
+          Get.back();
+        },
       ),
     );
   }

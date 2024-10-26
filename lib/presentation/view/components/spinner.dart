@@ -15,8 +15,7 @@ class Spinner extends StatelessWidget {
           color: Colors.black54,
           child: const Center(
             child: CircularProgressIndicator(
-              color:
-                  Colors.green, // Replace with MyColors.primaryGreen if defined
+              color: Colors.green,
             ),
           ),
         ),

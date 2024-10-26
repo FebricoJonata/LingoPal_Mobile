@@ -14,17 +14,15 @@ class PronounQuizController extends GetxController {
   RxInt flag = 0.obs;
   Rx<SpeechToText?> speechText = Rx<SpeechToText?>(null);
   var isRecord = 0.obs;
-  Future<Either<Failure, SpeechToText>> sstAPI(String audioPath) async {
+  Future<Either<Failure, SpeechToText>> sstAPI(String audioPath, String referenceText) async {
     try {
       isRecord.value = 1;
       File audioFile = File(audioPath);
       final audioBytes = await audioFile.readAsBytes();
-      // String? photoName = audioFile.path.split(Platform.pathSeparator).last;
-      // print(photoName);
 
       final response = await Dio().post(
         'https://lingo-pal-backend-v1.vercel.app/api/speech/speech-to-text',
-        data: audioBytes,
+        data: {"audioData": audioBytes, "referenceText": referenceText},
         options: Options(
           headers: {"Content-Type": "audio/wave"},
         ),

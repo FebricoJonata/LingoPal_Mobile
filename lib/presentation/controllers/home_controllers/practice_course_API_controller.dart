@@ -13,6 +13,7 @@ class PracticeCourseController extends GetxController {
   var controllerProfile = Get.find<GetProfileController>();
   Rx<PracticeProgressModel?> practiceProgress = Rx<PracticeProgressModel?>(null);
   RxInt indexPractice = 0.obs;
+  RxInt practiceId = 0.obs;
   RxInt courseId = 0.obs;
   var isLoading = false.obs;
   Future<Either<Failure, PracticeModel>> getPractices(courseId) async {
