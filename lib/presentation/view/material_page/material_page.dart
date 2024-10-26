@@ -59,28 +59,36 @@ class _MaterialPageState extends State<MaterialPage> {
                     Text("Material", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                     const SizedBox(height: 20,),
                     SizedBox(
-                      height: 90.h,
+                      // height: 90.h,
                       child: ChoiceChipMaterial(), 
                     ),
                     SizedBox(height: 20,),
                     GetBuilder<MaterialController>(
                       builder: (controllerMaterial) {
                         return FutureBuilder(
-                          future: controllerMaterial.getMaterials(), 
+                          future: controllerMaterial.getMaterials(controllerChoice.selectedChoice.value!.label, searches), 
                           builder: (context, snapshot) {
-                            if(snapshot.connectionState == ConnectionState.waiting){
+                            var materials = controllerMaterial.materials.value?.body ?? [];
+
+                            if(snapshot.connectionState == ConnectionState.waiting || controllerMaterial.materials.value==null){
                               return Text("Memuat data ...");
                             }
                             else if(snapshot.hasError){
                               return Text("Error karena ${snapshot.error}");
                             }
-                            else if (!snapshot.hasData){
-                              return Text("Data kosong");
+                            else if (!snapshot.hasData || materials.isEmpty){
+                              return Column(
+                                children: [
+                                  const Text("Tidak ada data yang ditemukan"),
+                                  SizedBox(
+                                    height: 50.h,
+                                  ),
+                                  const Text("Periksa apakah terdapat kesalahan penulisan pada pencarian")
+                                ],
+                              );
                             }
                             else {
-                              var materials = controllerMaterial.materials.value!.body ?? [];
                               return Expanded(
-                                // list nya ambil parameter dari controllerChoice.selectedChoice.value?.label ?? "All",
                                 child: ListView.separated(
                                   itemCount: materials.length,
                                   itemBuilder: (context, index) {

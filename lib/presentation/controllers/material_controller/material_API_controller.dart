@@ -7,9 +7,12 @@ import 'package:lingo_pal_mobile/presentation/model/material_model/material_mode
 class MaterialController extends GetxController {
   Rx<MaterialModel?> materials = Rx<MaterialModel?>(null);
 
-  Future<Either<Failure, MaterialModel>> getMaterials() async {
+  Future<Either<Failure, MaterialModel>> getMaterials(filter, searches) async {
+    if(filter=="All"){
+      filter="";
+    }
     try {
-      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/material-resource', options: Options(headers: {'accept' : 'application/json'}));
+      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/material-resource', options: Options(headers: {'accept' : 'application/json'}), queryParameters: {"type": filter, "search": searches} );
       var materialModel = MaterialModel.fromJson(response.data);
       materials(materialModel);
       return Right(materialModel);

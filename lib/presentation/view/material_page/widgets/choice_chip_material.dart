@@ -5,10 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/material_controller/choice_chip_material_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/material_controller/material_API_controller.dart';
 
 class ChoiceChipMaterial extends StatelessWidget {
   ChoiceChipMaterial({super.key});
   var controller = Get.find<ChoiceMaterialController>();
+  var controllerMaterial = Get.find<MaterialController>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ChoiceMaterialController>(builder: (controller) {
@@ -44,6 +46,7 @@ class ChoiceChipMaterial extends StatelessWidget {
                       selected: controller.selectedChoice.value?.id == choice.id,
                       onSelected: (selected) {
                         controller.onSelected(choice);
+                        controllerMaterial.update();
                       },
                     ))
                 .toList(),
