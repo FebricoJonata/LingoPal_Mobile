@@ -37,7 +37,7 @@ class AppPages {
     GetPage(name: RouteName.profilePage, page: () => const ProfilePage(), binding: ProfileBindings()),
     GetPage(name: RouteName.editPage, page: () => const EditPage(), binding: ProfileBindings()),
     GetPage(name: RouteName.camera2, page: () => const Camera2(), binding: CameraBinding()),
-    GetPage(name: RouteName.quiz, page: () => const QuizPage(), binding: QuizBindings()),
+    GetPage(name: RouteName.quiz, page: () => QuizPage(), binding: QuizBindings()),
     GetPage(name: RouteName.dictionary, page: () => const DictionaryPage(), binding: DictionaryBindings()),
     GetPage(name: RouteName.multipleChoice, page: () => MutlipleChoice(), binding: QuizBindings()),
     GetPage(name: RouteName.materialPage, page: ()=> const MaterialPage(), binding: MaterialBindings()),

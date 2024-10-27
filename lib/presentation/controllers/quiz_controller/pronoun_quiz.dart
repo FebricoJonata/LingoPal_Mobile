@@ -6,14 +6,13 @@ import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
-import 'package:lingo_pal_mobile/presentation/view/components/alert_score.dart';
-
 import '../../model/quiz_model/pronoun_model.dart';
 
 class PronounQuizController extends GetxController {
   RxInt flag = 0.obs;
   Rx<SpeechToText?> speechText = Rx<SpeechToText?>(null);
   var isRecord = 0.obs;
+  RxDouble score = (0.0).obs;
   Future<Either<Failure, SpeechToText>> sstAPI(String audioPath, String referenceText) async {
     try {
       isRecord.value = 1;
@@ -21,8 +20,8 @@ class PronounQuizController extends GetxController {
       final audioBytes = await audioFile.readAsBytes();
 
       final response = await Dio().post(
-        'https://lingo-pal-backend-v1.vercel.app/api/speech/speech-to-text',
-        data: {"audioData": audioBytes, "referenceText": referenceText},
+        'https://lingo-pal-backend-v1.vercel.app/api/speech/speech-to-text?referenceText=$referenceText',
+        data: audioBytes,
         options: Options(
           headers: {"Content-Type": "audio/wave"},
         ),
@@ -31,25 +30,6 @@ class PronounQuizController extends GetxController {
       final speechTextModel = SpeechToText.fromJson(response.data);
       speechText(speechTextModel);
 
-      if (speechTextModel.pronunciationScores!.accuracyScore! < 65) {
-        Get.dialog(AlertGood(
-            title: "Try Again",
-            message: "Haha",
-            onClose: () {
-              Get.back();
-            },
-            imagePath: AssetConstraints.robotSad,
-            score: "${speechTextModel.pronunciationScores?.accuracyScore}"));
-      } else {
-        Get.dialog(AlertGood(
-            title: "Good Job",
-            message: "Haha",
-            onClose: () {
-              Get.back();
-            },
-            imagePath: AssetConstraints.robotQuiz,
-            score: "${speechTextModel.pronunciationScores?.accuracyScore}"));
-      }
       flag.value = 1;
       return Right(speechTextModel);
     } on DioException catch (e) {
@@ -64,8 +44,10 @@ class PronounQuizController extends GetxController {
             },
             imagePath: AssetConstraints.robotCool));
       }
+      print("Error: $e");
       return Left(Failure('Error: ${e.message}'));
     } catch (e) {
+      print("Error Catch: $e");
       return Left(Failure("$e"));
     } finally {
       isRecord.value = 0;
