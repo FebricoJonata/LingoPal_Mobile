@@ -39,6 +39,8 @@ class _MaterialPageState extends State<MaterialPage> {
 
   @override
   Widget build(BuildContext context) {
+    // controllerMaterial.filter.value = controllerChoice.selectedChoice.value!.label;
+    // controllerMaterial.searches = searches;
     return Scaffold(
       body: Container(
         width: 1179.w,
@@ -63,21 +65,17 @@ class _MaterialPageState extends State<MaterialPage> {
                       child: ChoiceChipMaterial(), 
                     ),
                     SizedBox(height: 20,),
-                    GetBuilder<MaterialController>(
-                      builder: (controllerMaterial) {
-                        return FutureBuilder(
-                          future: controllerMaterial.getMaterials(controllerChoice.selectedChoice.value!.label, searches), 
-                          builder: (context, snapshot) {
-                            var materials = controllerMaterial.materials.value?.body ?? [];
-
-                            if(snapshot.connectionState == ConnectionState.waiting || controllerMaterial.materials.value==null){
-                              return Text("Memuat data ...");
-                            }
-                            else if(snapshot.hasError){
-                              return Text("Error karena ${snapshot.error}");
-                            }
-                            else if (!snapshot.hasData || materials.isEmpty){
-                              return Column(
+                    Obx((){
+                      var materials = controllerMaterial.materials.value?.body ?? [];
+                      
+                      if(controllerMaterial.isLoading.isTrue || controllerMaterial.materials.value==null) {
+                        return Text("Memuat data ...");
+                      }
+                      else if(controllerMaterial.errorMessage.isNotEmpty){
+                        return Text("Error karena ${controllerMaterial.errorMessage}");
+                      }
+                      else if (materials.isEmpty) {
+                        return Column(
                                 children: [
                                   const Text("Tidak ada data yang ditemukan"),
                                   SizedBox(
@@ -86,9 +84,9 @@ class _MaterialPageState extends State<MaterialPage> {
                                   const Text("Periksa apakah terdapat kesalahan penulisan pada pencarian")
                                 ],
                               );
-                            }
-                            else {
-                              return Expanded(
+                      }
+                      else {
+                        return Expanded(
                                 child: ListView.separated(
                                   itemCount: materials.length,
                                   itemBuilder: (context, index) {
@@ -97,11 +95,47 @@ class _MaterialPageState extends State<MaterialPage> {
                                   separatorBuilder: (context, index) => SizedBox(height: 50.h,), 
                                 )
                               );
-                            }
-                          },
-                        );
-                      },
-                    )
+                      }
+                    })
+                    // GetBuilder<MaterialController>(
+                    //   builder: (controllerMaterial) {
+                    //     return FutureBuilder(
+                    //       future: controllerMaterial.getMaterials(controllerChoice.selectedChoice.value!.label, searches), 
+                    //       builder: (context, snapshot) {
+                    //         var materials = controllerMaterial.materials.value?.body ?? [];
+
+                    //         if(snapshot.connectionState == ConnectionState.waiting || controllerMaterial.materials.value==null){
+                    //           return Text("Memuat data ...");
+                    //         }
+                    //         else if(snapshot.hasError){
+                    //           return Text("Error karena ${snapshot.error}");
+                    //         }
+                    //         else if (!snapshot.hasData || materials.isEmpty){
+                    //           return Column(
+                    //             children: [
+                    //               const Text("Tidak ada data yang ditemukan"),
+                    //               SizedBox(
+                    //                 height: 50.h,
+                    //               ),
+                    //               const Text("Periksa apakah terdapat kesalahan penulisan pada pencarian")
+                    //             ],
+                    //           );
+                    //         }
+                    //         else {
+                    //           return Expanded(
+                    //             child: ListView.separated(
+                    //               itemCount: materials.length,
+                    //               itemBuilder: (context, index) {
+                    //                 return MaterialCard(material: materials[index]);
+                    //               }, 
+                    //               separatorBuilder: (context, index) => SizedBox(height: 50.h,), 
+                    //             )
+                    //           );
+                    //         }
+                    //       },
+                    //     );
+                    //   },
+                    // )
                   ],
                 ),
               ),
