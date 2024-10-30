@@ -56,13 +56,12 @@ class _MaterialPageState extends State<MaterialPage> {
                   children: [
                     ReuseSearchBar(setSearchMethod: _setSearchMaterial, searchWord: searches,),
                     const SizedBox(height: 24),
-                    Text("Material", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                    const SizedBox(height: 20,),
+                    Text("Material Resources", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 64.sp)),
+                    const SizedBox(height: 8,),
                     SizedBox(
                       // height: 90.h,
                       child: ChoiceChipMaterial(), 
                     ),
-                    SizedBox(height: 20,),
                     GetBuilder<MaterialController>(
                       builder: (controllerMaterial) {
                         return FutureBuilder(

@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
-import 'package:lingo_pal_mobile/presentation/view/material_page/material_page.dart';
 
 class ReuseSearchBar extends StatefulWidget {
   ReuseSearchBar({super.key, required this.setSearchMethod, required this.searchWord});

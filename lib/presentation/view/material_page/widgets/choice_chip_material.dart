@@ -38,7 +38,7 @@ class ChoiceChipMaterial extends StatelessWidget {
                         choice.label,
                         style: TextStyle(
                           fontFamily: "Poppins",
-                          fontSize: 35.sp,
+                          fontSize: 40.sp,
                           color:
                               controller.selectedChoice.value?.id == choice.id ? Colors.white : MyColors.primaryGreen,
                         ),

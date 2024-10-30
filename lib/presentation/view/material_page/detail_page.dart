@@ -52,9 +52,9 @@ class _MaterialDetailState extends State<MaterialDetail> {
 
     return Scaffold(
       body: YoutubePlayerBuilder(
-        onExitFullScreen: (){
-          SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-        },
+        // onExitFullScreen: (){
+        //   SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+        // },
         player: YoutubePlayer(
           controller: videoController,
           showVideoProgressIndicator: true,
@@ -83,31 +83,34 @@ class _MaterialDetailState extends State<MaterialDetail> {
                             SizedBox(
                               width: 80.w,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  material.title ?? "Title",
-                                  style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  material.category ?? "Category",
-                                  style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold, color: MyColors.primaryGreen),
-                                ),
-                                InkWell(
-                                  onTap: () {launchUrlString(source.substring(source.indexOf('http')));},
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        source.substring(source.indexOf('(')+1, source.indexOf(')')),
-                                        style: TextStyle(fontSize: 50.sp),
-                                      ),
-                                      SizedBox(width: 30.w,),
-                                      Icon(Icons.launch_rounded, size: 50.sp, color: MyColors.primaryGreen,)
-                                    ],
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    material.title ?? "Title",
+                                    style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.bold),
+                                    
                                   ),
-                                ),
-                              ],
+                                  Text(
+                                    material.category ?? "Category",
+                                    style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold, color: MyColors.primaryGreen),
+                                  ),
+                                  InkWell(
+                                    onTap: () {launchUrlString(source.substring(source.indexOf('http')));},
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          source.substring(source.indexOf('(')+1, source.indexOf(')')),
+                                          style: TextStyle(fontSize: 50.sp),
+                                        ),
+                                        SizedBox(width: 30.w,),
+                                        Icon(Icons.launch_rounded, size: 50.sp, color: MyColors.primaryGreen,)
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             )
                           ],
                         ),
@@ -127,8 +130,7 @@ class _MaterialDetailState extends State<MaterialDetail> {
                                 ],
                               ),
                             ),
-                          )
-                          
+                          )  
                       ],
                     ),
                   )
