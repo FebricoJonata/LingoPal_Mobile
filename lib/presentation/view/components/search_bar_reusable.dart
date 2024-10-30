@@ -33,11 +33,11 @@ class _ReuseSearchBarState extends State<ReuseSearchBar> {
             child: SearchBar(
               controller: searchController..text = widget.searchWord,
               hintText: "Search ...",
-              leading: Icon(Icons.search),
-              elevation: WidgetStatePropertyAll(0),
-              padding: WidgetStatePropertyAll(const EdgeInsets.symmetric(horizontal: 8)),
-              surfaceTintColor: WidgetStatePropertyAll(MyColors.white),
-              backgroundColor: WidgetStatePropertyAll(MyColors.white),
+              leading: const Icon(Icons.search),
+              elevation: const WidgetStatePropertyAll(0),
+              padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 8)),
+              surfaceTintColor: const WidgetStatePropertyAll(MyColors.white),
+              backgroundColor: const WidgetStatePropertyAll(MyColors.white),
               shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
             ),
           ),
@@ -59,11 +59,9 @@ class _ReuseSearchBarState extends State<ReuseSearchBar> {
             width: 180.w,
             height: 150.h,
             onClick: () {
-
               print(searchController.text);
               if (searchController.text != "") {
                 widget.setSearchMethod(searchController.text);
-                
               }
             },
           )

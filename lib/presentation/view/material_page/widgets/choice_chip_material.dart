@@ -21,17 +21,11 @@ class ChoiceChipMaterial extends StatelessWidget {
             spacing: 20.w,
             children: controller.choices
                 .map((choice) => ChoiceChip(
-                      backgroundColor: controller.selectedChoice.value?.id == choice.id
-                          ? MyColors.primaryGreen
-                          : MyColors.primaryYellow,
-                      selectedColor: controller.selectedChoice.value?.id == choice.id
-                          ? MyColors.primaryGreen
-                          : MyColors.primaryYellow,
+                      backgroundColor: controller.selectedChoice.value?.id == choice.id ? MyColors.primaryGreen : MyColors.primaryYellow,
+                      selectedColor: controller.selectedChoice.value?.id == choice.id ? MyColors.primaryGreen : MyColors.primaryYellow,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25.h),
-                        side: controller.selectedChoice.value?.id == choice.id
-                            ? BorderSide.none
-                            : const BorderSide(color: Colors.transparent),
+                        side: controller.selectedChoice.value?.id == choice.id ? BorderSide.none : const BorderSide(color: Colors.transparent),
                       ),
                       showCheckmark: false,
                       label: Text(
@@ -39,14 +33,14 @@ class ChoiceChipMaterial extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: "Poppins",
                           fontSize: 35.sp,
-                          color:
-                              controller.selectedChoice.value?.id == choice.id ? Colors.white : MyColors.primaryGreen,
+                          color: controller.selectedChoice.value?.id == choice.id ? Colors.white : MyColors.primaryGreen,
                         ),
                       ),
                       selected: controller.selectedChoice.value?.id == choice.id,
                       onSelected: (selected) {
                         controller.onSelected(choice);
-                        controllerMaterial.update();
+                        print(choice.label);
+                        controllerMaterial.getMaterials(choice.label, "");
                       },
                     ))
                 .toList(),

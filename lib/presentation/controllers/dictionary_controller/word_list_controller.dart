@@ -9,8 +9,7 @@ class WordListController extends GetxController {
 
   Future<Either<Failure, WordModel>> getVocabs() async {
     try {
-      final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/word",
-          options: Options(headers: {'accept': 'application/json'}));
+      final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/word", options: Options(headers: {'accept': 'application/json'}));
 
       var wordModel = WordModel.fromJson(response.data);
       words(wordModel);
@@ -22,15 +21,15 @@ class WordListController extends GetxController {
     }
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    // getVocabs();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   // getVocabs();
+  // }
 
-  @override
-  void onClose() {
-    super.onClose();
-    // getVocabs();
-  }
+  // @override
+  // void onClose() {
+  //   super.onClose();
+  //   // getVocabs();
+  // }
 }

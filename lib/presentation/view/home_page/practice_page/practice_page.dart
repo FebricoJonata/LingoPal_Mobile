@@ -62,6 +62,7 @@ class _PracticePageState extends State<PracticePage> {
   @override
   Widget build(BuildContext context) {
     Course course = Get.arguments['course'];
+
     return Scaffold(
       body: Container(
         width: 1179.w,
