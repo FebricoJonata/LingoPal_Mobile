@@ -13,7 +13,7 @@ class ChoiceChipMaterial extends StatelessWidget {
   var controllerMaterial = Get.find<MaterialController>();
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ChoiceMaterialController>(builder: (controller) {
+    return Obx((){
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -46,7 +46,7 @@ class ChoiceChipMaterial extends StatelessWidget {
                       selected: controller.selectedChoice.value?.id == choice.id,
                       onSelected: (selected) {
                         controller.onSelected(choice);
-                        controllerMaterial.update();
+                        controllerMaterial.getMaterials(choice.label, "");
                       },
                     ))
                 .toList(),

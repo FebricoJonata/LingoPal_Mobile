@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/material_controller/material_API_controller.dart';
 // ignore_for_file: file_names
 
 class ChoiceMaterial {
@@ -11,6 +12,8 @@ class ChoiceMaterial {
 
 class ChoiceMaterialController extends GetxController {
   // var controllerOption = Get.find<optionController>();
+  var controllerMaterial = Get.find<MaterialController>();
+
   final List<ChoiceMaterial> choices = [ChoiceMaterial(1, "All", true), ChoiceMaterial(2, "Article", false), ChoiceMaterial(3, "Video", false)];
 
   final Rx<ChoiceMaterial?> selectedChoice = Rx<ChoiceMaterial?>(null);
@@ -27,8 +30,9 @@ class ChoiceMaterialController extends GetxController {
     for (var item in choices) {
       item.selected = (item.id == choice.id); // if list choices id nya ada yg sama dengan selected choice id, maka selected menjadi true
     }
-    // print(selectedChoice.value?.id);
-    update();
+    print(selectedChoice.value?.id);
+    // await controllerMaterial.getMaterials(selectedChoice.value, "");
+    // update();
   }
 
   int? getSelectedChoiceId() {
