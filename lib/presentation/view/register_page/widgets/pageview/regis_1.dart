@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/choice_chip_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/choice_chip_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/register_API_controller.dart';
+import 'package:lingo_pal_mobile/presentation/view/components/choice_chip.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/date_picker.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/text_field_reusable.dart';
-import 'package:lingo_pal_mobile/presentation/view/register_page/widgets/choice_chip/choice_chip.dart';
 
 class Regis1 extends StatelessWidget {
   Regis1({super.key});
@@ -21,7 +21,12 @@ class Regis1 extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
 
   final controllerRegis = Get.find<RegisterAPIController>();
-  final controllerChoiceChip = Get.find<ChoiceController>();
+  final controllerChoiceChip = Get.find<ChoicesController>();
+
+  final List<Choices> pageChoices = [
+    Choices(1, "Male", false),
+    Choices(2, "Female", false),
+  ];
 
   String? validateField(String? value, String fieldType) {
     String? error;
@@ -49,6 +54,7 @@ class Regis1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    controllerChoiceChip.setChoices(pageChoices);
     return SingleChildScrollView(
         child: Obx(
       () => Column(
@@ -153,7 +159,12 @@ class Regis1 extends StatelessWidget {
               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
             ),
           ),
-          SizedBox(width: 1179.w, height: 150.h, child: choiChip()),
+          SizedBox(
+              width: 1179.w,
+              height: 150.h,
+              child: ReusableChoiceChip(
+                onSelect: (value) {},
+              )),
           SizedBox(height: 15.h),
           Align(
             alignment: Alignment.centerLeft,

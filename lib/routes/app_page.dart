@@ -40,7 +40,7 @@ class AppPages {
     GetPage(name: RouteName.quiz, page: () => QuizPage(), binding: QuizBindings()),
     GetPage(name: RouteName.dictionary, page: () => const DictionaryPage(), binding: DictionaryBindings()),
     GetPage(name: RouteName.multipleChoice, page: () => MutlipleChoice(), binding: QuizBindings()),
-    GetPage(name: RouteName.materialPage, page: ()=> const MaterialPage(), binding: MaterialBindings()),
-    GetPage(name: RouteName.detailMaterial, page: ()=> MaterialDetail())
+    GetPage(name: RouteName.materialPage, page: () => const MaterialPage(), binding: MaterialBindings()),
+    GetPage(name: RouteName.detailMaterial, page: () => const MaterialDetail())
   ];
 }

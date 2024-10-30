@@ -171,15 +171,12 @@ class MutlipleChoice extends StatelessWidget {
                     bool practiceFound = false;
 
                     for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
-                      print(controllerProgress.indexPractice.value + 1);
-                      print(progress.practiceId);
                       if (controllerProgress.indexPractice.value + 1 == progress.practiceId) {
                         practiceFound = true;
-                        print("true");
+
                         break;
                       } else {
                         practiceFound = false;
-                        print("false");
                       }
                     }
                     if (stars.value >= 1) {

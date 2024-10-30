@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/camera_controllers/picker_controller.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/profile_page/choice_chip_edit_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/choice_chip_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/edit_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/camera_screen/camera_screen.dart';
+import 'package:lingo_pal_mobile/presentation/view/components/choice_chip.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/date_picker.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/text_field_reusable.dart';
-import 'package:lingo_pal_mobile/presentation/view/profile_page/widgets/choice_chip/choice_chip_edit.dart';
 
 class EditPage extends StatefulWidget {
   const EditPage({super.key});
@@ -25,12 +25,18 @@ class _EditPageState extends State<EditPage> {
   TextEditingController nameContoller = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   var controllerEdit = Get.find<EditAPIController>();
-  var controllerChoice = Get.find<ChoiceEditController>();
+  var controllerChoice = Get.find<ChoicesController>();
   var controllerProfile = Get.find<GetProfileController>();
   var controllerImage = Get.find<ImagePickerController>();
   int userId = Get.arguments;
+  final List<Choices> pageChoices = [
+    Choices(1, "Male", false),
+    Choices(2, "Female", false),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    controllerChoice.setChoices(pageChoices);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -172,7 +178,9 @@ class _EditPageState extends State<EditPage> {
                           SizedBox(
                             width: 1179.w,
                             height: 200.h,
-                            child: choiChipEdit(),
+                            child: ReusableChoiceChip(
+                              onSelect: (value) {},
+                            ),
                           ),
                           Align(
                             alignment: Alignment.centerLeft,

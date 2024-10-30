@@ -34,16 +34,6 @@ class _MaterialDetailState extends State<MaterialDetail> {
           mute: false,
         ));
 
-    // void listener(){
-    //   if(mounted){
-    //     PlayerState playerState = PlayerState.cued;
-    //     YoutubeMetaData vidMetaData = const YoutubeMetaData();
-    //     vidMetaData = videoController.metadata;
-    //   }
-    // }
-
-    print(videoController.metadata.title);
-
     return Scaffold(
       body: YoutubePlayerBuilder(
         onExitFullScreen: () {
