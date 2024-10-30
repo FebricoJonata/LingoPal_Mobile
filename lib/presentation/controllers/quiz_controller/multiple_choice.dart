@@ -20,7 +20,7 @@ class MultipleChoiceController extends GetxController {
       print("DioException: ${e.response}");
       return Left(Failure('Error: ${e.message}'));
     } catch (e) {
-      print("Error: ${e}");
+      print("Error: $e");
       return Left(Failure('Error: $e'));
     }
   }

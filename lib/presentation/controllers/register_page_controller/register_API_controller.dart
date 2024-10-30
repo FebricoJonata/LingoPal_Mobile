@@ -8,19 +8,11 @@ import 'package:lingo_pal_mobile/presentation/model/signup_model/singup_model.da
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class RegisterAPIController extends GetxController {
-  Future<Either<Failure, SignUp>> signUpAPI(
-      String name, String email, String password, String phoneNumber, String birth, String gender) async {
+  Future<Either<Failure, SignUp>> signUpAPI(String name, String email, String password, String phoneNumber, String birth, String gender) async {
     try {
       final response = await Dio().post(
         "https://lingo-pal-backend-v1.vercel.app/api/users/signup",
-        data: {
-          "name": name,
-          "email": email,
-          "password": password,
-          "phone_number": phoneNumber,
-          "birth_date": birth,
-          "gender": gender
-        },
+        data: {"name": name, "email": email, "password": password, "phone_number": phoneNumber, "birth_date": birth, "gender": gender},
         options: Options(
           headers: {"Accept": "application/json", "Content-Type": "application/json"},
         ),

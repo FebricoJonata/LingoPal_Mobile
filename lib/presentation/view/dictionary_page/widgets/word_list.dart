@@ -18,34 +18,7 @@ class WordList extends StatefulWidget {
 class _WordListState extends State<WordList> {
   List<Vocab> mapWords(wordList, index) {
     List<Vocab> listVocab = [];
-    List<String> letters = [
-      "A",
-      "B",
-      "C",
-      "D",
-      "E",
-      "F",
-      "G",
-      "H",
-      "I",
-      "J",
-      "K",
-      "L",
-      "M",
-      "N",
-      "O",
-      "P",
-      "Q",
-      "R",
-      "S",
-      "T",
-      "U",
-      "V",
-      "W",
-      "X",
-      "Y",
-      "Z"
-    ];
+    List<String> letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
     // int idx = 0;
 
@@ -64,7 +37,6 @@ class _WordListState extends State<WordList> {
 
   @override
   Widget build(BuildContext context) {
-    print("Berhasil masuk search");
     return Column(
       children: [
         const Row(
@@ -80,8 +52,6 @@ class _WordListState extends State<WordList> {
         const SizedBox(height: 20),
         GetBuilder<WordListController>(
           builder: (controllerWord) {
-            print("ga terpengaruh null disini");
-            // error sebelum kesini
             return FutureBuilder(
               future: controllerWord.getVocabs(),
               builder: (context, snapshot) {
@@ -102,7 +72,7 @@ class _WordListState extends State<WordList> {
                           print("Index: $index");
                           List<Vocab> listVocab = [];
                           listVocab = mapWords(listWords, index);
-    
+
                           return VocabularyContainer(
                             header: listVocab.first.alphabet!,
                             vocabulary: listVocab,

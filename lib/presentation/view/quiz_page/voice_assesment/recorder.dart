@@ -11,7 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
 class Recorder extends StatefulWidget {
-  Recorder({super.key, required this.referenceText});
+  const Recorder({super.key, required this.referenceText});
   final String referenceText;
 
   @override
