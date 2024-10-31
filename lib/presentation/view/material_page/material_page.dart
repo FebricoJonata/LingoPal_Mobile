@@ -5,6 +5,7 @@ import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/choice_chip_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/material_controller/material_API_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/searchbar_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/choice_chip.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/search_bar_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/material_page/widgets/material_card.dart';
@@ -19,13 +20,15 @@ class MaterialPage extends StatefulWidget {
 class _MaterialPageState extends State<MaterialPage> {
   RxString searches = "".obs;
 
-  void _setSearchMaterial(searchMaterial) {
-    searches.value = searchMaterial;
+  // void _setSearchMaterial(searchMaterial) {
+  //   searches.value = searchMaterial;
     // controllerMaterial.getMaterials(controllerChoice.selectedChoice.value!.label, searches.value);
-  }
+  // }
 
   var controllerMaterial = Get.find<MaterialController>();
   final controller = Get.find<ChoicesController>();
+  final controllerSearch = Get.find<SearchBarController>();
+
   @override
   void initState() {
     super.initState();
@@ -35,11 +38,12 @@ class _MaterialPageState extends State<MaterialPage> {
       Choices(3, "Video", false),
     ];
     controller.setChoices(pageChoices);
-    controllerMaterial.getMaterials(controller.selectedChoice.value!.label, searches);
+    controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         width: 1179.w,
@@ -56,8 +60,10 @@ class _MaterialPageState extends State<MaterialPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ReuseSearchBar(
-                      setSearchMethod: _setSearchMaterial,
-                      searchWord: searches.value,
+                      // searches: searches,
+                      onPressed: (value) {
+                        controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
+                      },
                     ),
                     const SizedBox(height: 24),
                     const Text("Material", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -65,7 +71,7 @@ class _MaterialPageState extends State<MaterialPage> {
                     SizedBox(
                       child: ReusableChoiceChip(
                         onSelect: (value) {
-                          controllerMaterial.getMaterials(controller.selectedChoice.value!.label, searches);
+                          controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
                         },
                       ),
                     ),
@@ -73,7 +79,7 @@ class _MaterialPageState extends State<MaterialPage> {
                     Obx(() {
                       var materials = controllerMaterial.materials.value?.body ?? [];
 
-                      if (controllerMaterial.materials.value == null) {
+                      if (controllerMaterial.materials.value == null || controllerMaterial.isLoading.isTrue) {
                         return const Text("Memuat data ...");
                       } else if (materials.isEmpty) {
                         return Column(
