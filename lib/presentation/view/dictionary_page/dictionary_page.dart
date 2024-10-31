@@ -41,10 +41,10 @@ class _DictionaryPageState extends State<DictionaryPage> {
                 padding: EdgeInsets.only(right: 30, left: 30, bottom: 100.h),
                 child: Column(
                   children: [
-                    ReuseSearchBar(
-                      setSearchMethod: _setSearchWord,
-                      searchWord: searches,
-                    ),
+                    // ReuseSearchBar(
+                    //   setSearchMethod: _setSearchWord,
+                    //   searchWord: searches,
+                    // ),
                     const SizedBox(height: 24),
                     if (searches == "")
                       Expanded(child: WordList(onSearch: _setSearchWord))
