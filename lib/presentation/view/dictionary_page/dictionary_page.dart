@@ -50,13 +50,17 @@ class _DictionaryPageState extends State<DictionaryPage> {
                     ),
                     const SizedBox(height: 24),
                     // kasi obx disini
-                    if (searches == "")
-                      Expanded(child: WordList(onSearch: _setSearchWord))
-                    else
-                      Expanded(
+                    Obx(() {
+                      if(controllerSearch.searches.value.isEmpty){
+                        return Expanded(child: WordList(onSearch: _setSearchWord));
+                      }
+                      else {
+                        return Expanded(
                           child: WordCard(
-                        searchWord: searches,
-                      ))
+                          searchWord: searches,
+                        ));
+                      }
+                    })
                   ],
                 ),
               ),

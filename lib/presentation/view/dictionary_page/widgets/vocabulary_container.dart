@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/searchbar_controller.dart';
 import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_model.dart';
 
 class VocabularyContainer extends StatelessWidget {
@@ -9,6 +11,8 @@ class VocabularyContainer extends StatelessWidget {
   // final List<Map<String, String>> vocabulary;
   final List<Vocab> vocabulary;
   Function onsearch;
+
+  final controllerSearch = Get.find<SearchBarController>();
 
   VocabularyContainer({
     Key? key,
@@ -57,7 +61,7 @@ class VocabularyContainer extends StatelessWidget {
               child: Row(
                 children: [
                   InkWell(
-                    onTap: () => {onsearch(item.word!)},
+                    onTap: () => {controllerSearch.searches.value = item.word!},
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                       decoration: BoxDecoration(
