@@ -35,6 +35,8 @@ class _WordListState extends State<WordList> {
     return listVocab;
   }
 
+  var controllerWord = Get.find<WordListController>();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,19 +52,15 @@ class _WordListState extends State<WordList> {
           ],
         ),
         const SizedBox(height: 20),
-        GetBuilder<WordListController>(
-          builder: (controllerWord) {
-            return FutureBuilder(
-              future: controllerWord.getVocabs(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
+        Obx(() {
+          var listWords = controllerWord.words.value?.body ?? [];
+          if (controllerWord.isLoading.isTrue || controllerWord.words.value == null) {
                   return const Text("Memuat kata-kata ...");
-                } else if (snapshot.hasError) {
+                } else if (controllerWord.errorMessage.isNotEmpty) {
                   return const Text("Error memuat data");
-                } else if (!snapshot.hasData) {
+                } else if (listWords.isEmpty) {
                   return const Text("Tidak ditemukan data");
                 } else {
-                  var listWords = controllerWord.words.value!.body ?? [];
                   print("List Words: $listWords");
                   return Expanded(
                     child: ListView.builder(
@@ -81,10 +79,42 @@ class _WordListState extends State<WordList> {
                         }),
                   );
                 }
-              },
-            );
-          },
-        )
+        },),
+        // GetBuilder<WordListController>(
+        //   builder: (controllerWord) {
+        //     return FutureBuilder(
+        //       future: controllerWord.getVocabs(),
+        //       builder: (context, snapshot) {
+        //         if (snapshot.connectionState == ConnectionState.waiting) {
+        //           return const Text("Memuat kata-kata ...");
+        //         } else if (snapshot.hasError) {
+        //           return const Text("Error memuat data");
+        //         } else if (!snapshot.hasData) {
+        //           return const Text("Tidak ditemukan data");
+        //         } else {
+        //           var listWords = controllerWord.words.value!.body ?? [];
+        //           print("List Words: $listWords");
+        //           return Expanded(
+        //             child: ListView.builder(
+        //                 shrinkWrap: true,
+        //                 itemCount: 26,
+        //                 itemBuilder: (context, index) {
+        //                   print("Index: $index");
+        //                   List<Vocab> listVocab = [];
+        //                   listVocab = mapWords(listWords, index);
+
+        //                   return VocabularyContainer(
+        //                     header: listVocab.first.alphabet!,
+        //                     vocabulary: listVocab,
+        //                     onsearch: widget.onSearch,
+        //                   );
+        //                 }),
+        //           );
+        //         }
+        //       },
+        //     );
+        //   },
+        // )
       ],
     );
   }

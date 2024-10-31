@@ -11,14 +11,13 @@ class MaterialController extends GetxController {
   Rx<MaterialModel?> materials = Rx<MaterialModel?>(null);
   var isLoading = false.obs;
   var errorMessage = ''.obs;
-  // var controllerMaterialChip = Get.find<ChoiceMaterialController>();/
-  var searches = "".obs;
 
   Future<Either<Failure, MaterialModel>> getMaterials(filter, searches) async {
     if (filter == "All") {
       filter = "";
     }
     try {
+      isLoading.value = true;
       final response = await Dio()
           .get('https://lingo-pal-backend-v1.vercel.app/api/material-resource', options: Options(headers: {'accept': 'application/json'}), queryParameters: {"type": filter, "search": searches});
       var materialModel = MaterialModel.fromJson(response.data);
@@ -29,6 +28,7 @@ class MaterialController extends GetxController {
       return Left(Failure("$e"));
     } catch (e) {
       print("Error material: $e");
+      errorMessage.value = e.toString();
       return Left(Failure("$e"));
     } finally {
       isLoading.value = false;
