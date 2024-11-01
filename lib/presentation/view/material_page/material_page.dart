@@ -38,6 +38,7 @@ class _MaterialPageState extends State<MaterialPage> {
       Choices(3, "Video", false),
     ];
     controller.setChoices(pageChoices);
+    controllerSearch.searches.value = "";
     controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
   }
 

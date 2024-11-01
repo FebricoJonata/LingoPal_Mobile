@@ -21,10 +21,17 @@ class _DictionaryPageState extends State<DictionaryPage> {
   var controllerWord = Get.find<WordListController>();
   var controllerSearch = Get.find<SearchBarController>();
 
-  void _setSearchWord(searchWord) {
-    setState(() {
-      searches = searchWord;
-    });
+  // void _setSearchWord(searchWord) {
+  //   setState(() {
+  //     searches = searchWord;
+  //   });
+  // }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controllerSearch.searches.value = "";
   }
 
   @override
@@ -46,18 +53,21 @@ class _DictionaryPageState extends State<DictionaryPage> {
                     ReuseSearchBar(
                       onPressed: (value) {
                         // searches = controllerSearch.searches.value;
+                        // controllerVocab.setWordCard(controllerSearch.searches.value);
                       },
                     ),
                     const SizedBox(height: 24),
                     // kasi obx disini
-                    Obx((){
-                      if (controllerSearch.searches.value==""){
-                      return Expanded(child: WordList(onSearch: _setSearchWord));}
-                    else {
-                      return Expanded(
+                    Obx(() {
+                      if(controllerSearch.searches.value.isEmpty){
+                        return Expanded(child: WordList());
+                      }
+                      else {
+                        return Expanded(
                           child: WordCard(
-                        searchWord: searches,
-                      ));}
+                          searchWord: controllerSearch.searches.value,
+                        ));
+                      }
                     })
                   ],
                 ),

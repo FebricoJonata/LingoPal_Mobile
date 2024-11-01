@@ -11,27 +11,42 @@ class ReuseSearchBar extends StatelessWidget {
   ReuseSearchBar({super.key, required this.onPressed});
 
   Function(String) onPressed;
-  // RxString searches;
 
   SearchController searchController = SearchController();
   SearchBarController searchBarController = Get.find<SearchBarController>();
 
+  void searching(value){
+    print("Ini text dari controller ${searchBarController.searches.value}");
+    print("Ini text dari searchbar $value");
+    if (value.isNotEmpty) {
+      searchBarController.setSearchWord(value);
+      onPressed(searchBarController.searches.value);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    if(searchBarController.searches.value.isNotEmpty){
+      searchController.text = searchBarController.searches.value;
+    }
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
       decoration: BoxDecoration(
         color: MyColors.white,
         borderRadius: BorderRadius.circular(10),
       ),
+      height: 150.h,
       child: Row(
         children: [
           Expanded(
-            child: Row(
+            child: Row( 
               children: [
-                Expanded(
+                Obx(() {
+                  return Expanded(
                   child: SearchBar(
-                    controller: searchController,
+                    controller: searchBarController.searches.value.isEmpty?searchController : searchController..text = searchBarController.searches.value,
                     hintText: "Search ...",
                     leading: const Icon(Icons.search),
                     elevation: const WidgetStatePropertyAll(0),
@@ -39,10 +54,13 @@ class ReuseSearchBar extends StatelessWidget {
                     surfaceTintColor: const WidgetStatePropertyAll(MyColors.white),
                     backgroundColor: const WidgetStatePropertyAll(MyColors.white),
                     shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                    onSubmitted: searching,
                   ),
-                ),
+                );
+                },),
+                
                 Obx(() {
-                  searchBarController.searches.value = searchController.text;
+                  // searchBarController.searches.value = searchController.text;
                   if(searchBarController.searches.value.isNotEmpty){
                     return IconButton(
                     onPressed: () {
@@ -65,22 +83,15 @@ class ReuseSearchBar extends StatelessWidget {
           PrimaryBtn(
             btnText: "Search",
             width: 180.w,
-            height: 150.h,
+            height: context.height,
             onClick: () {
-              print("Ini text dari controller ${searchBarController.searches.value}");
-              print("Ini text dari searchbar ${searchController.text}");
-              if (searchController.text.isNotEmpty) {
-                // setSearchMethod(searchController.text);
-                searchBarController.setSearchWord(searchController.text);
-                onPressed(searchBarController.searches.value);
-              }
+              searching(searchController.text);
             },
           )
         ],
           
       )
     );
-    // });
     
   }
 }

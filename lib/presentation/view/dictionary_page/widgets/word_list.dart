@@ -7,9 +7,9 @@ import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_model.
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/vocabulary_container.dart';
 
 class WordList extends StatefulWidget {
-  WordList({super.key, required this.onSearch});
+  WordList({super.key});
 
-  Function onSearch;
+  // Function onSearch;
 
   @override
   State<WordList> createState() => _WordListState();
@@ -74,7 +74,7 @@ class _WordListState extends State<WordList> {
                           return VocabularyContainer(
                             header: listVocab.first.alphabet!,
                             vocabulary: listVocab,
-                            onsearch: widget.onSearch,
+                            // onsearch: widget.onSearch,
                           );
                         }),
                   );
