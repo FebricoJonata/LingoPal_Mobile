@@ -45,18 +45,20 @@ class _DictionaryPageState extends State<DictionaryPage> {
                   children: [
                     ReuseSearchBar(
                       onPressed: (value) {
-                        searches = controllerSearch.searches.value;
+                        // searches = controllerSearch.searches.value;
                       },
                     ),
                     const SizedBox(height: 24),
                     // kasi obx disini
-                    if (searches == "")
-                      Expanded(child: WordList(onSearch: _setSearchWord))
-                    else
-                      Expanded(
+                    Obx((){
+                      if (controllerSearch.searches.value==""){
+                      return Expanded(child: WordList(onSearch: _setSearchWord));}
+                    else {
+                      return Expanded(
                           child: WordCard(
                         searchWord: searches,
-                      ))
+                      ));}
+                    })
                   ],
                 ),
               ),
