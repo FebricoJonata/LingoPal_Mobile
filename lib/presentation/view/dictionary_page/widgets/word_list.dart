@@ -20,7 +20,6 @@ class _WordListState extends State<WordList> {
     List<Vocab> listVocab = [];
     List<String> letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
-    // int idx = 0;
 
     for (var i = 0; i < wordList.length; i++) {
       if (wordList[i].alphabet == letters[index]) {
@@ -47,8 +46,6 @@ class _WordListState extends State<WordList> {
               "Glossary",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
-            // Spacer(),
-            // Icon(Icons.list),
           ],
         ),
         const SizedBox(height: 20),
@@ -74,47 +71,11 @@ class _WordListState extends State<WordList> {
                           return VocabularyContainer(
                             header: listVocab.first.alphabet!,
                             vocabulary: listVocab,
-                            // onsearch: widget.onSearch,
                           );
                         }),
                   );
                 }
         },),
-        // GetBuilder<WordListController>(
-        //   builder: (controllerWord) {
-        //     return FutureBuilder(
-        //       future: controllerWord.getVocabs(),
-        //       builder: (context, snapshot) {
-        //         if (snapshot.connectionState == ConnectionState.waiting) {
-        //           return const Text("Memuat kata-kata ...");
-        //         } else if (snapshot.hasError) {
-        //           return const Text("Error memuat data");
-        //         } else if (!snapshot.hasData) {
-        //           return const Text("Tidak ditemukan data");
-        //         } else {
-        //           var listWords = controllerWord.words.value!.body ?? [];
-        //           print("List Words: $listWords");
-        //           return Expanded(
-        //             child: ListView.builder(
-        //                 shrinkWrap: true,
-        //                 itemCount: 26,
-        //                 itemBuilder: (context, index) {
-        //                   print("Index: $index");
-        //                   List<Vocab> listVocab = [];
-        //                   listVocab = mapWords(listWords, index);
-
-        //                   return VocabularyContainer(
-        //                     header: listVocab.first.alphabet!,
-        //                     vocabulary: listVocab,
-        //                     onsearch: widget.onSearch,
-        //                   );
-        //                 }),
-        //           );
-        //         }
-        //       },
-        //     );
-        //   },
-        // )
       ],
     );
   }

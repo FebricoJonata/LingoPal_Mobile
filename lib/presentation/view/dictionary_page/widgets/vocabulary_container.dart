@@ -8,9 +8,7 @@ import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_model.
 
 class VocabularyContainer extends StatelessWidget {
   final String header;
-  // final List<Map<String, String>> vocabulary;
   final List<Vocab> vocabulary;
-  // Function onsearch;
 
   final controllerSearch = Get.find<SearchBarController>();
 
@@ -75,10 +73,6 @@ class VocabularyContainer extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  // Text(
-                  //   '(${item['type']})',
-                  //   style: const TextStyle(fontSize: 16, color: Colors.black54),
-                  // ),
                 ],
               ),
             );
