@@ -12,7 +12,6 @@ class PracticeUpdateController extends GetxController {
           options: Options(headers: {'accept': 'application/json', 'Content-Type': 'application/json'}));
       practiceUpdate(PracticeUpdate.fromJson(response.data));
       print("Response: ${practiceUpdate.value?.body}");
-      print("Done");
       return practiceUpdate;
     } on DioException catch (e) {
       print("DioException: ${e.response?.statusCode}");

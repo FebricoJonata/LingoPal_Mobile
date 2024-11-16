@@ -24,16 +24,4 @@ class MultipleChoiceController extends GetxController {
       return Left(Failure('Error: $e'));
     }
   }
-
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   fetchMultipleChoice();
-  // }
-
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  //   fetchMultipleChoice();
-  // }
 }
