@@ -2,71 +2,96 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/searchbar_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 
-class ReuseSearchBar extends StatefulWidget {
-  ReuseSearchBar({super.key, required this.setSearchMethod, required this.searchWord});
+class ReuseSearchBar extends StatelessWidget {
+  ReuseSearchBar({super.key, required this.onPressed});
 
-  Function setSearchMethod;
-  String searchWord;
+  Function(String) onPressed;
 
-  @override
-  State<ReuseSearchBar> createState() => _ReuseSearchBarState();
-}
-
-class _ReuseSearchBarState extends State<ReuseSearchBar> {
   SearchController searchController = SearchController();
+  SearchBarController searchBarController = Get.find<SearchBarController>();
+
+  void searching(value){
+    print("Ini text dari controller ${searchBarController.searches.value}");
+    print("Ini text dari searchbar $value");
+    if (value.isNotEmpty) {
+      searchBarController.setSearchWord(value);
+      onPressed(searchBarController.searches.value);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    if(searchBarController.searches.value.isNotEmpty){
+      searchController.text = searchBarController.searches.value;
+    }
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
       decoration: BoxDecoration(
         color: MyColors.white,
         borderRadius: BorderRadius.circular(10),
       ),
+      height: 150.h,
       child: Row(
         children: [
-          // Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.search)),
           Expanded(
-            child: SearchBar(
-              controller: searchController..text = widget.searchWord,
-              hintText: "Search ...",
-              leading: const Icon(Icons.search),
-              elevation: const WidgetStatePropertyAll(0),
-              padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 8)),
-              surfaceTintColor: const WidgetStatePropertyAll(MyColors.white),
-              backgroundColor: const WidgetStatePropertyAll(MyColors.white),
-              shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+            child: Row( 
+              children: [
+                Obx(() {
+                  return Expanded(
+                  child: SearchBar(
+                    controller: searchBarController.searches.value.isEmpty?searchController : searchController..text = searchBarController.searches.value,
+                    hintText: "Type keywords ...",
+                    leading: const Icon(Icons.search),
+                    elevation: const WidgetStatePropertyAll(0),
+                    padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 8)),
+                    surfaceTintColor: const WidgetStatePropertyAll(MyColors.white),
+                    backgroundColor: const WidgetStatePropertyAll(MyColors.white),
+                    shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                    onSubmitted: searching,
+                  ),
+                );
+                },),
+                
+                Obx(() {
+                  // searchBarController.searches.value = searchController.text;
+                  if(searchBarController.searches.value.isNotEmpty){
+                    return IconButton(
+                    onPressed: () {
+                      searchController.clear();
+                      searchBarController.setSearchWord("");
+                      onPressed(searchBarController.searches.value);
+                    },
+                    icon: const Icon(Icons.close));
+                  }
+                        
+                  else {
+                    return const SizedBox(
+                      width: 8,
+                    );
+                  }
+                })
+              ],
             ),
           ),
-          Builder(builder: (context) {
-            if (searchController.text != "") {
-              return IconButton(
-                  onPressed: () {
-                    widget.setSearchMethod("");
-                  },
-                  icon: const Icon(Icons.close));
-            } else {
-              return const SizedBox(
-                width: 8,
-              );
-            }
-          }),
           PrimaryBtn(
             btnText: "Search",
             width: 180.w,
-            height: 150.h,
+            height: context.height,
             onClick: () {
-              print(searchController.text);
-              if (searchController.text != "") {
-                widget.setSearchMethod(searchController.text);
-              }
+              searching(searchController.text);
             },
           )
         ],
-      ),
+          
+      )
     );
+    
   }
 }

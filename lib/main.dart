@@ -57,6 +57,11 @@ class MyApp extends StatelessWidget {
           getPages: AppPages.pages,
           theme: ThemeData(
             textTheme: GoogleFonts.latoTextTheme(),
+            textSelectionTheme: const TextSelectionThemeData(
+              cursorColor: MyColors.secondaryGreen,
+              selectionHandleColor: MyColors.secondaryGreen,
+              selectionColor: MyColors.primaryYellow
+            )
           ),
         );
       },

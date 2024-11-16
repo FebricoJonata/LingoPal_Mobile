@@ -11,6 +11,7 @@ import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_c
 // import 'package:lingo_pal_mobile/presentation/controllers/material_controller/choice_chip_material_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/material_controller/material_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/searchbar_controller.dart';
 
 class BaseBindings implements Bindings {
   @override
@@ -25,6 +26,7 @@ class BaseBindings implements Bindings {
     Get.lazyPut(() => AudioController());
     Get.lazyPut(() => WordListController());
     Get.lazyPut(() => ChoicesController());
-    Get.lazyPut(() => MaterialController()); // error disini, atau dimana, habis refresh ga jalan
+    Get.lazyPut(() => MaterialController());
+    Get.lazyPut(() => SearchBarController());
   }
 }
