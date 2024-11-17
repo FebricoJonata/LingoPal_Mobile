@@ -63,7 +63,11 @@ class _MaterialDetailState extends State<MaterialDetail> {
                     children: [
                       Row(
                         children: [
-                          const BackBtn(),
+                          BackBtn(
+                            ontap: () {
+                              Get.back();
+                            },
+                          ),
                           SizedBox(
                             width: 80.w,
                           ),

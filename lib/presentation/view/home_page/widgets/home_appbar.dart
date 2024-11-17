@@ -112,7 +112,8 @@ class CustomAppBar extends StatelessWidget {
                                     color: MyColors.lightGrey,
                                   ),
                                   Row(children: [
-                                    Text("${controllerProgress.progress.value?.body?.data?.first.totalPoin}", style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
+                                    Obx(() =>
+                                        Text("${controllerProgress.progress.value?.body?.data?.first.totalPoin}", style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold))),
                                     const Icon(
                                       Icons.star_rounded,
                                       color: MyColors.primaryYellow,

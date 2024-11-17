@@ -14,6 +14,8 @@ import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widge
 import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widgets/practice_done.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
+import '../../../controllers/home_controllers/course_API_controller.dart';
+import '../../../controllers/home_controllers/progress_course_API_controller.dart';
 import '../../../controllers/quiz_controller/course_update.dart';
 
 class PracticePage extends StatefulWidget {
@@ -51,7 +53,8 @@ class _PracticePageState extends State<PracticePage> {
   var controllerQuiz = Get.find<MultipleChoiceController>();
   var controllerPractice = Get.find<PracticeCourseController>();
   var controllerCourseUpdate = Get.find<CourseUpdateController>();
-
+  var controllerProgress = Get.find<ProgressAPIController>();
+  var controllerCourse = Get.find<CourseController>();
   @override
   void initState() {
     super.initState();
@@ -101,7 +104,14 @@ class _PracticePageState extends State<PracticePage> {
                     children: [
                       Row(
                         children: [
-                          const BackBtn(),
+                          BackBtn(
+                            ontap: () async {
+                              await controllerProgress.getProgress();
+                              await controllerCourse.getCourses();
+                              await controllerCourse.getUserCourseProgress();
+                              Get.back();
+                            },
+                          ),
                           SizedBox(
                             width: 80.w,
                           ),

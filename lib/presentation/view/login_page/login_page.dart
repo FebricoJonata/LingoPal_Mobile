@@ -49,7 +49,11 @@ class _LoginPageState extends State<LoginPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const BackBtn(),
+                          BackBtn(
+                            ontap: () {
+                              Get.back();
+                            },
+                          ),
                           SizedBox(
                             width: 80.w,
                           ),
