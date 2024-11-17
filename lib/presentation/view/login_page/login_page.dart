@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     ReuseTextField(
-                      controller: emailController..text = "riko9647@gmail.com",
+                      controller: emailController,
                       obscureText: false,
                       linesMax: 1,
                       linesMin: 1,
@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     ReuseTextField(
-                      controller: passController..text = "string",
+                      controller: passController,
                       obscureText: true,
                       linesMax: 1,
                       linesMin: 1,

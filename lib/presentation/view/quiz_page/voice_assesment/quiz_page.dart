@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/course_update.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/multiple_choice.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/pronoun_quiz.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
@@ -22,6 +23,7 @@ class QuizPage extends StatelessWidget {
   var practiceUpdateController = Get.find<PracticeUpdateController>();
   var controllerProgress = Get.find<PracticeCourseController>();
   var controllerQuiz = Get.find<PronounQuizController>();
+  var controllerUpdateCourse = Get.find<CourseUpdateController>();
   RxBool quizDone = false.obs;
   RxInt currentQuestion = 0.obs;
   final RxInt score = 0.obs;
@@ -174,10 +176,21 @@ class QuizPage extends StatelessWidget {
                               }
                               if (stars.value >= 1) {
                                 if (practiceFound == true) {
-                                  practiceUpdateController.updatePractice(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
-                                      controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0, stars.value, true, true);
+                                  if (controllerUpdateCourse.lstIndex.value = true) {
+                                    controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                                  }
+                                  practiceUpdateController.updatePractice(
+                                      controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
+                                      controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0,
+                                      stars.value,
+                                      true,
+                                      true,
+                                      controllerProgress.courseId.value);
                                 } else {
-                                  practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true);
+                                  if (controllerUpdateCourse.lstIndex.value = true) {
+                                    controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                                  }
+                                  practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
                                 }
                               }
                               await controllerProgress.getPractices(controllerProgress.courseId.value);

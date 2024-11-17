@@ -39,8 +39,6 @@ class WordListController extends GetxController {
       } else {
         errorMessage = e.message ?? "An unexpected error occurred.";
       }
-
-      // Tampilkan modal error
       showError(e.response?.statusCode, errorMessage);
     } catch (e) {
       showError(0, e.toString());
