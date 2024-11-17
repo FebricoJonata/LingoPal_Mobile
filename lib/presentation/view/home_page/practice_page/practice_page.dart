@@ -14,6 +14,8 @@ import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widge
 import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/widgets/practice_done.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
+import '../../../controllers/quiz_controller/course_update.dart';
+
 class PracticePage extends StatefulWidget {
   const PracticePage({super.key});
 
@@ -48,6 +50,7 @@ void checkPracticeProgress(practiceProgress) {
 class _PracticePageState extends State<PracticePage> {
   var controllerQuiz = Get.find<MultipleChoiceController>();
   var controllerPractice = Get.find<PracticeCourseController>();
+  var controllerCourseUpdate = Get.find<CourseUpdateController>();
 
   @override
   void initState() {
@@ -137,12 +140,20 @@ class _PracticePageState extends State<PracticePage> {
                                 ActivePractice(
                                   onTap: course.category?.courseCategoryName == "Pelafalan"
                                       ? () async {
+                                          int tappedIndex = practices.indexOf(practice);
+                                          if (tappedIndex == practices.length - 1) {
+                                            controllerCourseUpdate.lstIndex.value = true;
+                                          }
                                           await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
-                                          // controllerPractice.indexPractice.value = practices.indexOf(practice);
+                                          controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
                                           Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
                                         }
                                       : () async {
+                                          int tappedIndex = practices.indexOf(practice);
+                                          if (tappedIndex == practices.length - 1) {
+                                            controllerCourseUpdate.lstIndex.value = true;
+                                          }
                                           await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
@@ -155,16 +166,25 @@ class _PracticePageState extends State<PracticePage> {
                                 PracticeDone(
                                   onTap: course.category?.courseCategoryName == "Pelafalan"
                                       ? () async {
+                                          int tappedIndex = practices.indexOf(practice);
+                                          if (tappedIndex == practices.length - 1) {
+                                            controllerCourseUpdate.lstIndex.value = true;
+                                          }
                                           await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
-                                          print(" HAII ${controllerPractice.practiceId.value}");
+
                                           Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
                                         }
                                       : () async {
+                                          int tappedIndex = practices.indexOf(practice);
+                                          if (tappedIndex == practices.length - 1) {
+                                            controllerCourseUpdate.lstIndex.value = true;
+                                          }
                                           await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
+
                                           Get.toNamed(RouteName.multipleChoice);
                                         },
                                   practiceDone: practiceProgress[practices.indexOf(practice)],
