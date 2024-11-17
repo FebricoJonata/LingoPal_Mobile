@@ -57,7 +57,7 @@ class Page3 extends StatelessWidget {
                           Get.toNamed(RouteName.loginPage);
                         },
                         child: Text(
-                          "Lanjutkan",
+                          "Start Now",
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.white, fontFamily: "Poppins", fontSize: 30.sp),
                         ),

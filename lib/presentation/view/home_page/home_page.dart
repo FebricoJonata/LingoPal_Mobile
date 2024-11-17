@@ -36,11 +36,11 @@ class _HomePageState extends State<HomePage> {
               var activeCourses = courseController.courseProgress.value?.body ?? [];
 
               if (courseController.isLoading.isTrue || courseController.courseProgress.value == null || courseController.courses.value == null) {
-                return const Text("Memuat Data...");
+                return const Text("Loading...");
               } else if (courseController.errorMessage.isNotEmpty) {
-                return const Text("Error");
+                return Text(courseController.errorMessage.value);
               } else if (courseList.isEmpty) {
-                return const Text("Tidak ada latihan yang dapat ditemukan");
+                return const Text("No courses found");
               } else {
                 return RefreshIndicator(
                   color: MyColors.primaryGreen,

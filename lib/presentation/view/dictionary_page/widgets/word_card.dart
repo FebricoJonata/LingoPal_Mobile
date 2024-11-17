@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:dictionaryx/dictentry.dart';
+import 'package:dictionaryx/dictionary_msa.dart';
 import 'package:dictionaryx/dictionary_reduced_msa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,7 @@ class WordCard extends StatefulWidget {
 
 class _WordCardState extends State<WordCard> {
   var controllerTTS = Get.find<AudioController>();
-  var dReducedMSA = DictionaryReducedMSA();
+  var dReducedMSA = DictionaryMSA();
 
   String searchLowerCase(String word) {
     return word.toLowerCase();
@@ -37,11 +38,11 @@ class _WordCardState extends State<WordCard> {
           if (!dReducedMSA.hasEntry(search)) {
             return Column(
               children: [
-                const Text("Tidak ada data yang ditemukan"),
+                const Text("Word not found"),
                 SizedBox(
                   height: 50.h,
                 ),
-                const Text("Periksa apakah terdapat kesalahan penulisan pada pencarian")
+                const Text("This could be due to a mistake in your search or  you're looking for may not exist")
               ],
             );
           } else {

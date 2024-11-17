@@ -24,6 +24,12 @@ class _MaterialPageState extends State<MaterialPage> {
   final controller = Get.find<ChoicesController>();
   final controllerSearch = Get.find<SearchBarController>();
 
+  final List<Choices> pageChoices = [
+        Choices(1, "All", true),
+        Choices(2, "Article", false),
+        Choices(3, "Video", false),
+      ];
+
   @override
   void initState() {
     super.initState();
@@ -47,18 +53,19 @@ class _MaterialPageState extends State<MaterialPage> {
 
   @override
   Widget build(BuildContext context) {
+    controller.setChoices(pageChoices);
     return Scaffold(
       body: Container(
         width: 1179.w,
         height: 2556.h,
-        padding: EdgeInsets.fromLTRB(0, 0, 0, 200.h),
+        // padding: EdgeInsets.fromLTRB(0, 0, 0, 200.h),
         color: MyColors.secondaryYellow,
         child: Column(
           children: [
             Image.asset(AssetConstraints.bgIntroTop),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(right: 30, left: 30, bottom: 100.h),
+                padding: EdgeInsets.only(right: 30, left: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -79,37 +86,46 @@ class _MaterialPageState extends State<MaterialPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Obx(() {
-                      var materials = controllerMaterial.materials.value?.body ?? [];
-
-                      if (controllerMaterial.materials.value == null || controllerMaterial.isLoading.isTrue) {
-                        return const Text("Memuat data ...");
-                      } else if (materials.isEmpty) {
-                        return Column(
-                          children: [
-                            const Text("Tidak ada data yang ditemukan"),
-                            SizedBox(height: 50.h),
-                            const Text("Periksa apakah terdapat kesalahan penulisan pada pencarian"),
-                          ],
-                        );
-                      } else {
-                        return Expanded(
-                          child: RefreshIndicator(
+                    Expanded(
+                      child: Obx(() {
+                        var materials = controllerMaterial.materials.value?.body ?? [];
+                      
+                        if (controllerMaterial.materials.value == null || controllerMaterial.isLoading.isTrue) {
+                          return Column(
+                            children: [
+                              SizedBox(height: 50.h,),
+                              Container(child: const Text("Loading ..."), alignment: Alignment.center,),
+                            ],
+                          );
+                        } else if(controllerMaterial.errorMessage.isNotEmpty){
+                          return Text(controllerMaterial.errorMessage.value);
+                        } else if (materials.isEmpty) {
+                          return Column(
+                            children: [
+                              const Text("Material not found"),
+                              SizedBox(height: 50.h),
+                              const Text("This could be due to a mistake in your search or the material may not exist"),
+                            ],
+                          );
+                        } else {
+                          return RefreshIndicator(
                             color: MyColors.primaryGreen,
                             onRefresh: () async {
                               await controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
                             },
                             child: ListView.separated(
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 300.h),
+                              shrinkWrap: true,
                               itemCount: materials.length,
                               itemBuilder: (context, index) {
                                 return MaterialCard(material: materials[index]);
                               },
                               separatorBuilder: (context, index) => SizedBox(height: 50.h),
                             ),
-                          ),
-                        );
-                      }
-                    }),
+                          );
+                        }
+                      }),
+                    ),
                   ],
                 ),
               ),

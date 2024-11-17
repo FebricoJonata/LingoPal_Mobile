@@ -53,11 +53,11 @@ class _WordListState extends State<WordList> {
           () {
             var listWords = controllerWord.words.value?.body ?? [];
             if (controllerWord.isLoading.isTrue || controllerWord.words.value == null) {
-              return const Text("Memuat kata-kata ...");
+              return const Text("Loading ...");
             } else if (controllerWord.errorMessage.isNotEmpty) {
-              return const Text("Error memuat data");
+              return Text(controllerWord.errorMessage.value);
             } else if (listWords.isEmpty) {
-              return const Text("Tidak ditemukan data");
+              return const Text("No words found");
             } else {
               print("List Words: $listWords");
               return Expanded(
