@@ -208,17 +208,18 @@ class _EditPageState extends State<EditPage> {
                     SizedBox(
                       height: 50.h,
                     ),
-                    PrimaryBtn(
-                      btnText: "Update",
-                      width: 300.w,
-                      height: 150.h,
-                      onClick: () async {
-                        await controllerEdit.editProfileAPI(
-                            userId, nameContoller.text, datePickerController.text, controllerChoice.selectedChoice.value?.label ?? "", phoneController.text, controllerImage.imageUrl.value);
-                        controllerProfile.profileAPI();
-                        Get.back();
-                      },
-                    )
+                    Obx(() => PrimaryBtn(
+                          btnText: "Update",
+                          width: 300.w,
+                          height: 150.h,
+                          isLoading: controllerEdit.isLoading.value,
+                          onClick: () async {
+                            await controllerEdit.editProfileAPI(
+                                nameContoller.text, datePickerController.text, controllerChoice.selectedChoice.value?.label ?? "", phoneController.text, controllerImage.imageUrl.value);
+                            controllerProfile.profileAPI();
+                            Get.back();
+                          },
+                        ))
                   ],
                 ),
               ),

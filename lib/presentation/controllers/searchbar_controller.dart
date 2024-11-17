@@ -1,13 +1,9 @@
 import 'package:get/get.dart';
 
-class SearchBarController extends GetxController{
+class SearchBarController extends GetxController {
   RxString searches = "".obs;
 
-  setSearchWord(keyword){
+  setSearchWord(keyword) {
     searches.value = keyword;
   }
-
-  // Widget searchBarTrail(){
-  //   if(searches)
-  // }
 }

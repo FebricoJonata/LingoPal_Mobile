@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/back_btn.dart';
+import 'package:lingo_pal_mobile/routes/name_page.dart';
 import '../../../core/color/color_constraint.dart';
+import '../../../core/error/errors.dart';
 import '../components/primary_btn_reusable.dart';
 import '../components/text_field_reusable.dart';
 
@@ -115,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           const Text("New here? Register your account "),
                           TextButton(
-                              onPressed: () => {Navigator.pushNamed(context, '/register')},
+                              onPressed: () => {Get.toNamed(RouteName.registerPage)},
                               style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
                               child: const Text(
                                 "here",
@@ -127,17 +129,21 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    PrimaryBtn(
-                      btnText: "Login",
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: 150.h,
-                      onClick: () {
-                        String? email = emailController.text;
-                        String? pass = passController.text;
-                        controllerLogin.loginAPI(email, pass);
-                        // Get.toNamed(RouteName.basePage);
-                      },
-                    ),
+                    Obx(() => PrimaryBtn(
+                          btnText: "Login",
+                          width: MediaQuery.of(context).size.width / 2,
+                          height: 150.h,
+                          isLoading: controllerLogin.isLoading.value,
+                          onClick: () async {
+                            String? email = emailController.text;
+                            String? pass = passController.text;
+                            var res = await controllerLogin.loginAPI(email, pass);
+                            res?.fold((l) {
+                              showError(int.parse(l.message), "");
+                            }, (r) {});
+                            // Get.toNamed(RouteName.basePage);
+                          },
+                        )),
                   ],
                 ),
               ),

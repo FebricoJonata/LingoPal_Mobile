@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
@@ -16,6 +17,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   var controllerProfile = Get.find<GetProfileController>();
+  var storage = const FlutterSecureStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: SingleChildScrollView(child: GetBuilder<GetProfileController>(
@@ -174,12 +176,16 @@ class _ProfilePageState extends State<ProfilePage> {
                               borderRadius: BorderRadius.circular(15.sp),
                               color: MyColors.primaryGreen,
                             ),
-                            child: Center(
-                              child: Text(
-                                "Edit",
-                                style: TextStyle(color: MyColors.white, fontSize: 40.sp),
-                              ),
-                            ),
+                            child: IconButton(
+                                onPressed: () {
+                                  Get.offAllNamed(RouteName.loginPage);
+                                  storage.deleteAll();
+                                },
+                                icon: Icon(
+                                  Icons.logout,
+                                  color: Colors.white,
+                                  size: 50.sp,
+                                )),
                           )
                         ],
                       ),
@@ -230,14 +236,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    controllerProfile.profile.value!.body!.data!.first.email ?? "",
+                                    controllerProfile.profile.value?.body?.data?.first.email ?? "",
                                     style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    controllerProfile.profile.value!.body!.data!.first.phoneNumber ?? "",
+                                    controllerProfile.profile.value?.body?.data?.first.phoneNumber ?? "",
                                     style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),

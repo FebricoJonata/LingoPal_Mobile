@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
@@ -9,11 +10,13 @@ import 'package:lingo_pal_mobile/presentation/model/profile_model/profile_model.
 class GetProfileController extends GetxController {
   var controllerLogin = Get.find<LoginAPIController>();
   Rx<Profile?> profile = Rx<Profile?>(null);
+  var storage = const FlutterSecureStorage();
   Future<Either<Failure, Profile>> profileAPI() async {
+    var email = await storage.read(key: "email");
     try {
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/users',
-        queryParameters: {'email': controllerLogin.emailName.value.toString()},
+        queryParameters: {'email': email},
         options: Options(
           headers: {"Accept": "application/json"},
         ),

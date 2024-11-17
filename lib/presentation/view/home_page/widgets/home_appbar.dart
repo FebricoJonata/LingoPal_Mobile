@@ -21,10 +21,7 @@ class CustomAppBar extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-            decoration: BoxDecoration(
-                color: MyColors.primaryYellow,
-                borderRadius:
-                    BorderRadius.only(bottomLeft: Radius.circular(75.sp), bottomRight: Radius.circular(75.sp))),
+            decoration: BoxDecoration(color: MyColors.primaryYellow, borderRadius: BorderRadius.only(bottomLeft: Radius.circular(75.sp), bottomRight: Radius.circular(75.sp))),
             child: Column(
               children: [
                 Image.asset(AssetConstraints.bgIntroTop),
@@ -66,13 +63,9 @@ class CustomAppBar extends StatelessWidget {
                                 Row(
                                   children: [
                                     CircleAvatar(
-                                      backgroundImage: controllerProfile.profile.value?.body?.data?.first.image ==
-                                                  null ||
-                                              controllerProfile.profile.value?.body?.data?.first.image == ''
-                                          ? const NetworkImage(
-                                              "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
-                                          : NetworkImage(
-                                              controllerProfile.profile.value?.body?.data?.first.image ?? ""),
+                                      backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null || controllerProfile.profile.value?.body?.data?.first.image == ''
+                                          ? const NetworkImage("https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
+                                          : NetworkImage(controllerProfile.profile.value?.body?.data?.first.image ?? ""),
                                       backgroundColor: MyColors.primaryGreen,
                                       foregroundColor: MyColors.secondaryYellow,
                                       radius: 60.h,
@@ -89,13 +82,6 @@ class CustomAppBar extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                IconButton(
-                                  iconSize: 36,
-                                  icon: const Icon(Icons.notifications),
-                                  onPressed: () {
-                                    print("To Notif");
-                                  },
-                                )
                               ],
                             ),
                           ),
@@ -119,17 +105,14 @@ class CustomAppBar extends StatelessWidget {
                                 children: [
                                   Text(
                                       "Level: ${controllerProgress.progress.value?.body?.data?.first.level?.userLevelCode} ${controllerProgress.progress.value?.body?.data?.first.level?.userLevelName}",
-                                      style:
-                                          const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
+                                      style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
                                   Container(
                                     width: 2,
                                     height: 100.h,
                                     color: MyColors.lightGrey,
                                   ),
                                   Row(children: [
-                                    Text("${controllerProgress.progress.value?.body?.data?.first.totalPoin}",
-                                        style:
-                                            const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
+                                    Text("${controllerProgress.progress.value?.body?.data?.first.totalPoin}", style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
                                     const Icon(
                                       Icons.star_rounded,
                                       color: MyColors.primaryYellow,

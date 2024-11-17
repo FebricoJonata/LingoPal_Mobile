@@ -23,7 +23,6 @@ class _DictionaryPageState extends State<DictionaryPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controllerSearch.searches.value = "";
   }
@@ -31,41 +30,45 @@ class _DictionaryPageState extends State<DictionaryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: 1179.w,
-        height: 2556.h,
-        padding: EdgeInsets.fromLTRB(0, 0, 0, 200.h),
-        color: MyColors.secondaryYellow,
-        child: Column(
-          children: [
-            Image.asset(AssetConstraints.bgIntroTop),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(right: 30, left: 30, bottom: 100.h),
-                child: Column(
-                  children: [
-                    ReuseSearchBar(
-                      onPressed: (value) {
-                      },
-                    ),
-                    const SizedBox(height: 24),
-                    // kasi obx disini
-                    Obx(() {
-                      if(controllerSearch.searches.value.isEmpty){
-                        return Expanded(child: WordList());
-                      }
-                      else {
-                        return Expanded(
-                          child: WordCard(
-                          searchWord: controllerSearch.searches.value,
-                        ));
-                      }
-                    })
-                  ],
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Container(
+          width: 1179.w,
+          height: 2556.h,
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 200.h),
+          color: MyColors.secondaryYellow,
+          child: Column(
+            children: [
+              Image.asset(AssetConstraints.bgIntroTop),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(right: 30, left: 30, bottom: 100.h),
+                  child: Column(
+                    children: [
+                      ReuseSearchBar(
+                        onPressed: (value) {
+                          // searches = controllerSearch.searches.value;
+                          // controllerVocab.setWordCard(controllerSearch.searches.value);
+                        },
+                      ),
+                      const SizedBox(height: 24),
+                      // kasi obx disini
+                      Obx(() {
+                        if (controllerSearch.searches.value.isEmpty) {
+                          return const Expanded(child: WordList());
+                        } else {
+                          return Expanded(
+                              child: WordCard(
+                            searchWord: controllerSearch.searches.value,
+                          ));
+                        }
+                      })
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

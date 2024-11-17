@@ -93,7 +93,6 @@ class _PracticePageState extends State<PracticePage> {
                   lastPracticeCode = (practiceProgress.isEmpty) ? "0" : practiceProgress.last.practice!.practiceCode!;
                   int lastPracticeNum = int.parse(lastPracticeCode);
                   String activePracticeCode = (lastPracticeNum + 1).toString();
-                  print("Active Level: $activePracticeCode");
 
                   return Column(
                     children: [
@@ -138,9 +137,10 @@ class _PracticePageState extends State<PracticePage> {
                                 ActivePractice(
                                   onTap: course.category?.courseCategoryName == "Pelafalan"
                                       ? () async {
-                                          Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
                                           await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
+                                          // controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
+                                          Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
                                         }
                                       : () async {
                                           await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
@@ -155,9 +155,11 @@ class _PracticePageState extends State<PracticePage> {
                                 PracticeDone(
                                   onTap: course.category?.courseCategoryName == "Pelafalan"
                                       ? () async {
-                                          Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
                                           await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
+                                          controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
+                                          print(" HAII ${controllerPractice.practiceId.value}");
+                                          Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
                                         }
                                       : () async {
                                           await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);

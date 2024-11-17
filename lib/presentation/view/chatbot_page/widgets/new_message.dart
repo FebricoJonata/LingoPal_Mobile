@@ -38,19 +38,7 @@ class _NewMessageState extends State<NewMessage> {
       widget.onSubmitted!(enteredMessage);
     }
 
-    final response = await chatbot.chatBotAPI(enteredMessage);
-
-    response.fold(
-      (failure) {
-        // Handle error here
-        print('Error: ${failure.message}');
-      },
-      (chatBotResponse) {
-        // Handle success here
-        print('Message: $enteredMessage');
-        print("Response : ${chatbot.chatbotReponse.value?.message}");
-      },
-    );
+    await chatbot.chatBotAPI(enteredMessage);
 
     _messageController.clear();
   }
