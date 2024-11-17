@@ -20,16 +20,6 @@ class _HomePageState extends State<HomePage> {
   bool alertShown = false;
   var courseController = Get.find<CourseController>();
 
-  // Future<void> _checkAlertStatus() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool alertShown = prefs.getBool('alertShown') ?? false;
-  //   if (!alertShown) {
-  //     WidgetsBinding.instance.addPostFrameCallback((_) {
-  //       showCustomAlertDialog(context);
-  //     });
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,27 +42,34 @@ class _HomePageState extends State<HomePage> {
               } else if (courseList.isEmpty) {
                 return const Text("Tidak ada latihan yang dapat ditemukan");
               } else {
-                return ListView.separated(
-                  padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
-                  shrinkWrap: true,
-                  itemCount: courseList.length,
-                  itemBuilder: (context, index) {
-                    var course = courseList[index];
-                    if (index < activeCourses.length) {
-                      if (activeCourses[index].isActive == true) {
-                        return CourseActiveCard(
-                          course: course,
-                          userProgressPoin: activeCourses[index].progressPoin ?? 0,
-                        );
+                return RefreshIndicator(
+                  color: MyColors.primaryGreen,
+                  onRefresh: () async {
+                    await courseController.getCourses();
+                    await courseController.getUserCourseProgress();
+                  },
+                  child: ListView.separated(
+                    padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
+                    shrinkWrap: true,
+                    itemCount: courseList.length,
+                    itemBuilder: (context, index) {
+                      var course = courseList[index];
+                      if (index < activeCourses.length) {
+                        if (activeCourses[index].isActive == true) {
+                          return CourseActiveCard(
+                            course: course,
+                            userProgressPoin: activeCourses[index].progressPoin ?? 0,
+                          );
+                        }
                       }
-                    }
-                    return CourseDisabledCard(
-                      course: course,
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(height: 50.h);
-                  },
+                      return CourseDisabledCard(
+                        course: course,
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox(height: 50.h);
+                    },
+                  ),
                 );
               }
             }),
@@ -92,7 +89,7 @@ class _HomePageState extends State<HomePage> {
   //         message:
   //             'Sebagai upaya mendukung penyandang disabilitas untuk mendapatkan edukasi yang maksimal, kami menyediakan fitur yang dapat menunjang pembelajaran bahasa Inggris bagi teman-teman.\n\nJika ingin menggunakan fitur tersebut, silakan pindah ke halaman Profile -> Pengaturan Disabilitas',
   //         onClose: () async {
-  //           SharedPreferences prefs = await SharedPreferences.getInstance();
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
   //           await prefs.setBool('alertShown', true);
   //           setState(() {
   //             _alertShown = true;

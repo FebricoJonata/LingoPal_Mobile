@@ -7,7 +7,7 @@ import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_model.
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/vocabulary_container.dart';
 
 class WordList extends StatefulWidget {
-  WordList({super.key});
+  const WordList({super.key});
 
   // Function onSearch;
 
@@ -52,34 +52,36 @@ class _WordListState extends State<WordList> {
           ],
         ),
         const SizedBox(height: 20),
-        Obx(() {
-          var listWords = controllerWord.words.value?.body ?? [];
-          if (controllerWord.isLoading.isTrue || controllerWord.words.value == null) {
-                  return const Text("Memuat kata-kata ...");
-                } else if (controllerWord.errorMessage.isNotEmpty) {
-                  return const Text("Error memuat data");
-                } else if (listWords.isEmpty) {
-                  return const Text("Tidak ditemukan data");
-                } else {
-                  print("List Words: $listWords");
-                  return Expanded(
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 26,
-                        itemBuilder: (context, index) {
-                          print("Index: $index");
-                          List<Vocab> listVocab = [];
-                          listVocab = mapWords(listWords, index);
+        Obx(
+          () {
+            var listWords = controllerWord.words.value?.body ?? [];
+            if (controllerWord.isLoading.isTrue || controllerWord.words.value == null) {
+              return const Text("Memuat kata-kata ...");
+            } else if (controllerWord.errorMessage.isNotEmpty) {
+              return const Text("Error memuat data");
+            } else if (listWords.isEmpty) {
+              return const Text("Tidak ditemukan data");
+            } else {
+              print("List Words: $listWords");
+              return Expanded(
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 26,
+                    itemBuilder: (context, index) {
+                      print("Index: $index");
+                      List<Vocab> listVocab = [];
+                      listVocab = mapWords(listWords, index);
 
-                          return VocabularyContainer(
-                            header: listVocab.first.alphabet!,
-                            vocabulary: listVocab,
-                            // onsearch: widget.onSearch,
-                          );
-                        }),
-                  );
-                }
-        },),
+                      return VocabularyContainer(
+                        header: listVocab.first.alphabet!,
+                        vocabulary: listVocab,
+                        // onsearch: widget.onSearch,
+                      );
+                    }),
+              );
+            }
+          },
+        ),
         // GetBuilder<WordListController>(
         //   builder: (controllerWord) {
         //     return FutureBuilder(

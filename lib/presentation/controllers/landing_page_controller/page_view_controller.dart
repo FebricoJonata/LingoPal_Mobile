@@ -16,7 +16,7 @@ class PageViewController extends GetxController {
   void onInit() {
     super.onInit();
     pageController = PageController(initialPage: 0);
-    // _startAutoSlide();
+    _startAutoSlide();
   }
 
   @override
@@ -26,18 +26,18 @@ class PageViewController extends GetxController {
     super.onClose();
   }
 
-  // void _startAutoSlide() {
-  //   _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
-  //     if (currentPageIndex.value < pages.length - 1) {
-  //       currentPageIndex.value++;
-  //     } else {
-  //       currentPageIndex.value = 0;
-  //     }
-  //     pageController.animateToPage(
-  //       currentPageIndex.value,
-  //       duration: const Duration(milliseconds: 500),
-  //       curve: Curves.easeInOut,
-  //     );
-  //   });
-  // }
+  void _startAutoSlide() {
+    _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      if (currentPageIndex.value < pages.length - 1) {
+        currentPageIndex.value++;
+      } else {
+        currentPageIndex.value = 0;
+      }
+      pageController.animateToPage(
+        currentPageIndex.value,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
 }

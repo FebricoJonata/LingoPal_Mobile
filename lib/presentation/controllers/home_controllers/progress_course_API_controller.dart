@@ -2,6 +2,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
@@ -10,13 +11,16 @@ import 'package:lingo_pal_mobile/presentation/model/home_model/progress_model.da
 class ProgressAPIController extends GetxController {
   var controllerLogin = Get.find<LoginAPIController>();
   var isLoading = false.obs;
+
+  var storage = const FlutterSecureStorage();
   Rx<ProgressUserModel?> progress = Rx<ProgressUserModel?>(null);
   Future<Either<Failure, ProgressUserModel>> getProgress() async {
+    var userId = await storage.read(key: "userId");
     try {
       isLoading.value = true;
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/users/status',
-        queryParameters: {'user_id': controllerLogin.login.value?.user?.userId},
+        queryParameters: {'user_id': userId},
         options: Options(
           headers: {"Accept": "application/json"},
         ),

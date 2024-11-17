@@ -91,18 +91,23 @@ class _ChatbotPageState extends State<ChatbotPage> {
                         itemBuilder: (context, index) {
                           Message message = controller.messages[index];
                           if (message.isFromUser) {
-                            return MessageBubble.next(message: message.text, isMe: true);
-                          } else {
-                            return MessageBubble.first(
-                              userImage: AssetConstraints.robotCool,
-                              username: "Lingo",
+                            return MessageBubble.next(
                               message: message.text,
-                              isMe: false,
-                              onSpeechPressed: () async {
-                                controllerTTS.fetchAudioFromApi(controller.messages[index].text);
-                              },
-                              isLastMessage: true,
+                              isMe: true,
+                              isLoading: false,
                             );
+                          } else {
+                            return Obx(() => MessageBubble.first(
+                                  isLoading: controllerTTS.isLoading.value,
+                                  userImage: AssetConstraints.robotCool,
+                                  username: "Lingo",
+                                  message: message.text,
+                                  isMe: false,
+                                  onSpeechPressed: () async {
+                                    controllerTTS.fetchAudioFromApi(controller.messages[index].text);
+                                  },
+                                  isLastMessage: true,
+                                ));
                           }
                         },
                       );

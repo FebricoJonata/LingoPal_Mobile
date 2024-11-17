@@ -2,6 +2,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
@@ -16,6 +17,8 @@ class PracticeCourseController extends GetxController {
   RxInt practiceId = 0.obs;
   RxInt courseId = 0.obs;
   var isLoading = false.obs;
+
+  var storage = const FlutterSecureStorage();
   Future<Either<Failure, PracticeModel>> getPractices(courseId) async {
     try {
       isLoading.value = true;
@@ -23,7 +26,7 @@ class PracticeCourseController extends GetxController {
 
       var practiceModel = PracticeModel.fromJson(response.data);
       practices(practiceModel);
-
+      print("Practice: ${response.data}");
       return Right(practiceModel);
     } catch (e) {
       print("Error");
@@ -34,7 +37,7 @@ class PracticeCourseController extends GetxController {
   }
 
   Future<Either<Failure, PracticeProgressModel>> getUserPractices() async {
-    var userId = controllerProfile.profile.value?.body?.data?.first.userId;
+    var userId = await storage.read(key: "userId");
     try {
       final response =
           await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice/progress', queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
@@ -42,6 +45,7 @@ class PracticeCourseController extends GetxController {
       var userPractices = PracticeProgressModel.fromJson(response.data);
 
       practiceProgress(userPractices);
+      print("User practice: ${response.data}");
       return Right(userPractices);
     } catch (e) {
       print("Error: $e");

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/core/error/errors.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/choice_chip_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/register_API_controller.dart';
@@ -290,17 +291,21 @@ class _MyWidgetState extends State<RegisterPage> {
                                   btnText: "Lanjutkan",
                                   width: MediaQuery.of(context).size.width / 2,
                                   height: 150.h,
+                                  isLoading: controllerRegis.isLoading.value,
                                   onClick: isFormValid.value
-                                      ? () {
+                                      ? () async {
                                           String? name = nameController.text;
                                           String? email = emailController.text;
                                           String? password = passwordController.text;
                                           String? phoneNumber = phoneController.text;
                                           String birth = datePickerController.text;
-                                          controllerRegis.signUpAPI(name, email, password, phoneNumber, birth, controllerChoiceChip.selectedChoice.value?.label ?? "");
+                                          var res = await controllerRegis.signUpAPI(name, email, password, phoneNumber, birth, controllerChoiceChip.selectedChoice.value?.label ?? "");
+                                          res?.fold((l) {
+                                            showError(int.parse(l.message), "");
+                                          }, (r) {});
                                         }
                                       : null,
-                                ),
+                                )
                               ],
                             ),
                           ))),

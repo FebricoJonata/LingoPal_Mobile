@@ -22,7 +22,7 @@ class _MaterialPageState extends State<MaterialPage> {
 
   // void _setSearchMaterial(searchMaterial) {
   //   searches.value = searchMaterial;
-    // controllerMaterial.getMaterials(controllerChoice.selectedChoice.value!.label, searches.value);
+  // controllerMaterial.getMaterials(controllerChoice.selectedChoice.value!.label, searches.value);
   // }
 
   var controllerMaterial = Get.find<MaterialController>();
@@ -32,19 +32,26 @@ class _MaterialPageState extends State<MaterialPage> {
   @override
   void initState() {
     super.initState();
-    final List<Choices> pageChoices = [
-      Choices(1, "All", true),
-      Choices(2, "Article", false),
-      Choices(3, "Video", false),
-    ];
-    controller.setChoices(pageChoices);
-    controllerSearch.searches.value = "";
-    controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
+
+    // Periksa apakah pilihan sudah ada
+    if (controller.choices.isEmpty) {
+      final List<Choices> pageChoices = [
+        Choices(1, "All", true),
+        Choices(2, "Article", false),
+        Choices(3, "Video", false),
+      ];
+      controller.setChoices(pageChoices);
+    }
+
+    // Pastikan pencarian hanya dijalankan jika diperlukan
+    if (controllerMaterial.materials.value == null) {
+      controllerSearch.searches.value = "";
+      controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Container(
         width: 1179.w,
@@ -92,12 +99,18 @@ class _MaterialPageState extends State<MaterialPage> {
                         );
                       } else {
                         return Expanded(
-                          child: ListView.separated(
-                            itemCount: materials.length,
-                            itemBuilder: (context, index) {
-                              return MaterialCard(material: materials[index]);
+                          child: RefreshIndicator(
+                            color: MyColors.primaryGreen,
+                            onRefresh: () async {
+                              await controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
                             },
-                            separatorBuilder: (context, index) => SizedBox(height: 50.h),
+                            child: ListView.separated(
+                              itemCount: materials.length,
+                              itemBuilder: (context, index) {
+                                return MaterialCard(material: materials[index]);
+                              },
+                              separatorBuilder: (context, index) => SizedBox(height: 50.h),
+                            ),
                           ),
                         );
                       }

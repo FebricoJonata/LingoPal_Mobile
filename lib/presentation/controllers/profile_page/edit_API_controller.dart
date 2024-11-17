@@ -2,6 +2,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
@@ -10,9 +11,13 @@ import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class EditAPIController extends GetxController {
+  RxBool isLoading = false.obs;
+  var storage = const FlutterSecureStorage();
   var controllerProfile = Get.find<GetProfileController>();
-  Future<Either<Failure, EditModel>> editProfileAPI(int userId, String name, String birth, String gender, String phoneNumber, String image) async {
+  Future<Either<Failure, EditModel>> editProfileAPI(String name, String birth, String gender, String phoneNumber, String image) async {
+    var userId = await storage.read(key: "userId");
     try {
+      isLoading.value = true;
       final response = await Dio().post(
         "https://lingo-pal-backend-v1.vercel.app/api/users/update",
         data: {"user_id": userId, "name": name, "phone_number": phoneNumber, "gender": gender, "birth_date": birth, "image": image},
@@ -30,7 +35,10 @@ class EditAPIController extends GetxController {
       return Left(Failure('Error: ${e.message}'));
     } catch (e) {
       print("$e");
+      isLoading.value = false;
       return Left(Failure("$e"));
+    } finally {
+      isLoading.value = false;
     }
   }
 

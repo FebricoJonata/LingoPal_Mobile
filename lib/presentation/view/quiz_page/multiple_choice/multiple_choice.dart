@@ -171,7 +171,7 @@ class MutlipleChoice extends StatelessWidget {
                     bool practiceFound = false;
 
                     for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
-                      if (controllerProgress.indexPractice.value + 1 == progress.practiceId) {
+                      if (controllerProgress.practiceId.value == progress.practiceId) {
                         practiceFound = true;
 
                         break;
@@ -181,15 +181,10 @@ class MutlipleChoice extends StatelessWidget {
                     }
                     if (stars.value >= 1) {
                       if (practiceFound == true) {
-                        practiceUpdateController.updatePractice(
-                            controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
-                            controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].userId ?? 0,
-                            controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0,
-                            stars.value,
-                            true,
-                            true);
+                        practiceUpdateController.updatePractice(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
+                            controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0, stars.value, true, true);
                       } else {
-                        practiceUpdateController.updatePractice(0, controllerProgress.practiceProgress.value?.body?[0].userId ?? 0, controllerProgress.practiceId.value, stars.value, true, true);
+                        practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true);
                       }
                     }
                     await controllerProgress.getPractices(controllerProgress.courseId.value);

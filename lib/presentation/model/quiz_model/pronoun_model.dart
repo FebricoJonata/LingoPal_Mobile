@@ -51,3 +51,40 @@ class PronunciationScores {
 
   Map<String, dynamic> toJson() => {'accuracyScore': accuracyScore, 'pronunciationScore': pronunciationScore, 'completenessScore': completenessScore, 'fluencyScore': fluencyScore};
 }
+// class PronunciationScores {
+//   final double? accuracyScore;
+//   final double? pronunciationScore;
+//   final double? completenessScore;
+//   final double? fluencyScore;
+
+//   PronunciationScores({
+//     this.accuracyScore,
+//     this.pronunciationScore,
+//     this.completenessScore,
+//     this.fluencyScore,
+//   });
+
+//   PronunciationScores.fromJson(Map<String, dynamic> json)
+//       : accuracyScore = _parseToDouble(json['accuracyScore']),
+//         pronunciationScore = _parseToDouble(json['pronunciationScore']),
+//         completenessScore = _parseToDouble(json['completenessScore']),
+//         fluencyScore = _parseToDouble(json['fluencyScore']);
+
+//   // Helper function to ensure the value is parsed as double
+//   static double? _parseToDouble(dynamic value) {
+//     if (value == null) return null;
+//     if (value is int) {
+//       return value.toDouble(); // Convert int to double
+//     } else if (value is double) {
+//       return value; // Already a double
+//     }
+//     return null; // Or handle it as needed
+//   }
+
+//   Map<String, dynamic> toJson() => {
+//         'accuracyScore': accuracyScore,
+//         'pronunciationScore': pronunciationScore,
+//         'completenessScore': completenessScore,
+//         'fluencyScore': fluencyScore,
+//       };
+// }

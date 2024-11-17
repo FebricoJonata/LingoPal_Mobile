@@ -20,7 +20,7 @@ void showError(int? statusCode, String? message) {
   Get.dialog(
     Alert(
       imagePath: "assets/images/robots/cool.png",
-      title: "Error $statusCode!",
+      title: "Error!",
       message: errorMessage,
       onClose: () async {
         Get.back();
