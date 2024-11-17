@@ -20,11 +20,6 @@ class MaterialPage extends StatefulWidget {
 class _MaterialPageState extends State<MaterialPage> {
   RxString searches = "".obs;
 
-  // void _setSearchMaterial(searchMaterial) {
-  //   searches.value = searchMaterial;
-    // controllerMaterial.getMaterials(controllerChoice.selectedChoice.value!.label, searches.value);
-  // }
-
   var controllerMaterial = Get.find<MaterialController>();
   final controller = Get.find<ChoicesController>();
   final controllerSearch = Get.find<SearchBarController>();
