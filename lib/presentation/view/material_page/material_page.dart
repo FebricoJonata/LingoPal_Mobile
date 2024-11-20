@@ -53,7 +53,6 @@ class _MaterialPageState extends State<MaterialPage> {
 
   @override
   Widget build(BuildContext context) {
-    controller.setChoices(pageChoices);
     return Scaffold(
       body: Container(
         width: 1179.w,
@@ -81,6 +80,7 @@ class _MaterialPageState extends State<MaterialPage> {
                     SizedBox(
                       child: ReusableChoiceChip(
                         onSelect: (value) {
+                          print("masuk componen choice chip");
                           controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
                         },
                       ),
