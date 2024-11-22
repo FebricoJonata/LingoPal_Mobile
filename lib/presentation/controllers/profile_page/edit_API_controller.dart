@@ -10,11 +10,13 @@ import 'package:lingo_pal_mobile/presentation/model/profile_model/edit_model.dar
 import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../core/error/errors.dart';
+
 class EditAPIController extends GetxController {
   RxBool isLoading = false.obs;
   var storage = const FlutterSecureStorage();
   var controllerProfile = Get.find<GetProfileController>();
-  Future<Either<Failure, EditModel>> editProfileAPI(String name, String birth, String gender, String phoneNumber, String image) async {
+  Future<Either<Failure, EditModel>?> editProfileAPI(String name, String birth, String gender, String phoneNumber, String image) async {
     var userId = await storage.read(key: "userId");
     try {
       isLoading.value = true;
@@ -29,17 +31,28 @@ class EditAPIController extends GetxController {
       controllerProfile.update();
       return Right(editModel);
     } on DioException catch (e) {
-      if (e.response?.statusCode == 401) {
-        print("Error 401");
+      String errorMessage;
+      if (e.type == DioExceptionType.connectionTimeout) {
+        errorMessage = "Connection timed out. Please check your network and try again.";
+      } else if (e.type == DioExceptionType.sendTimeout) {
+        errorMessage = "Request timed out while sending data. Please try again.";
+      } else if (e.type == DioExceptionType.receiveTimeout) {
+        errorMessage = "Response timed out. Please check your connection and try again.";
+      } else if (e.type == DioExceptionType.connectionError) {
+        errorMessage = "Failed to connect to the server. Please check your internet connection.";
+      } else {
+        errorMessage = e.message ?? "An unexpected error occurred.";
       }
-      return Left(Failure('Error: ${e.message}'));
-    } catch (e) {
-      print("$e");
       isLoading.value = false;
-      return Left(Failure("$e"));
+      // Tampilkan modal error
+      showError(e.response?.statusCode, errorMessage);
+    } catch (e) {
+      isLoading.value = false;
+      showError(0, e.toString());
     } finally {
       isLoading.value = false;
     }
+    return null;
   }
 
   Future uploadImage(File imageFile, String? imageName) async {

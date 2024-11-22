@@ -24,25 +24,19 @@ class _MaterialPageState extends State<MaterialPage> {
   final controller = Get.find<ChoicesController>();
   final controllerSearch = Get.find<SearchBarController>();
 
-  final List<Choices> pageChoices = [
-        Choices(1, "All", true),
-        Choices(2, "Article", false),
-        Choices(3, "Video", false),
-      ];
-
   @override
   void initState() {
     super.initState();
 
-    // Periksa apakah pilihan sudah ada
-    if (controller.choices.isEmpty) {
-      final List<Choices> pageChoices = [
-        Choices(1, "All", true),
-        Choices(2, "Article", false),
-        Choices(3, "Video", false),
-      ];
-      controller.setChoices(pageChoices);
-    }
+    // // Periksa apakah pilihan sudah ada
+    // if (controller.choices.isEmpty) {
+    //   final List<Choices> pageChoices = [
+    //     Choices(1, "All", true),
+    //     Choices(2, "Article", false),
+    //     Choices(3, "Video", false),
+    //   ];
+    //   controller.setChoices(pageChoices);
+    // }
 
     // Pastikan pencarian hanya dijalankan jika diperlukan
     if (controllerMaterial.materials.value == null) {
@@ -53,7 +47,6 @@ class _MaterialPageState extends State<MaterialPage> {
 
   @override
   Widget build(BuildContext context) {
-    controller.setChoices(pageChoices);
     return Scaffold(
       body: Container(
         width: 1179.w,
@@ -89,15 +82,20 @@ class _MaterialPageState extends State<MaterialPage> {
                     Expanded(
                       child: Obx(() {
                         var materials = controllerMaterial.materials.value?.body ?? [];
-                      
+
                         if (controllerMaterial.materials.value == null || controllerMaterial.isLoading.isTrue) {
                           return Column(
                             children: [
-                              SizedBox(height: 50.h,),
-                              Container(child: const Text("Loading ..."), alignment: Alignment.center,),
+                              SizedBox(
+                                height: 50.h,
+                              ),
+                              Container(
+                                child: const Text("Loading ..."),
+                                alignment: Alignment.center,
+                              ),
                             ],
                           );
-                        } else if(controllerMaterial.errorMessage.isNotEmpty){
+                        } else if (controllerMaterial.errorMessage.isNotEmpty) {
                           return Text(controllerMaterial.errorMessage.value);
                         } else if (materials.isEmpty) {
                           return Column(

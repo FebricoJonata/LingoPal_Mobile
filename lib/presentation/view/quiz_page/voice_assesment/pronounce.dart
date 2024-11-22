@@ -16,10 +16,10 @@ import 'package:lingo_pal_mobile/presentation/view/components/alert_score.dart';
 import '../../../controllers/home_controllers/practice_course_API_controller.dart';
 import '../../../controllers/quiz_controller/practice_update.dart';
 
-class QuizPage extends StatelessWidget {
-  QuizPage({super.key});
+class PronouncePage extends StatelessWidget {
+  PronouncePage({super.key});
 
-  var controllerQuizQuestion = Get.find<MultipleChoiceController>();
+  var controllerQuizQuestion = Get.find<QuestionsController>();
   var practiceUpdateController = Get.find<PracticeUpdateController>();
   var controllerProgress = Get.find<PracticeCourseController>();
   var controllerQuiz = Get.find<PronounQuizController>();
@@ -31,52 +31,103 @@ class QuizPage extends StatelessWidget {
   final RxInt stars = 0.obs;
 
   var finalScore;
-  void showScoreDialog(BuildContext context, double score) {
-    if (score < 65) {
-      Get.dialog(
-        AlertGood(
-          title: "Try Again",
-          message: "Haha",
-          onClose: () {
-            Get.back();
-          },
-          imagePath: AssetConstraints.robotSad,
-          score: "$score",
-        ),
-      );
-    } else {
-      Get.dialog(
-        AlertGood(
-          title: "Good Job",
-          message: "Haha",
-          onClose: () {
-            Get.back();
-            var scores = controllerQuiz.score.value += score;
-            finalScore = scores / 5;
-            if (currentQuestion.value < controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
-              currentQuestion.value += 1;
-            } else {
-              quizDone.value = true;
-              finalScore = (scores / 5).toInt();
 
-              stars.value = 0;
-              if (finalScore == 100) {
-                stars.value = 3;
-              } else if (finalScore >= 60) {
-                stars.value = 2;
-              } else if (finalScore >= 30) {
-                stars.value = 1;
-              } else {
-                stars.value = 0;
-              }
-            }
-          },
-          imagePath: AssetConstraints.robotQuiz,
-          score: "$score",
-        ),
-      );
-    }
+  void showScoreDialog(BuildContext context, double score) {
+    // if (score < 65) {
+    //   Get.dialog(
+    //     AlertGood(
+    //       title: "Try Again",
+    //       message: "Haha",
+    //       onClose: () {
+    //         Get.back();
+    //       },
+    //       imagePath: AssetConstraints.robotSad,
+    //       score: "$score",
+    //     ),
+    //   );
+    // } else {
+    Get.dialog(
+      AlertGood(
+        title: "Good Job",
+        message: "",
+        onClose: () {
+          Get.back();
+          var scores = controllerQuiz.calculateScore(score);
+          var finalScore = controllerQuiz.calculateFinalScore(scores); // Hitung finalScore
+          if (currentQuestion.value < controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
+            currentQuestion.value += 1;
+          } else {
+            quizDone.value = true;
+            stars.value = starsValue(finalScore); // Gunakan nilai finalScore
+          }
+        },
+        // onClose: () {
+        //   Get.back();
+        //   var scores = controllerQuiz.score.value += score;
+        //   finalScore = scores / 5;
+        //   if (currentQuestion.value < controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
+        //     currentQuestion.value += 1;
+        //   } else {
+        //     quizDone.value = true;
+        //     finalScore = (scores / 5).toInt();
+
+        //     // Menggunakan fungsi calculateStars
+        //     stars.value = starsValue(finalScore);
+        //   }
+        // },
+        imagePath: AssetConstraints.robotQuiz,
+        score: "$score",
+      ),
+    );
+    // }
   }
+
+  // void showScoreDialog(BuildContext context, double score) {
+  //   if (score < 65) {
+  //     Get.dialog(
+  //       AlertGood(
+  //         title: "Try Again",
+  //         message: "Haha",
+  //         onClose: () {
+  //           Get.back();
+  //         },
+  //         imagePath: AssetConstraints.robotSad,
+  //         score: "$score",
+  //       ),
+  //     );
+  //   } else {
+  //     Get.dialog(
+  //       AlertGood(
+  //         title: "Good Job",
+  //         message: "Haha",
+  //         onClose: () {
+  //           Get.back();
+  //           var scores = controllerQuiz.score.value += score;
+  //           finalScore = scores / 5;
+  //           if (currentQuestion.value < controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
+  //             currentQuestion.value += 1;
+  //           } else {
+  //             quizDone.value = true;
+  //             finalScore = (scores / 5).toInt();
+
+  //             stars.value = 0;
+  //             if (finalScore == 100) {
+  //               stars.value = 3;
+  //             } else if (finalScore >= 60) {
+  //               stars.value = 2;
+  //             } else if (finalScore >= 30) {
+  //               stars.value = 1;
+  //             } else {
+  //               stars.value = 0;
+  //             }
+  //           }
+  //         },
+  //         imagePath: AssetConstraints.robotQuiz,
+  //         score: "$score",
+  //       ),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -157,6 +208,7 @@ class QuizPage extends StatelessWidget {
                               score.value = 0;
                               quizDone.value = false;
                               stars.value = 0;
+                              controllerQuizQuestion.fetchQuestions(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0);
                             },
                           ),
                           SecondaryBtn(
@@ -226,10 +278,22 @@ class QuizPage extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 140.sp),
           ),
           Image.asset(AssetConstraints.robotHappy),
-          buildStarRating(stars.value),
+          buildStarRating(starsValue(finalScore)),
         ],
       ),
     );
+  }
+
+  int starsValue(int finalScore) {
+    if (finalScore == 100) {
+      return 3; // Skor sempurna mendapatkan 3 bintang
+    } else if (finalScore >= 60) {
+      return 2; // Skor 60-99 mendapatkan 2 bintang
+    } else if (finalScore >= 30) {
+      return 1; // Skor 30-59 mendapatkan 1 bintang
+    } else {
+      return 0; // Skor di bawah 30 tidak mendapatkan bintang
+    }
   }
 
   Widget buildStarRating(int stars) {

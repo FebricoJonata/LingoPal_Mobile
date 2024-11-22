@@ -10,7 +10,7 @@ class QuizBindings implements Bindings {
   void dependencies() {
     Get.lazyPut(() => PronounQuizController());
     Get.lazyPut(() => AudioController());
-    Get.lazyPut(() => MultipleChoiceController());
+    Get.lazyPut(() => QuestionsController());
     Get.lazyPut(() => PracticeUpdateController());
     Get.lazyPut(() => CourseUpdateController());
   }

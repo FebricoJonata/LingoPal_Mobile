@@ -2,7 +2,6 @@
 
 import 'package:dictionaryx/dictentry.dart';
 import 'package:dictionaryx/dictionary_msa.dart';
-import 'package:dictionaryx/dictionary_reduced_msa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -69,8 +68,7 @@ class _WordCardState extends State<WordCard> {
                         children: [
                           Text(
                             wordforCard,
-                            style: TextStyle(
-                                color: MyColors.secondaryYellow, fontSize: 60.sp, fontWeight: FontWeight.bold),
+                            style: TextStyle(color: MyColors.secondaryYellow, fontSize: 60.sp, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
                             width: 50.w,
@@ -99,8 +97,7 @@ class _WordCardState extends State<WordCard> {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("($pos)",
-                                  style: const TextStyle(color: MyColors.primaryYellow, fontWeight: FontWeight.bold)),
+                              Text("($pos)", style: const TextStyle(color: MyColors.primaryYellow, fontWeight: FontWeight.bold)),
                               SizedBox(
                                 height: 10.h,
                               ),

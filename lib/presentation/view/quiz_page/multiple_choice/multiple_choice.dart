@@ -15,7 +15,7 @@ import 'package:lingo_pal_mobile/presentation/view/components/secondary_btn_reus
 class MutlipleChoice extends StatelessWidget {
   MutlipleChoice({super.key});
 
-  final MultipleChoiceController controllerMultiple = Get.find<MultipleChoiceController>();
+  final QuestionsController controllerMultiple = Get.find<QuestionsController>();
   final PracticeUpdateController practiceUpdateController = Get.find<PracticeUpdateController>();
   var controllerProgress = Get.find<PracticeCourseController>();
   var controllerUpdateCourse = Get.find<CourseUpdateController>();
@@ -162,7 +162,7 @@ class MutlipleChoice extends StatelessWidget {
                     score.value = 0;
                     flag.value = false;
                     stars.value = 0;
-                    controllerMultiple.fetchMultipleChoice(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0);
+                    controllerMultiple.fetchQuestions(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0);
                   },
                 ),
                 SecondaryBtn(
@@ -210,31 +210,55 @@ class MutlipleChoice extends StatelessWidget {
 
   Widget _buildChoiceButton(String choiceText, int choiceIndex) {
     return PrimaryBtn(
-      btnText: choiceText,
-      width: 400.w,
-      height: 160.h,
-      onClick: () {
-        if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
-          score + 1;
-        }
-        if (currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
-          currentIndex.value += 1;
-        } else {
-          finalScore.value = ((score.value / controllerMultiple.mutlipleData.value!.data!.length) * 100).toInt();
-          flag.value = true;
-          stars.value = 0;
-          if (finalScore == 100) {
-            stars.value = 3;
-          } else if (finalScore >= 60) {
-            stars.value = 2;
-          } else if (finalScore >= 30) {
-            stars.value = 1;
-          } else {
-            stars.value = 0;
+        btnText: choiceText,
+        width: 400.w,
+        height: 160.h,
+        // onClick: () {
+        //   // if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
+        //   //   score + 1;
+        //   // }
+        //   // if (currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
+        //   //   currentIndex.value += 1;
+        //   // } else {
+        //   //   finalScore.value = ((score.value / controllerMultiple.mutlipleData.value!.data!.length) * 100).toInt();
+        //   //   flag.value = true;
+        //   //   stars.value = 0;
+        //   //   if (finalScore == 100) {
+        //   //     stars.value = 3;
+        //   //   } else if (finalScore >= 60) {
+        //   //     stars.value = 2;
+        //   //   } else if (finalScore >= 30) {
+        //   //     stars.value = 1;
+        //   //   } else {
+        //   //     stars.value = 0;
+        //   //   }
+        //   // }
+        //   if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
+        //     score.value += 1;
+        //   }
+        //   if (currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
+        //     currentIndex.value += 1;
+        //   } else {
+        //     finalScore.value = ((score.value / controllerMultiple.mutlipleData.value!.data!.length) * 100).toInt();
+        //     stars.value = starsValue(finalScore.value);
+        //     flag.value = true;
+        //   }
+        // },
+        onClick: () {
+          if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
+            score.value += 1;
           }
-        }
-      },
-    );
+          if (currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
+            currentIndex.value += 1;
+          } else {
+            final totalQuestions = controllerMultiple.mutlipleData.value!.data!.length;
+            final correctAnswers = score.value;
+
+            finalScore.value = controllerMultiple.calculateFinalScore(totalQuestions, correctAnswers);
+            stars.value = starsValue(finalScore.value);
+            flag.value = true;
+          }
+        });
   }
 
   Widget buildScoreContent() {
@@ -256,6 +280,18 @@ class MutlipleChoice extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  int starsValue(int finalScore) {
+    if (finalScore == 100) {
+      return 3; // Skor sempurna mendapatkan 3 bintang
+    } else if (finalScore >= 60) {
+      return 2; // Skor 60-99 mendapatkan 2 bintang
+    } else if (finalScore >= 30) {
+      return 1; // Skor 30-59 mendapatkan 1 bintang
+    } else {
+      return 0; // Skor di bawah 30 tidak mendapatkan bintang
+    }
   }
 
   Widget buildStarRating(int stars) {
