@@ -26,7 +26,6 @@ class PracticeCourseController extends GetxController {
 
       var practiceModel = PracticeModel.fromJson(response.data);
       practices(practiceModel);
-      print("Practice: ${response.data}");
       return Right(practiceModel);
     } catch (e) {
       print("Error");

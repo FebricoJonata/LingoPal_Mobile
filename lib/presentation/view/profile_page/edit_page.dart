@@ -68,7 +68,7 @@ class _EditPageState extends State<EditPage> {
             Flexible(
               child: SizedBox(
                 width: 1179.w,
-                height: 1800.h,
+                height: 2000.h,
                 child: Column(
                   children: [
                     Container(
@@ -133,7 +133,7 @@ class _EditPageState extends State<EditPage> {
                     ),
                     SizedBox(
                       width: 900.w,
-                      height: 1000.h,
+                      height: 1200.h,
                       child: Column(
                         children: [
                           Align(

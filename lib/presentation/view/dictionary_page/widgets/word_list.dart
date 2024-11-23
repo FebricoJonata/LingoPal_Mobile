@@ -20,7 +20,6 @@ class _WordListState extends State<WordList> {
     List<Vocab> listVocab = [];
     List<String> letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
-
     for (var i = 0; i < wordList.length; i++) {
       if (wordList[i].alphabet == letters[index]) {
         listVocab.add(wordList[i]);
@@ -59,7 +58,6 @@ class _WordListState extends State<WordList> {
             } else if (listWords.isEmpty) {
               return const Text("No words found");
             } else {
-              print("List Words: $listWords");
               return Expanded(
                 child: ListView.builder(
                     shrinkWrap: true,
@@ -69,14 +67,15 @@ class _WordListState extends State<WordList> {
                       List<Vocab> listVocab = [];
                       listVocab = mapWords(listWords, index);
 
-                          return VocabularyContainer(
-                            header: listVocab.first.alphabet!,
-                            vocabulary: listVocab,
-                          );
-                        }),
-                  );
-                }
-        },),
+                      return VocabularyContainer(
+                        header: listVocab.first.alphabet!,
+                        vocabulary: listVocab,
+                      );
+                    }),
+              );
+            }
+          },
+        ),
       ],
     );
   }

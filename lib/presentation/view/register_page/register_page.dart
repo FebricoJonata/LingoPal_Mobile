@@ -12,6 +12,7 @@ import 'package:lingo_pal_mobile/presentation/view/components/choice_chip.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/date_picker.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/text_field_reusable.dart';
+import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -119,7 +120,7 @@ class _MyWidgetState extends State<RegisterPage> {
                     Flexible(
                       child: SizedBox(
                           width: 1179.w,
-                          height: 1500.h,
+                          height: 1700.h,
                           child: SingleChildScrollView(
                               child: Obx(
                             () => Column(
@@ -286,7 +287,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                   children: [
                                     const Text("Already have an account? Login "),
                                     TextButton(
-                                        onPressed: () => {Navigator.pushNamed(context, '/login')},
+                                        onPressed: () => {Get.toNamed(RouteName.loginPage)},
                                         style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
                                         child: const Text(
                                           "here",

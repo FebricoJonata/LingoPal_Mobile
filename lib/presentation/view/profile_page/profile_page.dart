@@ -9,6 +9,7 @@ import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profi
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 import '../../controllers/choice_chip_controller.dart';
+import '../components/localization.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -27,7 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
       builder: (controllerProfile) {
         return Container(
             width: 1179.w,
-            height: 2700.h,
+            height: 2900.h,
             color: MyColors.secondaryYellow,
             child: Column(children: [
               Image.asset(AssetConstraints.bgAppLogo),
@@ -83,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               child: Center(
                                 child: Text(
-                                  "Edit",
+                                  "edit".tr,
                                   style: TextStyle(color: MyColors.white, fontSize: 40.sp),
                                 ),
                               ),
@@ -276,7 +277,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 width: 1179.w,
-                height: 800.h,
+                height: 1000.h,
                 child: Column(
                   children: [
                     SizedBox(
@@ -310,106 +311,161 @@ class _ProfilePageState extends State<ProfilePage> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      // color: Colors.red,
-                      width: 1179.w,
-                      height: 600.h,
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 1179.w,
-                            height: 125.h,
-                            decoration: BoxDecoration(
-                              color: MyColors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
+                    Expanded(
+                      child: SizedBox(
+                        // color: Colors.red,
+                        width: 1179.w,
+                        height: 900.h,
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 1179.w,
+                              height: 125.h,
+                              decoration: BoxDecoration(
+                                color: MyColors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Obx(() {
+                                final isEnglish = TranslationService.currentLang.value == 'English';
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: 200.w,
+                                      height: 100.h,
+                                      margin: const EdgeInsets.all(10),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          isEnglish ? "English" : "Indonesia",
+                                          style: TextStyle(
+                                            fontSize: 40.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    // Toggle Switch
+                                    Switch(
+                                      activeColor: MyColors.primaryGreen,
+                                      inactiveTrackColor: MyColors.primaryYellow,
+                                      value: !isEnglish, // Switch ON means language is Indonesia
+                                      onChanged: (value) {
+                                        // Change language based on switch value
+                                        final newLang = value ? 'Indonesia' : 'English';
+                                        TranslationService.changeLocale(newLang);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              }),
                             ),
-                            child: Container(
-                                width: 1179.w,
-                                height: 100.h,
-                                margin: const EdgeInsets.all(10),
-                                child: Align(alignment: Alignment.centerLeft, child: Text("FAQ", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
-                          ),
-                          SizedBox(
-                            height: 25.h,
-                          ),
-                          Container(
-                            width: 1179.w,
-                            height: 125.h,
-                            decoration: BoxDecoration(
-                              color: MyColors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
+                            SizedBox(
+                              height: 25.h,
                             ),
-                            child: Container(
-                                width: 1179.w,
-                                height: 100.h,
-                                margin: const EdgeInsets.all(10),
-                                child: Align(alignment: Alignment.centerLeft, child: Text("Terms and Conditions", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
-                          ),
-                          SizedBox(
-                            height: 25.h,
-                          ),
-                          Container(
-                            width: 1179.w,
-                            height: 125.h,
-                            decoration: BoxDecoration(
-                              color: MyColors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
+                            Container(
+                              width: 1179.w,
+                              height: 125.h,
+                              decoration: BoxDecoration(
+                                color: MyColors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Container(
+                                  width: 1179.w,
+                                  height: 100.h,
+                                  margin: const EdgeInsets.all(10),
+                                  child: Align(alignment: Alignment.centerLeft, child: Text("FAQ", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
                             ),
-                            child: Container(
-                                width: 1179.w,
-                                height: 100.h,
-                                margin: const EdgeInsets.all(10),
-                                child: Align(alignment: Alignment.centerLeft, child: Text("Rating and Review", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
-                          ),
-                          SizedBox(
-                            height: 25.h,
-                          ),
-                          Container(
-                            width: 1179.w,
-                            height: 125.h,
-                            decoration: BoxDecoration(
-                              color: MyColors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
+                            SizedBox(
+                              height: 25.h,
                             ),
-                            child: Container(
-                                width: 1179.w,
-                                height: 100.h,
-                                margin: const EdgeInsets.all(10),
-                                child: Align(alignment: Alignment.centerLeft, child: Text("About Us", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
-                          )
-                        ],
+                            Container(
+                              width: 1179.w,
+                              height: 125.h,
+                              decoration: BoxDecoration(
+                                color: MyColors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Container(
+                                  width: 1179.w,
+                                  height: 100.h,
+                                  margin: const EdgeInsets.all(10),
+                                  child: Align(alignment: Alignment.centerLeft, child: Text("Terms and Conditions", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            Container(
+                              width: 1179.w,
+                              height: 125.h,
+                              decoration: BoxDecoration(
+                                color: MyColors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Container(
+                                  width: 1179.w,
+                                  height: 100.h,
+                                  margin: const EdgeInsets.all(10),
+                                  child: Align(alignment: Alignment.centerLeft, child: Text("Rating and Review", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            Container(
+                              width: 1179.w,
+                              height: 125.h,
+                              decoration: BoxDecoration(
+                                color: MyColors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Container(
+                                  width: 1179.w,
+                                  height: 100.h,
+                                  margin: const EdgeInsets.all(10),
+                                  child: Align(alignment: Alignment.centerLeft, child: Text("About Us", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
+                            )
+                          ],
+                        ),
                       ),
                     )
                   ],

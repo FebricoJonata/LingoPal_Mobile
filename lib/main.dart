@@ -9,6 +9,8 @@ import 'package:lingo_pal_mobile/routes/app_page.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'presentation/view/components/localization.dart';
+
 void main() async {
   // Init Supabase
   // WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +22,7 @@ void main() async {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZmc2lqa2hud3hmYnNhbm9lZnVhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxMjQ3MTYxOSwiZXhwIjoyMDI4MDQ3NjE5fQ.UnjnJOMv-Zrsr1t7WXsvt6WJ5-XrYAHFydb66FNGKU0',
   );
   String? token = await storage.read(key: 'token');
-
+  await TranslationService.loadSavedLanguage();
   String initialRoute = (token != null) ? RouteName.basePage : RouteName.landingPage;
   runApp(MyApp(
     initialRoute: initialRoute,
@@ -59,6 +61,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'LingoPal',
           initialRoute: initialRoute,
+          translations: TranslationService(),
+          locale: Get.locale,
           // themeMode: lightTheme,
           getPages: AppPages.pages,
           theme: ThemeData(

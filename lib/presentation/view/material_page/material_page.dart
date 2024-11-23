@@ -58,7 +58,7 @@ class _MaterialPageState extends State<MaterialPage> {
             Image.asset(AssetConstraints.bgIntroTop),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(right: 30, left: 30),
+                padding: const EdgeInsets.only(right: 30, left: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -90,8 +90,8 @@ class _MaterialPageState extends State<MaterialPage> {
                                 height: 50.h,
                               ),
                               Container(
-                                child: const Text("Loading ..."),
                                 alignment: Alignment.center,
+                                child: const Text("Loading ..."),
                               ),
                             ],
                           );
