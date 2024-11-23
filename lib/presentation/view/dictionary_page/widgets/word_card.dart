@@ -8,6 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/chatbot_controller/tts_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/dictionary_controller/word_card_controller.dart';
+import 'package:lingo_pal_mobile/presentation/model/dictionary_model/data_model.dart';
 
 class WordCard extends StatefulWidget {
   WordCard({super.key, required this.searchWord});
@@ -20,23 +22,36 @@ class WordCard extends StatefulWidget {
 
 class _WordCardState extends State<WordCard> {
   var controllerTTS = Get.find<AudioController>();
-  var dReducedMSA = DictionaryMSA();
+  var controllerWordCard = Get.find<WordCardController>();
 
   String searchLowerCase(String word) {
     return word.toLowerCase();
   }
 
   @override
-  Widget build(BuildContext context) {
-    String search = widget.searchWord;
-    DictEntry entry;
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      String search = searchLowerCase(widget.searchWord);
+      controllerWordCard.getWordDetails(search);
+    });
 
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Builder(
-        builder: (context) {
-          search = searchLowerCase(search);
-          if (!dReducedMSA.hasEntry(search)) {
-            return Column(
+      child: Obx((){
+        var wordList = controllerWordCard.details.value ?? [];
+        if(controllerWordCard.isLoading.isTrue || controllerWordCard.details.value == null ){
+          return const Text("Loading ...");
+        }
+        else if(controllerWordCard.errorMessage.isNotEmpty){
+          return Text(controllerWordCard.errorMessage.value);
+        }
+        else if(wordList.isEmpty){
+          return Column(
               children: [
                 const Text("Word not found"),
                 SizedBox(
@@ -44,15 +59,14 @@ class _WordCardState extends State<WordCard> {
                 ),
                 const Text("This could be due to a mistake in your search or  you're looking for may not exist")
               ],
-            );
-          } else {
-            // setup kata
-            entry = dReducedMSA.getEntry(search);
-
-            String word = entry.word;
-            String wordforCard = word[0].toUpperCase() + word.substring(1);
-            // ui
-            return Column(
+          );
+        }
+        else {
+          print("$wordList");
+          WordData fixedData = wordList.first!;
+          String word = fixedData.word!;
+          String wordforCard = word[0].toUpperCase() + word.substring(1);
+          return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
@@ -92,10 +106,10 @@ class _WordCardState extends State<WordCard> {
                       ListView.separated(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: entry.meanings.length,
+                        itemCount: fixedData.meanings!.length,
                         itemBuilder: (context, index) {
-                          String posEntry = entry.meanings[index].pos.toString();
-                          String pos = posEntry.substring(4);
+                          String pos= fixedData.meanings![index].partOfSpeech.toString();
+
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -105,7 +119,7 @@ class _WordCardState extends State<WordCard> {
                                 height: 10.h,
                               ),
                               Text(
-                                entry.meanings[index].description,
+                                fixedData.meanings![index].definitions!.first.definition!,
                                 softWrap: true,
                                 textAlign: TextAlign.justify,
                                 style: const TextStyle(color: MyColors.white),
@@ -136,14 +150,13 @@ class _WordCardState extends State<WordCard> {
                 ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: entry.meanings.length,
+                  itemCount: fixedData.meanings!.first.definitions!.length,
                   itemBuilder: (context, index) {
-                    bool checkExamples = entry.meanings[index].hasExamples();
-                    if (checkExamples) {
-                      String sentence = entry.meanings[index].examples.first;
-                      String finalSentence = "${sentence[0].toUpperCase()}${sentence.substring(1)}.";
+                    String? example = fixedData.meanings!.first.definitions![index].example;
+                    if ( example != null) {
+                      String sentence = example;
                       return Text(
-                        finalSentence,
+                        sentence,
                         softWrap: true,
                         textAlign: TextAlign.justify,
                       );
@@ -177,10 +190,13 @@ class _WordCardState extends State<WordCard> {
                         child: ListView.separated(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
-                            itemCount: entry.synonyms.length,
+                            itemCount: fixedData.meanings!.first.synonyms!.length,
                             itemBuilder: (context, index) {
+                              if (fixedData.meanings!.first.synonyms!.isEmpty) {
+                                return const Text("-");
+                              }
                               return Text(
-                                entry.synonyms[index],
+                                fixedData.meanings!.first.synonyms![index],
                                 style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
                               );
                             },
@@ -212,13 +228,13 @@ class _WordCardState extends State<WordCard> {
                       child: ListView.separated(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: entry.antonyms.length,
+                          itemCount: fixedData.meanings!.first.antonyms!.length,
                           itemBuilder: (context, index) {
-                            if (entry.antonyms.isEmpty) {
+                            if (fixedData.meanings!.first.antonyms!.isEmpty) {
                               return const Text("-");
                             }
                             return Text(
-                              entry.antonyms[index],
+                              fixedData.meanings!.first.antonyms![index],
                               style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
                             );
                           },
@@ -232,9 +248,8 @@ class _WordCardState extends State<WordCard> {
                 ),
               ],
             );
-          }
-        },
-      ),
+        }
+      })
     );
   }
 }

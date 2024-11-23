@@ -233,14 +233,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.1"
-  dictionaryx:
-    dependency: "direct main"
-    description:
-      name: dictionaryx
-      sha256: d61f07f2ed548ece6ea2f36ebcddae30d3947655a907f48a6ddb1b35cb46c942
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.5"
   dio:
     dependency: "direct main"
     description:

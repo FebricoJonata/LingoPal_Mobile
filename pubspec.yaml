@@ -50,7 +50,6 @@ dependencies:
   record: ^5.0.5
   just_audio:
   path_provider:
-  dictionaryx: ^0.3.5
   alphabet_list_view: ^1.1.0
   permission_handler: ^11.3.1
   audioplayers: ^6.0.0
