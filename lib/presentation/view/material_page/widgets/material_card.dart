@@ -16,42 +16,45 @@ class MaterialCard extends StatelessWidget {
       child: Card(
         elevation: 15,
         shadowColor: const Color.fromRGBO(0, 0, 0, 0.25),
-        child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(30.sp)), color: Colors.white),
-          padding: EdgeInsets.all(36.sp),
-          height: 300.h,
-          child: Row(
-            children: [
-              Image.network(
-                material.cover ?? "https://icons.veryicon.com/png/o/miscellaneous/common-fill-icon/gallery-33.png",
-                width: 150.w,
-                height: 150.w,
-                fit: BoxFit.cover,
-              ),
-              SizedBox(
-                width: 80.w,
-              ),
-              Flexible(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      material.title!,
-                      style: TextStyle(fontSize: 44.sp, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      material.category!,
-                      style: TextStyle(fontSize: 36.sp, fontWeight: FontWeight.bold, color: MyColors.primaryGreen),
-                    ),
-                    Text(
-                      source.substring(source.indexOf('(') + 1, source.indexOf(')')),
-                      style: TextStyle(fontSize: 32.sp),
-                    )
-                  ],
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: 300.h),
+          child: Container(       
+            decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(30.sp)), color: Colors.white),
+            padding: EdgeInsets.all(36.sp),
+            // height: 300.h,
+            child: Row(
+              children: [
+                Image.network(
+                  material.cover ?? "https://icons.veryicon.com/png/o/miscellaneous/common-fill-icon/gallery-33.png",
+                  width: 150.w,
+                  height: 150.w,
+                  fit: BoxFit.cover,
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: 80.w,
+                ),
+                Flexible(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        material.title!,
+                        style: TextStyle(fontSize: 44.sp, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        material.category!,
+                        style: TextStyle(fontSize: 36.sp, fontWeight: FontWeight.bold, color: MyColors.primaryGreen),
+                      ),
+                      Text(
+                        source.substring(source.indexOf('(') + 1, source.indexOf(')')),
+                        style: TextStyle(fontSize: 32.sp),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
