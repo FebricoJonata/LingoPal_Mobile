@@ -53,7 +53,7 @@ class _WordCardState extends State<WordCard> {
                 SizedBox(
                   height: 50.h,
                 ),
-                const Text("This could be due to a mistake in your search or  you're looking for may not exist")
+                const Text("This could be due to a mistake in your search or the word you're looking for may not exist")
               ],
           );
         }
