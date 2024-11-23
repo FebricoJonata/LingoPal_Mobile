@@ -8,6 +8,8 @@ import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
+import '../../controllers/choice_chip_controller.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -17,6 +19,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   var controllerProfile = Get.find<GetProfileController>();
+  var controllerChoice = Get.find<ChoicesController>();
   var storage = const FlutterSecureStorage();
   @override
   Widget build(BuildContext context) {
@@ -63,7 +66,14 @@ class _ProfilePageState extends State<ProfilePage> {
                             width: 90.w,
                           ),
                           InkWell(
-                            onTap: () => Get.toNamed(RouteName.editPage, arguments: controllerProfile.profile.value!.body!.data!.first.userId),
+                            onTap: () {
+                              final List<Choices> pageChoices = [
+                                Choices(1, "Male", false),
+                                Choices(2, "Female", false),
+                              ];
+                              controllerChoice.setChoices(pageChoices);
+                              Get.toNamed(RouteName.editPage, arguments: controllerProfile.profile.value!.body!.data!.first.userId);
+                            },
                             child: Container(
                               width: 200.w,
                               height: 95.h,

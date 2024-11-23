@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/model/quiz_model/multiple_choice.dart';
 
-class MultipleChoiceController extends GetxController {
+class QuestionsController extends GetxController {
   RxInt indexQuestion = 0.obs;
   Rx<MultipleChoiceData?> mutlipleData = Rx<MultipleChoiceData?>(null);
 
-  Future<Either<Failure, MultipleChoiceData>> fetchMultipleChoice(int practiceID) async {
+  Future<Either<Failure, MultipleChoiceData>> fetchQuestions(int practiceID) async {
     try {
       final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/quiz", queryParameters: {'practice_id': practiceID}, options: Options(headers: {'accept': 'application/json'}));
       var multipleChoiceData = MultipleChoiceData.fromJson(response.data);
@@ -23,5 +23,9 @@ class MultipleChoiceController extends GetxController {
       print("Error: $e");
       return Left(Failure('Error: $e'));
     }
+  }
+
+  int calculateFinalScore(int totalQuestions, int correctAnswers) {
+    return ((correctAnswers / totalQuestions) * 100).toInt();
   }
 }

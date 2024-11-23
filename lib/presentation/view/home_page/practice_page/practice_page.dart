@@ -50,7 +50,7 @@ void checkPracticeProgress(practiceProgress) {
 }
 
 class _PracticePageState extends State<PracticePage> {
-  var controllerQuiz = Get.find<MultipleChoiceController>();
+  var controllerQuiz = Get.find<QuestionsController>();
   var controllerPractice = Get.find<PracticeCourseController>();
   var controllerCourseUpdate = Get.find<CourseUpdateController>();
   var controllerProgress = Get.find<ProgressAPIController>();
@@ -154,7 +154,7 @@ class _PracticePageState extends State<PracticePage> {
                                           if (tappedIndex == practices.length - 1) {
                                             controllerCourseUpdate.lstIndex.value = true;
                                           }
-                                          await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
+                                          await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
                                           Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
@@ -164,7 +164,7 @@ class _PracticePageState extends State<PracticePage> {
                                           if (tappedIndex == practices.length - 1) {
                                             controllerCourseUpdate.lstIndex.value = true;
                                           }
-                                          await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
+                                          await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
                                           Get.toNamed(RouteName.multipleChoice);
@@ -180,7 +180,7 @@ class _PracticePageState extends State<PracticePage> {
                                           if (tappedIndex == practices.length - 1) {
                                             controllerCourseUpdate.lstIndex.value = true;
                                           }
-                                          await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
+                                          await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
 
@@ -191,7 +191,7 @@ class _PracticePageState extends State<PracticePage> {
                                           if (tappedIndex == practices.length - 1) {
                                             controllerCourseUpdate.lstIndex.value = true;
                                           }
-                                          await controllerQuiz.fetchMultipleChoice(practice.practiceId ?? 0);
+                                          await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
 

@@ -29,14 +29,33 @@ class _EditPageState extends State<EditPage> {
   var controllerProfile = Get.find<GetProfileController>();
   var controllerImage = Get.find<ImagePickerController>();
   int userId = Get.arguments;
-  final List<Choices> pageChoices = [
-    Choices(1, "Male", false),
-    Choices(2, "Female", false),
-  ];
+  final RxBool isFormValid = false.obs;
+
+  String? validateField(String? value, String fieldType) {
+    String? error;
+    switch (fieldType) {
+      case 'Email':
+        error = (value == null || !value.contains('@')) ? 'Email must contain "@"' : null;
+        break;
+      case 'Name':
+        error = (value == null || value.isEmpty) ? 'Cannot be Empty' : null;
+        break;
+      case 'Phone Number':
+        error = (value == null || value.length < 12 || value.length > 15) ? 'Phone number must be between 12 and 15 digits' : null;
+        break;
+      default:
+        error = null;
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      isFormValid.value = (nameContoller.text.isNotEmpty && (phoneController.text.length >= 12 && phoneController.text.length <= 15));
+    });
+
+    return error;
+  }
 
   @override
   Widget build(BuildContext context) {
-    controllerChoice.setChoices(pageChoices);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -138,6 +157,7 @@ class _EditPageState extends State<EditPage> {
                             iconSize: 40.sp,
                             labelTxt: "Full Name",
                             maxHeight: 100.h,
+                            validator: (value) => validateField(value, 'Name'),
                           ),
                           SizedBox(
                             height: 50.h,
@@ -163,6 +183,7 @@ class _EditPageState extends State<EditPage> {
                             iconTxt: Icons.phone,
                             iconSize: 40.sp,
                             labelTxt: "Phone Number",
+                            validator: (value) => validateField(value, 'Phone Number'),
                             maxHeight: 100.h,
                           ),
                           SizedBox(
@@ -213,12 +234,14 @@ class _EditPageState extends State<EditPage> {
                           width: 300.w,
                           height: 150.h,
                           isLoading: controllerEdit.isLoading.value,
-                          onClick: () async {
-                            await controllerEdit.editProfileAPI(
-                                nameContoller.text, datePickerController.text, controllerChoice.selectedChoice.value?.label ?? "", phoneController.text, controllerImage.imageUrl.value);
-                            controllerProfile.profileAPI();
-                            Get.back();
-                          },
+                          onClick: isFormValid.value == true
+                              ? () async {
+                                  await controllerEdit.editProfileAPI(
+                                      nameContoller.text, datePickerController.text, controllerChoice.selectedChoice.value?.label ?? "", phoneController.text, controllerImage.imageUrl.value);
+                                  controllerProfile.profileAPI();
+                                  Get.back();
+                                }
+                              : null,
                         ))
                   ],
                 ),

@@ -8,7 +8,7 @@ class PracticeBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => PracticeCourseController());
-    Get.lazyPut(() => MultipleChoiceController());
+    Get.lazyPut(() => QuestionsController());
     Get.lazyPut(() => CourseUpdateController());
     Get.lazyPut(() => ProgressAPIController());
   }

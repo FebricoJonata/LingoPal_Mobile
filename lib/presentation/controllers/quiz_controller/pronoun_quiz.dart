@@ -53,4 +53,12 @@ class PronounQuizController extends GetxController {
       isRecord.value = 0;
     }
   }
+
+  double calculateScore(double scores) {
+    return score.value += score.value;
+  }
+
+  int calculateFinalScore(double totalScore) {
+    return (totalScore / 5).toInt();
+  }
 }

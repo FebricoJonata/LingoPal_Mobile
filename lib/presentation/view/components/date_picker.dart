@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 class DatePicker extends StatefulWidget {
@@ -66,6 +67,7 @@ class _MyWidgetState extends State<DatePicker> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
+      height: 175.h,
       child: ConstrainedBox(
         constraints: BoxConstraints(maxHeight: widget.maxHeight),
         child: TextField(

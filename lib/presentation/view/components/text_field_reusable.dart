@@ -40,6 +40,72 @@ class ReuseTextField extends StatelessWidget {
   final TextInputType? textInputType;
   final FormFieldValidator<String>? validator;
   final AutovalidateMode? autovalidateMode;
+  // @override
+  // Widget build(BuildContext context) {
+  //   return SizedBox(
+  //     width: width,
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         ConstrainedBox(
+  //           constraints: BoxConstraints(maxHeight: maxHeight),
+  //           child: TextFormField(
+  //             autovalidateMode: autovalidateMode,
+  //             validator: validator,
+  //             controller: controller,
+  //             obscureText: obscureText,
+  //             minLines: linesMin,
+  //             maxLines: linesMax,
+  //             keyboardType: textInputType,
+  //             decoration: InputDecoration(
+  //               border: OutlineInputBorder(
+  //                 borderRadius: BorderRadius.circular(radius),
+  //                 borderSide: BorderSide.none,
+  //               ),
+  //               fillColor: color,
+  //               filled: true,
+  //               hintText: labelTxt,
+  //               alignLabelWithHint: true,
+  //               hintStyle: TextStyle(
+  //                 fontSize: fontSize,
+  //                 color: const Color.fromARGB(255, 199, 201, 217),
+  //               ),
+  //               contentPadding: EdgeInsets.symmetric(vertical: (maxHeight - fontSize) / 2),
+  //               prefixIcon: SizedBox(
+  //                 width: iconSize,
+  //                 height: iconSize,
+  //                 child: Center(
+  //                   child: IconButton(
+  //                     icon: Icon(
+  //                       iconTxt,
+  //                       size: iconSize,
+  //                     ),
+  //                     onPressed: onPressed,
+  //                   ),
+  //                 ),
+  //               ),
+  //               errorStyle: const TextStyle(
+  //                 fontSize: 12, // Ukuran font error message kecil
+  //                 color: Colors.red, // Warna error
+  //               ),
+  //               helperText: ' ', // HelperText kosong agar ruang konsisten
+  //             ),
+  //             onChanged: onChanged,
+  //           ),
+  //         ),
+  //         // Ruang tambahan untuk menjaga jarak jika pesan error muncul
+  //         if (autovalidateMode == AutovalidateMode.always && validator != null && controller != null && validator!(controller!.text) != null)
+  //           Padding(
+  //             padding: const EdgeInsets.only(left: 8.0, top: 4.0),
+  //             child: Text(
+  //               validator!(controller!.text) ?? '',
+  //               style: const TextStyle(fontSize: 12, color: Colors.red),
+  //             ),
+  //           ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

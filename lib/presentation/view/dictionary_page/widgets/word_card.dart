@@ -79,8 +79,7 @@ class _WordCardState extends State<WordCard> {
                         children: [
                           Text(
                             wordforCard,
-                            style: TextStyle(
-                                color: MyColors.secondaryYellow, fontSize: 60.sp, fontWeight: FontWeight.bold),
+                            style: TextStyle(color: MyColors.secondaryYellow, fontSize: 60.sp, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
                             width: 50.w,
@@ -109,8 +108,7 @@ class _WordCardState extends State<WordCard> {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("($pos)",
-                                  style: const TextStyle(color: MyColors.primaryYellow, fontWeight: FontWeight.bold)),
+                              Text("($pos)", style: const TextStyle(color: MyColors.primaryYellow, fontWeight: FontWeight.bold)),
                               SizedBox(
                                 height: 10.h,
                               ),

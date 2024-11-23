@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/base_controller/base_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/choice_chip_controller.dart';
 
 class BasePage extends StatefulWidget {
   const BasePage({super.key});
@@ -16,7 +17,7 @@ class _HomePageState extends State<BasePage> {
   // int _currentIndex = 0;
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   var controllerPage = Get.find<BaseController>();
-
+  final controller = Get.find<ChoicesController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +68,15 @@ class _HomePageState extends State<BasePage> {
                         controllerPage.pageController.animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                         break;
                       case 3:
+                        controller.choices.clear();
+                        if (controller.choices.isEmpty) {
+                          final List<Choices> pageChoices = [
+                            Choices(1, "All", true),
+                            Choices(2, "Article", false),
+                            Choices(3, "Video", false),
+                          ];
+                          controller.setChoices(pageChoices);
+                        }
                         controllerPage.pageController.animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                         break;
                       case 4:

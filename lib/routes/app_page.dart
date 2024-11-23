@@ -22,7 +22,7 @@ import 'package:lingo_pal_mobile/presentation/view/material_page/material_page.d
 import 'package:lingo_pal_mobile/presentation/view/profile_page/edit_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/profile_page/profile_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/quiz_page/multiple_choice/multiple_choice.dart';
-import 'package:lingo_pal_mobile/presentation/view/quiz_page/voice_assesment/quiz_page.dart';
+import 'package:lingo_pal_mobile/presentation/view/quiz_page/voice_assesment/pronounce.dart';
 import 'package:lingo_pal_mobile/presentation/view/register_page/register_page.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
@@ -37,7 +37,7 @@ class AppPages {
     GetPage(name: RouteName.profilePage, page: () => const ProfilePage(), binding: ProfileBindings()),
     GetPage(name: RouteName.editPage, page: () => const EditPage(), binding: ProfileBindings()),
     GetPage(name: RouteName.camera2, page: () => const Camera2(), binding: CameraBinding()),
-    GetPage(name: RouteName.quiz, page: () => QuizPage(), binding: QuizBindings()),
+    GetPage(name: RouteName.quiz, page: () => PronouncePage(), binding: QuizBindings()),
     GetPage(name: RouteName.dictionary, page: () => const DictionaryPage(), binding: DictionaryBindings()),
     GetPage(name: RouteName.multipleChoice, page: () => MutlipleChoice(), binding: QuizBindings()),
     GetPage(name: RouteName.materialPage, page: () => const MaterialPage(), binding: MaterialBindings()),

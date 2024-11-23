@@ -6,7 +6,7 @@ import 'package:lingo_pal_mobile/presentation/controllers/register_page_controll
 class RegisBindings implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => ChoicesController());
+    Get.put(ChoicesController());
     Get.lazyPut(() => RegisterAPIController());
   }
 }

@@ -32,10 +32,10 @@ class _MyWidgetState extends State<RegisterPage> {
   final controllerRegis = Get.find<RegisterAPIController>();
   final controllerChoiceChip = Get.find<ChoicesController>();
 
-  final List<Choices> pageChoices = [
-    Choices(1, "Male", false),
-    Choices(2, "Female", false),
-  ];
+  // final List<Choices> pageChoices = [
+  //   Choices(1, "Male", false),
+  //   Choices(2, "Female", false),
+  // ];
 
   String? validateField(String? value, String fieldType) {
     String? error;
@@ -61,9 +61,14 @@ class _MyWidgetState extends State<RegisterPage> {
     return error;
   }
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   controllerChoiceChip.setChoices(pageChoices);
+  // }
+
   @override
   Widget build(BuildContext context) {
-    controllerChoiceChip.setChoices(pageChoices);
     return Scaffold(
       backgroundColor: MyColors.secondaryYellow,
       body: SizedBox(
@@ -135,6 +140,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                   fontSize: 45.sp,
                                   radius: 25.sp,
                                   width: double.infinity,
+                                  height: 175.h,
                                   iconTxt: Icons.email,
                                   iconSize: 40.sp,
                                   labelTxt: "Email",
@@ -142,7 +148,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   validator: (value) => validateField(value, 'Email'),
                                 ),
-                                SizedBox(height: 10.h),
+                                SizedBox(height: 15.h),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
@@ -159,6 +165,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                   fontSize: 45.sp,
                                   radius: 25.sp,
                                   width: double.infinity,
+                                  height: 175.h,
                                   iconTxt: Icons.person,
                                   iconSize: 40.sp,
                                   labelTxt: "Name",
@@ -183,6 +190,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                   fontSize: 45.sp,
                                   radius: 25.sp,
                                   width: double.infinity,
+                                  height: 175.h,
                                   iconTxt: Icons.phone,
                                   iconSize: 40.sp,
                                   labelTxt: "Phone Number",
@@ -242,6 +250,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                   fontSize: 45.sp,
                                   radius: 25.sp,
                                   width: double.infinity,
+                                  height: 175.h,
                                   iconTxt: Icons.password,
                                   iconSize: 40.sp,
                                   labelTxt: "Password",
@@ -263,6 +272,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                   fontSize: 45.sp,
                                   radius: 25.sp,
                                   width: double.infinity,
+                                  height: 175.h,
                                   iconTxt: Icons.password,
                                   iconSize: 40.sp,
                                   labelTxt: "Password Confirmation",

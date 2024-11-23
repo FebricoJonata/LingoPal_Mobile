@@ -17,7 +17,7 @@ class WordListController extends GetxController {
       final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/word", options: Options(headers: {'accept': 'application/json'}));
       if (response.statusCode == 200) {
         var wordModel = WordModel.fromJson(response.data);
-        words(wordModel);
+        words.value = wordModel;
 
         return Right(wordModel);
       } else {
@@ -49,14 +49,8 @@ class WordListController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    getVocabs();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-    getVocabs();
+    await getVocabs();
   }
 }
