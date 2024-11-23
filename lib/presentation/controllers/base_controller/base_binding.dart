@@ -4,6 +4,7 @@ import 'package:lingo_pal_mobile/presentation/controllers/chatbot_controller/cha
 import 'package:lingo_pal_mobile/presentation/controllers/chatbot_controller/chatbot_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/chatbot_controller/tts_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/choice_chip_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/dictionary_controller/word_card_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/dictionary_controller/word_list_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/progress_course_API_controller.dart';
@@ -24,6 +25,7 @@ class BaseBindings implements Bindings {
     Get.lazyPut(() => ChatController());
     Get.lazyPut(() => AudioController());
     Get.lazyPut(() => WordListController());
+    Get.lazyPut(() => WordCardController());
     Get.lazyPut(() => ChoicesController());
     Get.lazyPut(() => MaterialController());
     Get.lazyPut(() => SearchBarController());

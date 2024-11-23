@@ -5,5 +5,6 @@ class DictionaryBindings implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => WordListController());
+    // Get.lazyPut(() => WordCardController());
   }
 }

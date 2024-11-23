@@ -74,6 +74,7 @@ class _MaterialPageState extends State<MaterialPage> {
                     SizedBox(
                       child: ReusableChoiceChip(
                         onSelect: (value) {
+                          print("masuk componen choice chip");
                           controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
                         },
                       ),
