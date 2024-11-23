@@ -38,9 +38,6 @@ class _MaterialDetailState extends State<MaterialDetail> {
       onPopInvokedWithResult: (didPop, result) => SystemChrome.setPreferredOrientations(DeviceOrientation.values),
       child: Scaffold(
         body: YoutubePlayerBuilder(
-          // onExitFullScreen: () {
-          //   SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-          // },
           player: YoutubePlayer(
             controller: videoController,
             showVideoProgressIndicator: true,
