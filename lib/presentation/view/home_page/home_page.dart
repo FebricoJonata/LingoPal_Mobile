@@ -62,8 +62,11 @@ class _HomePageState extends State<HomePage> {
                           );
                         }
                       }
-                      return CourseDisabledCard(
-                        course: course,
+                      return Tooltip(
+                        message: "You have to complete previous course with a minimum of ${course.minPoin}",
+                        child: CourseDisabledCard(
+                          course: course,
+                        ),
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
