@@ -20,9 +20,10 @@ class CourseController extends GetxController {
   var storage = const FlutterSecureStorage();
   // get master course
   Future<Either<Failure, CourseModel>?> getCourses() async {
+    String? accessToken = await storage.read(key: "token");
     try {
       isLoading.value = true;
-      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course', options: Options(headers: {'accept': 'application/json'}));
+      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course', options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
 
       var courseModel = CourseModel.fromJson(response.data);
       courses(courseModel);
@@ -57,9 +58,11 @@ class CourseController extends GetxController {
   // get user course progress
   Future<Either<Failure, CourseProgressModel>> getUserCourseProgress() async {
     var userId = await storage.read(key: "userId");
+    String? accessToken = await storage.read(key: "token");
     try {
       isLoading.value = true;
-      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course/progress', queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
+      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course/progress',
+          queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
 
       var userCourseProgress = CourseProgressModel.fromJson(response.data);
 

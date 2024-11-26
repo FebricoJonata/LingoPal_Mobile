@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
               var activeCourses = courseController.courseProgress.value?.body ?? [];
 
               if (courseController.isLoading.isTrue || courseController.courseProgress.value == null || courseController.courses.value == null) {
-                return const Text("Loading...");
+                return Text("loading".tr);
               } else if (courseController.errorMessage.isNotEmpty) {
                 return Text(courseController.errorMessage.value);
               } else if (courseList.isEmpty) {

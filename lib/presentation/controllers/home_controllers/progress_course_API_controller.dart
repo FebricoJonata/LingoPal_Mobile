@@ -16,13 +16,14 @@ class ProgressAPIController extends GetxController {
   Rx<ProgressUserModel?> progress = Rx<ProgressUserModel?>(null);
   Future<Either<Failure, ProgressUserModel>> getProgress() async {
     var userId = await storage.read(key: "userId");
+    String? accessToken = await storage.read(key: "token");
     try {
       isLoading.value = true;
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/users/status',
         queryParameters: {'user_id': userId},
         options: Options(
-          headers: {"Accept": "application/json"},
+          headers: {"Accept": "application/json", "Authorization": "Bearer $accessToken"},
         ),
       );
 

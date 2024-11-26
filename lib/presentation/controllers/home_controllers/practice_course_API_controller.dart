@@ -20,13 +20,14 @@ class PracticeCourseController extends GetxController {
 
   var storage = const FlutterSecureStorage();
   Future<Either<Failure, PracticeModel>> getPractices(courseId) async {
+    String? accessToken = await storage.read(key: "token");
     try {
       isLoading.value = true;
-      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice', queryParameters: {'course_id': courseId}, options: Options(headers: {"Accept": "application/json"}));
+      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice',
+          queryParameters: {'course_id': courseId}, options: Options(headers: {"Accept": "application/json", "Authorization": "Bearer $accessToken"}));
 
       var practiceModel = PracticeModel.fromJson(response.data);
       practices(practiceModel);
-      print("Practice: ${response.data}");
       return Right(practiceModel);
     } catch (e) {
       print("Error");
@@ -38,9 +39,10 @@ class PracticeCourseController extends GetxController {
 
   Future<Either<Failure, PracticeProgressModel>> getUserPractices() async {
     var userId = await storage.read(key: "userId");
+    String? accessToken = await storage.read(key: "token");
     try {
-      final response =
-          await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice/progress', queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
+      final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice/progress',
+          queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
 
       var userPractices = PracticeProgressModel.fromJson(response.data);
 

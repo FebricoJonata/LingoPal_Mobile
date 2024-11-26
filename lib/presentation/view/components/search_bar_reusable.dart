@@ -46,7 +46,7 @@ class ReuseSearchBar extends StatelessWidget {
                         child: SearchBar(
                           controller: searchBarController.searches.value.isEmpty ? searchController : searchController
                             ..text = searchBarController.searches.value,
-                          hintText: "Type keywords ...",
+                          hintText: "keyword".tr,
                           leading: const Icon(Icons.search),
                           elevation: const WidgetStatePropertyAll(0),
                           padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 8)),
@@ -78,7 +78,7 @@ class ReuseSearchBar extends StatelessWidget {
               ),
             ),
             PrimaryBtn(
-              btnText: "Search",
+              btnText: "search".tr,
               width: 180.w,
               height: context.height,
               onClick: () {

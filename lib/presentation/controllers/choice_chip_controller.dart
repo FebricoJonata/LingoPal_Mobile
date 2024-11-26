@@ -33,9 +33,11 @@ import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class Choices {
   final int id;
-  final String label;
+  final String label; // Label untuk tampilan
+  final String value; // Nilai asli untuk dikirim
   bool selected;
-  Choices(this.id, this.label, this.selected);
+
+  Choices(this.id, this.label, this.value, this.selected);
 }
 
 class ChoicesController extends GetxController {
@@ -73,8 +75,8 @@ class ChoicesController extends GetxController {
     super.onInit();
     if (Get.currentRoute == RouteName.registerPage) {
       final List<Choices> pageChoices = [
-        Choices(1, "Male", false),
-        Choices(2, "Female", false),
+        Choices(1, "male".tr, "Male", false), // Label diterjemahkan, nilai tetap
+        Choices(2, "female".tr, "Female", false),
       ];
       setChoices(pageChoices);
     }

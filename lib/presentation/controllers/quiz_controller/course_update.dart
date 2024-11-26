@@ -10,9 +10,10 @@ class CourseUpdateController extends GetxController {
 
   Future updateCourse(int courseId) async {
     var userId = await storage.read(key: "userId");
+    String? accessToken = await storage.read(key: "token");
     try {
       final response = await Dio().post("https://lingo-pal-backend-v1.vercel.app/api/course/update-progress",
-          data: {"user_id": userId, "course_id": courseId}, options: Options(headers: {'accept': 'application/json', 'Content-Type': 'application/json'}));
+          data: {"user_id": userId, "course_id": courseId}, options: Options(headers: {'accept': 'application/json', 'Content-Type': 'application/json', "Authorization": "Bearer $accessToken"}));
       courseUpdate(CourseUpdate.fromJson(response.data));
       print("Response Course: ${courseUpdate.value?.body}");
       return courseUpdate;

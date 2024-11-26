@@ -41,7 +41,7 @@ class _MaterialPageState extends State<MaterialPage> {
     // Pastikan pencarian hanya dijalankan jika diperlukan
     if (controllerMaterial.materials.value == null) {
       controllerSearch.searches.value = "";
-      controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
+      controllerMaterial.getMaterials(controller.selectedChoice.value?.value, controllerSearch.searches.value);
     }
   }
 
@@ -58,14 +58,14 @@ class _MaterialPageState extends State<MaterialPage> {
             Image.asset(AssetConstraints.bgIntroTop),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(right: 30, left: 30),
+                padding: const EdgeInsets.only(right: 30, left: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ReuseSearchBar(
                       // searches: searches,
                       onPressed: (value) {
-                        controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
+                        controllerMaterial.getMaterials(controller.selectedChoice.value!.value, controllerSearch.searches.value);
                       },
                     ),
                     const SizedBox(height: 24),
@@ -75,7 +75,7 @@ class _MaterialPageState extends State<MaterialPage> {
                       child: ReusableChoiceChip(
                         onSelect: (value) {
                           print("masuk componen choice chip");
-                          controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
+                          controllerMaterial.getMaterials(controller.selectedChoice.value!.value, controllerSearch.searches.value);
                         },
                       ),
                     ),
@@ -91,8 +91,8 @@ class _MaterialPageState extends State<MaterialPage> {
                                 height: 50.h,
                               ),
                               Container(
-                                child: const Text("Loading ..."),
                                 alignment: Alignment.center,
+                                child: Text("loading".tr),
                               ),
                             ],
                           );
@@ -110,7 +110,7 @@ class _MaterialPageState extends State<MaterialPage> {
                           return RefreshIndicator(
                             color: MyColors.primaryGreen,
                             onRefresh: () async {
-                              await controllerMaterial.getMaterials(controller.selectedChoice.value!.label, controllerSearch.searches.value);
+                              await controllerMaterial.getMaterials(controller.selectedChoice.value!.value, controllerSearch.searches.value);
                             },
                             child: ListView.separated(
                               padding: EdgeInsets.fromLTRB(0, 0, 0, 300.h),
