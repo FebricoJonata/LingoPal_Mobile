@@ -103,35 +103,58 @@ class _PracticePageState extends State<PracticePage> {
                   return Column(
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          BackBtn(
-                            ontap: () {
-                              controllerProgress.getProgress();
-                              controllerCourse.getCourses();
-                              controllerCourse.getUserCourseProgress();
-                              Get.back();
-                            },
+                          Expanded(
+                            child: Row(
+                              children: [
+                                BackBtn(
+                                  ontap: () {
+                                    controllerProgress.getProgress();
+                                    controllerCourse.getCourses();
+                                    controllerCourse.getUserCourseProgress();
+                                    Get.back();
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 80.w,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        course.courseName ?? "Course Name",
+                                        style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        course.category!.courseCategoryName ?? "Course Category",
+                                        style: TextStyle(fontSize: 50.sp),
+                                      ),
+                                      Text(
+                                        course.courseDescription ?? "Course description",
+                                        style: TextStyle(fontSize: 50.sp)
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             width: 80.w,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                course.courseName ?? "Course Name",
-                                style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                course.category!.courseCategoryName ?? "Course Category",
-                                style: TextStyle(fontSize: 50.sp),
-                              ),
-                              Text(
-                                course.courseDescription ?? "Course description",
-                                style: TextStyle(fontSize: 50.sp),
+                          Tooltip(
+                            triggerMode: TooltipTriggerMode.tap,
+                            showDuration: Duration(seconds: 10),
+                            richMessage: WidgetSpan(
+                              child: Container(
+                                constraints: BoxConstraints(maxWidth: 400.w),
+                                child: const Text("Obtain a minimum score of 30 for each to unlock next round of questions", style: TextStyle(color: MyColors.white),),
                               )
-                            ],
-                          )
+                            ),
+                            child: Icon(Icons.info_rounded, color: MyColors.secondaryGreen,)
+                          )                          
                         ],
                       ),
                       SizedBox(height: 100.h),

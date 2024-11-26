@@ -17,7 +17,6 @@ class CourseActiveCard extends StatelessWidget {
       shadowColor: const Color.fromRGBO(0, 0, 0, 0.25),
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(30.sp)), color: Colors.white),
-        // color: Colors.white,
         padding: EdgeInsets.all(36.sp),
         height: 300.h,
         child: Row(
@@ -65,6 +64,7 @@ class CourseActiveCard extends StatelessWidget {
                   Text(
                     course.courseDescription!,
                     style: TextStyle(fontSize: 36.sp),
+                    overflow: TextOverflow.ellipsis,
                   )
                 ],
               ),
