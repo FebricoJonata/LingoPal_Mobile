@@ -82,8 +82,11 @@ class _ChatbotPageState extends State<ChatbotPage> {
                 SizedBox(
                   width: 1179.w,
                   height: 1600.h,
-                  child: GetBuilder<ChatController>(
+                  child:GetBuilder<ChatController>(
                     builder: (controller) {
+                      if(controller.messages.isEmpty){
+                        return const Text("Welcome to the chatroom with our AI bot, Lingo.\nLet's start chatting and learning with English together!", textAlign: TextAlign.center,);
+                      }
                       return ListView.builder(
                         controller: scrollController, // Tambahkan controller di sini
                         shrinkWrap: true,
@@ -96,7 +99,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
                               isMe: true,
                               isLoading: false,
                             );
-                          } else {
+                          }
+                          else {
                             return Obx(() => MessageBubble.first(
                                   isLoading: controllerTTS.isLoading.value,
                                   userImage: AssetConstraints.robotCool,
