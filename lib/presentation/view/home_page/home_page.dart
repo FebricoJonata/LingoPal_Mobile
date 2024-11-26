@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                         }
                       }
                       return Tooltip(
-                        message: "You have to complete previous course with a minimum of ${course.minPoin}",
+                        message: "You have to complete previous course with a minimum of ${course.minPoin} points",
                         child: CourseDisabledCard(
                           course: course,
                         ),
