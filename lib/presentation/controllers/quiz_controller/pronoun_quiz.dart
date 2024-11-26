@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
@@ -13,7 +14,9 @@ class PronounQuizController extends GetxController {
   Rx<SpeechToText?> speechText = Rx<SpeechToText?>(null);
   var isRecord = 0.obs;
   RxDouble score = (0.0).obs;
+  var storage = const FlutterSecureStorage();
   Future<Either<Failure, SpeechToText>> sstAPI(String audioPath, String referenceText) async {
+    String? accessToken = await storage.read(key: "token");
     try {
       isRecord.value = 1;
       File audioFile = File(audioPath);
@@ -23,7 +26,7 @@ class PronounQuizController extends GetxController {
         'https://lingo-pal-backend-v1.vercel.app/api/speech/speech-to-text?referenceText=$referenceText',
         data: audioBytes,
         options: Options(
-          headers: {"Content-Type": "audio/wave"},
+          headers: {"Content-Type": "audio/wave", "Authorization": "Bearer $accessToken"},
         ),
       );
 
@@ -55,7 +58,7 @@ class PronounQuizController extends GetxController {
   }
 
   double calculateScore(double scores) {
-    return score.value += score.value;
+    return score.value += scores;
   }
 
   int calculateFinalScore(double totalScore) {

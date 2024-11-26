@@ -69,8 +69,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           InkWell(
                             onTap: () {
                               final List<Choices> pageChoices = [
-                                Choices(1, "Male", false),
-                                Choices(2, "Female", false),
+                                Choices(1, "male".tr, "Male", false), // Label diterjemahkan, nilai tetap
+                                Choices(2, "female".tr, "Female", false),
                               ];
                               controllerChoice.setChoices(pageChoices);
                               Get.toNamed(RouteName.editPage, arguments: controllerProfile.profile.value!.body!.data!.first.userId);
@@ -132,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        controllerProfile.profile.value!.body!.data!.first.birthDate ?? "",
+                                        controllerProfile.profile.value?.body!.data!.first.birthDate ?? "",
                                         style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w500),
                                       ),
                                     ),
@@ -223,7 +223,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    "Telephone Number",
+                                    "phoneNumber".tr,
                                     style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),
@@ -414,7 +414,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   width: 1179.w,
                                   height: 100.h,
                                   margin: const EdgeInsets.all(10),
-                                  child: Align(alignment: Alignment.centerLeft, child: Text("Terms and Conditions", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
+                                  child: Align(alignment: Alignment.centerLeft, child: Text("termsCondition".tr, style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
                             ),
                             SizedBox(
                               height: 25.h,
@@ -438,7 +438,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   width: 1179.w,
                                   height: 100.h,
                                   margin: const EdgeInsets.all(10),
-                                  child: Align(alignment: Alignment.centerLeft, child: Text("Rating and Review", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
+                                  child: Align(alignment: Alignment.centerLeft, child: Text("ratingReview".tr, style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
                             ),
                             SizedBox(
                               height: 25.h,
@@ -462,7 +462,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   width: 1179.w,
                                   height: 100.h,
                                   margin: const EdgeInsets.all(10),
-                                  child: Align(alignment: Alignment.centerLeft, child: Text("About Us", style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
+                                  child: Align(alignment: Alignment.centerLeft, child: Text("aboutUs".tr, style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600)))),
                             )
                           ],
                         ),

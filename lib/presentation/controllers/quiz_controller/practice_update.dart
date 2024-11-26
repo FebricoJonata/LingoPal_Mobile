@@ -8,10 +8,11 @@ class PracticeUpdateController extends GetxController {
   var storage = const FlutterSecureStorage();
   Future updatePractice(int progressPractice, int practiceId, int point, bool isActive, bool isPassed, int courseId) async {
     var userId = await storage.read(key: "userId");
+    String? accessToken = await storage.read(key: "token");
     try {
       final response = await Dio().post("https://lingo-pal-backend-v1.vercel.app/api/practice/progress",
           data: {"progress_practice_id": progressPractice, "user_id": userId, "course_id": courseId, "practice_id": practiceId, "progress_poin": point, "is_active": isActive, "is_passed": isPassed},
-          options: Options(headers: {'accept': 'application/json', 'Content-Type': 'application/json'}));
+          options: Options(headers: {'accept': 'application/json', 'Content-Type': 'application/json', "Authorization": "Bearer $accessToken"}));
       practiceUpdate(PracticeUpdate.fromJson(response.data));
       print("Response: ${response.data}");
       return practiceUpdate;

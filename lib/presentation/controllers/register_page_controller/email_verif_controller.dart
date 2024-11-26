@@ -3,28 +3,30 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
-import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_model.dart';
+import 'package:lingo_pal_mobile/presentation/model/signup_model/email_verid_model.dart';
 
 import '../../../core/error/errors.dart';
 
-class WordListController extends GetxController {
-  Rx<WordModel?> words = Rx<WordModel?>(null);
-  var isLoading = false.obs;
-  var errorMessage = ''.obs;
+class EmailVerifController extends GetxController {
+  RxBool isLoading = false.obs;
   var storage = const FlutterSecureStorage();
-  Future<Either<Failure, WordModel>?> getVocabs() async {
+  Future<Either<Failure, EmailVerif>?> emailVerification(String email) async {
     String? accessToken = await storage.read(key: "token");
     try {
-      isLoading.value = true;
-      final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/word", options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
+      final response = await Dio().post(
+        "https://lingo-pal-backend-v1.vercel.app/api/mail/send-verification",
+        data: {"to": email, "verificationUrl": "https://lingo-pal-backend-v1.vercel.app/api/users/verify-account?email=$email"},
+        options: Options(
+          headers: {"Accept": "application/json", "Content-Type": "application/json", "Authorization": "Bearer $accessToken"},
+        ),
+      );
       if (response.statusCode == 200) {
-        var wordModel = WordModel.fromJson(response.data);
-        words.value = wordModel;
-
-        return Right(wordModel);
+        final emailVerifModel = EmailVerif.fromJson(response.data);
+        isLoading.value = false;
+        return Right(emailVerifModel);
       } else {
         isLoading.value = false;
-
+        print(response.data);
         return Left(Failure(response.statusCode.toString()));
       }
     } on DioException catch (e) {
@@ -41,6 +43,8 @@ class WordListController extends GetxController {
       } else {
         errorMessage = e.message ?? "An unexpected error occurred.";
       }
+
+      // Tampilkan modal error
       showError(e.response?.statusCode, errorMessage);
     } catch (e) {
       showError(0, e.toString());
@@ -48,11 +52,5 @@ class WordListController extends GetxController {
       isLoading.value = false;
     }
     return null;
-  }
-
-  @override
-  void onInit() async {
-    super.onInit();
-    await getVocabs();
   }
 }

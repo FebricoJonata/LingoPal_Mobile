@@ -13,12 +13,13 @@ class GetProfileController extends GetxController {
   var storage = const FlutterSecureStorage();
   Future<Either<Failure, Profile>> profileAPI() async {
     var email = await storage.read(key: "email");
+    String? accessToken = await storage.read(key: "token");
     try {
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/users',
         queryParameters: {'email': email},
         options: Options(
-          headers: {"Accept": "application/json"},
+          headers: {"Accept": "application/json", "Authorization": "Bearer $accessToken"},
         ),
       );
       var profileModel = Profile.fromJson(response.data);

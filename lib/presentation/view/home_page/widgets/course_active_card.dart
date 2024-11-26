@@ -73,7 +73,7 @@ class CourseActiveCard extends StatelessWidget {
               width: 30.w,
             ),
             PrimaryBtn(
-              btnText: "Lihat",
+              btnText: "view".tr,
               width: 300.w,
               height: 120.h,
               onClick: () {

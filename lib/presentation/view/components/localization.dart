@@ -23,13 +23,61 @@ class TranslationService extends Translations {
 
   @override
   Map<String, Map<String, String>> get keys => {
-        'en_US': {'edit': 'Edit', 'register': 'egister', 'fullName': 'Full Name', 'gender': 'Gender', 'male': 'Male', 'female': 'Female', 'birthDate': 'Birth Date'},
-        'id_ID': {'edit': 'Ubah'},
+        'en_US': {
+          'edit': 'Edit',
+          'register': 'egister',
+          'fullName': 'Full Name',
+          'gender': 'Gender',
+          'male': 'Male',
+          'female': 'Female',
+          'birthDate': 'Birth Date',
+          'phoneNumber': 'Phone Number',
+          'update': 'Update',
+          'termsCondition': 'Terms and Conditions',
+          'ratingReview': 'Rating and Review',
+          'aboutUs': 'About Us',
+          'view': 'View',
+          'search': 'Search',
+          'all': 'All',
+          'article': 'Article',
+          'keyword': 'Type keywords ...',
+          'message': 'Send a message...',
+          'start': 'START',
+          'loading': 'Loading...'
+        },
+        'id_ID': {
+          'edit': 'Ubah',
+          'register': 'Daftar',
+          'fullName': 'Nama Lengkap',
+          'gender': 'Jenis Kelamin',
+          'male': 'Lai-laki',
+          'female': 'Perempuan',
+          'birthDate': 'Tanggal Lahir',
+          'phoneNumber': 'Nomor Telepon',
+          'update': 'Memperbarui',
+          'termsCondition': 'Syarat dan Ketentuan',
+          'ratingReview': 'Penilaian dan Tinjauan',
+          'aboutUs': 'Tentang Kami',
+          'view': "Lihat",
+          'search': 'Cari',
+          'all': 'Semua',
+          'article': 'Artikel',
+          'keyword': 'Tulis kata kunci ...',
+          'message': 'Kirim pesan...',
+          'start': 'MULAI',
+          'loading': 'Memuat Data...'
+        },
       };
   static Future<void> loadSavedLanguage() async {
     final savedLang = await _storage.read(key: _storageKey);
-    if (savedLang != null && langs.contains(savedLang)) {
-      changeLocale(savedLang);
+    // if (savedLang != null && langs.contains(savedLang)) {
+    //   changeLocale(savedLang);
+    // }
+    if (savedLang == null || !langs.contains(savedLang)) {
+      await _storage.write(key: _storageKey, value: 'English');
+      changeLocale('English'); // Set ke bahasa default
+    } else {
+      changeLocale(savedLang); // Set ke bahasa yang disimpan
     }
   }
 

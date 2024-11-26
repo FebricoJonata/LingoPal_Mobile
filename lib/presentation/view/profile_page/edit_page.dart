@@ -139,7 +139,7 @@ class _EditPageState extends State<EditPage> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Full Name",
+                              "fullName".tr,
                               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
                           ),
@@ -152,10 +152,10 @@ class _EditPageState extends State<EditPage> {
                             fontSize: 35.sp,
                             radius: 25.sp,
                             width: double.infinity,
-                            height: 120.h,
+                            height: 150.h,
                             iconTxt: Icons.person,
                             iconSize: 40.sp,
-                            labelTxt: "Full Name",
+                            labelTxt: "fullName".tr,
                             maxHeight: 100.h,
                             validator: (value) => validateField(value, 'Name'),
                           ),
@@ -165,7 +165,7 @@ class _EditPageState extends State<EditPage> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Phone Number",
+                              "phoneNumber".tr,
                               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
                           ),
@@ -179,10 +179,10 @@ class _EditPageState extends State<EditPage> {
                             fontSize: 35.sp,
                             radius: 25.sp,
                             width: double.infinity,
-                            height: 120.h,
+                            height: 150.h,
                             iconTxt: Icons.phone,
                             iconSize: 40.sp,
-                            labelTxt: "Phone Number",
+                            labelTxt: "phoneNumber".tr,
                             validator: (value) => validateField(value, 'Phone Number'),
                             maxHeight: 100.h,
                           ),
@@ -192,7 +192,7 @@ class _EditPageState extends State<EditPage> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Gender",
+                              "gender".tr,
                               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
                           ),
@@ -206,7 +206,7 @@ class _EditPageState extends State<EditPage> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Birth Date",
+                              "birthDate".tr,
                               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
                           ),
@@ -230,14 +230,14 @@ class _EditPageState extends State<EditPage> {
                       height: 50.h,
                     ),
                     Obx(() => PrimaryBtn(
-                          btnText: "Update",
+                          btnText: "update".tr,
                           width: 300.w,
                           height: 150.h,
                           isLoading: controllerEdit.isLoading.value,
                           onClick: isFormValid.value == true
                               ? () async {
                                   await controllerEdit.editProfileAPI(
-                                      nameContoller.text, datePickerController.text, controllerChoice.selectedChoice.value?.label ?? "", phoneController.text, controllerImage.imageUrl.value);
+                                      nameContoller.text, datePickerController.text, controllerChoice.selectedChoice.value?.value ?? "", phoneController.text, controllerImage.imageUrl.value);
                                   controllerProfile.profileAPI();
                                   Get.back();
                                 }

@@ -52,7 +52,7 @@ class _WordListState extends State<WordList> {
           () {
             var listWords = controllerWord.words.value?.body ?? [];
             if (controllerWord.isLoading.isTrue || controllerWord.words.value == null) {
-              return const Text("Loading ...");
+              return Text("loading".tr);
             } else if (controllerWord.errorMessage.isNotEmpty) {
               return Text(controllerWord.errorMessage.value);
             } else if (listWords.isEmpty) {

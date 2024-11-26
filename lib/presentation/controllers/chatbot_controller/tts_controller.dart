@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
@@ -14,17 +15,16 @@ import '../../../core/error/errors.dart';
 class AudioController extends GetxController {
   String audioUrl = '';
   RxBool isLoading = false.obs;
+  var storage = const FlutterSecureStorage();
   Future<Either<Failure, TTSModel>?> fetchAudioFromApi(String text) async {
+    String? accessToken = await storage.read(key: "token");
     try {
       isLoading.value = true;
       final response = await Dio().post(
         'https://lingo-pal-backend-v1.vercel.app/api/speech/text-to-speech',
         data: {"text": text},
         options: Options(
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-          },
+          headers: {"Accept": "application/json", "Content-Type": "application/json", "Authorization": "Bearer $accessToken"},
         ),
       );
 

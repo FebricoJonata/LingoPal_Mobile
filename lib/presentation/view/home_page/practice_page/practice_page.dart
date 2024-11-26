@@ -105,10 +105,10 @@ class _PracticePageState extends State<PracticePage> {
                       Row(
                         children: [
                           BackBtn(
-                            ontap: () async {
-                              await controllerProgress.getProgress();
-                              await controllerCourse.getCourses();
-                              await controllerCourse.getUserCourseProgress();
+                            ontap: () {
+                              controllerProgress.getProgress();
+                              controllerCourse.getCourses();
+                              controllerCourse.getUserCourseProgress();
                               Get.back();
                             },
                           ),

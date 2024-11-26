@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:dartz/dartz.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
@@ -11,7 +12,7 @@ class ChatBotAPIController extends GetxController {
   final _isLoading = RxBool(false);
   Rx<ChatBotResponse?> chatbotReponse = Rx<ChatBotResponse?>(null);
   RxBool get isLoading => _isLoading;
-
+  var storage = const FlutterSecureStorage();
   Future<Either<Failure, ChatBotResponse>> chatBotAPI(String message) async {
     _isLoading.value = true;
     final requestBody = {
@@ -22,15 +23,13 @@ class ChatBotAPIController extends GetxController {
         }
       ]
     };
+    String? accessToken = await storage.read(key: "token");
     try {
       final response = await Dio().post(
         'https://lingo-pal-backend-v1.vercel.app/api/chat/chat-completion',
         data: requestBody,
         options: Options(
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-          },
+          headers: {"Accept": "application/json", "Content-Type": "application/json", "Authorization": "Bearer $accessToken"},
         ),
       );
       final chatBotResponseModel = ChatBotResponse.fromJson(response.data);

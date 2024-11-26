@@ -71,9 +71,9 @@ class _HomePageState extends State<BasePage> {
                         controller.choices.clear();
                         if (controller.choices.isEmpty) {
                           final List<Choices> pageChoices = [
-                            Choices(1, "All", true),
-                            Choices(2, "Article", false),
-                            Choices(3, "Video", false),
+                            Choices(1, "all".tr, "All", true),
+                            Choices(2, "article".tr, "Article", false),
+                            Choices(3, "Video", "Video", false),
                           ];
                           controller.setChoices(pageChoices);
                         }

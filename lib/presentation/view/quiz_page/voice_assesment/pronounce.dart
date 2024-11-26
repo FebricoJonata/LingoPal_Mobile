@@ -53,11 +53,11 @@ class PronouncePage extends StatelessWidget {
         onClose: () {
           Get.back();
           var scores = controllerQuiz.calculateScore(score);
-          var finalScore = controllerQuiz.calculateFinalScore(scores); // Hitung finalScore
           if (currentQuestion.value < controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
             currentQuestion.value += 1;
           } else {
             quizDone.value = true;
+            finalScore = controllerQuiz.calculateFinalScore(scores); // Hitung finalScore
             stars.value = starsValue(finalScore); // Gunakan nilai finalScore
           }
         },

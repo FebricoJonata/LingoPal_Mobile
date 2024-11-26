@@ -55,11 +55,11 @@ class _NewMessageState extends State<NewMessage> {
             textCapitalization: TextCapitalization.sentences,
             autocorrect: true,
             enableSuggestions: true,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               focusColor: MyColors.primaryGreen,
-              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.primaryGreen)),
-              labelText: 'Send a message...',
-              labelStyle: TextStyle(
+              focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: MyColors.primaryGreen)),
+              labelText: 'message'.tr,
+              labelStyle: const TextStyle(
                 color: MyColors.primaryGreen, // Custom label text color
               ),
             ),

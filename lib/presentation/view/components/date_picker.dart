@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 
 class DatePicker extends StatefulWidget {
   const DatePicker({
@@ -54,8 +55,21 @@ class _MyWidgetState extends State<DatePicker> {
     DateTime? pickedDate = await showDatePicker(
       context: context,
       lastDate: DateTime.now(),
-      firstDate: DateTime(2015),
+      firstDate: DateTime(1950),
       initialDate: DateTime.now(),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: MyColors.primaryGreen, // Warna utama picker (highlight tanggal)
+              onPrimary: Colors.white, // Warna teks di atas warna utama
+              onSurface: Colors.black, // Warna teks untuk tanggal yang dapat dipilih
+            ),
+            dialogBackgroundColor: Colors.white, // Warna latar modal
+          ),
+          child: child!,
+        );
+      },
     );
     if (pickedDate == null) return;
     setState(() {
