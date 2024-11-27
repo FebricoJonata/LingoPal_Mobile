@@ -243,7 +243,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      "Password",
+                                      "password".tr,
                                       style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                                     ),
                                   ),
@@ -259,14 +259,14 @@ class _MyWidgetState extends State<RegisterPage> {
                                     height: 175.h,
                                     iconTxt: Icons.password,
                                     iconSize: 40.sp,
-                                    labelTxt: "Password",
+                                    labelTxt: "password".tr,
                                     maxHeight: 100.h,
                                   ),
                                   SizedBox(height: 15.h),
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      "Confirm Password",
+                                      "${"confirm".tr} ${"password".tr}",
                                       style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                                     ),
                                   ),
@@ -281,7 +281,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                     height: 175.h,
                                     iconTxt: Icons.password,
                                     iconSize: 40.sp,
-                                    labelTxt: "Password Confirmation",
+                                    labelTxt: "${"confirm".tr} ${"password".tr}",
                                     maxHeight: 100.h,
                                   ),
                                   const SizedBox(

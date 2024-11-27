@@ -288,7 +288,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Misc",
+                            "Others",
                             style: TextStyle(
                               color: MyColors.primaryGreen,
                               fontWeight: FontWeight.w700,
