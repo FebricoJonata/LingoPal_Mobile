@@ -171,7 +171,7 @@ class _PracticePageState extends State<PracticePage> {
                             for (Practice practice in practices)
                               if (practice.practiceCode == activePracticeCode)
                                 ActivePractice(
-                                  onTap: course.category?.courseCategoryName == "Pelafalan"
+                                  onTap: course.category?.courseCategoryName == "Pronounciation"
                                       ? () async {
                                           int tappedIndex = practices.indexOf(practice);
                                           if (tappedIndex == practices.length - 1) {
@@ -197,7 +197,7 @@ class _PracticePageState extends State<PracticePage> {
                                 )
                               else if (int.parse(practice.practiceCode!) <= lastPracticeNum)
                                 PracticeDone(
-                                  onTap: course.category?.courseCategoryName == "Pelafalan"
+                                  onTap: course.category?.courseCategoryName == "Pronounciation"
                                       ? () async {
                                           int tappedIndex = practices.indexOf(practice);
                                           if (tappedIndex == practices.length - 1) {
