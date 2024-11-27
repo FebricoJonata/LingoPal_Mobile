@@ -304,7 +304,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                     height: 20,
                                   ),
                                   PrimaryBtn(
-                                    btnText: "Lanjutkan",
+                                    btnText: "next".tr,
                                     width: MediaQuery.of(context).size.width / 2,
                                     height: 150.h,
                                     isLoading: controllerRegis.isLoading.value,

@@ -39,11 +39,11 @@ class _WordListState extends State<WordList> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Row(
+        Row(
           children: [
             Text(
-              "Glossary",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              "kamus".tr,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ],
         ),

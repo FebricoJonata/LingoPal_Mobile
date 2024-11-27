@@ -69,7 +69,7 @@ class _MaterialPageState extends State<MaterialPage> {
                       },
                     ),
                     const SizedBox(height: 24),
-                    const Text("Material", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    Text("material".tr, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                     const SizedBox(height: 20),
                     SizedBox(
                       child: ReusableChoiceChip(
