@@ -42,7 +42,7 @@ class _WordListState extends State<WordList> {
         Row(
           children: [
             Text(
-              "kamus".tr,
+              "glossary".tr,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ],

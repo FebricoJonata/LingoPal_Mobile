@@ -85,7 +85,27 @@ class _ChatbotPageState extends State<ChatbotPage> {
                   child:GetBuilder<ChatController>(
                     builder: (controller) {
                       if(controller.messages.isEmpty){
-                        return const Text("Welcome to the chatroom with our AI bot, Lingo.\nLet's start chatting and learning with English together!", textAlign: TextAlign.center,);
+                        // use rich text
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: 'Welcome to the chatroom with our AI bot, Lingo.\n',
+                              style: DefaultTextStyle.of(context).style,
+                              children: const [
+                                TextSpan(text: 'Type '),
+                                TextSpan(text: 'Hello, Lingo', style: TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
+                                TextSpan(text: ' to start chatting in English\n'),
+                                TextSpan(text: 'Ask Lingo to rate by typing '),
+                                TextSpan(text: 'Rate my English', style: TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
+                                TextSpan(text: "\n"),
+                                TextSpan(text: '\nNote: Lingo rating is just a rough estimation and does not necessarily reflect your actual English proficiency')
+                              ]
+                            )
+                          ),
+                        );
+                        // return const Text("Welcome to the chatroom with our AI bot, Lingo.\nLet's start chatting and learning with English together!", textAlign: TextAlign.center,);
                       }
                       return ListView.builder(
                         controller: scrollController, // Tambahkan controller di sini
