@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:ffi';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -8,6 +10,7 @@ import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_progress_model.dart';
+import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
 
 import '../../../core/error/errors.dart';
 
@@ -17,6 +20,7 @@ class CourseController extends GetxController {
   Rx<CourseProgressModel?> courseProgress = Rx<CourseProgressModel?>(null);
   var isLoading = false.obs;
   var errorMessage = ''.obs;
+  var totalCoursesBefore = 0.obs;
   var storage = const FlutterSecureStorage();
   // get master course
   Future<Either<Failure, CourseModel>?> getCourses() async {
@@ -67,6 +71,24 @@ class CourseController extends GetxController {
       var userCourseProgress = CourseProgressModel.fromJson(response.data);
 
       courseProgress(userCourseProgress);
+      var activeCourses = courseProgress.value?.body ?? [];
+      if(totalCoursesBefore.value == 0){
+        totalCoursesBefore.value = activeCourses.length;
+      }
+      else {
+        print("alert kebuka masuk sini active: ${activeCourses.length}");
+        if(totalCoursesBefore.value<activeCourses.length){
+          print("ada update course");
+          var lastCourseId = activeCourses.last.courseId;
+          var courseList = courses.value?.body ?? [];
+          var newCourse = courseList[lastCourseId!-1];
+          print("sebelum update");
+          Get.dialog(Alert(title: "New Course Unlocked!", message: "Hooray! You've finally unlocked course ${newCourse.courseName} - ${newCourse.category!.courseCategoryName}", imagePath: "assets/images/robots/happy.png",
+          onClose: () async {
+            Get.back();
+          }, ));
+        }
+      }
       return Right(userCourseProgress);
     } catch (e) {
       isLoading.value = false;
