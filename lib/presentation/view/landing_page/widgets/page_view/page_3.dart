@@ -46,18 +46,18 @@ class Page3 extends StatelessWidget {
                       width: 400.w,
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
+                          padding: WidgetStateProperty.all<EdgeInsets>(
                             const EdgeInsets.symmetric(vertical: 1.0, horizontal: 1.0),
                           ),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.sp))),
-                          backgroundColor: MaterialStateProperty.all<Color>(MyColors.primaryGreen),
+                          backgroundColor: WidgetStateProperty.all<Color>(MyColors.primaryGreen),
                         ),
                         onPressed: () {
-                          Get.toNamed(RouteName.registerPage);
+                          Get.toNamed(RouteName.loginPage);
                         },
                         child: Text(
-                          "Lanjutkan",
+                          "Start Now",
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.white, fontFamily: "Poppins", fontSize: 30.sp),
                         ),

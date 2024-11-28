@@ -4,15 +4,14 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/camera_controllers/picker_controller.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/profile_page/choice_chip_edit_controller.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/choice_chip_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/edit_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/camera_screen/camera_screen.dart';
+import 'package:lingo_pal_mobile/presentation/view/components/choice_chip.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/date_picker.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/text_field_reusable.dart';
-import 'package:lingo_pal_mobile/presentation/view/profile_page/widgets/choice_chip/choice_chip_edit.dart';
-import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class EditPage extends StatefulWidget {
   const EditPage({super.key});
@@ -26,10 +25,35 @@ class _EditPageState extends State<EditPage> {
   TextEditingController nameContoller = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   var controllerEdit = Get.find<EditAPIController>();
-  var controllerChoice = Get.find<ChoiceEditController>();
+  var controllerChoice = Get.find<ChoicesController>();
   var controllerProfile = Get.find<GetProfileController>();
   var controllerImage = Get.find<ImagePickerController>();
   int userId = Get.arguments;
+  final RxBool isFormValid = false.obs;
+
+  String? validateField(String? value, String fieldType) {
+    String? error;
+    switch (fieldType) {
+      case 'Email':
+        error = (value == null || !value.contains('@')) ? 'Email must contain "@"' : null;
+        break;
+      case 'Name':
+        error = (value == null || value.isEmpty) ? 'Cannot be Empty' : null;
+        break;
+      case 'Phone Number':
+        error = (value == null || value.length < 12 || value.length > 15) ? 'Phone number must be between 12 and 15 digits' : null;
+        break;
+      default:
+        error = null;
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      isFormValid.value = (nameContoller.text.isNotEmpty && (phoneController.text.length >= 12 && phoneController.text.length <= 15));
+    });
+
+    return error;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +68,7 @@ class _EditPageState extends State<EditPage> {
             Flexible(
               child: SizedBox(
                 width: 1179.w,
-                height: 1800.h,
+                height: 2000.h,
                 child: Column(
                   children: [
                     Container(
@@ -79,18 +103,13 @@ class _EditPageState extends State<EditPage> {
                               height: 400.h,
                               child: Stack(
                                 children: [
-                                  GetBuilder<ImagePickerController>(
-                                    builder: (controller) {
-                                      return CircleAvatar(
+                                  Obx(() => CircleAvatar(
                                         radius: 200.sp,
                                         backgroundColor: Colors.blue,
-                                        backgroundImage: controller.imageUrl.value == ""
-                                            ? NetworkImage(
-                                                "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
-                                            : NetworkImage(controller.imageUrl.value),
-                                      );
-                                    },
-                                  ),
+                                        backgroundImage: controllerImage.imageUrl.value == ""
+                                            ? const NetworkImage("https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
+                                            : NetworkImage(controllerImage.imageUrl.value),
+                                      )),
                                   SizedBox(
                                     width: 393.w,
                                     height: 400.h,
@@ -114,13 +133,13 @@ class _EditPageState extends State<EditPage> {
                     ),
                     SizedBox(
                       width: 900.w,
-                      height: 1000.h,
+                      height: 1200.h,
                       child: Column(
                         children: [
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Full Name",
+                              "fullName".tr,
                               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
                           ),
@@ -133,11 +152,12 @@ class _EditPageState extends State<EditPage> {
                             fontSize: 35.sp,
                             radius: 25.sp,
                             width: double.infinity,
-                            height: 120.h,
+                            height: 150.h,
                             iconTxt: Icons.person,
                             iconSize: 40.sp,
-                            labelTxt: "Full Name",
+                            labelTxt: "fullName".tr,
                             maxHeight: 100.h,
+                            validator: (value) => validateField(value, 'Name'),
                           ),
                           SizedBox(
                             height: 50.h,
@@ -145,11 +165,12 @@ class _EditPageState extends State<EditPage> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Phone Number",
+                              "phoneNumber".tr,
                               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
                           ),
                           ReuseTextField(
+                            textInputType: TextInputType.phone,
                             controller: phoneController,
                             obscureText: false,
                             linesMax: 1,
@@ -158,10 +179,11 @@ class _EditPageState extends State<EditPage> {
                             fontSize: 35.sp,
                             radius: 25.sp,
                             width: double.infinity,
-                            height: 120.h,
+                            height: 150.h,
                             iconTxt: Icons.phone,
                             iconSize: 40.sp,
-                            labelTxt: "Phone Number",
+                            labelTxt: "phoneNumber".tr,
+                            validator: (value) => validateField(value, 'Phone Number'),
                             maxHeight: 100.h,
                           ),
                           SizedBox(
@@ -170,25 +192,27 @@ class _EditPageState extends State<EditPage> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Gender",
+                              "gender".tr,
                               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
                           ),
                           SizedBox(
                             width: 1179.w,
                             height: 200.h,
-                            child: choiChipEdit(),
+                            child: ReusableChoiceChip(
+                              onSelect: (value) {},
+                            ),
                           ),
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Birth Date",
+                              "birthDate".tr,
                               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
                           ),
                           DatePicker(
                               controller: datePickerController,
-                              labelTxt: "BirthDay",
+                              labelTxt: "YYYY-MM-DD",
                               iconTxt: Icons.calendar_month,
                               linesMax: 1,
                               linesMin: 1,
@@ -205,22 +229,20 @@ class _EditPageState extends State<EditPage> {
                     SizedBox(
                       height: 50.h,
                     ),
-                    PrimaryBtn(
-                      btnText: "Update",
-                      width: 300.w,
-                      height: 150.h,
-                      onClick: () {
-                        controllerEdit.editProfileAPI(
-                            userId,
-                            nameContoller.text,
-                            datePickerController.text,
-                            controllerChoice.selectedChoice.value?.label ?? "",
-                            phoneController.text,
-                            controllerImage.imageUrl.value);
-                        controllerProfile.update();
-                        Get.toNamed(RouteName.loginPage);
-                      },
-                    )
+                    Obx(() => PrimaryBtn(
+                          btnText: "update".tr,
+                          width: 300.w,
+                          height: 150.h,
+                          isLoading: controllerEdit.isLoading.value,
+                          onClick: isFormValid.value == true
+                              ? () async {
+                                  await controllerEdit.editProfileAPI(
+                                      nameContoller.text, datePickerController.text, controllerChoice.selectedChoice.value?.value ?? "", phoneController.text, controllerImage.imageUrl.value);
+                                  controllerProfile.profileAPI();
+                                  Get.back();
+                                }
+                              : null,
+                        ))
                   ],
                 ),
               ),

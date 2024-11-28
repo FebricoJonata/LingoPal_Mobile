@@ -6,43 +6,19 @@ import 'package:lingo_pal_mobile/presentation/controllers/dictionary_controller/
 import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/dictionary_page/widgets/vocabulary_container.dart';
 
-class WordList extends StatelessWidget {
-  WordList({super.key, required this.onSearch});
+class WordList extends StatefulWidget {
+  const WordList({super.key});
 
-  Function onSearch;
+  // Function onSearch;
 
+  @override
+  State<WordList> createState() => _WordListState();
+}
+
+class _WordListState extends State<WordList> {
   List<Vocab> mapWords(wordList, index) {
     List<Vocab> listVocab = [];
-    List<String> letters = [
-      "A",
-      "B",
-      "C",
-      "D",
-      "E",
-      "F",
-      "G",
-      "H",
-      "I",
-      "J",
-      "K",
-      "L",
-      "M",
-      "N",
-      "O",
-      "P",
-      "Q",
-      "R",
-      "S",
-      "T",
-      "U",
-      "V",
-      "W",
-      "X",
-      "Y",
-      "Z"
-    ];
-
-    // int idx = 0;
+    List<String> letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
     for (var i = 0; i < wordList.length; i++) {
       if (wordList[i].alphabet == letters[index]) {
@@ -57,59 +33,49 @@ class WordList extends StatelessWidget {
     return listVocab;
   }
 
+  var controllerWord = Get.find<WordListController>();
+
   @override
   Widget build(BuildContext context) {
-    print("Berhasil masuk search");
     return Column(
       children: [
-        const Row(
+        Row(
           children: [
             Text(
-              "Glossary",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              "glossary".tr,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
-            // Spacer(),
-            // Icon(Icons.list),
           ],
         ),
         const SizedBox(height: 20),
-        GetBuilder<WordListController>(
-          builder: (controllerWord) {
-            print("Masuk controller word");
-            print(controllerWord);
-            return FutureBuilder(
-              future: controllerWord.getVocabs(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text("Memuat kata-kata ...");
-                } else if (snapshot.hasError) {
-                  return Text("Error memuat data");
-                } else if (!snapshot.hasData) {
-                  return Text("Tidak ditemukan data");
-                } else {
-                  var listWords = controllerWord.words.value!.body;
-                  print("List Words: $listWords");
-                  return Expanded(
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 26,
-                        itemBuilder: (context, index) {
-                          print("Index: $index");
-                          List<Vocab> listVocab = [];
-                          listVocab = mapWords(listWords, index);
+        Obx(
+          () {
+            var listWords = controllerWord.words.value?.body ?? [];
+            if (controllerWord.isLoading.isTrue || controllerWord.words.value == null) {
+              return Text("loading".tr);
+            } else if (controllerWord.errorMessage.isNotEmpty) {
+              return Text(controllerWord.errorMessage.value);
+            } else if (listWords.isEmpty) {
+              return const Text("No words found");
+            } else {
+              return Expanded(
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 26,
+                    itemBuilder: (context, index) {
+                      print("Index: $index");
+                      List<Vocab> listVocab = [];
+                      listVocab = mapWords(listWords, index);
 
-                          return VocabularyContainer(
-                            header: listVocab.first.alphabet!,
-                            vocabulary: listVocab,
-                            onsearch: onSearch,
-                          );
-                        }),
-                  );
-                }
-              },
-            );
+                      return VocabularyContainer(
+                        header: listVocab.first.alphabet!,
+                        vocabulary: listVocab,
+                      );
+                    }),
+              );
+            }
           },
-        )
+        ),
       ],
     );
   }

@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 
 // A MessageBubble for showing a single chat message on the ChatScreen.
 class MessageBubble extends StatelessWidget {
   // Create a message bubble which is meant to be the first in the sequence.
   const MessageBubble.first(
-      {super.key,
-      required this.userImage,
-      required this.username,
-      required this.message,
-      required this.isMe,
-      required this.onSpeechPressed,
-      required this.isLastMessage})
+      {super.key, required this.userImage, required this.username, required this.message, required this.isMe, required this.onSpeechPressed, required this.isLastMessage, required this.isLoading})
       : isFirstInSequence = true;
 
   // Create a amessage bubble that continues the sequence.
@@ -19,6 +14,7 @@ class MessageBubble extends StatelessWidget {
     super.key,
     required this.message,
     required this.isMe,
+    required this.isLoading,
   })  : isFirstInSequence = false,
         userImage = null,
         username = null,
@@ -46,7 +42,7 @@ class MessageBubble extends StatelessWidget {
 
   final VoidCallback? onSpeechPressed;
   final bool isLastMessage;
-
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -98,11 +94,23 @@ class MessageBubble extends StatelessWidget {
                             ),
                           ),
                           if (onSpeechPressed != null && isLastMessage)
-                            IconButton(
-                              icon: Icon(Icons.volume_up),
-                              onPressed: onSpeechPressed,
-                              iconSize: 16,
-                            ),
+                            isLoading == false
+                                ? IconButton(
+                                    icon: const Icon(Icons.volume_up),
+                                    onPressed: onSpeechPressed,
+                                    iconSize: 16,
+                                  )
+                                : Padding(
+                                    padding: EdgeInsets.only(left: 30.w),
+                                    child: const SizedBox(
+                                      width: 16.0, // Sesuaikan ukuran lebar
+                                      height: 16.0, // Sesuaikan ukuran tinggi
+                                      child: CircularProgressIndicator(
+                                        color: MyColors.primaryGreen,
+                                        strokeWidth: 2.0, // Menyesuaikan ketebalan
+                                      ),
+                                    ),
+                                  ),
                         ],
                       ),
                     ),
@@ -111,10 +119,6 @@ class MessageBubble extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       color: isMe ? MyColors.primaryGreen : MyColors.secondaryGreen,
-                      // Only show the message bubble's "speaking edge" if first in
-                      // the chain.
-                      // Whether the "speaking edge" is on the left or right depends
-                      // on whether or not the message bubble is the current user.
                       borderRadius: BorderRadius.only(
                         topLeft: !isMe && isFirstInSequence ? Radius.zero : const Radius.circular(12),
                         topRight: isMe && isFirstInSequence ? Radius.zero : const Radius.circular(12),

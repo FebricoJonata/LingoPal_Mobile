@@ -5,6 +5,7 @@ import 'package:lingo_pal_mobile/presentation/controllers/dictionary_controller/
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/home_bindings.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_bindings.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_binding.dart';
+import 'package:lingo_pal_mobile/presentation/controllers/material_controller/material_page_binding.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/profile_page_binding.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/quiz_binding.dart';
 import 'package:lingo_pal_mobile/presentation/view/base/base.dart';
@@ -16,10 +17,12 @@ import 'package:lingo_pal_mobile/presentation/view/home_page/practice_page/pract
 import 'package:lingo_pal_mobile/presentation/view/landing_page/landing_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/login_page/login_page.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/register_page_binding.dart';
+import 'package:lingo_pal_mobile/presentation/view/material_page/detail_page.dart';
+import 'package:lingo_pal_mobile/presentation/view/material_page/material_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/profile_page/edit_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/profile_page/profile_page.dart';
 import 'package:lingo_pal_mobile/presentation/view/quiz_page/multiple_choice/multiple_choice.dart';
-import 'package:lingo_pal_mobile/presentation/view/quiz_page/voice_assesment/quiz_page.dart';
+import 'package:lingo_pal_mobile/presentation/view/quiz_page/voice_assesment/pronounce.dart';
 import 'package:lingo_pal_mobile/presentation/view/register_page/register_page.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
@@ -34,8 +37,10 @@ class AppPages {
     GetPage(name: RouteName.profilePage, page: () => const ProfilePage(), binding: ProfileBindings()),
     GetPage(name: RouteName.editPage, page: () => const EditPage(), binding: ProfileBindings()),
     GetPage(name: RouteName.camera2, page: () => const Camera2(), binding: CameraBinding()),
-    GetPage(name: RouteName.quiz, page: () => const QuizPage(), binding: QuizBindings()),
+    GetPage(name: RouteName.quiz, page: () => PronouncePage(), binding: QuizBindings()),
     GetPage(name: RouteName.dictionary, page: () => const DictionaryPage(), binding: DictionaryBindings()),
-    GetPage(name: RouteName.multipleChoice, page: () => const MutlipleChoice(), binding: QuizBindings())
+    GetPage(name: RouteName.multipleChoice, page: () => MutlipleChoice(), binding: QuizBindings()),
+    GetPage(name: RouteName.materialPage, page: () => const MaterialPage(), binding: MaterialBindings()),
+    GetPage(name: RouteName.detailMaterial, page: () => const MaterialDetail())
   ];
 }

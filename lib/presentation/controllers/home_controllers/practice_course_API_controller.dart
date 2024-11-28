@@ -2,6 +2,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
@@ -12,47 +13,45 @@ class PracticeCourseController extends GetxController {
   Rx<PracticeModel?> practices = Rx<PracticeModel?>(null);
   var controllerProfile = Get.find<GetProfileController>();
   Rx<PracticeProgressModel?> practiceProgress = Rx<PracticeProgressModel?>(null);
+  RxInt indexPractice = 0.obs;
+  RxInt practiceId = 0.obs;
+  RxInt courseId = 0.obs;
+  var isLoading = false.obs;
 
+  var storage = const FlutterSecureStorage();
   Future<Either<Failure, PracticeModel>> getPractices(courseId) async {
+    String? accessToken = await storage.read(key: "token");
     try {
+      isLoading.value = true;
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice',
-          queryParameters: {'course_id': courseId}, options: Options(headers: {"Accept": "application/json"}));
+          queryParameters: {'course_id': courseId}, options: Options(headers: {"Accept": "application/json", "Authorization": "Bearer $accessToken"}));
 
       var practiceModel = PracticeModel.fromJson(response.data);
       practices(practiceModel);
-      print(practices.value?.body);
       return Right(practiceModel);
     } catch (e) {
       print("Error");
       return Left(Failure("$e"));
+    } finally {
+      isLoading.value = false;
     }
   }
 
   Future<Either<Failure, PracticeProgressModel>> getUserPractices() async {
-    var userId = controllerProfile.profile.value?.body?.data?.first.userId;
+    var userId = await storage.read(key: "userId");
+    String? accessToken = await storage.read(key: "token");
     try {
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice/progress',
-          queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json'}));
+          queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
 
       var userPractices = PracticeProgressModel.fromJson(response.data);
-      print("Practice Progress Response: {$response.data}");
+
       practiceProgress(userPractices);
+      print("User practice: ${response.data}");
       return Right(userPractices);
     } catch (e) {
       print("Error: $e");
       return Left(Failure("$e"));
     }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    // getPractices();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-    // getPractices();
   }
 }

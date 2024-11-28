@@ -82,7 +82,6 @@ class _MyHomePageState extends State<Camera2> {
             // Call uploadImage function after picking an image
             String url = await EditAPIController().uploadImage(File(media.path), photoName);
             controllerPicker.setUrl(url);
-            controllerPicker.update();
           }
         } catch (e) {
           setState(() {

@@ -2,6 +2,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
@@ -9,39 +10,50 @@ import 'package:lingo_pal_mobile/presentation/model/profile_model/edit_model.dar
 import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../core/error/errors.dart';
+
 class EditAPIController extends GetxController {
+  RxBool isLoading = false.obs;
+  var storage = const FlutterSecureStorage();
   var controllerProfile = Get.find<GetProfileController>();
-  Future<Either<Failure, EditModel>> editProfileAPI(
-      int userId, String name, String birth, String gender, String phoneNumber, String image) async {
+  Future<Either<Failure, EditModel>?> editProfileAPI(String name, String birth, String gender, String phoneNumber, String image) async {
+    var userId = await storage.read(key: "userId");
+    String? accessToken = await storage.read(key: "token");
     try {
+      isLoading.value = true;
       final response = await Dio().post(
         "https://lingo-pal-backend-v1.vercel.app/api/users/update",
-        data: {
-          "user_id": userId,
-          "name": name,
-          "phone_number": phoneNumber,
-          "gender": gender,
-          "birth_date": birth,
-          "image": image
-        },
+        data: {"user_id": userId, "name": name, "phone_number": phoneNumber, "gender": gender, "birth_date": birth, "image": image},
         options: Options(
-          headers: {"Accept": "application/json", "Content-Type": "application/json"},
+          headers: {"Accept": "application/json", "Content-Type": "application/json", "Authorization": "Bearer $accessToken"},
         ),
       );
-      print("AMAN");
       final editModel = EditModel.fromJson(response.data);
       controllerProfile.update();
       return Right(editModel);
     } on DioException catch (e) {
-      print("errorExp");
-      if (e.response?.statusCode == 401) {
-        print("Error 401");
+      String errorMessage;
+      if (e.type == DioExceptionType.connectionTimeout) {
+        errorMessage = "Connection timed out. Please check your network and try again.";
+      } else if (e.type == DioExceptionType.sendTimeout) {
+        errorMessage = "Request timed out while sending data. Please try again.";
+      } else if (e.type == DioExceptionType.receiveTimeout) {
+        errorMessage = "Response timed out. Please check your connection and try again.";
+      } else if (e.type == DioExceptionType.connectionError) {
+        errorMessage = "Failed to connect to the server. Please check your internet connection.";
+      } else {
+        errorMessage = e.message ?? "An unexpected error occurred.";
       }
-      return Left(Failure('Error: ${e.message}'));
+      isLoading.value = false;
+      // Tampilkan modal error
+      showError(e.response?.statusCode, errorMessage);
     } catch (e) {
-      print("$e");
-      return Left(Failure("$e"));
+      isLoading.value = false;
+      showError(0, e.toString());
+    } finally {
+      isLoading.value = false;
     }
+    return null;
   }
 
   Future uploadImage(File imageFile, String? imageName) async {
@@ -51,14 +63,12 @@ class EditAPIController extends GetxController {
           .upload(imageName ?? "img", imageFile);
 
       if (response.isNotEmpty) {
-        final String publicUrl =
-            Supabase.instance.client.storage.from('lingo-pal-storage/profiles/').getPublicUrl(imageName ?? "");
+        final String publicUrl = Supabase.instance.client.storage.from('lingo-pal-storage/profiles/').getPublicUrl(imageName ?? "");
 
-        print(publicUrl);
         return publicUrl;
       }
     } catch (e) {
-      print('Error uploading image: $e');
+      return e;
     }
   }
 }

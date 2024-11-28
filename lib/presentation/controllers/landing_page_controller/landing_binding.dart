@@ -4,6 +4,6 @@ import 'package:lingo_pal_mobile/presentation/controllers/landing_page_controlle
 class LandingBindings implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => PageViewController());
+    Get.lazyPut<PageViewController>(() => PageViewController());
   }
 }

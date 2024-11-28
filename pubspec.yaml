@@ -40,24 +40,22 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   google_fonts: ^6.2.1
   intl: ^0.19.0
-  dropdown_button2: ^2.3.9
   dartz: ^0.10.1
   dio: ^5.4.3+1
   flutter_launcher_icons: "^0.13.1"
   supabase_flutter: ^2.0.2
-  shared_preferences: ^2.2.3
   image_picker: ^1.1.1
   video_player: ^2.8.6
   mime: ^1.0.5
   record: ^5.0.5
   just_audio:
   path_provider:
-  dictionaryx: ^0.3.5
   alphabet_list_view: ^1.1.0
   permission_handler: ^11.3.1
-  flutter_ffmpeg: ^0.4.2
   audioplayers: ^6.0.0
-  # flutter_sound: ^9.4.11
+  url_launcher: ^6.3.1
+  youtube_player_flutter: ^9.1.1
+  flutter_secure_storage: ^9.2.2
 
 dev_dependencies:
   flutter_test:
@@ -88,8 +86,6 @@ flutter:
     - assets/images/background_asset/
     - assets/images/splash_screen_asset/
     - assets/images/carousel_assets/
-    - assets/images/splash_screen_asset/logo.png
-    - assets/images/splash_screen_asset/logo-color.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -124,7 +120,7 @@ flutter_native_splash:
   android_12:
     color: "#638889"
     icon_background_color: "#638889"
-    image: assets/images/splash_screen_asset/logo-color.png
+    image: assets/images/splash_screen_asset/logo-android.png
 
 flutter_launcher_icons:
   android: true

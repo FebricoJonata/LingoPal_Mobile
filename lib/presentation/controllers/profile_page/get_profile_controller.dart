@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
@@ -9,21 +10,21 @@ import 'package:lingo_pal_mobile/presentation/model/profile_model/profile_model.
 class GetProfileController extends GetxController {
   var controllerLogin = Get.find<LoginAPIController>();
   Rx<Profile?> profile = Rx<Profile?>(null);
+  var storage = const FlutterSecureStorage();
   Future<Either<Failure, Profile>> profileAPI() async {
-    print("User in profile controller: ${controllerLogin.emailName.value.toString()}");
+    var email = await storage.read(key: "email");
+    String? accessToken = await storage.read(key: "token");
     try {
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/users',
-        queryParameters: {'email': controllerLogin.emailName.value.toString()},
+        queryParameters: {'email': email},
         options: Options(
-          headers: {"Accept": "application/json"},
+          headers: {"Accept": "application/json", "Authorization": "Bearer $accessToken"},
         ),
       );
       var profileModel = Profile.fromJson(response.data);
-      print("profile aman");
+
       profile(profileModel);
-      print("AHHAHAHAHAH ${response.data}");
-      print("OI ${profile.value?.body?.data?.first.userId}");
       return Right(profileModel);
     } on DioException catch (e) {
       print("DioException: ${e.response?.statusCode}");
@@ -39,12 +40,6 @@ class GetProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    profileAPI();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
     profileAPI();
   }
 }

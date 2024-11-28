@@ -20,11 +20,11 @@ class _NewMessageState extends State<NewMessage> {
     _messageController = widget.controller ?? TextEditingController();
   }
 
-  @override
-  void dispose() {
-    _messageController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _messageController.dispose();
+  //   super.dispose();
+  // }
 
   Future<void> _submitMessage() async {
     final enteredMessage = _messageController.text;
@@ -38,19 +38,7 @@ class _NewMessageState extends State<NewMessage> {
       widget.onSubmitted!(enteredMessage);
     }
 
-    final response = await chatbot.chatBotAPI(enteredMessage);
-
-    response.fold(
-      (failure) {
-        // Handle error here
-        print('Error: ${failure.message}');
-      },
-      (chatBotResponse) {   
-        // Handle success here
-        print('Message: $enteredMessage');
-        print('Response : ' + "${chatbot.chatbotReponse.value?.message}");
-      },   
-    );
+    await chatbot.chatBotAPI(enteredMessage);
 
     _messageController.clear();
   }
@@ -67,11 +55,11 @@ class _NewMessageState extends State<NewMessage> {
             textCapitalization: TextCapitalization.sentences,
             autocorrect: true,
             enableSuggestions: true,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               focusColor: MyColors.primaryGreen,
-              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.primaryGreen)),
-              labelText: 'Send a message...',
-              labelStyle: TextStyle(
+              focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: MyColors.primaryGreen)),
+              labelText: 'message'.tr,
+              labelStyle: const TextStyle(
                 color: MyColors.primaryGreen, // Custom label text color
               ),
             ),

@@ -1,5 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
@@ -7,24 +10,29 @@ import 'package:lingo_pal_mobile/presentation/model/home_model/progress_model.da
 
 class ProgressAPIController extends GetxController {
   var controllerLogin = Get.find<LoginAPIController>();
+  var isLoading = false.obs;
+
+  var storage = const FlutterSecureStorage();
   Rx<ProgressUserModel?> progress = Rx<ProgressUserModel?>(null);
   Future<Either<Failure, ProgressUserModel>> getProgress() async {
+    var userId = await storage.read(key: "userId");
+    String? accessToken = await storage.read(key: "token");
     try {
+      isLoading.value = true;
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/users/status',
-        queryParameters: {'user_id': controllerLogin.login.value?.user?.userId},
+        queryParameters: {'user_id': userId},
         options: Options(
-          headers: {"Accept": "application/json"},
+          headers: {"Accept": "application/json", "Authorization": "Bearer $accessToken"},
         ),
       );
 
       var progressModel = ProgressUserModel.fromJson(response.data);
-      print("AMAN BANG");
+
       progress(progressModel);
-      print(response.data);
+
       return Right(progressModel);
     } on DioException catch (e) {
-      print("Ga AMAN COK");
       print("DioException: ${e.response?.statusCode}");
       if (e.response?.statusCode == 401) {
         print("Error 401");
@@ -32,19 +40,19 @@ class ProgressAPIController extends GetxController {
       return Left(Failure('Error: ${e.message}'));
     } catch (e) {
       return Left(Failure("$e"));
+    } finally {
+      isLoading.value = false;
     }
   }
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     getProgress();
   }
 
   @override
   void onClose() {
-    // TODO: implement onClose
     super.onClose();
     getProgress();
   }
