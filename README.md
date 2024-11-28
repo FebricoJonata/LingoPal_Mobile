@@ -1,17 +1,25 @@
-# LingoPal Mobile Application
+# LingoPal
 
-A new Flutter project.
+**LingoPal** is an AI-powered mobile application designed to enhance English learning through interactive and personalized features. Leveraging the latest advancements in Artificial Intelligence, LingoPal provides users with tools to improve their pronunciation, practice conversations, and learn more effectively.
+
+## Features
+
+- **Pronunciation Checker**  
+  Improve your English pronunciation with real-time feedback powered by AI. LingoPal's pronunciation checker listens to your speech, analyzes it, and provides suggestions to help you sound fluent and natural.
+
+- **AI Chatbot**  
+  Practice real-life conversations with an intelligent chatbot built using Large Language Model (LLM) technology. This chatbot simulates various scenarios, making your learning experience immersive and practical.
+
+- **Cross-Platform Support**  
+  Developed using **Flutter**, LingoPal provides a seamless, fast, and responsive experience across Android and iOS devices.
+
+- **MVC Architecture**  
+  The application follows the **Model-View-Controller (MVC)** design pattern, ensuring clean code, maintainability, and scalability.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To start using LingoPal, download the app on your Android or iOS device and begin your journey to mastering English with the power of AI.
 
-A few resources to get you started if this is your first Flutter project:
+## Development
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# LingoPal_Mobile
+LingoPal is developed using **Flutter** for cross-platform compatibility and adheres to the **MVC** architecture to ensure robust and scalable code.
