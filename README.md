@@ -27,3 +27,9 @@
 ## Development
 
 LingoPal is developed using **Flutter** for cross-platform compatibility and adheres to the **MVC** architecture to ensure robust and scalable code.
+
+## Contributors
+
+- [@ClaudyaSalim](https://github.com/ClaudyaSalim)
+- [@Fabianputerad](https://github.com/Fabianputerad)
+- [@FebricoJonata](https://github.com/FebricoJonata)
