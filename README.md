@@ -1,4 +1,4 @@
-![LingoPal Banner](assets\images\github_asset)
+![LingoPal Banner](https://github.com/user-attachments/assets/35757b1b-561d-4dcb-8714-829a4065cea2)
 
 # LingoPal
 
