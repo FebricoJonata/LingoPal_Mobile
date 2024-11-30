@@ -23,7 +23,7 @@ class EditPage extends StatefulWidget {
 class _EditPageState extends State<EditPage> {
   TextEditingController datePickerController = TextEditingController();
   TextEditingController nameContoller = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+
   var controllerEdit = Get.find<EditAPIController>();
   var controllerChoice = Get.find<ChoicesController>();
   var controllerProfile = Get.find<GetProfileController>();
@@ -48,7 +48,7 @@ class _EditPageState extends State<EditPage> {
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      isFormValid.value = (nameContoller.text.isNotEmpty && (phoneController.text.length >= 12 && phoneController.text.length <= 15));
+      isFormValid.value = (nameContoller.text.isNotEmpty);
     });
 
     return error;
@@ -144,7 +144,7 @@ class _EditPageState extends State<EditPage> {
                             ),
                           ),
                           ReuseTextField(
-                            controller: nameContoller,
+                            controller: nameContoller..text = controllerProfile.profile.value?.body?.data?[0].name ?? "-",
                             obscureText: false,
                             linesMax: 1,
                             linesMin: 1,
@@ -158,33 +158,6 @@ class _EditPageState extends State<EditPage> {
                             labelTxt: "fullName".tr,
                             maxHeight: 100.h,
                             validator: (value) => validateField(value, 'Name'),
-                          ),
-                          SizedBox(
-                            height: 50.h,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "phoneNumber".tr,
-                              style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          ReuseTextField(
-                            textInputType: TextInputType.phone,
-                            controller: phoneController,
-                            obscureText: false,
-                            linesMax: 1,
-                            linesMin: 1,
-                            color: MyColors.white,
-                            fontSize: 35.sp,
-                            radius: 25.sp,
-                            width: double.infinity,
-                            height: 150.h,
-                            iconTxt: Icons.phone,
-                            iconSize: 40.sp,
-                            labelTxt: "phoneNumber".tr,
-                            validator: (value) => validateField(value, 'Phone Number'),
-                            maxHeight: 100.h,
                           ),
                           SizedBox(
                             height: 70.h,
@@ -237,7 +210,7 @@ class _EditPageState extends State<EditPage> {
                           onClick: isFormValid.value == true
                               ? () async {
                                   await controllerEdit.editProfileAPI(
-                                      nameContoller.text, datePickerController.text, controllerChoice.selectedChoice.value?.value ?? "", phoneController.text, controllerImage.imageUrl.value);
+                                      nameContoller.text, datePickerController.text, controllerChoice.selectedChoice.value?.value ?? "", controllerImage.imageUrl.value);
                                   controllerProfile.profileAPI();
                                   Get.back();
                                 }

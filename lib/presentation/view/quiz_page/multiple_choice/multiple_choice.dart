@@ -34,20 +34,26 @@ class MutlipleChoice extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.secondaryYellow,
-      body: Obx(() => SizedBox(
-            width: 1179.w,
-            height: 2700.h,
-            child: flag.value == false
-                ? Column(
-                    children: [
-                      Image.asset(AssetConstraints.bgQuiz),
-                      buildQuizContent(),
-                      buildAnswerChoices(),
-                    ],
-                  )
-                : Column(
-                    children: [Image.asset(AssetConstraints.bgQuiz), buildScoreContent(), buldChoiceScore()],
-                  ),
+      body: Obx(() => PopScope(
+            canPop: false,
+            onPopInvoked: (didPop) {
+              // logic
+            },
+            child: SizedBox(
+              width: 1179.w,
+              height: 2700.h,
+              child: flag.value == false
+                  ? Column(
+                      children: [
+                        Image.asset(AssetConstraints.bgQuiz),
+                        buildQuizContent(),
+                        buildAnswerChoices(),
+                      ],
+                    )
+                  : Column(
+                      children: [Image.asset(AssetConstraints.bgQuiz), buildScoreContent(), buldChoiceScore()],
+                    ),
+            ),
           )),
     );
   }
@@ -212,39 +218,8 @@ class MutlipleChoice extends StatelessWidget {
   Widget _buildChoiceButton(String choiceText, int choiceIndex) {
     return PrimaryBtn(
         btnText: choiceText,
-        width: 400.w,
+        width: 450.w,
         height: 160.h,
-        // onClick: () {
-        //   // if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
-        //   //   score + 1;
-        //   // }
-        //   // if (currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
-        //   //   currentIndex.value += 1;
-        //   // } else {
-        //   //   finalScore.value = ((score.value / controllerMultiple.mutlipleData.value!.data!.length) * 100).toInt();
-        //   //   flag.value = true;
-        //   //   stars.value = 0;
-        //   //   if (finalScore == 100) {
-        //   //     stars.value = 3;
-        //   //   } else if (finalScore >= 60) {
-        //   //     stars.value = 2;
-        //   //   } else if (finalScore >= 30) {
-        //   //     stars.value = 1;
-        //   //   } else {
-        //   //     stars.value = 0;
-        //   //   }
-        //   // }
-        //   if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
-        //     score.value += 1;
-        //   }
-        //   if (currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
-        //     currentIndex.value += 1;
-        //   } else {
-        //     finalScore.value = ((score.value / controllerMultiple.mutlipleData.value!.data!.length) * 100).toInt();
-        //     stars.value = starsValue(finalScore.value);
-        //     flag.value = true;
-        //   }
-        // },
         onClick: () {
           if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
             score.value += 1;
