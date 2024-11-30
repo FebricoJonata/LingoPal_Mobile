@@ -29,7 +29,7 @@ class WordCardController extends GetxController{
         } else {
           wordData = [] as List<WordData?>;
         }
-        details(wordData as List<WordData?>);
+        details(wordData);
         return Right(wordData);
 
     } on DioException catch(e){

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/course_API_controller.dart';
+import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_active_card.dart';
 import 'package:lingo_pal_mobile/presentation/view/home_page/widgets/course_disabled_card.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
