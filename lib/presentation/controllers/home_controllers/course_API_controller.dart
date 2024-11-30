@@ -87,6 +87,7 @@ class CourseController extends GetxController {
           onClose: () async {
             Get.back();
           }, ));
+          totalCoursesBefore.value = activeCourses.length;
         }
       }
       return Right(userCourseProgress);
