@@ -30,17 +30,42 @@ class _MyWidgetState extends State<RegisterPage> {
   final TextEditingController datePickerController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   final controllerRegis = Get.find<RegisterAPIController>();
   final controllerChoiceChip = Get.find<ChoicesController>();
   var controllerEmailVerif = Get.find<EmailVerifController>();
+  final RxBool isPasswordVisible = false.obs;
+  final RxBool isConfirmPasswordVisible = false.obs;
+
   // final List<Choices> pageChoices = [
   //   Choices(1, "Male", false),
   //   Choices(2, "Female", false),
   // ];
 
+  // String? validateField(String? value, String fieldType) {
+  //   String? error;
+  //   switch (fieldType) {
+  //     case 'Email':
+  //       error = (value == null || !value.contains('@')) ? 'Email must contain "@"' : null;
+  //       break;
+  //     case 'Name':
+  //       error = (value == null || value.isEmpty) ? 'Cannot be Empty' : null;
+  //       break;
+  //     case 'Phone Number':
+  //       error = (value == null || value.length < 10 || value.length > 15) ? 'Phone number must be between 12 and 15 digits' : null;
+  //       break;
+  //     default:
+  //       error = null;
+  //   }
+
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     isFormValid.value =
+  //         (emailController.text.contains('@') && emailController.text.isNotEmpty) && nameController.text.isNotEmpty && (phoneController.text.length >= 10 && phoneController.text.length <= 15);
+  //   });
+
+  //   return error;
+  // }
   String? validateField(String? value, String fieldType) {
     String? error;
     switch (fieldType) {
@@ -51,7 +76,17 @@ class _MyWidgetState extends State<RegisterPage> {
         error = (value == null || value.isEmpty) ? 'Cannot be Empty' : null;
         break;
       case 'Phone Number':
-        error = (value == null || value.length < 10 || value.length > 15) ? 'Phone number must be between 12 and 15 digits' : null;
+        error = (value == null || value.length < 10 || value.length > 15) ? 'Phone number must be between 10 and 15 digits' : null;
+        break;
+      case 'Password':
+        error = (value == null || value.isEmpty) ? 'Password cannot be empty' : null;
+        break;
+      case 'Confirm Password':
+        error = (value == null || value.isEmpty)
+            ? 'Confirm Password cannot be empty'
+            : (value != passwordController.text)
+                ? 'Passwords do not match'
+                : null;
         break;
       default:
         error = null;
@@ -59,7 +94,7 @@ class _MyWidgetState extends State<RegisterPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       isFormValid.value =
-          (emailController.text.contains('@') && emailController.text.isNotEmpty) && nameController.text.isNotEmpty && (phoneController.text.length >= 10 && phoneController.text.length <= 15);
+          emailController.text.contains('@') && emailController.text.isNotEmpty && nameController.text.isNotEmpty && passwordController.text.isNotEmpty && passwordController.text == value;
     });
 
     return error;
@@ -183,31 +218,6 @@ class _MyWidgetState extends State<RegisterPage> {
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      "phoneNumber".tr,
-                                      style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                  ReuseTextField(
-                                    controller: phoneController,
-                                    obscureText: false,
-                                    linesMax: 1,
-                                    linesMin: 1,
-                                    color: MyColors.white,
-                                    fontSize: 45.sp,
-                                    radius: 25.sp,
-                                    width: double.infinity,
-                                    height: 175.h,
-                                    iconTxt: Icons.phone,
-                                    iconSize: 40.sp,
-                                    labelTxt: "phoneNumber".tr,
-                                    maxHeight: 100.h,
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                                    validator: (value) => validateField(value, 'Phone Number'),
-                                  ),
-                                  SizedBox(height: 15.h),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
                                       "birthDate".tr,
                                       style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                                     ),
@@ -249,7 +259,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                   ),
                                   ReuseTextField(
                                     controller: passwordController,
-                                    obscureText: true,
+                                    obscureText: !isPasswordVisible.value,
                                     linesMax: 1,
                                     linesMin: 1,
                                     color: MyColors.white,
@@ -261,6 +271,16 @@ class _MyWidgetState extends State<RegisterPage> {
                                     iconSize: 40.sp,
                                     labelTxt: "password".tr,
                                     maxHeight: 100.h,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    validator: (value) => validateField(value, 'Password'),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        isPasswordVisible.value ? Icons.visibility : Icons.visibility_off,
+                                      ),
+                                      onPressed: () {
+                                        isPasswordVisible.value = !isPasswordVisible.value;
+                                      },
+                                    ),
                                   ),
                                   SizedBox(height: 15.h),
                                   Align(
@@ -271,7 +291,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                     ),
                                   ),
                                   ReuseTextField(
-                                    obscureText: true,
+                                    obscureText: !isConfirmPasswordVisible.value,
                                     linesMax: 1,
                                     linesMin: 1,
                                     color: MyColors.white,
@@ -282,7 +302,17 @@ class _MyWidgetState extends State<RegisterPage> {
                                     iconTxt: Icons.password,
                                     iconSize: 40.sp,
                                     labelTxt: "${"confirm".tr} ${"password".tr}",
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    validator: (value) => validateField(value, 'Confirm Password'),
                                     maxHeight: 100.h,
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        isConfirmPasswordVisible.value ? Icons.visibility : Icons.visibility_off,
+                                      ),
+                                      onPressed: () {
+                                        isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
+                                      },
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 20,
@@ -313,9 +343,9 @@ class _MyWidgetState extends State<RegisterPage> {
                                             String? name = nameController.text;
                                             String? email = emailController.text;
                                             String? password = passwordController.text;
-                                            String? phoneNumber = phoneController.text;
+
                                             String birth = datePickerController.text;
-                                            var res = await controllerRegis.signUpAPI(name, email, password, phoneNumber, birth, controllerChoiceChip.selectedChoice.value?.value ?? "");
+                                            var res = await controllerRegis.signUpAPI(name, email, password, birth, controllerChoiceChip.selectedChoice.value?.value ?? "");
                                             res?.fold((l) {
                                               showError(int.parse(l.message), "");
                                             }, (r) {
@@ -339,13 +369,11 @@ class _MyWidgetState extends State<RegisterPage> {
                                                             controllerEmailVerif.istap.value = 1;
                                                             controllerEmailVerif.countdown.value = 30; // Set durasi countdown
 
-                                                            // Start countdown
                                                             for (int i = controllerEmailVerif.countdown.value; i > 0; i--) {
                                                               await Future.delayed(const Duration(seconds: 1));
                                                               controllerEmailVerif.countdown.value--;
                                                             }
 
-                                                            // Reset tombol
                                                             controllerEmailVerif.istap.value = 0;
                                                           }
                                                         },
