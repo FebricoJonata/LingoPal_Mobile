@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 
 class AlertGood extends StatelessWidget {
@@ -61,7 +62,7 @@ class AlertGood extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        "Nilai",
+                        "score".tr,
                         style: TextStyle(color: MyColors.secondaryGreen, fontSize: 80.sp),
                       ),
                       Text(
@@ -81,9 +82,9 @@ class AlertGood extends StatelessWidget {
                 backgroundColor: WidgetStateProperty.all(MyColors.primaryGreen),
               ),
               onPressed: onClose,
-              child: const Text(
-                'Close',
-                style: TextStyle(
+              child: Text(
+                'close'.tr,
+                style: const TextStyle(
                   color: MyColors.white,
                   fontWeight: FontWeight.w600,
                 ),

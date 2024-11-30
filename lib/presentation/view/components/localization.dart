@@ -50,7 +50,17 @@ class TranslationService extends Translations {
           'keyword': 'Type keywords ...',
           'message': 'Send a message...',
           'start': 'START',
-          'loading': 'Loading...'
+          'score': 'Score',
+          'score_eval' : 'You get a score of',
+          'try_again' : 'Try again',
+          'back_to_levels' : 'Back to levels',
+          'loading': 'Loading...',
+          'welcome_chat' : 'Welcome to the chatroom with our AI bot, Lingo.\n',
+          'type' : 'Type ',
+          'start_chat_rule' : ' to start chatting in English.\n',
+          'rate_chat_rule' : 'Ask Lingo to rate by typing ',
+          'disclaimer' : '\nNote: Lingo\'s rating is just a rough estimation and does not necessarily reflect your actual English proficiency!',
+          'close' : 'Close'
         },
         'id_ID': {
           'edit': 'Ubah',
@@ -79,7 +89,17 @@ class TranslationService extends Translations {
           'keyword': 'Tulis kata kunci ...',
           'message': 'Kirim pesan...',
           'start': 'MULAI',
-          'loading': 'Memuat Data...'
+          'score': 'Skor',
+          'score_eval' : 'Anda mendapat skor',
+          'try_again' : 'Coba lagi',
+          'back_to_levels' : 'Balik ke halaman level',
+          'loading': 'Memuat Data...',
+          'welcome_chat' : 'Selamat datang di ruang percakapan bersama bot AI, Lingo.\n',
+          'type' : 'Ketik ',
+          'start_chat_rule' : ' & mulai mengobrol dalam bahasa Inggris\n',
+          'rate_chat_rule' : 'Minta Lingo memberikan rating dengan ketik ',
+          'disclaimer' : '\nCatatan: Penilaian Lingo hanya perkiraan kasar & tidak mencerminkan kecakapan bahsa Inggris Anda yang sebenarnya!',
+          'close' : 'Tutup'
         },
       };
   static Future<void> loadSavedLanguage() async {
