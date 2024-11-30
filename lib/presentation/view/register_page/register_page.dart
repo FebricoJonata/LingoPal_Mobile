@@ -320,18 +320,36 @@ class _MyWidgetState extends State<RegisterPage> {
                                               showError(int.parse(l.message), "");
                                             }, (r) {
                                               controllerEmailVerif.emailVerification(email);
+
                                               Get.dialog(
                                                   barrierDismissible: false,
-                                                  EmailAlert(
-                                                      title: "Email Verification",
-                                                      message: "We've sent verification to your Email",
-                                                      onClose: () {
-                                                        Get.back();
-                                                      },
-                                                      imagePath: AssetConstraints.robotCool,
-                                                      onPressed: () {
-                                                        controllerEmailVerif.emailVerification(email);
-                                                      }));
+                                                  Obx(() => EmailAlert(
+                                                        buttonText: controllerEmailVerif.istap.value == 1
+                                                            ? "Wait ${controllerEmailVerif.countdown.value}s to resend" // Countdown
+                                                            : "Resend", // Default text
+                                                        title: "Email Verification",
+                                                        message: "We've sent verification to your Email",
+                                                        onClose: () {
+                                                          Get.back();
+                                                        },
+                                                        imagePath: AssetConstraints.robotCool,
+                                                        onPressed: () async {
+                                                          if (controllerEmailVerif.istap.value == 0) {
+                                                            await controllerEmailVerif.emailVerification(email);
+                                                            controllerEmailVerif.istap.value = 1;
+                                                            controllerEmailVerif.countdown.value = 30; // Set durasi countdown
+
+                                                            // Start countdown
+                                                            for (int i = controllerEmailVerif.countdown.value; i > 0; i--) {
+                                                              await Future.delayed(const Duration(seconds: 1));
+                                                              controllerEmailVerif.countdown.value--;
+                                                            }
+
+                                                            // Reset tombol
+                                                            controllerEmailVerif.istap.value = 0;
+                                                          }
+                                                        },
+                                                      )));
                                             });
                                           }
                                         : null,

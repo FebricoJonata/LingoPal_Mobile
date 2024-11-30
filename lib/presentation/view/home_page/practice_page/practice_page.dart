@@ -187,6 +187,7 @@ class _PracticePageState extends State<PracticePage> {
                                           if (tappedIndex == practices.length - 1) {
                                             controllerCourseUpdate.lstIndex.value = true;
                                           }
+
                                           await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
@@ -203,6 +204,7 @@ class _PracticePageState extends State<PracticePage> {
                                           if (tappedIndex == practices.length - 1) {
                                             controllerCourseUpdate.lstIndex.value = true;
                                           }
+
                                           await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
@@ -214,6 +216,7 @@ class _PracticePageState extends State<PracticePage> {
                                           if (tappedIndex == practices.length - 1) {
                                             controllerCourseUpdate.lstIndex.value = true;
                                           }
+
                                           await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;

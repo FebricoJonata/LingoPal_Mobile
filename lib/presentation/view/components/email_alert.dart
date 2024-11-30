@@ -7,15 +7,16 @@ class EmailAlert extends StatelessWidget {
   final String message;
   final VoidCallback onClose;
   final String imagePath;
-  final VoidCallback onPressed;
-
+  final VoidCallback? onPressed;
+  final String buttonText;
   const EmailAlert({
     Key? key,
     required this.title,
     required this.message,
     required this.onClose,
     required this.imagePath,
-    required this.onPressed,
+    this.onPressed,
+    required this.buttonText,
   }) : super(key: key);
 
   @override
@@ -99,9 +100,9 @@ class EmailAlert extends StatelessWidget {
                         backgroundColor: WidgetStateProperty.all(MyColors.secondaryGreen),
                       ),
                       onPressed: onPressed,
-                      child: const Text(
-                        'Resend ',
-                        style: TextStyle(
+                      child: Text(
+                        buttonText,
+                        style: const TextStyle(
                           color: MyColors.white,
                           fontWeight: FontWeight.w600,
                         ),

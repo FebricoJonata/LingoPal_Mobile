@@ -9,6 +9,8 @@ import '../../../core/error/errors.dart';
 
 class EmailVerifController extends GetxController {
   RxBool isLoading = false.obs;
+  RxInt istap = 0.obs;
+  var countdown = 0.obs;
   var storage = const FlutterSecureStorage();
   Future<Either<Failure, EmailVerif>?> emailVerification(String email) async {
     String? accessToken = await storage.read(key: "token");
