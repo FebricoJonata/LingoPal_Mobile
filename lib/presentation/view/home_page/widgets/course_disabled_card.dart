@@ -38,7 +38,7 @@ class CourseDisabledCard extends StatelessWidget {
                   ),
                 ),
                 Text(course.category!.courseCategoryName!, style: TextStyle(fontSize: 36.sp),),
-                Text(course.courseDescription!, style: TextStyle(fontSize: 32.sp),)
+                Text(course.courseDescription!, style: TextStyle(fontSize: 32.sp), overflow: TextOverflow.ellipsis,)
               ],),
             ),
             SizedBox(

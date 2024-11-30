@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Profile",
+                            "profile".tr,
                             style: TextStyle(
                               color: MyColors.primaryGreen,
                               fontWeight: FontWeight.w700,
@@ -160,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Account",
+                            "account".tr,
                             style: TextStyle(
                               color: MyColors.primaryGreen,
                               fontWeight: FontWeight.w700,
@@ -230,7 +230,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    "Password",
+                                    "password".tr,
                                     style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 )
@@ -288,7 +288,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Misc",
+                            "Others",
                             style: TextStyle(
                               color: MyColors.primaryGreen,
                               fontWeight: FontWeight.w700,

@@ -79,14 +79,16 @@ class _WordCardState extends State<WordCard> {
                       SizedBox(
                         width: 50.w,
                       ),
+                      controllerTTS.isLoading.isFalse? 
                       IconButton(
-                          onPressed: () {
+                          onPressed: () async {
                             controllerTTS.fetchAudioFromApi(wordforCard);
                           },
                           icon: const Icon(
                             Icons.volume_up_rounded,
                             color: MyColors.white,
                           ))
+                      : CircularProgressIndicator(color: MyColors.secondaryGreen,)
                     ],
                   ),
                   SizedBox(

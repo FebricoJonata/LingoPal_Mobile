@@ -212,7 +212,7 @@ class _EditPageState extends State<EditPage> {
                           ),
                           DatePicker(
                               controller: datePickerController,
-                              labelTxt: "BirthDay",
+                              labelTxt: "YYYY-MM-DD",
                               iconTxt: Icons.calendar_month,
                               linesMax: 1,
                               linesMin: 1,
