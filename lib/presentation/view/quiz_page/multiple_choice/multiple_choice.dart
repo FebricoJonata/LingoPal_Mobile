@@ -183,13 +183,13 @@ class MutlipleChoice extends StatelessWidget {
                     }
                     if (stars.value >= 1) {
                       if (practiceFound == true) {
-                        if (controllerUpdateCourse.lstIndex.value = true) {
+                        if (controllerUpdateCourse.lstIndex.value == true) {
                           controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
                         }
                         practiceUpdateController.updatePractice(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
                             controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0, stars.value, true, true, controllerProgress.courseId.value);
                       } else {
-                        if (controllerUpdateCourse.lstIndex.value = true) {
+                        if (controllerUpdateCourse.lstIndex.value == true) {
                           controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
                         }
                         practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
@@ -197,6 +197,7 @@ class MutlipleChoice extends StatelessWidget {
                     }
                     await controllerProgress.getPractices(controllerProgress.courseId.value);
                     await controllerProgress.getUserPractices();
+                    controllerUpdateCourse.lstIndex.value = false;
                     Get.back();
                   },
                 )
