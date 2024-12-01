@@ -201,7 +201,7 @@ class PronouncePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           PrimaryBtn(
-                            btnText: "Coba Lagi",
+                            btnText: "try_again".tr,
                             width: 700.w,
                             height: 150.h,
                             onClick: () {
@@ -213,7 +213,7 @@ class PronouncePage extends StatelessWidget {
                             },
                           ),
                           SecondaryBtn(
-                            btnText: "Balik ke halaman level",
+                            btnText: "back_to_levels".tr,
                             width: 700.w,
                             height: 150.h,
                             onClick: () async {
@@ -271,7 +271,7 @@ class PronouncePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Anda mendapat skor",
+            "score_eval".tr,
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 40.sp),
           ),
           Text(

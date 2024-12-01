@@ -154,7 +154,7 @@ class MutlipleChoice extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 PrimaryBtn(
-                  btnText: "Coba Lagi",
+                  btnText: "try_again".tr,
                   width: 700.w,
                   height: 150.h,
                   onClick: () {
@@ -166,7 +166,7 @@ class MutlipleChoice extends StatelessWidget {
                   },
                 ),
                 SecondaryBtn(
-                  btnText: "Balik ke halaman level",
+                  btnText: "back_to_levels".tr,
                   width: 700.w,
                   height: 150.h,
                   onClick: () async {
@@ -270,7 +270,7 @@ class MutlipleChoice extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Anda mendapat skor",
+            "score_eval".tr,
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 40.sp),
           ),
           Text(

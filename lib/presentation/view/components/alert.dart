@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 
 class Alert extends StatelessWidget {
@@ -76,9 +77,9 @@ class Alert extends StatelessWidget {
                     backgroundColor: WidgetStateProperty.all(MyColors.primaryGreen),
                   ),
                   onPressed: onClose,
-                  child: const Text(
-                    'Close',
-                    style: TextStyle(
+                  child: Text(
+                    'close'.tr,
+                    style: const TextStyle(
                       color: MyColors.white,
                       fontWeight: FontWeight.w600,
                     ),

@@ -113,14 +113,14 @@ class _MaterialDetailState extends State<MaterialDetail> {
                           ],
                         ),
                         SizedBox(
-                          height: 150.h,
+                          height: material.description! ==""? 0 : 150.h,
                         ), //
                         Text(
                           material.description!,
                           textAlign: TextAlign.justify,
                         ),
                         SizedBox(
-                          height: 100.h,
+                          height: material.description! ==""? 0 : 100.h,
                         ),
                         if (material.type == "Video")
                           player
@@ -129,11 +129,12 @@ class _MaterialDetailState extends State<MaterialDetail> {
                             child: SingleChildScrollView(
                               child: Column(
                                 children: [
+                                  material.cover!=null?
                                   Image.network(
-                                    material.cover ?? "https://icons.veryicon.com/png/o/miscellaneous/common-fill-icon/gallery-33.png",
+                                    material.cover,
                                     width: context.width,
                                     fit: BoxFit.contain,
-                                  ),
+                                  ): const SizedBox(height: 0,),
                                   SizedBox(
                                     height: 100.h,
                                   ),

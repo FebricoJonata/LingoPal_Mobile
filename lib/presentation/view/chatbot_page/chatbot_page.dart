@@ -90,14 +90,14 @@ class _ChatbotPageState extends State<ChatbotPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: RichText(
                               textAlign: TextAlign.center,
-                              text: TextSpan(text: 'Welcome to the chatroom with our AI bot, Lingo.\n', style: DefaultTextStyle.of(context).style, children: const [
-                                TextSpan(text: 'Type '),
-                                TextSpan(text: 'Hello, Lingo', style: TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
-                                TextSpan(text: ' to start chatting in English\n'),
-                                TextSpan(text: 'Ask Lingo to rate by typing '),
-                                TextSpan(text: 'Rate my English', style: TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
-                                TextSpan(text: "\n"),
-                                TextSpan(text: '\nNote: Lingo rating is just a rough estimation and does not necessarily reflect your actual English proficiency')
+                              text: TextSpan(text: 'welcome_chat'.tr, style: DefaultTextStyle.of(context).style, children: [
+                                TextSpan(text: 'type'.tr),
+                                const TextSpan(text: 'Hello, Lingo', style: TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
+                                TextSpan(text: 'start_chat_rule'.tr),
+                                TextSpan(text: 'rate_chat_rule'.tr),
+                                const TextSpan(text: 'Rate my English', style: TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
+                                const TextSpan(text: ".\n"),
+                                TextSpan(text: 'disclaimer'.tr)
                               ])),
                         );
                         // return const Text("Welcome to the chatroom with our AI bot, Lingo.\nLet's start chatting and learning with English together!", textAlign: TextAlign.center,);
