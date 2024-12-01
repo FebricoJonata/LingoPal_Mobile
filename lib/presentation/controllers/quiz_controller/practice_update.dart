@@ -14,7 +14,7 @@ class PracticeUpdateController extends GetxController {
           data: {"progress_practice_id": progressPractice, "user_id": userId, "course_id": courseId, "practice_id": practiceId, "progress_poin": point, "is_active": isActive, "is_passed": isPassed},
           options: Options(headers: {'accept': 'application/json', 'Content-Type': 'application/json', "Authorization": "Bearer $accessToken"}));
       practiceUpdate(PracticeUpdate.fromJson(response.data));
-      print("Response: ${response.data}");
+
       return practiceUpdate;
     } on DioException catch (e) {
       print("DioException: ${e.response?.statusCode}");

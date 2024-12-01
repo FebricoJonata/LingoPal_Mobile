@@ -146,7 +146,7 @@ class PronouncePage extends StatelessWidget {
             height: 2700.h,
             child: Column(
               children: [
-                Image.asset(AssetConstraints.bgIntroTop),
+                Image.asset(AssetConstraints.bgQuiz),
                 SizedBox(
                   width: 1179.w,
                   height: 1300.h,
@@ -185,6 +185,7 @@ class PronouncePage extends StatelessWidget {
             height: 2700.h,
             child: Column(
               children: [
+                Image.asset(AssetConstraints.bgQuiz),
                 buildScoreContent(),
                 Flexible(
                   child: Container(

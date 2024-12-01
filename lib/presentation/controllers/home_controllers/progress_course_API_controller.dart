@@ -34,9 +34,7 @@ class ProgressAPIController extends GetxController {
       return Right(progressModel);
     } on DioException catch (e) {
       print("DioException: ${e.response?.statusCode}");
-      if (e.response?.statusCode == 401) {
-        print("Error 401");
-      }
+
       return Left(Failure('Error: ${e.message}'));
     } catch (e) {
       return Left(Failure("$e"));

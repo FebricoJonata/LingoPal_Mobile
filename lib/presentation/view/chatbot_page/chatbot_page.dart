@@ -82,18 +82,15 @@ class _ChatbotPageState extends State<ChatbotPage> {
                 SizedBox(
                   width: 1179.w,
                   height: 1600.h,
-                  child:GetBuilder<ChatController>(
+                  child: GetBuilder<ChatController>(
                     builder: (controller) {
-                      if(controller.messages.isEmpty){
+                      if (controller.messages.isEmpty) {
                         // use rich text
                         return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              text: 'Welcome to the chatroom with our AI bot, Lingo.\n',
-                              style: DefaultTextStyle.of(context).style,
-                              children: const [
+                              textAlign: TextAlign.center,
+                              text: TextSpan(text: 'Welcome to the chatroom with our AI bot, Lingo.\n', style: DefaultTextStyle.of(context).style, children: const [
                                 TextSpan(text: 'Type '),
                                 TextSpan(text: 'Hello, Lingo', style: TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
                                 TextSpan(text: ' to start chatting in English\n'),
@@ -101,9 +98,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
                                 TextSpan(text: 'Rate my English', style: TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
                                 TextSpan(text: "\n"),
                                 TextSpan(text: '\nNote: Lingo rating is just a rough estimation and does not necessarily reflect your actual English proficiency')
-                              ]
-                            )
-                          ),
+                              ])),
                         );
                         // return const Text("Welcome to the chatroom with our AI bot, Lingo.\nLet's start chatting and learning with English together!", textAlign: TextAlign.center,);
                       }
@@ -119,8 +114,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
                               isMe: true,
                               isLoading: false,
                             );
-                          }
-                          else {
+                          } else {
                             return Obx(() => MessageBubble.first(
                                   isLoading: controllerTTS.isLoading.value,
                                   userImage: AssetConstraints.robotCool,

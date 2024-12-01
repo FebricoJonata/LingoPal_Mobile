@@ -6,36 +6,35 @@ import 'package:lingo_pal_mobile/core/color/error/failure.dart';
 import 'package:lingo_pal_mobile/core/error/errors.dart';
 import 'package:lingo_pal_mobile/presentation/model/dictionary_model/data_model.dart';
 
-class WordCardController extends GetxController{
-  Rx<List<WordData?>?>details = Rx<List<WordData?>?>(null);
+class WordCardController extends GetxController {
+  Rx<List<WordData?>?> details = Rx<List<WordData?>?>(null);
   var isLoading = false.obs;
   var errorMessage = ''.obs;
 
   Future<Either<Failure, List<WordData?>>?> getWordDetails(word) async {
-
     try {
       isLoading.value = true;
       // var uri = Uri.https('https://api.dictionaryapi.dev/api/v2/entries/en/', word);
       // print(uri);
       final response = await Dio().get('https://api.dictionaryapi.dev/api/v2/entries/en/$word');
 
-        print("RESPONSE: ${response.data}");
-        var data = response.data as List<dynamic>;
-        List<WordData?> wordData = [];
-        if (response.data.toString().startsWith("[")){
-          // wordData = json.decode(response.data.toString());
-          // print("After decode: $wordData");
-          wordData = data.map((data){return WordData.fromJson(data);}).toList();
-        } else {
-          wordData = [] as List<WordData?>;
-        }
-        details(wordData);
-        return Right(wordData);
-
-    } on DioException catch(e){
+      var data = response.data as List<dynamic>;
+      List<WordData?> wordData = [];
+      if (response.data.toString().startsWith("[")) {
+        // wordData = json.decode(response.data.toString());
+        // print("After decode: $wordData");
+        wordData = data.map((data) {
+          return WordData.fromJson(data);
+        }).toList();
+      } else {
+        wordData = [] as List<WordData?>;
+      }
+      details(wordData);
+      return Right(wordData);
+    } on DioException catch (e) {
       isLoading.value = false;
       String errorMessage;
-      
+
       if (e.type == DioExceptionType.connectionTimeout) {
         errorMessage = "Connection timed out. Please check your network and try again.";
       } else if (e.type == DioExceptionType.sendTimeout) {
@@ -48,7 +47,6 @@ class WordCardController extends GetxController{
         errorMessage = e.message ?? "An unexpected error occurred.";
       }
       showError(e.response?.statusCode, errorMessage);
-      
     } catch (e) {
       showError(0, e.toString());
     } finally {

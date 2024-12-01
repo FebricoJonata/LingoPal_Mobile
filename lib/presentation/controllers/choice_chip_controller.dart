@@ -29,7 +29,6 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class Choices {
   final int id;
@@ -45,14 +44,6 @@ class ChoicesController extends GetxController {
   final Rx<Choices?> selectedChoice = Rx<Choices?>(null);
 
   void setChoices(List<Choices> newChoices) async {
-    // choices.assignAll(newChoices);
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   selectedChoice.value = choices.first;
-    // });  print("New choices: $newChoices"); // Debugging
-    if (newChoices.isEmpty) {
-      print("Error: No new choices provided.");
-      return;
-    }
     choices.assignAll(newChoices);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       selectedChoice.value = choices.first;
@@ -68,17 +59,5 @@ class ChoicesController extends GetxController {
 
   int? getSelectedChoiceId() {
     return selectedChoice.value?.id;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    if (Get.currentRoute == RouteName.registerPage) {
-      final List<Choices> pageChoices = [
-        Choices(1, "male".tr, "Male", false), // Label diterjemahkan, nilai tetap
-        Choices(2, "female".tr, "Female", false),
-      ];
-      setChoices(pageChoices);
-    }
   }
 }

@@ -8,7 +8,6 @@ import 'package:lingo_pal_mobile/presentation/controllers/choice_chip_controller
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/edit_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/camera_screen/camera_screen.dart';
-import 'package:lingo_pal_mobile/presentation/view/components/choice_chip.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/date_picker.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/text_field_reusable.dart';
@@ -165,20 +164,6 @@ class _EditPageState extends State<EditPage> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "gender".tr,
-                              style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 1179.w,
-                            height: 200.h,
-                            child: ReusableChoiceChip(
-                              onSelect: (value) {},
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
                               "birthDate".tr,
                               style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                             ),
@@ -209,8 +194,7 @@ class _EditPageState extends State<EditPage> {
                           isLoading: controllerEdit.isLoading.value,
                           onClick: isFormValid.value == true
                               ? () async {
-                                  await controllerEdit.editProfileAPI(
-                                      nameContoller.text, datePickerController.text, controllerChoice.selectedChoice.value?.value ?? "", controllerImage.imageUrl.value);
+                                  await controllerEdit.editProfileAPI(nameContoller.text, datePickerController.text, controllerImage.imageUrl.value);
                                   controllerProfile.profileAPI();
                                   Get.back();
                                 }

@@ -68,11 +68,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           InkWell(
                             onTap: () {
-                              final List<Choices> pageChoices = [
-                                Choices(1, "male".tr, "Male", false), // Label diterjemahkan, nilai tetap
-                                Choices(2, "female".tr, "Female", false),
-                              ];
-                              controllerChoice.setChoices(pageChoices);
                               Get.toNamed(RouteName.editPage, arguments: controllerProfile.profile.value!.body!.data!.first.userId);
                             },
                             child: Container(
@@ -288,7 +283,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Others",
+                            "other".tr,
                             style: TextStyle(
                               color: MyColors.primaryGreen,
                               fontWeight: FontWeight.w700,

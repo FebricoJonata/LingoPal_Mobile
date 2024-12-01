@@ -34,26 +34,20 @@ class MutlipleChoice extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.secondaryYellow,
-      body: Obx(() => PopScope(
-            canPop: false,
-            onPopInvoked: (didPop) {
-              // logic
-            },
-            child: SizedBox(
-              width: 1179.w,
-              height: 2700.h,
-              child: flag.value == false
-                  ? Column(
-                      children: [
-                        Image.asset(AssetConstraints.bgQuiz),
-                        buildQuizContent(),
-                        buildAnswerChoices(),
-                      ],
-                    )
-                  : Column(
-                      children: [Image.asset(AssetConstraints.bgQuiz), buildScoreContent(), buldChoiceScore()],
-                    ),
-            ),
+      body: Obx(() => SizedBox(
+            width: 1179.w,
+            height: 2700.h,
+            child: flag.value == false
+                ? Column(
+                    children: [
+                      Image.asset(AssetConstraints.bgQuiz),
+                      buildQuizContent(),
+                      buildAnswerChoices(),
+                    ],
+                  )
+                : Column(
+                    children: [Image.asset(AssetConstraints.bgQuiz), buildScoreContent(), buldChoiceScore()],
+                  ),
           )),
     );
   }
@@ -99,7 +93,7 @@ class MutlipleChoice extends StatelessWidget {
         ),
         child: Center(
           child: SizedBox(
-            width: 900.w,
+            width: 1300.w,
             height: 400.h,
             child: Obx(() {
               final choices = controllerMultiple.mutlipleData.value?.data?[currentIndex.value].choices;
@@ -111,7 +105,7 @@ class MutlipleChoice extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: 850.w,
+                    width: 1000.w,
                     height: 175.h,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -122,7 +116,7 @@ class MutlipleChoice extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 850.w,
+                    width: 1000.w,
                     height: 175.h,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -220,6 +214,38 @@ class MutlipleChoice extends StatelessWidget {
         btnText: choiceText,
         width: 450.w,
         height: 160.h,
+        fontSize: 44.sp,
+        // onClick: () {
+        //   // if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
+        //   //   score + 1;
+        //   // }
+        //   // if (currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
+        //   //   currentIndex.value += 1;
+        //   // } else {
+        //   //   finalScore.value = ((score.value / controllerMultiple.mutlipleData.value!.data!.length) * 100).toInt();
+        //   //   flag.value = true;
+        //   //   stars.value = 0;
+        //   //   if (finalScore == 100) {
+        //   //     stars.value = 3;
+        //   //   } else if (finalScore >= 60) {
+        //   //     stars.value = 2;
+        //   //   } else if (finalScore >= 30) {
+        //   //     stars.value = 1;
+        //   //   } else {
+        //   //     stars.value = 0;
+        //   //   }
+        //   // }
+        //   if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
+        //     score.value += 1;
+        //   }
+        //   if (currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
+        //     currentIndex.value += 1;
+        //   } else {
+        //     finalScore.value = ((score.value / controllerMultiple.mutlipleData.value!.data!.length) * 100).toInt();
+        //     stars.value = starsValue(finalScore.value);
+        //     flag.value = true;
+        //   }
+        // },
         onClick: () {
           if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
             score.value += 1;

@@ -50,7 +50,11 @@ class TranslationService extends Translations {
           'keyword': 'Type keywords ...',
           'message': 'Send a message...',
           'start': 'START',
-          'loading': 'Loading...'
+          'loading': 'Loading...',
+          'other': "Others",
+          'loginText': 'New here? Register your account',
+          'here': 'here',
+          'registerText': 'Already have an account? Login'
         },
         'id_ID': {
           'edit': 'Ubah',
@@ -79,7 +83,11 @@ class TranslationService extends Translations {
           'keyword': 'Tulis kata kunci ...',
           'message': 'Kirim pesan...',
           'start': 'MULAI',
-          'loading': 'Memuat Data...'
+          'loading': 'Memuat Data...',
+          'other': "Lainnya",
+          'loginText': 'Pengguna baru? registrasi akun',
+          'here': 'di sini',
+          'registerText': 'Sudah punya akun? Login'
         },
       };
   static Future<void> loadSavedLanguage() async {

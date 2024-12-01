@@ -131,10 +131,7 @@ class _PracticePageState extends State<PracticePage> {
                                         course.category!.courseCategoryName ?? "Course Category",
                                         style: TextStyle(fontSize: 50.sp),
                                       ),
-                                      Text(
-                                        course.courseDescription ?? "Course description",
-                                        style: TextStyle(fontSize: 50.sp)
-                                      )
+                                      Text(course.courseDescription ?? "Course description", style: TextStyle(fontSize: 50.sp))
                                     ],
                                   ),
                                 ),
@@ -145,16 +142,20 @@ class _PracticePageState extends State<PracticePage> {
                             width: 80.w,
                           ),
                           Tooltip(
-                            triggerMode: TooltipTriggerMode.tap,
-                            showDuration: Duration(seconds: 10),
-                            richMessage: WidgetSpan(
-                              child: Container(
+                              triggerMode: TooltipTriggerMode.tap,
+                              showDuration: const Duration(seconds: 10),
+                              richMessage: WidgetSpan(
+                                  child: Container(
                                 constraints: BoxConstraints(maxWidth: 400.w),
-                                child: const Text("Obtain a minimum score of 30 for each to unlock next round of questions", style: TextStyle(color: MyColors.white),),
-                              )
-                            ),
-                            child: Icon(Icons.info_rounded, color: MyColors.secondaryGreen,)
-                          )                          
+                                child: const Text(
+                                  "Obtain a minimum score of 30 for each to unlock next round of questions",
+                                  style: TextStyle(color: MyColors.white),
+                                ),
+                              )),
+                              child: const Icon(
+                                Icons.info_rounded,
+                                color: MyColors.secondaryGreen,
+                              ))
                         ],
                       ),
                       SizedBox(height: 100.h),

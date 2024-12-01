@@ -42,10 +42,7 @@ class _MaterialDetailState extends State<MaterialDetail> {
             controller: videoController,
             showVideoProgressIndicator: true,
             progressIndicatorColor: MyColors.secondaryGreen,
-            progressColors: ProgressBarColors(
-              playedColor: MyColors.secondaryGreen, 
-              handleColor: MyColors.secondaryGreen
-            ),
+            progressColors: const ProgressBarColors(playedColor: MyColors.secondaryGreen, handleColor: MyColors.secondaryGreen),
             onReady: () {
               print(videoController.metadata.title);
               // videoController.addListener(listener);
