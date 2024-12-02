@@ -27,31 +27,27 @@ class _MaterialPageState extends State<MaterialPage> {
   @override
   void initState() {
     super.initState();
-
-    // // Periksa apakah pilihan sudah ada
-    // if (controller.choices.isEmpty) {
-    //   final List<Choices> pageChoices = [
-    //     Choices(1, "All", true),
-    //     Choices(2, "Article", false),
-    //     Choices(3, "Video", false),
-    //   ];
-    //   controller.setChoices(pageChoices);
-    // }
-
-    // Pastikan pencarian hanya dijalankan jika diperlukan
-    if (controllerMaterial.materials.value == null) {
-      controllerSearch.searches.value = "";
-      controllerMaterial.getMaterials(controller.selectedChoice.value?.value, controllerSearch.searches.value);
-    }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // controllerSearch.searches.value = "";
+        controllerSearch.setSearchWord("");
+        // Pastikan pencarian hanya dijalankan jika diperlukan
+        if (controllerMaterial.materials.value == null) {
+          controllerMaterial.getMaterials(controller.selectedChoice.value?.value, "");
+        }
+      });
   }
 
   @override
   Widget build(BuildContext context) {
+    // controllerSearch.searches.value = "";
+    if(searches.value==""){
+      print("set keyword back to null");
+      controllerMaterial.getMaterials("All", "");
+    }
     return Scaffold(
       body: Container(
         width: 1179.w,
         height: 2556.h,
-        // padding: EdgeInsets.fromLTRB(0, 0, 0, 200.h),
         color: MyColors.secondaryYellow,
         child: Column(
           children: [

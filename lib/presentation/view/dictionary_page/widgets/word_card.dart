@@ -28,21 +28,30 @@ class _WordCardState extends State<WordCard> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      String search = searchLowerCase(widget.searchWord);
-      controllerWordCard.getWordDetails(search);
-    });
+    // printError(info: "In word card");
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   String search = searchLowerCase(widget.searchWord);
+    //   controllerWordCard.getWordDetails(search);
+    //   printError(info: "Go searching");
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
+    printError(info: "In word card 2");
+    String search = searchLowerCase(widget.searchWord);
+    controllerWordCard.getWordDetails(search);
     return SingleChildScrollView(child: Obx(() {
       var wordList = controllerWordCard.details.value ?? [];
       if (controllerWordCard.isLoading.isTrue || controllerWordCard.details.value == null) {
+        // print(controllerWordCard.errorMessage.value);
+        printError(info: "Change of word");
         return Text("loading".tr);
-      } else if (controllerWordCard.errorMessage.isNotEmpty) {
+      } 
+      else if (controllerWordCard.errorMessage.isNotEmpty) {
         return Text(controllerWordCard.errorMessage.value);
-      } else if (wordList.isEmpty) {
+      } 
+      else if (wordList.isEmpty) {
         return Column(
           children: [
             const Text("Word not found"),
@@ -214,6 +223,7 @@ class _WordCardState extends State<WordCard> {
                 SizedBox(
                   width: 50.w,
                 ),
+                // ganti jadi row
                 SizedBox(
                   height: 50.h,
                   child: ListView.separated(

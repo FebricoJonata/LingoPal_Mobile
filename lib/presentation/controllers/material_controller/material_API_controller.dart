@@ -14,6 +14,7 @@ class MaterialController extends GetxController {
   var errorMessage = ''.obs;
   var storage = const FlutterSecureStorage();
   Future<Either<Failure, MaterialModel>> getMaterials(filter, searches) async {
+    printError(info: searches);
     if (filter == "All") {
       filter = "";
     }

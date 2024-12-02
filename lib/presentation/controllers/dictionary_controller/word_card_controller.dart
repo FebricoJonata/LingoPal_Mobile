@@ -15,6 +15,7 @@ class WordCardController extends GetxController{
 
     try {
       isLoading.value = true;
+      errorMessage.value = '';
       // var uri = Uri.https('https://api.dictionaryapi.dev/api/v2/entries/en/', word);
       // print(uri);
       final response = await Dio().get('https://api.dictionaryapi.dev/api/v2/entries/en/$word');
@@ -33,7 +34,7 @@ class WordCardController extends GetxController{
         return Right(wordData);
 
     } on DioException catch(e){
-      isLoading.value = false;
+      // isLoading.value = false;
       String errorMessage;
       
       if (e.type == DioExceptionType.connectionTimeout) {
@@ -44,13 +45,21 @@ class WordCardController extends GetxController{
         errorMessage = "Response timed out. Please check your connection and try again.";
       } else if (e.type == DioExceptionType.connectionError) {
         errorMessage = "Failed to connect to the server. Please check your internet connection.";
-      } else {
+      } else if (e.type == DioExceptionType.badResponse) {
+        List<WordData?> wordData = [];
+        wordData = [];
+        details(wordData);
+        return Right(wordData);
+      }
+      else {
         errorMessage = e.message ?? "An unexpected error occurred.";
       }
       showError(e.response?.statusCode, errorMessage);
       
     } catch (e) {
-      showError(0, e.toString());
+      // showError(0, e.toString());
+      errorMessage.value = e.toString();
+      return Left(Failure("$e"));
     } finally {
       isLoading.value = false;
     }

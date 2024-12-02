@@ -24,11 +24,15 @@ class _DictionaryPageState extends State<DictionaryPage> {
   @override
   void initState() {
     super.initState();
-    controllerSearch.searches.value = "";
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controllerSearch.setSearchWord("");
+    });
+    
   }
 
   @override
   Widget build(BuildContext context) {
+    // controllerSearch.searches.value = "";
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -52,11 +56,11 @@ class _DictionaryPageState extends State<DictionaryPage> {
                         },
                       ),
                       const SizedBox(height: 24),
-                      // kasi obx disini
                       Obx(() {
                         if (controllerSearch.searches.value.isEmpty) {
                           return const Expanded(child: WordList());
                         } else {
+                          printError(info: controllerSearch.searches.value);
                           return Expanded(
                               child: WordCard(
                             searchWord: controllerSearch.searches.value,
