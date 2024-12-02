@@ -23,63 +23,75 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: 1179.w,
-        height: 2556.h,
-        color: MyColors.secondaryYellow,
-        child: Column(children: [
-          CustomAppBar(),
-          SizedBox(height: 150.h),
-          Expanded(
-            child: Obx(() {
-              var courseList = courseController.courses.value?.body ?? [];
-              var activeCourses = courseController.courseProgress.value?.body ?? [];
+      body: PopScope(
+        canPop: false,
+        child: Container(
+          width: 1179.w,
+          height: 2556.h,
+          color: MyColors.secondaryYellow,
+          child: Column(children: [
+            CustomAppBar(),
+            SizedBox(height: 150.h),
+            Expanded(
+              child: Obx(() {
+                var courseList = courseController.courses.value?.body ?? [];
+                var activeCourses = courseController.courseProgress.value?.body ?? [];
 
-              if (courseController.isLoading.isTrue || courseController.courseProgress.value == null || courseController.courses.value == null) {
-                return Text("loading".tr);
-              } else if (courseController.errorMessage.isNotEmpty) {
-                return Text(courseController.errorMessage.value);
-              } else if (courseList.isEmpty) {
-                return const Text("No courses found");
-              } else {
-                return RefreshIndicator(
-                  color: MyColors.primaryGreen,
-                  onRefresh: () async {
-                    await courseController.getCourses();
-                    await courseController.getUserCourseProgress();
-                  },
-                  child: ListView.separated(
-                    padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
-                    shrinkWrap: true,
-                    itemCount: courseList.length,
-                    itemBuilder: (context, index) {
-                      var course = courseList[index];
-                      if (index < activeCourses.length) {
-                        if (activeCourses[index].isActive == true) {
-                          return CourseActiveCard(
-                            course: course,
-                            userProgressPoin: activeCourses[index].progressPoin ?? 0,
-                          );
+                if (courseController.isLoading.isTrue || courseController.courseProgress.value == null || courseController.courses.value == null) {
+                  return Text("loading".tr);
+                } else if (courseController.errorMessage.isNotEmpty) {
+                  return Text(courseController.errorMessage.value);
+                } else if (courseList.isEmpty) {
+                  return const Text("No courses found");
+                } else {
+                  return RefreshIndicator(
+                    backgroundColor: Colors.white,
+                    color: MyColors.primaryGreen,
+                    onRefresh: () async {
+                      await courseController.getCourses();
+                      await courseController.getUserCourseProgress();
+                    },
+                    child: ListView.separated(
+                      padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
+                      shrinkWrap: true,
+                      itemCount: courseList.length,
+                      itemBuilder: (context, index) {
+                        var course = courseList[index];
+                        if (index < activeCourses.length) {
+                          if (activeCourses[index].isActive == true) {
+                            return CourseActiveCard(
+                              course: course,
+                              userProgressPoin: activeCourses[index].progressPoin ?? 0,
+                            );
+                          }
                         }
-                      }
-                      return Tooltip(
-                        message: "${"course_locked".tr} ${course.minPoin} point",
-                        showDuration: const Duration(seconds: 10),
-                        triggerMode: TooltipTriggerMode.tap,
-                        child: CourseDisabledCard(
-                          course: course,
-                        ),
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(height: 50.h);
-                    },
-                  ),
-                );
-              }
-            }),
-          ),
-        ]),
+                        return Tooltip(
+                          // message: "Complete previous course with a minimum of ${course.minPoin} points",
+                          showDuration: const Duration(seconds: 10),
+                          triggerMode: TooltipTriggerMode.tap,
+                          richMessage: WidgetSpan(
+                              child: Container(
+                            constraints: BoxConstraints(maxWidth: 800.w),
+                            child: Text(
+                              "${"course_locked".tr} ${course.minPoin} point",
+                              style: const TextStyle(color: MyColors.white),
+                            ),
+                          )),
+                          child: CourseDisabledCard(
+                            course: course,
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(height: 50.h);
+                      },
+                    ),
+                  );
+                }
+              }),
+            ),
+          ]),
+        ),
       ),
     );
   }

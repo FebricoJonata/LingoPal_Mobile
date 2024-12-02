@@ -43,8 +43,9 @@ class PrimaryBtn extends StatelessWidget {
     required this.height,
     this.onClick,
     this.isLoading,
+    this.fontSize,
   });
-
+  final double? fontSize;
   final String btnText;
   final double width;
   final double height;
@@ -68,9 +69,9 @@ class PrimaryBtn extends StatelessWidget {
             )
           : Text(
               btnText,
-              style: const TextStyle(
+              style: TextStyle(
                 color: MyColors.white,
-                fontSize: 16.0,
+                fontSize: fontSize ?? 16,
                 fontWeight: FontWeight.bold,
               ),
             ),

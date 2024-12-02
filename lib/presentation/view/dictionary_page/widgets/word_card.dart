@@ -74,16 +74,18 @@ class _WordCardState extends State<WordCard> {
                       SizedBox(
                         width: 50.w,
                       ),
-                      controllerTTS.isLoading.isFalse? 
-                      IconButton(
-                          onPressed: () async {
-                            controllerTTS.fetchAudioFromApi(wordforCard);
-                          },
-                          icon: const Icon(
-                            Icons.volume_up_rounded,
-                            color: MyColors.white,
-                          ))
-                      : CircularProgressIndicator(color: MyColors.secondaryGreen,)
+                      controllerTTS.isLoading.isFalse
+                          ? IconButton(
+                              onPressed: () async {
+                                controllerTTS.fetchAudioFromApi(wordforCard);
+                              },
+                              icon: const Icon(
+                                Icons.volume_up_rounded,
+                                color: MyColors.white,
+                              ))
+                          : CircularProgressIndicator(
+                              color: MyColors.secondaryGreen,
+                            )
                     ],
                   ),
                   SizedBox(
@@ -161,7 +163,7 @@ class _WordCardState extends State<WordCard> {
             ),
             // sinonim
             SizedBox(
-              height: 50.h,
+              height: 60.h,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

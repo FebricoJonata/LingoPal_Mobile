@@ -240,20 +240,23 @@ class _MyHomePageState extends State<Camera2> {
     return InkWell(
       onTap: () {
         showDialog(
+
             // barrierColor: Colors.transparent ,
             context: context,
             builder: (BuildContext context) {
               return Dialog(
+                backgroundColor: Colors.white,
                 child: SizedBox(
-                  width: 500.w,
-                  height: 300.h,
+                  width: 400.w,
+                  height: 500.h,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       SizedBox(
-                        width: 450.w,
-                        height: 100.h,
+                        width: 500.w,
+                        height: 150.h,
                         child: FloatingActionButton(
+                          backgroundColor: MyColors.primaryGreen,
                           onPressed: () {
                             isVideo = false;
                             _onImageButtonPressed(
@@ -264,23 +267,30 @@ class _MyHomePageState extends State<Camera2> {
                           },
                           heroTag: 'media',
                           tooltip: 'Pick Single Media from gallery',
-                          child: const Icon(Icons.photo_library),
+                          child: const Icon(
+                            Icons.photo_library,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       if (_picker.supportsImageSource(ImageSource.camera))
                         Padding(
                           padding: const EdgeInsets.only(top: 16.0),
                           child: SizedBox(
-                            width: 450.w,
-                            height: 100.h,
+                            width: 500.w,
+                            height: 150.h,
                             child: FloatingActionButton(
+                              backgroundColor: MyColors.primaryGreen,
                               onPressed: () {
                                 isVideo = false;
                                 _onImageButtonPressed(ImageSource.camera, context: context);
                               },
                               heroTag: 'image2',
                               tooltip: 'Take a Photo',
-                              child: const Icon(Icons.camera_alt),
+                              child: const Icon(
+                                Icons.camera_alt,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

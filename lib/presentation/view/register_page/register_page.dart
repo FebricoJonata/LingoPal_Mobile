@@ -9,7 +9,6 @@ import 'package:lingo_pal_mobile/core/error/errors.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/choice_chip_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/register_API_controller.dart';
-import 'package:lingo_pal_mobile/presentation/view/components/choice_chip.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/date_picker.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/email_alert.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
@@ -39,34 +38,6 @@ class _MyWidgetState extends State<RegisterPage> {
   final RxBool isPasswordVisible = false.obs;
   final RxBool isConfirmPasswordVisible = false.obs;
 
-  // final List<Choices> pageChoices = [
-  //   Choices(1, "Male", false),
-  //   Choices(2, "Female", false),
-  // ];
-
-  // String? validateField(String? value, String fieldType) {
-  //   String? error;
-  //   switch (fieldType) {
-  //     case 'Email':
-  //       error = (value == null || !value.contains('@')) ? 'Email must contain "@"' : null;
-  //       break;
-  //     case 'Name':
-  //       error = (value == null || value.isEmpty) ? 'Cannot be Empty' : null;
-  //       break;
-  //     case 'Phone Number':
-  //       error = (value == null || value.length < 10 || value.length > 15) ? 'Phone number must be between 12 and 15 digits' : null;
-  //       break;
-  //     default:
-  //       error = null;
-  //   }
-
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     isFormValid.value =
-  //         (emailController.text.contains('@') && emailController.text.isNotEmpty) && nameController.text.isNotEmpty && (phoneController.text.length >= 10 && phoneController.text.length <= 15);
-  //   });
-
-  //   return error;
-  // }
   String? validateField(String? value, String fieldType) {
     String? error;
     switch (fieldType) {
@@ -185,7 +156,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                     height: 175.h,
                                     iconTxt: Icons.email,
                                     iconSize: 40.sp,
-                                    labelTxt: "Email",
+                                    labelTxt: "example@gmail.com",
                                     maxHeight: 100.h,
                                     autovalidateMode: AutovalidateMode.onUserInteraction,
                                     validator: (value) => validateField(value, 'Email'),
@@ -236,20 +207,6 @@ class _MyWidgetState extends State<RegisterPage> {
                                       fontSize: 45.sp,
                                       iconSize: 40.sp,
                                       obscureText: false),
-                                  SizedBox(height: 15.h),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "gender".tr,
-                                      style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      width: 1179.w,
-                                      height: 150.h,
-                                      child: ReusableChoiceChip(
-                                        onSelect: (value) {},
-                                      )),
                                   SizedBox(height: 15.h),
                                   Align(
                                     alignment: Alignment.centerLeft,
@@ -320,11 +277,11 @@ class _MyWidgetState extends State<RegisterPage> {
                                   ),
                                   Text.rich(
                                     TextSpan(
-                                      text: "to_login".tr,
+                                      text: "registerText".tr,
                                       style: TextStyle(color: Colors.black),
                                       children: [
                                         TextSpan(
-                                          text: "here".tr,
+                                          text: "here_text".tr,
                                           style: TextStyle(decoration: TextDecoration.underline, decorationColor: MyColors.primaryGreen, color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
                                           recognizer: TapGestureRecognizer()..onTap = () => Get.toNamed(RouteName.loginPage),
                                         )
@@ -346,7 +303,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                             String? password = passwordController.text;
 
                                             String birth = datePickerController.text;
-                                            var res = await controllerRegis.signUpAPI(name, email, password, birth, controllerChoiceChip.selectedChoice.value?.value ?? "");
+                                            var res = await controllerRegis.signUpAPI(name, email, password, birth);
                                             res?.fold((l) {
                                               showError(int.parse(l.message), "");
                                             }, (r) {
@@ -356,7 +313,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                                   barrierDismissible: false,
                                                   Obx(() => EmailAlert(
                                                         buttonText: controllerEmailVerif.istap.value == 1
-                                                            ? "Wait ${controllerEmailVerif.countdown.value}s to resend" // Countdown
+                                                            ? "${controllerEmailVerif.countdown.value}s to resend" // Countdown
                                                             : "Resend", // Default text
                                                         title: "Email Verification",
                                                         message: "We've sent verification to your Email",

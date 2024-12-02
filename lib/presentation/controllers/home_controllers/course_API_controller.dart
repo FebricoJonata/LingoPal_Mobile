@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -71,21 +70,24 @@ class CourseController extends GetxController {
 
       courseProgress(userCourseProgress);
       var activeCourses = courseProgress.value?.body ?? [];
-      if(totalCoursesBefore.value == 0){
+      if (totalCoursesBefore.value == 0) {
         totalCoursesBefore.value = activeCourses.length;
-      }
-      else {
+      } else {
         print("alert kebuka masuk sini active: ${activeCourses.length}");
-        if(totalCoursesBefore.value<activeCourses.length){
+        if (totalCoursesBefore.value < activeCourses.length) {
           print("ada update course");
           var lastCourseId = activeCourses.last.courseId;
           var courseList = courses.value?.body ?? [];
-          var newCourse = courseList[lastCourseId!-1];
+          var newCourse = courseList[lastCourseId! - 1];
           print("sebelum update");
-          Get.dialog(Alert(title: "New Course Unlocked!", message: "Hooray! You've finally unlocked course ${newCourse.courseName} - ${newCourse.category!.courseCategoryName}", imagePath: "assets/images/robots/happy.png",
-          onClose: () async {
-            Get.back();
-          }, ));
+          Get.dialog(Alert(
+            title: "New Course Unlocked!",
+            message: "Hooray! You've finally unlocked course ${newCourse.courseName} - ${newCourse.category!.courseCategoryName}",
+            imagePath: "assets/images/robots/happy.png",
+            onClose: () async {
+              Get.back();
+            },
+          ));
           totalCoursesBefore.value = activeCourses.length;
         }
       }

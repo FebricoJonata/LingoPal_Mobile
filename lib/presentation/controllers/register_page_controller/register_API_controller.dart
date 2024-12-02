@@ -11,12 +11,17 @@ import '../../../core/error/errors.dart';
 
 class RegisterAPIController extends GetxController {
   RxBool isLoading = false.obs;
-  Future<Either<Failure, SignUp>?> signUpAPI(String name, String email, String password, String birth, String gender) async {
+  Future<Either<Failure, SignUp>?> signUpAPI(String name, String email, String password, String birth) async {
     try {
       isLoading.value = true;
       final response = await Dio().post(
         "https://lingo-pal-backend-v1.vercel.app/api/users/signup",
-        data: {"name": name, "email": email, "password": password, "birth_date": birth, "gender": gender},
+        data: {
+          "name": name,
+          "email": email,
+          "password": password,
+          "birth_date": birth,
+        },
         options: Options(
           headers: {"Accept": "application/json", "Content-Type": "application/json"},
         ),

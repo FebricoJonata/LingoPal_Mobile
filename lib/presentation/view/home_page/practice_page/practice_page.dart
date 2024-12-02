@@ -131,10 +131,7 @@ class _PracticePageState extends State<PracticePage> {
                                         course.category!.courseCategoryName ?? "Course Category",
                                         style: TextStyle(fontSize: 50.sp),
                                       ),
-                                      Text(
-                                        course.courseDescription ?? "Course description",
-                                        style: TextStyle(fontSize: 50.sp)
-                                      )
+                                      Text(course.courseDescription ?? "Course description", style: TextStyle(fontSize: 50.sp))
                                     ],
                                   ),
                                 ),
@@ -145,15 +142,15 @@ class _PracticePageState extends State<PracticePage> {
                             width: 80.w,
                           ),
                           Tooltip(
-                            triggerMode: TooltipTriggerMode.tap,
-                            showDuration: Duration(seconds: 10),
-                            richMessage: WidgetSpan(
-                              child: Container(
+                              triggerMode: TooltipTriggerMode.tap,
+                              showDuration: const Duration(seconds: 10),
+                              richMessage: WidgetSpan(
+                                  child: Container(
                                 constraints: BoxConstraints(maxWidth: 400.w),
-                                child: Text("practice_rule".tr, style: TextStyle(color: MyColors.white),),
+                                child: Text("practice_rule".tr, style: const TextStyle(color: MyColors.white),),
                               )
                             ),
-                            child: Icon(Icons.info_rounded, color: MyColors.secondaryGreen,)
+                            child: const Icon(Icons.info_rounded, color: MyColors.secondaryGreen,)
                           )                          
                         ],
                       ),

@@ -2,7 +2,7 @@ class AssetConstraints {
   static const baseImages = 'assets/images';
   static const baseBgImages = '$baseImages/background_asset';
   static const baseLandingImages = "$baseImages/carousel_assets";
-
+  static const flag = "$baseImages/flags";
   //background
   static const bgIntroTop = "$baseBgImages/bg_intro_top.png";
   static const bgIntroBot = "$baseBgImages/bg_intro_bot.png";
@@ -19,4 +19,8 @@ class AssetConstraints {
   static const robotQuiz = "$baseImages/robots/6.png";
   static const robotSad = "$baseImages/robots/sad.png";
   static const robotHappy = "$baseImages/robots/happy.png";
+
+  //flag
+  static const indoflag = "$flag/Indonesia (ID).png";
+  static const englishFlag = "$flag/United Kingdom (GB).png";
 }

@@ -15,7 +15,7 @@ class CourseUpdateController extends GetxController {
       final response = await Dio().post("https://lingo-pal-backend-v1.vercel.app/api/course/update-progress",
           data: {"user_id": userId, "course_id": courseId}, options: Options(headers: {'accept': 'application/json', 'Content-Type': 'application/json', "Authorization": "Bearer $accessToken"}));
       courseUpdate(CourseUpdate.fromJson(response.data));
-      print("Response Course: ${courseUpdate.value?.body}");
+
       return courseUpdate;
     } on DioException catch (e) {
       print("DioException: ${e.response?.statusCode}");

@@ -47,7 +47,7 @@ class PracticeCourseController extends GetxController {
       var userPractices = PracticeProgressModel.fromJson(response.data);
 
       practiceProgress(userPractices);
-      print("User practice: ${response.data}");
+
       return Right(userPractices);
     } catch (e) {
       print("Error: $e");
