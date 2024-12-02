@@ -28,7 +28,6 @@ class _MaterialPageState extends State<MaterialPage> {
   void initState() {
     super.initState();
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        // controllerSearch.searches.value = "";
         controllerSearch.setSearchWord("");
         // Pastikan pencarian hanya dijalankan jika diperlukan
         if (controllerMaterial.materials.value == null) {
@@ -97,9 +96,9 @@ class _MaterialPageState extends State<MaterialPage> {
                         } else if (materials.isEmpty) {
                           return Column(
                             children: [
-                              const Text("Material not found"),
+                              Text("material_not_found".tr),
                               SizedBox(height: 50.h),
-                              const Text("This could be due to a mistake in your search or the material may not exist"),
+                              Text("source_not_found".tr, textAlign: TextAlign.center,),
                             ],
                           );
                         } else {

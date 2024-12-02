@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -70,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                           width: 1179.w,
                           height: 140.h,
                           child: Text(
-                            "Sign In",
+                            "login".tr,
                             style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w900),
                           )),
                       SizedBox(
@@ -104,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Password",
+                          "password".tr,
                           style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.w500),
                         ),
                       ),
@@ -120,27 +121,23 @@ class _LoginPageState extends State<LoginPage> {
                         height: 175.h,
                         iconTxt: Icons.password,
                         iconSize: 40.sp,
-                        labelTxt: "Password",
+                        labelTxt: "password".tr,
                         maxHeight: 100.h,
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      SizedBox(
-                        width: 1179.w,
-                        height: 100.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      Text.rich(
+                        TextSpan(
+                          text: "to_regis".tr,
+                          style: TextStyle(color: Colors.black),
                           children: [
-                            const Text("New here? Register your account "),
-                            TextButton(
-                                onPressed: () => {Get.toNamed(RouteName.registerPage)},
-                                style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
-                                child: const Text(
-                                  "here",
-                                  style: TextStyle(decoration: TextDecoration.underline, decorationColor: MyColors.secondaryGreen, color: MyColors.secondaryGreen),
-                                ))
-                          ],
+                            TextSpan(
+                              text: "here".tr,
+                              style: TextStyle(decoration: TextDecoration.underline, decorationColor: MyColors.primaryGreen, color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
+                              recognizer: TapGestureRecognizer()..onTap = () => Get.toNamed(RouteName.registerPage),
+                            )
+                          ]
                         ),
                       ),
                       const SizedBox(

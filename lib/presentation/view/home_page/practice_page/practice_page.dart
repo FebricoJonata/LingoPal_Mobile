@@ -150,7 +150,7 @@ class _PracticePageState extends State<PracticePage> {
                             richMessage: WidgetSpan(
                               child: Container(
                                 constraints: BoxConstraints(maxWidth: 400.w),
-                                child: const Text("Obtain a minimum score of 30 for each to unlock next round of questions", style: TextStyle(color: MyColors.white),),
+                                child: Text("practice_rule".tr, style: TextStyle(color: MyColors.white),),
                               )
                             ),
                             child: Icon(Icons.info_rounded, color: MyColors.secondaryGreen,)

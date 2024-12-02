@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-import 'dart:ffi';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';

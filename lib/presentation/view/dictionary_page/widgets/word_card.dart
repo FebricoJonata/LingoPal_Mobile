@@ -25,18 +25,6 @@ class _WordCardState extends State<WordCard> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // printError(info: "In word card");
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   String search = searchLowerCase(widget.searchWord);
-    //   controllerWordCard.getWordDetails(search);
-    //   printError(info: "Go searching");
-    // });
-  }
-
-  @override
   Widget build(BuildContext context) {
     printError(info: "In word card 2");
     String search = searchLowerCase(widget.searchWord);
@@ -44,8 +32,6 @@ class _WordCardState extends State<WordCard> {
     return SingleChildScrollView(child: Obx(() {
       var wordList = controllerWordCard.details.value ?? [];
       if (controllerWordCard.isLoading.isTrue || controllerWordCard.details.value == null) {
-        // print(controllerWordCard.errorMessage.value);
-        printError(info: "Change of word");
         return Text("loading".tr);
       } 
       else if (controllerWordCard.errorMessage.isNotEmpty) {
@@ -54,11 +40,11 @@ class _WordCardState extends State<WordCard> {
       else if (wordList.isEmpty) {
         return Column(
           children: [
-            const Text("Word not found"),
+            Text("word_not_found".tr),
             SizedBox(
               height: 50.h,
             ),
-            const Text("This could be due to a mistake in your search or the word you're looking for may not exist")
+            Text("source_not_found".tr, textAlign: TextAlign.center)
           ],
         );
       } else {

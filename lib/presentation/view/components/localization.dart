@@ -25,7 +25,8 @@ class TranslationService extends Translations {
   Map<String, Map<String, String>> get keys => {
         'en_US': {
           'edit': 'Edit',
-          'register': 'egister',
+          'register': 'Sign Up',
+          'login' : 'Sign In',
           'fullName': 'Full Name',
           'gender': 'Gender',
           'male': 'Male',
@@ -35,6 +36,9 @@ class TranslationService extends Translations {
           'password': 'Password',
           'confirm': 'Confirm',
           'next': 'Next',
+          'to_regis' : 'Don\'t have an account? Register ',
+          'to_login' : 'Already have an account? Login ',
+          'here' : 'here',
           'profile': 'Profile',
           'account': 'Account',
           'update': 'Update',
@@ -60,11 +64,17 @@ class TranslationService extends Translations {
           'start_chat_rule' : ' to start chatting in English.\n',
           'rate_chat_rule' : 'Ask Lingo to rate by typing ',
           'disclaimer' : '\nNote: Lingo\'s rating is just a rough estimation and does not necessarily reflect your actual English proficiency!',
-          'close' : 'Close'
+          'close' : 'Close',
+          'course_locked' : 'Complete previous course with a minimum of',
+          'practice_rule' : 'Obtain a minimum score of 30 for each to unlock next round of questions',
+          'word_not_found': 'Word not found',
+          'material_not_found' : 'Material not found',
+          'source_not_found' : 'This could be due to a mistake in your search or the keyword may not exist'
         },
         'id_ID': {
           'edit': 'Ubah',
           'register': 'Daftar',
+          'login' : 'Masuk',
           'fullName': 'Nama Lengkap',
           'gender': 'Jenis Kelamin',
           'male': 'Laki-laki',
@@ -74,6 +84,9 @@ class TranslationService extends Translations {
           'password': 'Kata Sandi',
           'confirm': 'Konfirmasi',
           'next': 'Lanjutkan',
+          'to_regis' : 'Belum punya akun? Daftar ',
+          'to_login' : 'Sudah punya akun? Masuk ',
+          'here' : 'disini',
           'profile': 'Profil',
           'account': 'Akun',
           'update': 'Memperbarui',
@@ -99,7 +112,12 @@ class TranslationService extends Translations {
           'start_chat_rule' : ' & mulai mengobrol dalam bahasa Inggris\n',
           'rate_chat_rule' : 'Minta Lingo memberikan rating dengan ketik ',
           'disclaimer' : '\nCatatan: Penilaian Lingo hanya perkiraan kasar & tidak mencerminkan kecakapan bahsa Inggris Anda yang sebenarnya!',
-          'close' : 'Tutup'
+          'close' : 'Tutup',
+          'course_locked' : 'Lengkapi kursus sebelumnya dengan minimum',
+          'practice_rule' : 'Dapatkan nilai minimum 30 untuk membuka rangkaian latihan berikutnya',
+          'word_not_found': 'Kata tidak ditemukan',
+          'material_not_found' : 'Materi tidak ditemukan',
+          'source_not_found' : 'Terdapat kesalahan pada pencarian atau kata kunci tidak tersedia'
         },
       };
   static Future<void> loadSavedLanguage() async {

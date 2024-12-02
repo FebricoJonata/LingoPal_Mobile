@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -148,7 +149,7 @@ class _MyWidgetState extends State<RegisterPage> {
                               width: 80.w,
                             ),
                             Text(
-                              "Sign Up",
+                              "register".tr,
                               style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w900),
                             )
                           ],
@@ -317,18 +318,18 @@ class _MyWidgetState extends State<RegisterPage> {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text("Already have an account? Login "),
-                                      TextButton(
-                                          onPressed: () => {Get.toNamed(RouteName.loginPage)},
-                                          style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.zero),
-                                          child: const Text(
-                                            "here",
-                                            style: TextStyle(decoration: TextDecoration.underline, decorationColor: MyColors.secondaryGreen, color: MyColors.secondaryGreen),
-                                          ))
-                                    ],
+                                  Text.rich(
+                                    TextSpan(
+                                      text: "to_login".tr,
+                                      style: TextStyle(color: Colors.black),
+                                      children: [
+                                        TextSpan(
+                                          text: "here".tr,
+                                          style: TextStyle(decoration: TextDecoration.underline, decorationColor: MyColors.primaryGreen, color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
+                                          recognizer: TapGestureRecognizer()..onTap = () => Get.toNamed(RouteName.loginPage),
+                                        )
+                                      ]
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 20,
