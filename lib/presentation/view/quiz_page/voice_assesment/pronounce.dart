@@ -134,133 +134,136 @@ class PronouncePage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.secondaryYellow,
-      body: Obx(() {
-        if (quizDone.value == false) {
-          if (controllerQuiz.speechText.value != null && controllerQuiz.flag.value == 1) {
-            final score = controllerQuiz.speechText.value!.body?.pronunciationScores?.pronunciationScore ?? 0;
-            controllerQuiz.flag.value = 0; // Reset flag untuk menghindari dialog berulang
-            Future.microtask(() => showScoreDialog(context, score));
-          }
-          return SizedBox(
-            width: 1179.w,
-            height: 2700.h,
-            child: Column(
-              children: [
-                Image.asset(AssetConstraints.bgQuiz),
-                SizedBox(
-                  width: 1179.w,
-                  height: 1300.h,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      controllerQuiz.isRecord == 0
-                          ? Image.asset(AssetConstraints.robotQuiz)
-                          : const CircularProgressIndicator(
-                              color: MyColors.primaryGreen,
-                            ),
-                      Text(
-                        controllerQuizQuestion.mutlipleData.value?.data?[currentQuestion.value].question.toString() ?? "",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: MyColors.primaryGreen, fontSize: 100.sp),
-                      )
-                    ],
-                  ),
-                ),
-                Flexible(
-                  child: Container(
+      body: PopScope(
+        canPop: false,
+        child: Obx(() {
+          if (quizDone.value == false) {
+            if (controllerQuiz.speechText.value != null && controllerQuiz.flag.value == 1) {
+              final score = controllerQuiz.speechText.value!.body?.pronunciationScores?.pronunciationScore ?? 0;
+              controllerQuiz.flag.value = 0; // Reset flag untuk menghindari dialog berulang
+              Future.microtask(() => showScoreDialog(context, score));
+            }
+            return SizedBox(
+              width: 1179.w,
+              height: 2700.h,
+              child: Column(
+                children: [
+                  Image.asset(AssetConstraints.bgQuiz),
+                  SizedBox(
                     width: 1179.w,
-                    color: MyColors.primaryYellow,
-                    child: Center(
-                        child: Recorder(
-                      referenceText: controllerQuizQuestion.mutlipleData.value?.data?[currentQuestion.value].question.toString() ?? "",
-                    )),
+                    height: 1300.h,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        controllerQuiz.isRecord == 0
+                            ? Image.asset(AssetConstraints.robotQuiz)
+                            : const CircularProgressIndicator(
+                                color: MyColors.primaryGreen,
+                              ),
+                        Text(
+                          controllerQuizQuestion.mutlipleData.value?.data?[currentQuestion.value].question.toString() ?? "",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: MyColors.primaryGreen, fontSize: 100.sp),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          );
-        } else {
-          return SizedBox(
-            width: 1179.w,
-            height: 2700.h,
-            child: Column(
-              children: [
-                Image.asset(AssetConstraints.bgQuiz),
-                buildScoreContent(),
-                Flexible(
-                  child: Container(
-                    decoration: BoxDecoration(
+                  Flexible(
+                    child: Container(
+                      width: 1179.w,
                       color: MyColors.primaryYellow,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(70.sp),
-                        topRight: Radius.circular(70.sp),
-                      ),
+                      child: Center(
+                          child: Recorder(
+                        referenceText: controllerQuizQuestion.mutlipleData.value?.data?[currentQuestion.value].question.toString() ?? "",
+                      )),
                     ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          PrimaryBtn(
-                            btnText: "try_again".tr,
-                            width: 700.w,
-                            height: 150.h,
-                            onClick: () {
-                              currentQuestion.value = 0;
-                              score.value = 0;
-                              quizDone.value = false;
-                              stars.value = 0;
-                              controllerQuizQuestion.fetchQuestions(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0);
-                            },
-                          ),
-                          SecondaryBtn(
-                            btnText: "back_to_levels".tr,
-                            width: 700.w,
-                            height: 150.h,
-                            onClick: () async {
-                              bool practiceFound = false;
-                              for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
-                                if (controllerProgress.practiceId.value == progress.practiceId) {
-                                  practiceFound = true;
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return SizedBox(
+              width: 1179.w,
+              height: 2700.h,
+              child: Column(
+                children: [
+                  Image.asset(AssetConstraints.bgQuiz),
+                  buildScoreContent(),
+                  Flexible(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: MyColors.primaryYellow,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(70.sp),
+                          topRight: Radius.circular(70.sp),
+                        ),
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            PrimaryBtn(
+                              btnText: "try_again".tr,
+                              width: 700.w,
+                              height: 150.h,
+                              onClick: () {
+                                currentQuestion.value = 0;
+                                score.value = 0;
+                                quizDone.value = false;
+                                stars.value = 0;
+                                controllerQuizQuestion.fetchQuestions(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0);
+                              },
+                            ),
+                            SecondaryBtn(
+                              btnText: "back_to_levels".tr,
+                              width: 700.w,
+                              height: 150.h,
+                              onClick: () async {
+                                bool practiceFound = false;
+                                for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
+                                  if (controllerProgress.practiceId.value == progress.practiceId) {
+                                    practiceFound = true;
 
-                                  break;
-                                } else {
-                                  practiceFound = false;
-                                }
-                              }
-                              if (stars.value >= 1) {
-                                if (practiceFound == true) {
-                                  if (controllerUpdateCourse.lstIndex.value = true) {
-                                    controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                                    break;
+                                  } else {
+                                    practiceFound = false;
                                   }
-                                  practiceUpdateController.updatePractice(
-                                      controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
-                                      controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0,
-                                      stars.value,
-                                      true,
-                                      true,
-                                      controllerProgress.courseId.value);
-                                } else {
-                                  if (controllerUpdateCourse.lstIndex.value = true) {
-                                    controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
-                                  }
-                                  practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
                                 }
-                              }
-                              await controllerProgress.getPractices(controllerProgress.courseId.value);
-                              await controllerProgress.getUserPractices();
-                              Get.back();
-                            },
-                          )
-                        ],
+                                if (stars.value >= 1) {
+                                  if (practiceFound == true) {
+                                    if (controllerUpdateCourse.lstIndex.value = true) {
+                                      controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                                    }
+                                    practiceUpdateController.updatePractice(
+                                        controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
+                                        controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0,
+                                        stars.value,
+                                        true,
+                                        true,
+                                        controllerProgress.courseId.value);
+                                  } else {
+                                    if (controllerUpdateCourse.lstIndex.value = true) {
+                                      controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                                    }
+                                    practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
+                                  }
+                                }
+                                await controllerProgress.getPractices(controllerProgress.courseId.value);
+                                await controllerProgress.getUserPractices();
+                                Get.back();
+                              },
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
-        }
-      }),
+                ],
+              ),
+            );
+          }
+        }),
+      ),
     );
   }
 
@@ -286,7 +289,7 @@ class PronouncePage extends StatelessWidget {
   }
 
   int starsValue(int finalScore) {
-    if (finalScore == 100) {
+    if (finalScore >= 90) {
       return 3; // Skor sempurna mendapatkan 3 bintang
     } else if (finalScore >= 60) {
       return 2; // Skor 60-99 mendapatkan 2 bintang

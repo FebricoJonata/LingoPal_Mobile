@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -28,29 +30,27 @@ class _EditPageState extends State<EditPage> {
   var controllerProfile = Get.find<GetProfileController>();
   var controllerImage = Get.find<ImagePickerController>();
   int userId = Get.arguments;
-  final RxBool isFormValid = false.obs;
+  final nameRx = ''.obs;
+  final dateRx = ''.obs;
+  final isFormValid = false.obs;
 
   String? validateField(String? value, String fieldType) {
     String? error;
     switch (fieldType) {
-      case 'Email':
-        error = (value == null || !value.contains('@')) ? 'Email must contain "@"' : null;
-        break;
       case 'Name':
         error = (value == null || value.isEmpty) ? 'Cannot be Empty' : null;
         break;
-      case 'Phone Number':
-        error = (value == null || value.length < 12 || value.length > 15) ? 'Phone number must be between 12 and 15 digits' : null;
-        break;
-      default:
-        error = null;
     }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      isFormValid.value = (nameContoller.text.isNotEmpty);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   isFormValid.value = (nameContoller.text.isNotEmpty && datePickerController.text.isNotEmpty);
+    // });
 
     return error;
+  }
+
+  bool validate() {
+    return nameRx.value.isNotEmpty && dateRx.value.isNotEmpty;
   }
 
   @override
@@ -132,7 +132,7 @@ class _EditPageState extends State<EditPage> {
                     ),
                     SizedBox(
                       width: 900.w,
-                      height: 1200.h,
+                      height: 800.h,
                       child: Column(
                         children: [
                           Align(
@@ -169,37 +169,32 @@ class _EditPageState extends State<EditPage> {
                             ),
                           ),
                           DatePicker(
-                              controller: datePickerController,
-                              labelTxt: "YYYY-MM-DD",
-                              iconTxt: Icons.calendar_month,
-                              linesMax: 1,
-                              linesMin: 1,
-                              maxHeight: 100.h,
-                              width: double.infinity,
-                              color: MyColors.white,
-                              radius: 25.sp,
-                              fontSize: 45.sp,
-                              iconSize: 40.sp,
-                              obscureText: false),
+                            controller: datePickerController..text = controllerProfile.profile.value?.body?.data?[0].birthDate ?? "-",
+                            labelTxt: "YYYY-MM-DD",
+                            iconTxt: Icons.calendar_month,
+                            linesMax: 1,
+                            linesMin: 1,
+                            maxHeight: 100.h,
+                            width: double.infinity,
+                            color: MyColors.white,
+                            radius: 25.sp,
+                            fontSize: 45.sp,
+                            iconSize: 40.sp,
+                            obscureText: false,
+                          ),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 50.h,
-                    ),
                     Obx(() => PrimaryBtn(
-                          btnText: "update".tr,
-                          width: 300.w,
-                          height: 150.h,
-                          isLoading: controllerEdit.isLoading.value,
-                          onClick: isFormValid.value == true
-                              ? () async {
-                                  await controllerEdit.editProfileAPI(nameContoller.text, datePickerController.text, controllerImage.imageUrl.value);
-                                  controllerProfile.profileAPI();
-                                  Get.back();
-                                }
-                              : null,
-                        ))
+                        btnText: "update".tr,
+                        width: 300.w,
+                        height: 150.h,
+                        isLoading: controllerEdit.isLoading.value,
+                        onClick: () async {
+                          await controllerEdit.editProfileAPI(nameContoller.text, datePickerController.text, controllerImage.imageUrl.value);
+                          controllerProfile.profileAPI();
+                          Get.back();
+                        }))
                   ],
                 ),
               ),

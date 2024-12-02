@@ -218,13 +218,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    "phoneNumber".tr,
-                                    style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
                                     "password".tr,
                                     style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
@@ -243,13 +236,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     controllerProfile.profile.value?.body?.data?.first.email ?? "",
-                                    style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    controllerProfile.profile.value?.body?.data?.first.phoneNumber ?? "",
                                     style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),

@@ -312,7 +312,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                                   barrierDismissible: false,
                                                   Obx(() => EmailAlert(
                                                         buttonText: controllerEmailVerif.istap.value == 1
-                                                            ? "Wait ${controllerEmailVerif.countdown.value}s to resend" // Countdown
+                                                            ? "${controllerEmailVerif.countdown.value}s to resend" // Countdown
                                                             : "Resend", // Default text
                                                         title: "Email Verification",
                                                         message: "We've sent verification to your Email",

@@ -108,6 +108,7 @@ class _MaterialPageState extends State<MaterialPage> {
                           );
                         } else {
                           return RefreshIndicator(
+                            backgroundColor: Colors.white,
                             color: MyColors.primaryGreen,
                             onRefresh: () async {
                               await controllerMaterial.getMaterials(controller.selectedChoice.value!.value, controllerSearch.searches.value);

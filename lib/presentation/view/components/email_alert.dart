@@ -35,6 +35,7 @@ class EmailAlert extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Container(
+          width: 1200.w,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,

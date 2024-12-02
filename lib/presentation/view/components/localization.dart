@@ -60,7 +60,11 @@ class TranslationService extends Translations {
           'start_chat_rule': ' to start chatting in English.\n',
           'rate_chat_rule': 'Ask Lingo to rate by typing ',
           'disclaimer': '\nNote: Lingo\'s rating is just a rough estimation and does not necessarily reflect your actual English proficiency!',
-          'close': 'Close'
+          'close': 'Close',
+          'other': "Others",
+          'loginText': 'New here? Register your account',
+          'here': 'here',
+          'registerText': 'Already have an account? Login'
         },
         'id_ID': {
           'edit': 'Ubah',
@@ -99,7 +103,11 @@ class TranslationService extends Translations {
           'start_chat_rule': ' & mulai mengobrol dalam bahasa Inggris\n',
           'rate_chat_rule': 'Minta Lingo memberikan rating dengan ketik ',
           'disclaimer': '\nCatatan: Penilaian Lingo hanya perkiraan kasar & tidak mencerminkan kecakapan bahsa Inggris Anda yang sebenarnya!',
-          'close': 'Tutup'
+          'close': 'Tutup',
+          'other': "Lainnya",
+          'loginText': 'Pengguna baru? registrasi akun',
+          'here': 'di sini',
+          'registerText': 'Sudah punya akun? Login'
         },
       };
   static Future<void> loadSavedLanguage() async {

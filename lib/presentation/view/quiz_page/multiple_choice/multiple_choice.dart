@@ -19,6 +19,7 @@ class MutlipleChoice extends StatelessWidget {
   final PracticeUpdateController practiceUpdateController = Get.find<PracticeUpdateController>();
   var controllerProgress = Get.find<PracticeCourseController>();
   var controllerUpdateCourse = Get.find<CourseUpdateController>();
+
   final RxInt currentIndex = 0.obs;
 
   final RxInt score = 0.obs;
@@ -34,21 +35,24 @@ class MutlipleChoice extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.secondaryYellow,
-      body: Obx(() => SizedBox(
-            width: 1179.w,
-            height: 2700.h,
-            child: flag.value == false
-                ? Column(
-                    children: [
-                      Image.asset(AssetConstraints.bgQuiz),
-                      buildQuizContent(),
-                      buildAnswerChoices(),
-                    ],
-                  )
-                : Column(
-                    children: [Image.asset(AssetConstraints.bgQuiz), buildScoreContent(), buldChoiceScore()],
-                  ),
-          )),
+      body: PopScope(
+        canPop: false,
+        child: Obx(() => SizedBox(
+              width: 1179.w,
+              height: 2700.h,
+              child: flag.value == false
+                  ? Column(
+                      children: [
+                        Image.asset(AssetConstraints.bgQuiz),
+                        buildQuizContent(),
+                        buildAnswerChoices(),
+                      ],
+                    )
+                  : Column(
+                      children: [Image.asset(AssetConstraints.bgQuiz), buildScoreContent(), buldChoiceScore()],
+                    ),
+            )),
+      ),
     );
   }
 
@@ -162,7 +166,7 @@ class MutlipleChoice extends StatelessWidget {
                     score.value = 0;
                     flag.value = false;
                     stars.value = 0;
-                    controllerMultiple.fetchQuestions(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0);
+                    controllerMultiple.fetchQuestions(controllerProgress.practiceId.value);
                   },
                 ),
                 SecondaryBtn(
