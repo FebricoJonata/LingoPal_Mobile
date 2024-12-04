@@ -20,6 +20,9 @@ void showError(int? statusCode, String? message) {
   } else if (statusCode == 400) {
     errorTitle = "Bad Request";
     errorMessage = "Bad request. Please check your input.";
+  } else if (statusCode == 422) {
+    errorTitle = "Invalid Credentials";
+    errorMessage = "Please input valid credentials";
   } else {
     errorTitle = "Alert!";
     errorMessage = message ?? "An unexpected error occurred.";

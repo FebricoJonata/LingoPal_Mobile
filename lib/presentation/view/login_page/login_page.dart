@@ -151,16 +151,15 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Text.rich(
                         TextSpan(
-                          text: "loginText".tr,
-                          // style: TextStyle(color: Colors.black),
-                          children: [
-                            TextSpan(
-                              text: "here_text".tr,
-                              style: const TextStyle(decoration: TextDecoration.underline, decorationColor: MyColors.primaryGreen, color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
-                              recognizer: TapGestureRecognizer()..onTap = () => Get.toNamed(RouteName.registerPage),
-                            )
-                          ]
-                        ),
+                            text: "loginText".tr,
+                            // style: TextStyle(color: Colors.black),
+                            children: [
+                              TextSpan(
+                                text: "here_text".tr,
+                                style: const TextStyle(decoration: TextDecoration.underline, decorationColor: MyColors.primaryGreen, color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
+                                recognizer: TapGestureRecognizer()..onTap = () => Get.toNamed(RouteName.registerPage),
+                              )
+                            ]),
                       ),
                       const SizedBox(
                         height: 20,
@@ -177,7 +176,9 @@ class _LoginPageState extends State<LoginPage> {
                                     var res = await controllerLogin.loginAPI(email, pass);
                                     res?.fold((l) {
                                       showError(int.parse(l.message), "");
-                                      controllerEmailVerif.emailVerification(email);
+                                      if (l.message == "422") {
+                                        controllerEmailVerif.emailVerification(email);
+                                      }
                                     }, (r) {});
                                     // Get.toNamed(RouteName.basePage);
                                   }

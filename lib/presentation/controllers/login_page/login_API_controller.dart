@@ -37,7 +37,7 @@ class LoginAPIController extends GetxController {
         return Right(loginModel);
       } else {
         isLoading.value = false;
-        // showError(response.statusCode, response.data['message']);
+        showError(response.statusCode, response.data['message']);
         return Left(Failure(response.statusCode.toString()));
       }
     } on DioException catch (e) {
