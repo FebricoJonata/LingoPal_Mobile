@@ -196,7 +196,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                   ),
                                   DatePicker(
                                       controller: datePickerController,
-                                      labelTxt: "YYYY-MM-DD/click the icon",
+                                      labelTxt: "YYYY-MM-DD / Click the icon",
                                       iconTxt: Icons.calendar_month,
                                       linesMax: 1,
                                       linesMin: 1,
