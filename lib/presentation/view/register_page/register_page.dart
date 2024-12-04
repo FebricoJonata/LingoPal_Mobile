@@ -196,7 +196,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                   ),
                                   DatePicker(
                                       controller: datePickerController,
-                                      labelTxt: "YYYY-MM-DD",
+                                      labelTxt: "YYYY-MM-DD/click the icon",
                                       iconTxt: Icons.calendar_month,
                                       linesMax: 1,
                                       linesMin: 1,
@@ -276,17 +276,13 @@ class _MyWidgetState extends State<RegisterPage> {
                                     height: 20,
                                   ),
                                   Text.rich(
-                                    TextSpan(
-                                      text: "registerText".tr,
-                                      style: TextStyle(color: Colors.black),
-                                      children: [
-                                        TextSpan(
-                                          text: "here_text".tr,
-                                          style: TextStyle(decoration: TextDecoration.underline, decorationColor: MyColors.primaryGreen, color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
-                                          recognizer: TapGestureRecognizer()..onTap = () => Get.toNamed(RouteName.loginPage),
-                                        )
-                                      ]
-                                    ),
+                                    TextSpan(text: "registerText".tr, style: TextStyle(color: Colors.black), children: [
+                                      TextSpan(
+                                        text: "here_text".tr,
+                                        style: TextStyle(decoration: TextDecoration.underline, decorationColor: MyColors.primaryGreen, color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
+                                        recognizer: TapGestureRecognizer()..onTap = () => Get.toNamed(RouteName.loginPage),
+                                      )
+                                    ]),
                                   ),
                                   const SizedBox(
                                     height: 20,
