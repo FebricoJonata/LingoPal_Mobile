@@ -35,6 +35,7 @@ class _MaterialDetailState extends State<MaterialDetail> {
         ));
 
     return PopScope(
+      canPop: false,
       onPopInvokedWithResult: (didPop, result) => SystemChrome.setPreferredOrientations(DeviceOrientation.values),
       child: Scaffold(
         body: YoutubePlayerBuilder(
