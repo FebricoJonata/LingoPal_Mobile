@@ -22,78 +22,81 @@ class _HomePageState extends State<BasePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.secondaryYellow,
-      bottomNavigationBar: SizedBox(
-        width: 1179.w,
-        height: 2556.h,
-        child: Stack(
-          children: [
-            SizedBox(
-                width: 1179.w,
-                height: 2556.h,
-                child: GetBuilder<BaseController>(
-                  builder: (controller) {
-                    return PageView(
-                      controller: controller.pageController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      onPageChanged: (int index) {
-                        controller.currentPageIndex.value = index;
-                      },
-                      children: controller.pages,
-                    );
+      bottomNavigationBar: PopScope(
+        canPop: false,
+        child: SizedBox(
+          width: 1179.w,
+          height: 2556.h,
+          child: Stack(
+            children: [
+              SizedBox(
+                  width: 1179.w,
+                  height: 2556.h,
+                  child: GetBuilder<BaseController>(
+                    builder: (controller) {
+                      return PageView(
+                        controller: controller.pageController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        onPageChanged: (int index) {
+                          controller.currentPageIndex.value = index;
+                        },
+                        children: controller.pages,
+                      );
+                    },
+                  )),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: CurvedNavigationBar(
+                  key: _bottomNavigationKey,
+                  color: MyColors.white,
+                  backgroundColor: Colors.transparent,
+                  items: const <Widget>[
+                    Icon(Icons.home, color: MyColors.primaryGreen),
+                    Icon(Icons.menu_book_rounded, color: MyColors.primaryGreen),
+                    Icon(Icons.chat_bubble, color: MyColors.primaryGreen),
+                    Icon(Icons.video_collection, color: MyColors.primaryGreen),
+                    Icon(Icons.person, color: MyColors.primaryGreen),
+                  ],
+                  onTap: (index) {
+                    setState(() {
+                      switch (index) {
+                        case 0:
+                          controllerPage.pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                          break;
+                        case 1:
+                          controllerPage.pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                          break;
+                        case 2:
+                          controllerPage.pageController.animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                          break;
+                        case 3:
+                          controller.choices.clear();
+                          if (controller.choices.isEmpty) {
+                            final List<Choices> pageChoices = [
+                              Choices(1, "all".tr, "All", true),
+                              Choices(2, "article".tr, "Article", false),
+                              Choices(3, "Video", "Video", false),
+                            ];
+                            controller.setChoices(pageChoices);
+                          }
+                          controllerPage.pageController.animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                          break;
+                        case 4:
+                          controllerPage.pageController.animateToPage(4, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                        //   break;
+                        // case 4:
+                        //   // controllerProfile.profileAPI();
+                        //   controllerPage.pageController
+                        //       .animateToPage(4, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                        default:
+                          break;
+                      }
+                    });
                   },
-                )),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: CurvedNavigationBar(
-                key: _bottomNavigationKey,
-                color: MyColors.white,
-                backgroundColor: Colors.transparent,
-                items: const <Widget>[
-                  Icon(Icons.home, color: MyColors.primaryGreen),
-                  Icon(Icons.menu_book_rounded, color: MyColors.primaryGreen),
-                  Icon(Icons.chat_bubble, color: MyColors.primaryGreen),
-                  Icon(Icons.video_collection, color: MyColors.primaryGreen),
-                  Icon(Icons.person, color: MyColors.primaryGreen),
-                ],
-                onTap: (index) {
-                  setState(() {
-                    switch (index) {
-                      case 0:
-                        controllerPage.pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                        break;
-                      case 1:
-                        controllerPage.pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                        break;
-                      case 2:
-                        controllerPage.pageController.animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                        break;
-                      case 3:
-                        controller.choices.clear();
-                        if (controller.choices.isEmpty) {
-                          final List<Choices> pageChoices = [
-                            Choices(1, "all".tr, "All", true),
-                            Choices(2, "article".tr, "Article", false),
-                            Choices(3, "Video", "Video", false),
-                          ];
-                          controller.setChoices(pageChoices);
-                        }
-                        controllerPage.pageController.animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                        break;
-                      case 4:
-                        controllerPage.pageController.animateToPage(4, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                      //   break;
-                      // case 4:
-                      //   // controllerProfile.profileAPI();
-                      //   controllerPage.pageController
-                      //       .animateToPage(4, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                      default:
-                        break;
-                    }
-                  });
-                },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
