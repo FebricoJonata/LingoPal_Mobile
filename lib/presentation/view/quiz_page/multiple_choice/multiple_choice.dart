@@ -175,10 +175,13 @@ class MutlipleChoice extends StatelessWidget {
                   height: 150.h,
                   onClick: () async {
                     bool practiceFound = false;
+                    int prevStars = 0;
 
                     for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
                       if (controllerProgress.practiceId.value == progress.practiceId) {
                         practiceFound = true;
+                        prevStars = progress.progressPoin;
+                        print("Previous points: ${progress.progressPoin}");
 
                         break;
                       } else {
@@ -186,7 +189,7 @@ class MutlipleChoice extends StatelessWidget {
                       }
                     }
                     if (stars.value >= 1) {
-                      if (practiceFound == true) {
+                      if (practiceFound == true && prevStars!=0) {
                         if (controllerUpdateCourse.lstIndex.value == true) {
                           controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
                         }
