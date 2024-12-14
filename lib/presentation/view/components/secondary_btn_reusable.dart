@@ -8,29 +8,37 @@ class SecondaryBtn extends StatelessWidget {
     required this.btnText,
     required this.width,
     required this.height,
-    this.onClick,
+    this.onClick, this.fontSize, this.isLoading,
   });
 
+  final double? fontSize;
   final String btnText;
   final double width;
   final double height;
   final Function()? onClick;
+  final bool? isLoading; // Optional isLoading
 
   @override
   Widget build(BuildContext context) {
+    final loading = isLoading ?? false; // Default to false if isLoading is null
     return FilledButton(
-      onPressed: onClick,
+      onPressed: loading ? null : onClick,
       style: FilledButton.styleFrom(
-          backgroundColor: MyColors.secondaryGreen,
+          backgroundColor: loading ? MyColors.grey : MyColors.secondaryGreen,
           minimumSize: Size(width, height),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.sp))),
-      child: Text(btnText,
-          style: const TextStyle(
-            color: MyColors.white,
-            // font
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-          )),
+      child: loading
+          ? const CircularProgressIndicator(
+              color: MyColors.white,
+            )
+          : Text(
+              btnText,
+              style: TextStyle(
+                color: MyColors.white,
+                fontSize: fontSize ?? 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
     );
   }
 }

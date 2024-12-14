@@ -220,9 +220,11 @@ class PronouncePage extends StatelessWidget {
                               height: 150.h,
                               onClick: () async {
                                 bool practiceFound = false;
+                                int prevStars = 0;
                                 for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
                                   if (controllerProgress.practiceId.value == progress.practiceId) {
                                     practiceFound = true;
+                                    prevStars = progress.progressPoin;
 
                                     break;
                                   } else {
@@ -231,25 +233,29 @@ class PronouncePage extends StatelessWidget {
                                 }
                                 if (stars.value >= 1) {
                                   if (practiceFound == true) {
-                                    if (controllerUpdateCourse.lstIndex.value = true) {
-                                      controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
-                                    }
-                                    practiceUpdateController.updatePractice(
-                                        controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
-                                        controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0,
-                                        stars.value,
-                                        true,
-                                        true,
-                                        controllerProgress.courseId.value);
+                                    if(stars.value>prevStars){
+                                      await practiceUpdateController.updatePractice(
+                                          controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
+                                          controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0,
+                                          stars.value,
+                                          true,
+                                          true,
+                                          controllerProgress.courseId.value);
+                                      }
+                                      if (controllerUpdateCourse.lstIndex.value = true) {
+                                        await controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                                      }
+                                        
                                   } else {
+                                    await practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
                                     if (controllerUpdateCourse.lstIndex.value = true) {
                                       controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
                                     }
-                                    practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
                                   }
                                 }
                                 await controllerProgress.getPractices(controllerProgress.courseId.value);
                                 await controllerProgress.getUserPractices();
+                                controllerUpdateCourse.lstIndex.value = false;
                                 Get.back();
                               },
                             )

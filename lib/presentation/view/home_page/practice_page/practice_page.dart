@@ -180,6 +180,8 @@ class _PracticePageState extends State<PracticePage> {
                                           Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
                                         }
                                       : () async {
+                                          print("this is practice Id: ${practice.practiceId}");
+                                          print("the code is ${practice.practiceCode}");
                                           int tappedIndex = practices.indexOf(practice);
                                           if (tappedIndex == practices.length - 1) {
                                             controllerCourseUpdate.lstIndex.value = true;
@@ -209,9 +211,12 @@ class _PracticePageState extends State<PracticePage> {
                                           Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
                                         }
                                       : () async {
+                                          print("this is practice Id (for previously done practice): ${practice.practiceId}");
+                                          print("the code is ${practice.practiceCode}");
                                           int tappedIndex = practices.indexOf(practice);
                                           if (tappedIndex == practices.length - 1) {
                                             controllerCourseUpdate.lstIndex.value = true;
+                                            print("masuk last practice");
                                           }
 
                                           await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
