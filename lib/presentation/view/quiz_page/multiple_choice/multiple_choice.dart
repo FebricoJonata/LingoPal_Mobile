@@ -30,6 +30,10 @@ class MutlipleChoice extends StatelessWidget {
 
   var finalScore = 0.obs;
 
+  int lengthofUserPractice = Get.arguments;
+
+  RxBool btnLoad = false.obs;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,18 +161,20 @@ class MutlipleChoice extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                PrimaryBtn(
-                  btnText: "try_again".tr,
-                  width: 700.w,
-                  height: 150.h,
-                  onClick: () {
-                    currentIndex.value = 0;
-                    score.value = 0;
-                    flag.value = false;
-                    stars.value = 0;
-                    controllerMultiple.fetchQuestions(controllerProgress.practiceId.value);
-                  },
-                ),
+                Obx((){
+                  return PrimaryBtn(
+                    btnText: "try_again".tr,
+                    width: 700.w,
+                    height: 150.h,
+                    onClick: btnLoad.value ? null : () {
+                      currentIndex.value = 0;
+                      score.value = 0;
+                      flag.value = false;
+                      stars.value = 0;
+                      controllerMultiple.fetchQuestions(controllerProgress.practiceId.value);
+                    },
+                  );
+                }),
                 Obx((){
                   return SecondaryBtn(
                     isLoading: (practiceUpdateController.isLoading.value || controllerUpdateCourse.isLoading.value || controllerProgress.isLoading.value),
@@ -176,14 +182,13 @@ class MutlipleChoice extends StatelessWidget {
                     width: 700.w,
                     height: 150.h,
                     onClick: () async {
+                      btnLoad.value = true;
                       bool practiceFound = false;
                       int prevStars = 0;
-                  
                       for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
                         if (controllerProgress.practiceId.value == progress.practiceId) {
                           practiceFound = true;
-                          prevStars = progress.progressPoin;
-                  
+                          prevStars = progress.progressPoin!;
                           break;
                         } else {
                           practiceFound = false;
@@ -191,11 +196,11 @@ class MutlipleChoice extends StatelessWidget {
                       }
                       if (stars.value >= 1) {
                         if (practiceFound == true) {
-                          print("masuk 1");
                         if(stars.value>prevStars){
                           await practiceUpdateController.updatePractice(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
                                 controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0, stars.value, true, true, controllerProgress.courseId.value);
-                          if (controllerUpdateCourse.lstIndex.value == true) {
+                          print("Length of done user practices for this course: ${Get.arguments}");
+                          if (controllerUpdateCourse.lstIndex.value == true || lengthofUserPractice==10) {
                               await controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
                               print("masuk 2");
                             }
@@ -211,6 +216,7 @@ class MutlipleChoice extends StatelessWidget {
                       await controllerProgress.getPractices(controllerProgress.courseId.value);
                       await controllerProgress.getUserPractices();
                       controllerUpdateCourse.lstIndex.value = false;
+                      btnLoad.value = false;
                       Get.back();
                     },
                   );

@@ -96,6 +96,7 @@ class _PracticePageState extends State<PracticePage> {
                   List<PracticeProgress> practiceProgress;
                   practiceProgress = (userPractices.isEmpty) ? [] : mapPracticeProgress(practices, userPractices);
                   checkPracticeProgress(practiceProgress);
+                  int userPracticeLength = practiceProgress.length;
                   lastPracticeCode = (practiceProgress.isEmpty) ? "0" : practiceProgress.last.practice!.practiceCode!;
                   int lastPracticeNum = int.parse(lastPracticeCode);
                   String activePracticeCode = (lastPracticeNum + 1).toString();
@@ -177,7 +178,7 @@ class _PracticePageState extends State<PracticePage> {
                                           await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
-                                          Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
+                                          Get.toNamed(RouteName.quiz, arguments: {"idPractice":practice.practiceId, "progressLength": userPracticeLength});
                                         }
                                       : () async {
                                           print("this is practice Id: ${practice.practiceId}");
@@ -190,7 +191,7 @@ class _PracticePageState extends State<PracticePage> {
                                           await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
-                                          Get.toNamed(RouteName.multipleChoice);
+                                          Get.toNamed(RouteName.multipleChoice, arguments: userPracticeLength);
                                         },
                                   id: practice.practiceId!,
                                   code: practice.practiceCode!,
@@ -208,7 +209,7 @@ class _PracticePageState extends State<PracticePage> {
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
 
-                                          Get.toNamed(RouteName.quiz, arguments: practice.practiceId);
+                                          Get.toNamed(RouteName.quiz, arguments: {"idPractice": practice.practiceId, "progressLength": userPracticeLength});
                                         }
                                       : () async {
                                           print("this is practice Id (for previously done practice): ${practice.practiceId}");
@@ -223,7 +224,7 @@ class _PracticePageState extends State<PracticePage> {
                                           controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
 
-                                          Get.toNamed(RouteName.multipleChoice);
+                                          Get.toNamed(RouteName.multipleChoice, arguments: userPracticeLength);
                                         },
                                   practiceDone: practiceProgress[practices.indexOf(practice)],
                                 )

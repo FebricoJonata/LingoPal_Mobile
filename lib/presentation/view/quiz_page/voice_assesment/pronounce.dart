@@ -32,6 +32,10 @@ class PronouncePage extends StatelessWidget {
 
   var finalScore;
 
+  int lengthofUserPractice = Get.arguments['progressLength'];
+
+  RxBool btnLoad = false.obs;
+
   void showScoreDialog(BuildContext context, double score) {
     // if (score < 65) {
     //   Get.dialog(
@@ -199,67 +203,80 @@ class PronouncePage extends StatelessWidget {
                         ),
                       ),
                       child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            PrimaryBtn(
-                              btnText: "try_again".tr,
-                              width: 700.w,
-                              height: 150.h,
-                              onClick: () {
-                                currentQuestion.value = 0;
-                                score.value = 0;
-                                quizDone.value = false;
-                                stars.value = 0;
-                                controllerQuizQuestion.fetchQuestions(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0);
-                              },
-                            ),
-                            SecondaryBtn(
-                              btnText: "back_to_levels".tr,
-                              width: 700.w,
-                              height: 150.h,
-                              onClick: () async {
-                                bool practiceFound = false;
-                                int prevStars = 0;
-                                for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
-                                  if (controllerProgress.practiceId.value == progress.practiceId) {
-                                    practiceFound = true;
-                                    prevStars = progress.progressPoin;
-
-                                    break;
-                                  } else {
-                                    practiceFound = false;
-                                  }
-                                }
-                                if (stars.value >= 1) {
-                                  if (practiceFound == true) {
-                                    if(stars.value>prevStars){
-                                      await practiceUpdateController.updatePractice(
-                                          controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
-                                          controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0,
-                                          stars.value,
-                                          true,
-                                          true,
-                                          controllerProgress.courseId.value);
+                        child: SizedBox(
+                          width: 900.w,
+                          height: 400.h,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Obx((){
+                                return PrimaryBtn(
+                                  btnText: "try_again".tr,
+                                  width: 700.w,
+                                  height: 150.h,
+                                  onClick: btnLoad.value ? null : () {
+                                    currentQuestion.value = 0;
+                                    score.value = 0;
+                                    quizDone.value = false;
+                                    stars.value = 0;
+                                    print("Practice ID Pronounce: ${controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId}"); // id nya 2, harusnya 12
+                                    controllerQuizQuestion.fetchQuestions(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0);
+                                  },
+                                );
+                              }),
+                              Obx((){
+                                return SecondaryBtn(
+                                  isLoading: (practiceUpdateController.isLoading.value || controllerUpdateCourse.isLoading.value || controllerProgress.isLoading.value),
+                                  btnText: "back_to_levels".tr,
+                                  width: 700.w,
+                                  height: 150.h,
+                                  onClick: () async {
+                                    btnLoad.value = true;
+                                    bool practiceFound = false;
+                                    int prevStars = 0;
+                                    for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
+                                      if (controllerProgress.practiceId.value == progress.practiceId) {
+                                        practiceFound = true;
+                                        prevStars = progress.progressPoin;
+                                
+                                        break;
+                                      } else {
+                                        practiceFound = false;
                                       }
-                                      if (controllerUpdateCourse.lstIndex.value = true) {
-                                        await controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
-                                      }
-                                        
-                                  } else {
-                                    await practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
-                                    if (controllerUpdateCourse.lstIndex.value = true) {
-                                      controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
                                     }
-                                  }
-                                }
-                                await controllerProgress.getPractices(controllerProgress.courseId.value);
-                                await controllerProgress.getUserPractices();
-                                controllerUpdateCourse.lstIndex.value = false;
-                                Get.back();
-                              },
-                            )
-                          ],
+                                    if (stars.value >= 1) {
+                                      if (practiceFound == true) {
+                                        if(stars.value>prevStars){
+                                          await practiceUpdateController.updatePractice(
+                                              controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
+                                              controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0,
+                                              stars.value,
+                                              true,
+                                              true,
+                                              controllerProgress.courseId.value);
+                                          }
+                                          print("Length of done user practices for this course: ${Get.arguments}");
+                                          if (controllerUpdateCourse.lstIndex.value == true || lengthofUserPractice==5) {
+                                            await controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                                          }
+                                            
+                                      } else {
+                                        await practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
+                                        if (controllerUpdateCourse.lstIndex.value == true) {
+                                          controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                                        }
+                                      }
+                                    }
+                                    await controllerProgress.getPractices(controllerProgress.courseId.value);
+                                    await controllerProgress.getUserPractices();
+                                    controllerUpdateCourse.lstIndex.value = false;
+                                    btnLoad.value = false;
+                                    Get.back();
+                                  },
+                                );
+                              })
+                            ],
+                          ),
                         ),
                       ),
                     ),
