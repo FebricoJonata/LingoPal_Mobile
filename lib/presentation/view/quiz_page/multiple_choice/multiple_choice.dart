@@ -185,10 +185,12 @@ class MutlipleChoice extends StatelessWidget {
                       btnLoad.value = true;
                       bool practiceFound = false;
                       int prevStars = 0;
+                      int userPracticeProgress = 0;
                       for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
                         if (controllerProgress.practiceId.value == progress.practiceId) {
                           practiceFound = true;
                           prevStars = progress.progressPoin!;
+                          userPracticeProgress = progress.progressPracticeId;
                           break;
                         } else {
                           practiceFound = false;
@@ -197,8 +199,8 @@ class MutlipleChoice extends StatelessWidget {
                       if (stars.value >= 1) {
                         if (practiceFound == true) {
                         if(stars.value>prevStars){
-                          await practiceUpdateController.updatePractice(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
-                                controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0, stars.value, true, true, controllerProgress.courseId.value);
+                          await practiceUpdateController.updatePractice(userPracticeProgress,
+                                controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
                           print("Length of done user practices for this course: ${Get.arguments}");
                           if (controllerUpdateCourse.lstIndex.value == true || lengthofUserPractice==10) {
                               await controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);

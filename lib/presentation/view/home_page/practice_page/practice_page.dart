@@ -176,7 +176,7 @@ class _PracticePageState extends State<PracticePage> {
                                             controllerCourseUpdate.lstIndex.value = true;
                                           }
                                           await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
-                                          controllerPractice.indexPractice.value = practices.indexOf(practice);
+                                          // controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
                                           Get.toNamed(RouteName.quiz, arguments: {"idPractice":practice.practiceId, "progressLength": userPracticeLength});
                                         }
@@ -189,7 +189,7 @@ class _PracticePageState extends State<PracticePage> {
                                           }
 
                                           await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
-                                          controllerPractice.indexPractice.value = practices.indexOf(practice);
+                                          // controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
                                           Get.toNamed(RouteName.multipleChoice, arguments: userPracticeLength);
                                         },
@@ -206,7 +206,7 @@ class _PracticePageState extends State<PracticePage> {
                                           }
 
                                           await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
-                                          controllerPractice.indexPractice.value = practices.indexOf(practice);
+                                          // controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
 
                                           Get.toNamed(RouteName.quiz, arguments: {"idPractice": practice.practiceId, "progressLength": userPracticeLength});
@@ -221,7 +221,7 @@ class _PracticePageState extends State<PracticePage> {
                                           }
 
                                           await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
-                                          controllerPractice.indexPractice.value = practices.indexOf(practice);
+                                          // controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
 
                                           Get.toNamed(RouteName.multipleChoice, arguments: userPracticeLength);

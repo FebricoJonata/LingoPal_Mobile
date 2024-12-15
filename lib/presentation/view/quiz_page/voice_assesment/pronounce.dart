@@ -26,7 +26,7 @@ class PronouncePage extends StatelessWidget {
   var controllerUpdateCourse = Get.find<CourseUpdateController>();
   RxBool quizDone = false.obs;
   RxInt currentQuestion = 0.obs;
-  final RxInt score = 0.obs;
+  // final RxInt score = 0.obs;
 
   final RxInt stars = 0.obs;
 
@@ -216,11 +216,11 @@ class PronouncePage extends StatelessWidget {
                                   height: 150.h,
                                   onClick: btnLoad.value ? null : () {
                                     currentQuestion.value = 0;
-                                    score.value = 0;
+                                    controllerQuiz.score.value = 0;
                                     quizDone.value = false;
                                     stars.value = 0;
-                                    print("Practice ID Pronounce: ${controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId}"); // id nya 2, harusnya 12
-                                    controllerQuizQuestion.fetchQuestions(controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0);
+                                    print("Practice ID Pronounce: ${controllerProgress.practiceId.value}");
+                                    controllerQuizQuestion.fetchQuestions(controllerProgress.practiceId.value);
                                   },
                                 );
                               }),
@@ -234,11 +234,12 @@ class PronouncePage extends StatelessWidget {
                                     btnLoad.value = true;
                                     bool practiceFound = false;
                                     int prevStars = 0;
+                                    int userPracticeProgress = 0;
                                     for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
                                       if (controllerProgress.practiceId.value == progress.practiceId) {
                                         practiceFound = true;
-                                        prevStars = progress.progressPoin;
-                                
+                                        controllerProgress.indexPractice.value = progress.progressPracticeId;
+                                        userPracticeProgress = progress.progressPracticeId;
                                         break;
                                       } else {
                                         practiceFound = false;
@@ -246,10 +247,10 @@ class PronouncePage extends StatelessWidget {
                                     }
                                     if (stars.value >= 1) {
                                       if (practiceFound == true) {
+                                        print("Practice ID Pronounce: ${controllerProgress.practiceId.value}");
                                         if(stars.value>prevStars){
-                                          await practiceUpdateController.updatePractice(
-                                              controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].progressPracticeId ?? 0,
-                                              controllerProgress.practiceProgress.value?.body?[controllerProgress.indexPractice.value].practiceId ?? 0,
+                                          await practiceUpdateController.updatePractice(userPracticeProgress,
+                                              controllerProgress.practiceId.value,
                                               stars.value,
                                               true,
                                               true,
