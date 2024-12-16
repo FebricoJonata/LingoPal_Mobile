@@ -8,7 +8,7 @@ class DatePicker extends StatefulWidget {
     super.key,
     required this.labelTxt,
     required this.iconTxt,
-    this.onChanged,
+    // this.onChanged,
     required this.linesMax,
     required this.linesMin,
     required this.maxHeight,
@@ -32,7 +32,7 @@ class DatePicker extends StatefulWidget {
   final double radius;
   final double fontSize;
   final double iconSize;
-  final ValueChanged<String>? onChanged;
+  // final ValueChanged<String>? onChanged;
   final bool obscureText;
   final VoidCallback? onPressed;
   final TextEditingController? controller;
@@ -53,10 +53,13 @@ class _MyWidgetState extends State<DatePicker> {
 
   void _showDatePicker(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
+      // fieldLabelText: "YYYY/MM/DD",
+      // fieldHintText: "YYYY/MM/DD",
       context: context,
       lastDate: DateTime.now(),
       firstDate: DateTime(1950),
       initialDate: DateTime.now(),
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
@@ -85,6 +88,8 @@ class _MyWidgetState extends State<DatePicker> {
       child: ConstrainedBox(
         constraints: BoxConstraints(maxHeight: widget.maxHeight),
         child: TextField(
+          onTap: () => _showDatePicker(context),
+          readOnly: true,
           controller: datePickerController,
           obscureText: widget.obscureText,
           minLines: widget.linesMin,
@@ -102,19 +107,17 @@ class _MyWidgetState extends State<DatePicker> {
               width: widget.iconSize,
               height: widget.iconSize,
               child: Center(
-                child: IconButton(
-                  icon: Icon(
+                child: Icon(
                     widget.iconTxt,
                     size: widget.iconSize,
                   ),
-                  onPressed: () => _showDatePicker(context),
                 ),
               ),
             ),
           ),
-          onChanged: widget.onChanged,
+          // onChanged: widget.onChanged,
         ),
-      ),
+      
     );
   }
 }

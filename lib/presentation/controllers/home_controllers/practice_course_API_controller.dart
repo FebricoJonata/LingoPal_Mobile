@@ -41,6 +41,7 @@ class PracticeCourseController extends GetxController {
     var userId = await storage.read(key: "userId");
     String? accessToken = await storage.read(key: "token");
     try {
+      isLoading.value = true;
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice/progress',
           queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
 
@@ -51,7 +52,11 @@ class PracticeCourseController extends GetxController {
       return Right(userPractices);
     } catch (e) {
       print("Error: $e");
+      isLoading.value = false;
       return Left(Failure("$e"));
+    }
+    finally {
+      isLoading.value = false;
     }
   }
 }

@@ -50,7 +50,15 @@ class PronounQuizController extends GetxController {
       print("Error: $e");
       return Left(Failure('Error: ${e.message}'));
     } catch (e) {
-      print("Error Catch: $e");
+      print("Error Catch: $e"); // tambah alert disini
+      Get.dialog(
+        Alert(
+          title: "We encountered a problem",
+          message: "Don't worry, you could retake",
+          onClose: () {
+            Get.back();
+          },
+          imagePath: AssetConstraints.robotCool));
       return Left(Failure("$e"));
     } finally {
       isRecord.value = 0;
