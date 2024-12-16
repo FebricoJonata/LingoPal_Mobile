@@ -66,10 +66,10 @@ class MyApp extends StatelessWidget {
           // themeMode: lightTheme,
           getPages: AppPages.pages,
           theme: ThemeData(
-              textTheme: GoogleFonts.latoTextTheme(),
-              textSelectionTheme: const TextSelectionThemeData(cursorColor: MyColors.secondaryGreen, selectionHandleColor: MyColors.secondaryGreen, selectionColor: MyColors.primaryYellow),
-              popupMenuTheme: const PopupMenuThemeData(color: MyColors.primaryYellow),
-            ),
+            textTheme: GoogleFonts.latoTextTheme(),
+            textSelectionTheme: const TextSelectionThemeData(cursorColor: MyColors.secondaryGreen, selectionHandleColor: MyColors.secondaryGreen, selectionColor: MyColors.primaryYellow),
+            popupMenuTheme: const PopupMenuThemeData(color: MyColors.primaryYellow),
+          ),
         );
       },
     );
