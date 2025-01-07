@@ -21,7 +21,6 @@ class _MaterialDetailState extends State<MaterialDetail> {
 
   @override
   Widget build(BuildContext context) {
-    String source = material.source!;
     String? vidId;
     if (material.type == "Video") {
       vidId = YoutubePlayer.convertUrlToId(material.content!);
@@ -87,13 +86,13 @@ class _MaterialDetailState extends State<MaterialDetail> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      launchUrlString(source.substring(source.indexOf('http')));
+                                      launchUrlString(material.source!);
                                     },
                                     child: Row(
                                       children: [
                                         Flexible(
                                           child: Text(
-                                            source.substring(source.indexOf('(') + 1, source.indexOf(')')),
+                                            "View Source",
                                             style: TextStyle(fontSize: 50.sp),
                                           ),
                                         ),
