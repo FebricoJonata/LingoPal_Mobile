@@ -217,6 +217,7 @@ class PronouncePage extends StatelessWidget {
                                         }
                                       }
                                     }
+                                    controllerQuizQuestion.score.value = 0; // reset score
                                     await controllerProgress.getPractices(controllerProgress.courseId.value);
                                     await controllerProgress.getUserPractices();
                                     controllerUpdateCourse.lstIndex.value = false;
