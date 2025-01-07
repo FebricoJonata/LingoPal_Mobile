@@ -54,8 +54,7 @@ class PracticeCourseController extends GetxController {
       print("Error: $e");
       isLoading.value = false;
       return Left(Failure("$e"));
-    }
-    finally {
+    } finally {
       isLoading.value = false;
     }
   }

@@ -18,21 +18,20 @@ class WordCardController extends GetxController {
       // var uri = Uri.https('https://api.dictionaryapi.dev/api/v2/entries/en/', word);
       // print(uri);
       final response = await Dio().get('https://api.dictionaryapi.dev/api/v2/entries/en/$word');
-
-        print("RESPONSE: ${response.data}");
-        var data = response.data as List<dynamic>;
-        List<WordData?> wordData = [];
-        if (response.data.toString().startsWith("[")){
-          // wordData = json.decode(response.data.toString());
-          // print("After decode: $wordData");
-          wordData = data.map((data){return WordData.fromJson(data);}).toList();
-        } else {
-          wordData = [] as List<WordData?>;
-        }
-        details(wordData);
-        return Right(wordData);
-
-    } on DioException catch(e){
+      var data = response.data as List<dynamic>;
+      List<WordData?> wordData = [];
+      if (response.data.toString().startsWith("[")) {
+        // wordData = json.decode(response.data.toString());
+        // print("After decode: $wordData");
+        wordData = data.map((data) {
+          return WordData.fromJson(data);
+        }).toList();
+      } else {
+        wordData = [] as List<WordData?>;
+      }
+      details(wordData);
+      return Right(wordData);
+    } on DioException catch (e) {
       // isLoading.value = false;
       String errorMessage;
 
@@ -49,8 +48,7 @@ class WordCardController extends GetxController {
         wordData = [];
         details(wordData);
         return Right(wordData);
-      }
-      else {
+      } else {
         errorMessage = e.message ?? "An unexpected error occurred.";
       }
       showError(e.response?.statusCode, errorMessage);

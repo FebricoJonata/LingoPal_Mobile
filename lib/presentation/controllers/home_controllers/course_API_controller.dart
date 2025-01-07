@@ -73,13 +73,11 @@ class CourseController extends GetxController {
       if (totalCoursesBefore.value == 0) {
         totalCoursesBefore.value = activeCourses.length;
       } else {
-        print("alert kebuka masuk sini active: ${activeCourses.length}");
         if (totalCoursesBefore.value < activeCourses.length) {
-          print("ada update course");
           var lastCourseId = activeCourses.last.courseId;
           var courseList = courses.value?.body ?? [];
           var newCourse = courseList[lastCourseId! - 1];
-          print("sebelum update");
+
           Get.dialog(Alert(
             title: "New Course Unlocked!",
             message: "Hooray! You've finally unlocked course ${newCourse.courseName} - ${newCourse.category!.courseCategoryName}",

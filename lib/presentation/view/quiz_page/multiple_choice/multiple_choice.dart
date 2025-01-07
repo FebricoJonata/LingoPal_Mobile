@@ -161,21 +161,23 @@ class MutlipleChoice extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Obx((){
+                Obx(() {
                   return PrimaryBtn(
                     btnText: "try_again".tr,
                     width: 700.w,
                     height: 150.h,
-                    onClick: btnLoad.value ? null : () {
-                      currentIndex.value = 0;
-                      score.value = 0;
-                      flag.value = false;
-                      stars.value = 0;
-                      controllerMultiple.fetchQuestions(controllerProgress.practiceId.value);
-                    },
+                    onClick: btnLoad.value
+                        ? null
+                        : () {
+                            currentIndex.value = 0;
+                            score.value = 0;
+                            flag.value = false;
+                            stars.value = 0;
+                            controllerMultiple.fetchQuestions(controllerProgress.practiceId.value);
+                          },
                   );
                 }),
-                Obx((){
+                Obx(() {
                   return SecondaryBtn(
                     isLoading: (practiceUpdateController.isLoading.value || controllerUpdateCourse.isLoading.value || controllerProgress.isLoading.value),
                     btnText: "back_to_levels".tr,
@@ -198,20 +200,17 @@ class MutlipleChoice extends StatelessWidget {
                       }
                       if (stars.value >= 1) {
                         if (practiceFound == true) {
-                        if(stars.value>prevStars){
-                          await practiceUpdateController.updatePractice(userPracticeProgress,
-                                controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
-                          print("Length of done user practices for this course: ${Get.arguments}");
-                          if (controllerUpdateCourse.lstIndex.value == true || lengthofUserPractice==10) {
+                          if (stars.value > prevStars) {
+                            await practiceUpdateController.updatePractice(userPracticeProgress, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
+
+                            if (controllerUpdateCourse.lstIndex.value == true || lengthofUserPractice == 10) {
                               await controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
-                              print("masuk 2");
                             }
                           }
                         } else {
                           await practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
                           if (controllerUpdateCourse.lstIndex.value == true) {
                             await controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
-                            print("masuk 3");
                           }
                         }
                       }
@@ -222,8 +221,7 @@ class MutlipleChoice extends StatelessWidget {
                       Get.back();
                     },
                   );
-                }
-                )
+                })
               ],
             ),
           ),

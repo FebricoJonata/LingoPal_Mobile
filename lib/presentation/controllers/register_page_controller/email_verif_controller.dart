@@ -28,7 +28,7 @@ class EmailVerifController extends GetxController {
         return Right(emailVerifModel);
       } else {
         isLoading.value = false;
-        print(response.data);
+
         return Left(Failure(response.statusCode.toString()));
       }
     } on DioException catch (e) {

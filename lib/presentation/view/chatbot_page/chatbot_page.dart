@@ -41,7 +41,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
         },
         (chatBotResponse) {
           controller.addMessage(chatbot.chatbotReponse.value?.message ?? "", false);
-          print('Response : ${chatbot.chatbotReponse.value?.message}');
+
           scrollToBottom(); // Scroll ke bawah setelah menerima respons
         },
       );

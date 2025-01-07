@@ -27,20 +27,19 @@ class _MaterialPageState extends State<MaterialPage> {
   @override
   void initState() {
     super.initState();
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        controllerSearch.setSearchWord("");
-        // Pastikan pencarian hanya dijalankan jika diperlukan
-        if (controllerMaterial.materials.value == null) {
-          controllerMaterial.getMaterials(controller.selectedChoice.value?.value, "");
-        }
-      });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controllerSearch.setSearchWord("");
+      // Pastikan pencarian hanya dijalankan jika diperlukan
+      if (controllerMaterial.materials.value == null) {
+        controllerMaterial.getMaterials(controller.selectedChoice.value?.value, "");
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     // controllerSearch.searches.value = "";
-    if(searches.value==""){
-      print("set keyword back to null");
+    if (searches.value == "") {
       controllerMaterial.getMaterials("All", "");
     }
     return Scaffold(
@@ -69,7 +68,6 @@ class _MaterialPageState extends State<MaterialPage> {
                     SizedBox(
                       child: ReusableChoiceChip(
                         onSelect: (value) {
-                          print("masuk componen choice chip");
                           controllerMaterial.getMaterials(controller.selectedChoice.value!.value, controllerSearch.searches.value);
                         },
                       ),
@@ -98,7 +96,10 @@ class _MaterialPageState extends State<MaterialPage> {
                             children: [
                               Text("material_not_found".tr),
                               SizedBox(height: 50.h),
-                              Text("source_not_found".tr, textAlign: TextAlign.center,),
+                              Text(
+                                "source_not_found".tr,
+                                textAlign: TextAlign.center,
+                              ),
                             ],
                           );
                         } else {

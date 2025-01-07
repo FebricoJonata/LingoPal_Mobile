@@ -7,6 +7,7 @@ import 'package:lingo_pal_mobile/presentation/model/quiz_model/multiple_choice.d
 
 class QuestionsController extends GetxController {
   RxInt indexQuestion = 0.obs;
+  RxDouble score = (0.0).obs;
   Rx<MultipleChoiceData?> mutlipleData = Rx<MultipleChoiceData?>(null);
   var storage = const FlutterSecureStorage();
   Future<Either<Failure, MultipleChoiceData>> fetchQuestions(int practiceID) async {
@@ -30,5 +31,25 @@ class QuestionsController extends GetxController {
 
   int calculateFinalScore(int totalQuestions, int correctAnswers) {
     return ((correctAnswers / totalQuestions) * 100).toInt();
+  }
+
+  int starsValue(int finalScore) {
+    if (finalScore >= 90) {
+      return 3; // Skor sempurna mendapatkan 3 bintang
+    } else if (finalScore >= 60) {
+      return 2; // Skor 60-99 mendapatkan 2 bintang
+    } else if (finalScore >= 30) {
+      return 1; // Skor 30-59 mendapatkan 1 bintang
+    } else {
+      return 0; // Skor di bawah 30 tidak mendapatkan bintang
+    }
+  }
+
+  double calculateScore(double scores) {
+    return score.value += scores;
+  }
+
+  int calculateFinalScorePronoun(double totalScore) {
+    return (totalScore / 5).toInt();
   }
 }

@@ -13,7 +13,7 @@ class PronounQuizController extends GetxController {
   RxInt flag = 0.obs;
   Rx<SpeechToText?> speechText = Rx<SpeechToText?>(null);
   var isRecord = 0.obs;
-  RxDouble score = (0.0).obs;
+
   var storage = const FlutterSecureStorage();
   Future<Either<Failure, SpeechToText>> sstAPI(String audioPath, String referenceText) async {
     String? accessToken = await storage.read(key: "token");
@@ -47,12 +47,9 @@ class PronounQuizController extends GetxController {
             },
             imagePath: AssetConstraints.robotCool));
       }
-      print("Error: $e");
       return Left(Failure('Error: ${e.message}'));
     } catch (e) {
-      print("Error Catch: $e"); // tambah alert disini
-      Get.dialog(
-        Alert(
+      Get.dialog(Alert(
           title: "We encountered a problem",
           message: "Don't worry, you could retake",
           onClose: () {
@@ -63,13 +60,5 @@ class PronounQuizController extends GetxController {
     } finally {
       isRecord.value = 0;
     }
-  }
-
-  double calculateScore(double scores) {
-    return score.value += scores;
-  }
-
-  int calculateFinalScore(double totalScore) {
-    return (totalScore / 5).toInt();
   }
 }
