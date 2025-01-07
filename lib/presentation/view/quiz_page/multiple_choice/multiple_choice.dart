@@ -278,7 +278,7 @@ class MutlipleChoice extends StatelessWidget {
             final correctAnswers = score.value;
 
             finalScore.value = controllerMultiple.calculateFinalScore(totalQuestions, correctAnswers);
-            stars.value = starsValue(finalScore.value);
+            stars.value = controllerMultiple.starsValue(finalScore.value);
             flag.value = true;
           }
         });
@@ -305,17 +305,17 @@ class MutlipleChoice extends StatelessWidget {
     );
   }
 
-  int starsValue(int finalScore) {
-    if (finalScore == 100) {
-      return 3; // Skor sempurna mendapatkan 3 bintang
-    } else if (finalScore >= 60) {
-      return 2; // Skor 60-99 mendapatkan 2 bintang
-    } else if (finalScore >= 30) {
-      return 1; // Skor 30-59 mendapatkan 1 bintang
-    } else {
-      return 0; // Skor di bawah 30 tidak mendapatkan bintang
-    }
-  }
+  // int starsValue(int finalScore) {
+  //   if (finalScore == 100) {
+  //     return 3; // Skor sempurna mendapatkan 3 bintang
+  //   } else if (finalScore >= 60) {
+  //     return 2; // Skor 60-99 mendapatkan 2 bintang
+  //   } else if (finalScore >= 30) {
+  //     return 1; // Skor 30-59 mendapatkan 1 bintang
+  //   } else {
+  //     return 0; // Skor di bawah 30 tidak mendapatkan bintang
+  //   }
+  // }
 
   Widget buildStarRating(int stars) {
     return Row(
