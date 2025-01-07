@@ -33,11 +33,9 @@ class _WordCardState extends State<WordCard> {
       var wordList = controllerWordCard.details.value ?? [];
       if (controllerWordCard.isLoading.isTrue || controllerWordCard.details.value == null) {
         return Text("loading".tr);
-      } 
-      else if (controllerWordCard.errorMessage.isNotEmpty) {
+      } else if (controllerWordCard.errorMessage.isNotEmpty) {
         return Text(controllerWordCard.errorMessage.value);
-      } 
-      else if (wordList.isEmpty) {
+      } else if (wordList.isEmpty) {
         return Column(
           children: [
             Text("word_not_found".tr),
@@ -48,7 +46,6 @@ class _WordCardState extends State<WordCard> {
           ],
         );
       } else {
-        print("$wordList");
         WordData fixedData = wordList.first!;
         String word = fixedData.word!;
         String wordforCard = word[0].toUpperCase() + word.substring(1);
@@ -83,7 +80,7 @@ class _WordCardState extends State<WordCard> {
                                 Icons.volume_up_rounded,
                                 color: MyColors.white,
                               ))
-                          : CircularProgressIndicator(
+                          : const CircularProgressIndicator(
                               color: MyColors.secondaryGreen,
                             )
                     ],

@@ -148,11 +148,15 @@ class _PracticePageState extends State<PracticePage> {
                               richMessage: WidgetSpan(
                                   child: Container(
                                 constraints: BoxConstraints(maxWidth: 400.w),
-                                child: Text("practice_rule".tr, style: const TextStyle(color: MyColors.white),),
-                              )
-                            ),
-                            child: const Icon(Icons.info_rounded, color: MyColors.secondaryGreen,)
-                          )                          
+                                child: Text(
+                                  "practice_rule".tr,
+                                  style: const TextStyle(color: MyColors.white),
+                                ),
+                              )),
+                              child: const Icon(
+                                Icons.info_rounded,
+                                color: MyColors.secondaryGreen,
+                              ))
                         ],
                       ),
                       SizedBox(height: 100.h),
@@ -178,11 +182,9 @@ class _PracticePageState extends State<PracticePage> {
                                           await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
                                           // controllerPractice.indexPractice.value = practices.indexOf(practice);
                                           controllerPractice.practiceId.value = practice.practiceId ?? 0;
-                                          Get.toNamed(RouteName.quiz, arguments: {"idPractice":practice.practiceId, "progressLength": userPracticeLength});
+                                          Get.toNamed(RouteName.quiz, arguments: {"idPractice": practice.practiceId, "progressLength": userPracticeLength});
                                         }
                                       : () async {
-                                          print("this is practice Id: ${practice.practiceId}");
-                                          print("the code is ${practice.practiceCode}");
                                           int tappedIndex = practices.indexOf(practice);
                                           if (tappedIndex == practices.length - 1) {
                                             controllerCourseUpdate.lstIndex.value = true;
@@ -212,12 +214,9 @@ class _PracticePageState extends State<PracticePage> {
                                           Get.toNamed(RouteName.quiz, arguments: {"idPractice": practice.practiceId, "progressLength": userPracticeLength});
                                         }
                                       : () async {
-                                          print("this is practice Id (for previously done practice): ${practice.practiceId}");
-                                          print("the code is ${practice.practiceCode}");
                                           int tappedIndex = practices.indexOf(practice);
                                           if (tappedIndex == practices.length - 1) {
                                             controllerCourseUpdate.lstIndex.value = true;
-                                            print("masuk last practice");
                                           }
 
                                           await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);

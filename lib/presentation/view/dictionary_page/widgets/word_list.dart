@@ -63,7 +63,6 @@ class _WordListState extends State<WordList> {
                     shrinkWrap: true,
                     itemCount: 26,
                     itemBuilder: (context, index) {
-                      print("Index: $index");
                       List<Vocab> listVocab = [];
                       listVocab = mapWords(listWords, index);
 

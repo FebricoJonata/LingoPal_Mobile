@@ -56,13 +56,13 @@ class PronouncePage extends StatelessWidget {
         message: "",
         onClose: () {
           Get.back();
-          var scores = controllerQuiz.calculateScore(score);
+          var scores = controllerQuizQuestion.calculateScore(score);
           if (currentQuestion.value < controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
             currentQuestion.value += 1;
           } else {
             quizDone.value = true;
-            finalScore = controllerQuiz.calculateFinalScore(scores); // Hitung finalScore
-            stars.value = starsValue(finalScore); // Gunakan nilai finalScore
+            finalScore = controllerQuizQuestion.calculateFinalScorePronoun(scores); // Hitung finalScore
+            stars.value = controllerQuizQuestion.starsValue(finalScore); // Gunakan nilai finalScore
           }
         },
         // onClose: () {
@@ -85,53 +85,6 @@ class PronouncePage extends StatelessWidget {
     );
     // }
   }
-
-  // void showScoreDialog(BuildContext context, double score) {
-  //   if (score < 65) {
-  //     Get.dialog(
-  //       AlertGood(
-  //         title: "Try Again",
-  //         message: "Haha",
-  //         onClose: () {
-  //           Get.back();
-  //         },
-  //         imagePath: AssetConstraints.robotSad,
-  //         score: "$score",
-  //       ),
-  //     );
-  //   } else {
-  //     Get.dialog(
-  //       AlertGood(
-  //         title: "Good Job",
-  //         message: "Haha",
-  //         onClose: () {
-  //           Get.back();
-  //           var scores = controllerQuiz.score.value += score;
-  //           finalScore = scores / 5;
-  //           if (currentQuestion.value < controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
-  //             currentQuestion.value += 1;
-  //           } else {
-  //             quizDone.value = true;
-  //             finalScore = (scores / 5).toInt();
-
-  //             stars.value = 0;
-  //             if (finalScore == 100) {
-  //               stars.value = 3;
-  //             } else if (finalScore >= 60) {
-  //               stars.value = 2;
-  //             } else if (finalScore >= 30) {
-  //               stars.value = 1;
-  //             } else {
-  //               stars.value = 0;
-  //             }
-  //           }
-  //         },
-  //         imagePath: AssetConstraints.robotQuiz,
-  //         score: "$score",
-  //       ),
-  //     );
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -209,22 +162,24 @@ class PronouncePage extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Obx((){
+                              Obx(() {
                                 return PrimaryBtn(
                                   btnText: "try_again".tr,
                                   width: 700.w,
                                   height: 150.h,
-                                  onClick: btnLoad.value ? null : () {
-                                    currentQuestion.value = 0;
-                                    controllerQuiz.score.value = 0;
-                                    quizDone.value = false;
-                                    stars.value = 0;
-                                    print("Practice ID Pronounce: ${controllerProgress.practiceId.value}");
-                                    controllerQuizQuestion.fetchQuestions(controllerProgress.practiceId.value);
-                                  },
+                                  onClick: btnLoad.value
+                                      ? null
+                                      : () {
+                                          currentQuestion.value = 0;
+                                          controllerQuizQuestion.score.value = 0;
+                                          quizDone.value = false;
+                                          stars.value = 0;
+                                          print("Practice ID Pronounce: ${controllerProgress.practiceId.value}");
+                                          controllerQuizQuestion.fetchQuestions(controllerProgress.practiceId.value);
+                                        },
                                 );
                               }),
-                              Obx((){
+                              Obx(() {
                                 return SecondaryBtn(
                                   isLoading: (practiceUpdateController.isLoading.value || controllerUpdateCourse.isLoading.value || controllerProgress.isLoading.value),
                                   btnText: "back_to_levels".tr,
@@ -247,20 +202,14 @@ class PronouncePage extends StatelessWidget {
                                     }
                                     if (stars.value >= 1) {
                                       if (practiceFound == true) {
-                                        print("Practice ID Pronounce: ${controllerProgress.practiceId.value}");
-                                        if(stars.value>prevStars){
-                                          await practiceUpdateController.updatePractice(userPracticeProgress,
-                                              controllerProgress.practiceId.value,
-                                              stars.value,
-                                              true,
-                                              true,
-                                              controllerProgress.courseId.value);
-                                          }
-                                          print("Length of done user practices for this course: ${Get.arguments}");
-                                          if (controllerUpdateCourse.lstIndex.value == true || lengthofUserPractice==5) {
-                                            await controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
-                                          }
-                                            
+                                        if (stars.value > prevStars) {
+                                          await practiceUpdateController.updatePractice(
+                                              userPracticeProgress, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
+                                        }
+
+                                        if (controllerUpdateCourse.lstIndex.value == true || lengthofUserPractice == 5) {
+                                          await controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                                        }
                                       } else {
                                         await practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
                                         if (controllerUpdateCourse.lstIndex.value == true) {
@@ -306,22 +255,10 @@ class PronouncePage extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 140.sp),
           ),
           Image.asset(AssetConstraints.robotHappy),
-          buildStarRating(starsValue(finalScore)),
+          buildStarRating(controllerQuizQuestion.starsValue(finalScore)),
         ],
       ),
     );
-  }
-
-  int starsValue(int finalScore) {
-    if (finalScore >= 90) {
-      return 3; // Skor sempurna mendapatkan 3 bintang
-    } else if (finalScore >= 60) {
-      return 2; // Skor 60-99 mendapatkan 2 bintang
-    } else if (finalScore >= 30) {
-      return 1; // Skor 30-59 mendapatkan 1 bintang
-    } else {
-      return 0; // Skor di bawah 30 tidak mendapatkan bintang
-    }
   }
 
   Widget buildStarRating(int stars) {

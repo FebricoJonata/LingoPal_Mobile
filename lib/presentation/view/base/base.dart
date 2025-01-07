@@ -83,11 +83,6 @@ class _HomePageState extends State<BasePage> {
                           break;
                         case 4:
                           controllerPage.pageController.animateToPage(4, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                        //   break;
-                        // case 4:
-                        //   // controllerProfile.profileAPI();
-                        //   controllerPage.pageController
-                        //       .animateToPage(4, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                         default:
                           break;
                       }

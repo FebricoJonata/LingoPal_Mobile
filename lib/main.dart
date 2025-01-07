@@ -63,7 +63,6 @@ class MyApp extends StatelessWidget {
           initialRoute: initialRoute,
           translations: TranslationService(),
           locale: Get.locale,
-          // themeMode: lightTheme,
           getPages: AppPages.pages,
           theme: ThemeData(
             textTheme: GoogleFonts.latoTextTheme(),
