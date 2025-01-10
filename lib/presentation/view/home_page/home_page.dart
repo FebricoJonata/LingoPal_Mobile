@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                               child: Container(
                             constraints: BoxConstraints(maxWidth: 800.w),
                             child: Text(
-                              "${"course_locked".tr} ${course.minPoin} point",
+                              "${"course_locked".tr} ${course.minPoin} ${"point".tr}",
                               style: const TextStyle(color: MyColors.white),
                             ),
                           )),

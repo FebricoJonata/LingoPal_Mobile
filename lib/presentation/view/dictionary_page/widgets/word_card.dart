@@ -198,39 +198,40 @@ class _WordCardState extends State<WordCard> {
               height: 50.h,
             ),
             // antonim
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  "Antonyms",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 50.w,
-                ),
-                // ganti jadi row
-                SizedBox(
-                  height: 50.h,
-                  child: ListView.separated(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: fixedData.meanings!.first.antonyms!.length,
-                      itemBuilder: (context, index) {
-                        if (fixedData.meanings!.first.antonyms!.isEmpty) {
-                          return const Text("-");
-                        }
-                        return Text(
-                          fixedData.meanings!.first.antonyms![index],
-                          style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
-                        );
-                      },
-                      separatorBuilder: ((context, index) {
-                        return SizedBox(
-                          width: 50.w,
-                        );
-                      })),
-                )
-              ],
+            SizedBox(
+              height: 60.h,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Antonyms",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 50.w,
+                  ),
+                  Expanded(
+                    child: ListView.separated(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: fixedData.meanings!.first.antonyms!.length,
+                        itemBuilder: (context, index) {
+                          if (fixedData.meanings!.first.antonyms!.isEmpty) {
+                            return const Text("-");
+                          }
+                          return Text(
+                            fixedData.meanings!.first.antonyms![index],
+                            style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold),
+                          );
+                        },
+                        separatorBuilder: ((context, index) {
+                          return SizedBox(
+                            width: 50.w,
+                          );
+                        })),
+                  )
+                ],
+              ),
             ),
           ],
         );

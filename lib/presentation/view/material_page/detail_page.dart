@@ -21,7 +21,6 @@ class _MaterialDetailState extends State<MaterialDetail> {
 
   @override
   Widget build(BuildContext context) {
-    String source = material.source!;
     String? vidId;
     if (material.type == "Video") {
       vidId = YoutubePlayer.convertUrlToId(material.content!);
@@ -53,7 +52,6 @@ class _MaterialDetailState extends State<MaterialDetail> {
             return Container(
               width: 1179.w,
               height: 2556.h,
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 200.h),
               color: MyColors.secondaryYellow,
               child: Column(
                 children: [
@@ -87,13 +85,13 @@ class _MaterialDetailState extends State<MaterialDetail> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      launchUrlString(source.substring(source.indexOf('http')));
+                                      launchUrlString(material.source!);
                                     },
                                     child: Row(
                                       children: [
                                         Flexible(
                                           child: Text(
-                                            source.substring(source.indexOf('(') + 1, source.indexOf(')')),
+                                            "View Source",
                                             style: TextStyle(fontSize: 50.sp),
                                           ),
                                         ),
@@ -114,14 +112,14 @@ class _MaterialDetailState extends State<MaterialDetail> {
                           ],
                         ),
                         SizedBox(
-                          height: material.description! ==""? 0 : 150.h,
+                          height: material.description! =="-" || material.description! ==""? 0 : 100.h,
                         ), //
                         Text(
-                          material.description!,
+                          material.description! =="-"? "" : material.description!,
                           textAlign: TextAlign.justify,
                         ),
                         SizedBox(
-                          height: material.description! ==""? 0 : 100.h,
+                          height: material.description! =="-" || material.description! ==""? 0 : 100.h,
                         ),
                         if (material.type == "Video")
                           player
@@ -130,14 +128,14 @@ class _MaterialDetailState extends State<MaterialDetail> {
                             child: SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  material.cover!=null?
+                                  material.cover!="" && material.cover!="-"?
                                   Image.network(
                                     material.cover,
                                     width: context.width,
                                     fit: BoxFit.contain,
                                   ): const SizedBox(height: 0,),
                                   SizedBox(
-                                    height: 100.h,
+                                    height: (material.cover!="" && material.cover!="-")? 100.h : 0.h,
                                   ),
                                   Text(
                                     material.content!,

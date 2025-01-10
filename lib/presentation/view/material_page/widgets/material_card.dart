@@ -11,7 +11,6 @@ class MaterialCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String source = material.source!;
     return InkWell(
       child: Card(
         elevation: 15,
@@ -25,7 +24,7 @@ class MaterialCard extends StatelessWidget {
             child: Row(
               children: [
                 Image.network(
-                  material.cover ?? "https://icons.veryicon.com/png/o/miscellaneous/common-fill-icon/gallery-33.png",
+                  material.cover=="" || material.cover=="-"? "https://icons.veryicon.com/png/o/miscellaneous/common-fill-icon/gallery-33.png" : material.cover,
                   width: 150.w,
                   height: 150.w,
                   fit: BoxFit.cover,
@@ -47,7 +46,7 @@ class MaterialCard extends StatelessWidget {
                         style: TextStyle(fontSize: 36.sp, fontWeight: FontWeight.bold, color: MyColors.primaryGreen),
                       ),
                       Text(
-                        source.substring(source.indexOf('(') + 1, source.indexOf(')')),
+                        material.type!,
                         style: TextStyle(fontSize: 32.sp),
                       )
                     ],

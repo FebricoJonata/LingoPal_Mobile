@@ -11,7 +11,7 @@ class WordCardController extends GetxController {
   var isLoading = false.obs;
   var errorMessage = ''.obs;
 
-  Future<Either<Failure, List<WordData?>>?> getWordDetails(word) async {
+  Future<Either<Failure, List<WordData?>>?> getWordDetails(String word) async {
     try {
       isLoading.value = true;
       errorMessage.value = '';
