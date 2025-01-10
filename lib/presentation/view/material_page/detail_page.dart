@@ -112,14 +112,14 @@ class _MaterialDetailState extends State<MaterialDetail> {
                           ],
                         ),
                         SizedBox(
-                          height: material.description! =="-"? 0 : 100.h,
+                          height: material.description! =="-" || material.description! ==""? 0 : 100.h,
                         ), //
                         Text(
                           material.description!,
                           textAlign: TextAlign.justify,
                         ),
                         SizedBox(
-                          height: material.description! =="-"? 0 : 100.h,
+                          height: material.description! =="-" || material.description! ==""? 0 : 100.h,
                         ),
                         if (material.type == "Video")
                           player
@@ -128,14 +128,14 @@ class _MaterialDetailState extends State<MaterialDetail> {
                             child: SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  material.cover!=""?
+                                  material.cover!="" && material.cover!="-"?
                                   Image.network(
                                     material.cover,
                                     width: context.width,
                                     fit: BoxFit.contain,
                                   ): const SizedBox(height: 0,),
                                   SizedBox(
-                                    height: (material.cover!="")? 100.h : 0.h,
+                                    height: (material.cover!="" && material.cover!="-")? 100.h : 0.h,
                                   ),
                                   Text(
                                     material.content!,

@@ -13,9 +13,9 @@ class MaterialController extends GetxController {
   var isLoading = false.obs;
   var errorMessage = ''.obs;
   var storage = const FlutterSecureStorage();
-  Future<Either<Failure, MaterialModel>> getMaterials(filter, searches) async {
+  Future<Either<Failure, MaterialModel>> getMaterials(String? filter, String searches) async {
     printError(info: searches);
-    if (filter == "All") {
+    if (filter == "All" || filter == null) {
       filter = "";
     }
     String? accessToken = await storage.read(key: "token");
