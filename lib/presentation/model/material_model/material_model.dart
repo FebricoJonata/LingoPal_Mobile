@@ -23,7 +23,7 @@ class MaterialContent {
   final String? type;
   final String? category;
   final String? source;
-  final dynamic cover;
+  final String? cover;
   final String? content;
   final String? description;
   final String? createdAt;
@@ -46,7 +46,7 @@ class MaterialContent {
       type = json['type'] as String?,
       category = json['category'] as String?,
       source = json['source'] as String?,
-      cover = json['cover'],
+      cover = json['cover'] as String?,
       content = json['content'] as String?,
       description = json['description'] as String?,
       createdAt = json['created_at'] as String?;
