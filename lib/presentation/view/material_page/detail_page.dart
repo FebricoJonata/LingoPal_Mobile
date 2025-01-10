@@ -115,7 +115,7 @@ class _MaterialDetailState extends State<MaterialDetail> {
                           height: material.description! =="-" || material.description! ==""? 0 : 100.h,
                         ), //
                         Text(
-                          material.description!,
+                          material.description! =="-"? "" : material.description!,
                           textAlign: TextAlign.justify,
                         ),
                         SizedBox(
