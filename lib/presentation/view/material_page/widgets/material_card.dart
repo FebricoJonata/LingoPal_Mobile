@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/model/material_model/material_model.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class MaterialCard extends StatelessWidget {
   const MaterialCard({super.key, required this.material});
@@ -46,12 +45,9 @@ class MaterialCard extends StatelessWidget {
                         material.category!,
                         style: TextStyle(fontSize: 36.sp, fontWeight: FontWeight.bold, color: MyColors.primaryGreen),
                       ),
-                      InkWell(
-                        onTap: () => launchUrlString(material.source!),
-                        child: Text(
-                          "View Source",
-                          style: TextStyle(fontSize: 32.sp),
-                        ),
+                      Text(
+                        material.type!,
+                        style: TextStyle(fontSize: 32.sp),
                       )
                     ],
                   ),
