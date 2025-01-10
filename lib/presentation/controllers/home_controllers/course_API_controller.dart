@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/core/color/error/failure.dart';
+import 'package:lingo_pal_mobile/core/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_progress_model.dart';

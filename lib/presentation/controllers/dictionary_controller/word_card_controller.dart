@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:lingo_pal_mobile/core/color/error/failure.dart';
+import 'package:lingo_pal_mobile/core/error/failure.dart';
 import 'package:lingo_pal_mobile/core/error/errors.dart';
 import 'package:lingo_pal_mobile/presentation/model/dictionary_model/data_model.dart';
 

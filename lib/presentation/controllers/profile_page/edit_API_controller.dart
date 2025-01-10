@@ -1,12 +1,12 @@
 // ignore_for_file: file_names
 
-import 'package:dartz/dartz.dart';
+// import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/core/color/error/failure.dart';
+// import 'package:lingo_pal_mobile/core/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
-import 'package:lingo_pal_mobile/presentation/model/profile_model/edit_model.dart';
+// import 'package:lingo_pal_mobile/presentation/model/profile_model/edit_model.dart';
 import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -16,7 +16,7 @@ class EditAPIController extends GetxController {
   RxBool isLoading = false.obs;
   var storage = const FlutterSecureStorage();
   var controllerProfile = Get.find<GetProfileController>();
-  Future<Either<Failure, EditModel>?> editProfileAPI(String name, String birth, String image) async {
+  Future editProfileAPI(String name, String birth, String image) async {
     var userId = await storage.read(key: "userId");
     String? accessToken = await storage.read(key: "token");
     try {
@@ -28,9 +28,14 @@ class EditAPIController extends GetxController {
           headers: {"Accept": "application/json", "Content-Type": "application/json", "Authorization": "Bearer $accessToken"},
         ),
       );
-      final editModel = EditModel.fromJson(response.data);
+      if (response.statusCode == 200) {
+        // Success response
+        controllerProfile.update(); // Update profile data
+      } else {
+        // Handle unsuccessful responses (e.g., 400, 401, etc.)
+        showError(response.statusCode, response.data['message']);
+      }
       controllerProfile.update();
-      return Right(editModel);
     } on DioException catch (e) {
       String errorMessage;
       if (e.type == DioExceptionType.connectionTimeout) {

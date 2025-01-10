@@ -133,13 +133,13 @@ class Body {
 }
 
 class Data {
-  final int? _userId; // Private
-  final String? _name; // Private
-  final String? _email; // Private
-  final String? _phoneNumber; // Private
-  final String? _birthDate; // Private
-  final String? _gender; // Private
-  final String? _image; // Private
+  final int? _userId;
+  final String? _name;
+  final String? _email;
+  final String? _phoneNumber;
+  final String? _birthDate;
+  final String? _gender;
+  final String? _image;
 
   Data({
     int? userId,

@@ -9,6 +9,7 @@ import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profi
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 import '../../controllers/choice_chip_controller.dart';
+import '../../model/profile_model/profile_model.dart';
 import '../components/localization.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -68,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.toNamed(RouteName.editPage, arguments: controllerProfile.profile.value!.body!.data!.first.userId);
+                              Get.toNamed(RouteName.editPage, arguments: Profile().body!.data!.first.userId);
                             },
                             child: Container(
                               width: 200.w,
@@ -98,9 +99,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             builder: (controllerProfile) {
                               return Obx(() => CircleAvatar(
                                     radius: 150.w,
-                                    backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null || controllerProfile.profile.value?.body?.data?.first.image == ''
+                                    backgroundImage: Profile().body?.data?.first.image == null || Profile().body?.data?.first.image == ''
                                         ? const NetworkImage("https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
-                                        : NetworkImage(controllerProfile.profile.value?.body?.data?.first.image ?? ""),
+                                        : NetworkImage(Profile().body?.data?.first.image ?? ""),
                                   ));
                             },
                           ),
@@ -117,7 +118,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        controllerProfile.profile.value?.body?.data?.first.name ?? "",
+                                        Profile().body?.data?.first.name ?? "",
                                         style: TextStyle(
                                           fontSize: 40.sp,
                                           fontWeight: FontWeight.w500,
@@ -127,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        controllerProfile.profile.value?.body!.data!.first.birthDate ?? "",
+                                        Profile().body!.data!.first.birthDate ?? "",
                                         style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w500),
                                       ),
                                     ),
@@ -235,7 +236,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    controllerProfile.profile.value?.body?.data?.first.email ?? "",
+                                    Profile().body?.data?.first.email ?? "",
                                     style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),

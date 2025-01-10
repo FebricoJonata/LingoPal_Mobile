@@ -3,7 +3,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:dartz/dartz.dart';
-import 'package:lingo_pal_mobile/core/color/error/failure.dart';
+import 'package:lingo_pal_mobile/core/error/failure.dart';
 import 'package:dio/dio.dart';
 import 'package:lingo_pal_mobile/presentation/model/chatbot_model/chatbot_response_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';

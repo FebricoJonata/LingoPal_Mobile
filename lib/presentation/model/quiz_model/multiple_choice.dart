@@ -1,13 +1,13 @@
-class MultipleChoiceData {
+class QuizData {
   final int? status;
   final List<Data>? data;
 
-  MultipleChoiceData({
+  QuizData({
     this.status,
     this.data,
   });
 
-  MultipleChoiceData.fromJson(Map<String, dynamic> json)
+  QuizData.fromJson(Map<String, dynamic> json)
       : status = json['status'] as int?,
         data = (json['data'] as List?)?.map((dynamic e) => Data.fromJson(e as Map<String, dynamic>)).toList();
 

@@ -6,6 +6,7 @@ import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/progress_course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
+import 'package:lingo_pal_mobile/presentation/model/profile_model/profile_model.dart';
 // import 'package:lingo_pal_mobile/presentation/model/home_model/progress_model.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -47,7 +48,7 @@ class CustomAppBar extends StatelessWidget {
                         child: Text('Missing data in appbar'),
                       );
                     } else {
-                      String? userName = controllerProfile.profile.value?.body?.data?.first.name;
+                      String? userName = Profile().body?.data?.first.name;
 
                       return Stack(
                         alignment: Alignment.topCenter,
@@ -63,9 +64,9 @@ class CustomAppBar extends StatelessWidget {
                                 Row(
                                   children: [
                                     CircleAvatar(
-                                      backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null || controllerProfile.profile.value?.body?.data?.first.image == ''
+                                      backgroundImage: Profile().body?.data?.first.image == null || Profile().body?.data?.first.image == ''
                                           ? const NetworkImage("https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
-                                          : NetworkImage(controllerProfile.profile.value?.body?.data?.first.image ?? ""),
+                                          : NetworkImage(Profile().body?.data?.first.image ?? ""),
                                       backgroundColor: MyColors.primaryGreen,
                                       foregroundColor: MyColors.secondaryYellow,
                                       radius: 60.h,
