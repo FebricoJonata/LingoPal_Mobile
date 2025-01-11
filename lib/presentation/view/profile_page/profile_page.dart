@@ -9,6 +9,7 @@ import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profi
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 import '../../controllers/choice_chip_controller.dart';
+import '../../model/profile_model/profile_model.dart';
 import '../components/localization.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -68,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.toNamed(RouteName.editPage, arguments: controllerProfile.profile.value!.body!.data!.first.userId);
+                              Get.toNamed(RouteName.editPage, arguments:controllerProfile.profile.value?.body!.data!.first.userId);
                             },
                             child: Container(
                               width: 200.w,
@@ -117,7 +118,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        controllerProfile.profile.value?.body?.data?.first.name ?? "",
+                                       controllerProfile.profile.value?.body?.data?.first.name ?? "",
                                         style: TextStyle(
                                           fontSize: 40.sp,
                                           fontWeight: FontWeight.w500,
@@ -127,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        controllerProfile.profile.value?.body!.data!.first.birthDate ?? "",
+                                    controllerProfile.profile.value?.body?.data!.first.birthDate ?? "",
                                         style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w500),
                                       ),
                                     ),
@@ -235,7 +236,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    controllerProfile.profile.value?.body?.data?.first.email ?? "",
+                                   controllerProfile.profile.value?.body?.data?.first.email ?? "",
                                     style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),

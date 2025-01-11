@@ -17,7 +17,7 @@ class DictionaryPage extends StatefulWidget {
 }
 
 class _DictionaryPageState extends State<DictionaryPage> {
-  String searches = "";
+  // String searches = "";
   var controllerWord = Get.find<WordListController>();
   var controllerSearch = Get.find<SearchBarController>();
 

@@ -3,7 +3,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:dartz/dartz.dart';
-import 'package:lingo_pal_mobile/core/color/error/failure.dart';
+import 'package:lingo_pal_mobile/core/error/failure.dart';
 import 'package:lingo_pal_mobile/core/error/errors.dart';
 import 'package:lingo_pal_mobile/presentation/model/login_model/login_model.dart';
 import 'package:dio/dio.dart';
@@ -14,7 +14,6 @@ class LoginAPIController extends GetxController {
   RxString emailName = "".obs;
   var storage = const FlutterSecureStorage();
 
-  Rx<LoginModel?> login = Rx<LoginModel?>(null);
   Future<Either<Failure, LoginModel>?> loginAPI(String email, String password) async {
     isLoading.value = true;
     try {
@@ -28,7 +27,6 @@ class LoginAPIController extends GetxController {
 
       if (response.statusCode == 200) {
         final loginModel = LoginModel.fromJson(response.data);
-        login(loginModel);
         storage.write(key: "token", value: loginModel.token);
         storage.write(key: "email", value: loginModel.user?.email);
         storage.write(key: "userId", value: loginModel.user?.userId.toString());

@@ -24,12 +24,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   var controllerLogin = Get.find<LoginAPIController>();
   var controllerEmailVerif = Get.find<EmailVerifController>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
-  final RxBool isFormValid = false.obs;
-  final RxBool isPasswordVisible = false.obs;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
+  final RxBool _isFormValid = false.obs;
+  final RxBool _isPasswordVisible = false.obs;
   // var controllerCourse = Get.find<CourseController>();
-  String? validateField(String? value, String fieldType) {
+  String? _validateField(String? value, String fieldType) {
     String? error;
     switch (fieldType) {
       case 'Email':
@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      isFormValid.value = ((emailController.text.contains('@') && emailController.text.isNotEmpty) && passController.text.isNotEmpty);
+      _isFormValid.value = ((_emailController.text.contains('@') && _emailController.text.isNotEmpty) && _passController.text.isNotEmpty);
     });
 
     return error;
@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       ReuseTextField(
-                        controller: emailController,
+                        controller: _emailController,
                         obscureText: false,
                         linesMax: 1,
                         linesMin: 1,
@@ -115,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                         labelTxt: "example@gmail.com",
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         maxHeight: 100.h,
-                        validator: (value) => validateField(value, 'Email'),
+                        validator: (value) => _validateField(value, 'Email'),
                       ),
                       SizedBox(height: 20.h),
                       Align(
@@ -126,8 +126,8 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       Obx(() => ReuseTextField(
-                            controller: passController,
-                            obscureText: !isPasswordVisible.value,
+                            controller: _passController,
+                            obscureText: !_isPasswordVisible.value,
                             linesMax: 1,
                             linesMin: 1,
                             color: MyColors.white,
@@ -141,10 +141,10 @@ class _LoginPageState extends State<LoginPage> {
                             maxHeight: 100.h,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                isPasswordVisible.value ? Icons.visibility : Icons.visibility_off,
+                                _isPasswordVisible.value ? Icons.visibility : Icons.visibility_off,
                               ),
                               onPressed: () {
-                                isPasswordVisible.value = !isPasswordVisible.value;
+                                _isPasswordVisible.value = !_isPasswordVisible.value;
                               },
                             ),
                           )),
@@ -171,10 +171,10 @@ class _LoginPageState extends State<LoginPage> {
                             width: MediaQuery.of(context).size.width / 2,
                             height: 150.h,
                             isLoading: controllerLogin.isLoading.value,
-                            onClick: isFormValid.value == true
+                            onClick: _isFormValid.value == true
                                 ? () async {
-                                    String? email = emailController.text;
-                                    String? pass = passController.text;
+                                    String? email = _emailController.text;
+                                    String? pass = _passController.text;
                                     var res = await controllerLogin.loginAPI(email, pass);
                                     res?.fold((l) {
                                       showError(int.parse(l.message), "");

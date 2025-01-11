@@ -3,7 +3,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/core/color/error/failure.dart';
+import 'package:lingo_pal_mobile/core/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/model/signup_model/singup_model.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 

@@ -69,9 +69,10 @@
 
 //   Map<String, dynamic> toJson() => {'user_id': userId, 'name': name, 'email': email, 'phone_number': phoneNumber, 'birth_date': birthDate, 'gender': gender, 'image': image};
 // }
+
 class Profile {
-  final int? _status; // Private
-  final Body? _body; // Private
+  int? _status; // Private
+  Body? _body; // Private
 
   Profile({
     int? status,
@@ -79,9 +80,13 @@ class Profile {
   })  : _status = status,
         _body = body;
 
-  // Getter
+  // Getters
   int? get status => _status;
   Body? get body => _body;
+
+  // Setters
+  set status(int? value) => _status = value;
+  set body(Body? value) => _body = value;
 
   Profile.fromJson(Map<String, dynamic> json)
       : _status = json['status'] as int?,
@@ -91,11 +96,11 @@ class Profile {
 }
 
 class Body {
-  final dynamic _error; // Private
-  final List<Data>? _data; // Private
-  final dynamic _count; // Private
-  final int? _status; // Private
-  final String? _statusText; // Private
+  dynamic _error; // Private
+  List<Data>? _data; // Private
+  dynamic _count; // Private
+  int? _status; // Private
+  String? _statusText; // Private
 
   Body({
     dynamic error,
@@ -116,6 +121,13 @@ class Body {
   int? get status => _status;
   String? get statusText => _statusText;
 
+  // Setters
+  set error(dynamic value) => _error = value;
+  set data(List<Data>? value) => _data = value;
+  set count(dynamic value) => _count = value;
+  set status(int? value) => _status = value;
+  set statusText(String? value) => _statusText = value;
+
   Body.fromJson(Map<String, dynamic> json)
       : _error = json['error'],
         _data = (json['data'] as List?)?.map((dynamic e) => Data.fromJson(e as Map<String, dynamic>)).toList(),
@@ -133,13 +145,13 @@ class Body {
 }
 
 class Data {
-  final int? _userId; // Private
-  final String? _name; // Private
-  final String? _email; // Private
-  final String? _phoneNumber; // Private
-  final String? _birthDate; // Private
-  final String? _gender; // Private
-  final String? _image; // Private
+  int? _userId;
+  String? _name;
+  String? _email;
+  String? _phoneNumber;
+  String? _birthDate;
+  String? _gender;
+  String? _image;
 
   Data({
     int? userId,
@@ -165,6 +177,15 @@ class Data {
   String? get birthDate => _birthDate;
   String? get gender => _gender;
   String? get image => _image;
+
+  // Setters
+  set userId(int? value) => _userId = value;
+  set name(String? value) => _name = value;
+  set email(String? value) => _email = value;
+  set phoneNumber(String? value) => _phoneNumber = value;
+  set birthDate(String? value) => _birthDate = value;
+  set gender(String? value) => _gender = value;
+  set image(String? value) => _image = value;
 
   Data.fromJson(Map<String, dynamic> json)
       : _userId = json['user_id'] as int?,

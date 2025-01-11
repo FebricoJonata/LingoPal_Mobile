@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
-import 'package:lingo_pal_mobile/core/color/error/failure.dart';
+import 'package:lingo_pal_mobile/core/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/model/chatbot_model/tts.model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -13,7 +13,7 @@ import 'package:audioplayers/audioplayers.dart';
 import '../../../core/error/errors.dart';
 
 class AudioController extends GetxController {
-  String audioUrl = '';
+  // String audioUrl = '';
   RxBool isLoading = false.obs;
   var storage = const FlutterSecureStorage();
   Future<Either<Failure, TTSModel>?> fetchAudioFromApi(String text) async {

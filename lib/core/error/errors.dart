@@ -7,22 +7,22 @@ void showError(int? statusCode, String? message) {
   String errorTitle;
   if (statusCode == 401) {
     errorTitle = "Unauthorized!";
-    errorMessage = "Unauthorized access. Please check your credentials.";
+    errorMessage = "Unauthorized access. Please check your credentials!";
   } else if (statusCode == 402) {
     errorTitle = "Not verified!";
-    errorMessage = "Please check your email to verify account first.";
+    errorMessage = "Please check your email to verify account first!.";
   } else if (statusCode == 404) {
     errorTitle = "Not found!";
-    errorMessage = "Resource not found. Please try again later.";
+    errorMessage = "Resource not found. Please try again later!";
   } else if (statusCode == 500) {
     errorTitle = "Unexpectd Error";
-    errorMessage = "Internal server error. Please contact support.";
+    errorMessage = "Internal server error. Please contact support!";
   } else if (statusCode == 400) {
     errorTitle = "Bad Request";
-    errorMessage = "Bad request. Please check your input.";
+    errorMessage = "Bad request. Please check your input!";
   } else if (statusCode == 422) {
     errorTitle = "Invalid Credentials";
-    errorMessage = "Please input valid credentials";
+    errorMessage = "Please input valid credentials!";
   } else {
     errorTitle = "Alert!";
     errorMessage = message ?? "An unexpected error occurred.";
