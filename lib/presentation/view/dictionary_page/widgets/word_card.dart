@@ -30,8 +30,8 @@ class _WordCardState extends State<WordCard> {
     String search = searchLowerCase(widget.searchWord);
     controllerWordCard.getWordDetails(search);
     return SingleChildScrollView(child: Obx(() {
-      var wordList = controllerWordCard.details.value ?? [];
-      if (controllerWordCard.isLoading.isTrue || controllerWordCard.details.value == null) {
+      var wordList = controllerWordCard.details;
+      if (controllerWordCard.isLoading.isTrue) {
         return Text("loading".tr);
       } else if (controllerWordCard.errorMessage.isNotEmpty) {
         return Text(controllerWordCard.errorMessage.value);

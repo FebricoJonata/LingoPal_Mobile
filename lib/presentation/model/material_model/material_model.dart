@@ -99,7 +99,7 @@ class MaterialContent {
   String? _type;
   String? _category;
   String? _source;
-  dynamic _cover;
+  String? _cover;
   String? _content;
   String? _description;
   String? _createdAt;
