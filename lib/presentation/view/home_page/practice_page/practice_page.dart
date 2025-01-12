@@ -43,7 +43,7 @@ List<PracticeProgress> mapPracticeProgress(practices, userPractices) {
 
 void checkPracticeProgress(practiceProgress) {
   for (PracticeProgress practiceProgress in practiceProgress) {
-    String? levelNum = practiceProgress.practice?.practiceCode;
+    String? levelNum = practiceProgress.practiceCode?.code;
     int? levelId = practiceProgress.practiceId;
     print("After mapping Practices: $levelNum, $levelId");
   }
@@ -97,7 +97,7 @@ class _PracticePageState extends State<PracticePage> {
                   practiceProgress = (userPractices.isEmpty) ? [] : mapPracticeProgress(practices, userPractices);
                   checkPracticeProgress(practiceProgress);
                   int userPracticeLength = practiceProgress.length;
-                  lastPracticeCode = (practiceProgress.isEmpty) ? "0" : practiceProgress.last.practice!.practiceCode!;
+                  lastPracticeCode = (practiceProgress.isEmpty) ? "0" : practiceProgress.last.practiceCode!.code!;
                   int lastPracticeNum = int.parse(lastPracticeCode);
                   String activePracticeCode = (lastPracticeNum + 1).toString();
 
@@ -170,7 +170,7 @@ class _PracticePageState extends State<PracticePage> {
                           shrinkWrap: true,
                           childAspectRatio: (1 / 1.25),
                           children: [
-                            for (Practice practice in practices)
+                            for (PracticeDetail practice in practices)
                               if (practice.practiceCode == activePracticeCode)
                                 ActivePractice(
                                   onTap: course.category?.courseCategoryName == "Pronounciation"

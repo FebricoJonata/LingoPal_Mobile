@@ -14,7 +14,6 @@ import 'package:lingo_pal_mobile/presentation/view/components/date_picker.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/primary_btn_reusable.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/text_field_reusable.dart';
 
-import '../../model/profile_model/profile_model.dart';
 
 class EditPage extends StatefulWidget {
   const EditPage({super.key});
@@ -141,7 +140,7 @@ class _EditPageState extends State<EditPage> {
                             ),
                           ),
                           ReuseTextField(
-                            controller: nameContoller..text = Profile().body?.data?[0].name ?? "-",
+                            controller: nameContoller..text = controllerProfile.profile.value?.body?.data?[0].name ?? "-",
                             obscureText: false,
                             linesMax: 1,
                             linesMin: 1,
@@ -167,7 +166,7 @@ class _EditPageState extends State<EditPage> {
                             ),
                           ),
                           DatePicker(
-                            controller: datePickerController..text = Profile().body?.data?[0].birthDate ?? "-",
+                            controller: datePickerController..text = controllerProfile.profile.value?.body?.data?[0].birthDate ?? "-",
                             labelTxt: "YYYY-MM-DD",
                             iconTxt: Icons.calendar_month,
                             linesMax: 1,

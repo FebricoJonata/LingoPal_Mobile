@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
@@ -6,7 +5,6 @@ import 'package:get/get.dart';
 
 import 'package:lingo_pal_mobile/presentation/model/profile_model/profile_model.dart';
 
-import '../../../core/error/failure.dart';
 
 class GetProfileController extends GetxController {
   // var controllerLogin = Get.find<LoginAPIController>();

@@ -9,7 +9,6 @@ import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profi
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 import '../../controllers/choice_chip_controller.dart';
-import '../../model/profile_model/profile_model.dart';
 import '../components/localization.dart';
 
 class ProfilePage extends StatefulWidget {

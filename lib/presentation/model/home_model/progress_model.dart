@@ -47,7 +47,7 @@ class Body {
       };
 }
 
-class Data {
+class Data { // jgn lupa ganti nama jadi ProgressUser
   final int? progressId;
   final int? progressCourseId;
   final int? totalPoin;
