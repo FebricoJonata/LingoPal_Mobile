@@ -8,14 +8,14 @@ import 'package:lingo_pal_mobile/presentation/model/quiz_model/multiple_choice.d
 class QuestionsController extends GetxController {
   RxInt indexQuestion = 0.obs;
   RxDouble score = (0.0).obs;
-  Rx<QuizData?> mutlipleData = Rx<QuizData?>(null);
+  Rx<QuizModel?> mutlipleData = Rx<QuizModel?>(null);
   var storage = const FlutterSecureStorage();
-  Future<Either<Failure, QuizData>> fetchQuestions(int practiceID) async {
+  Future<Either<Failure, QuizModel>> fetchQuestions(int practiceID) async {
     String? accessToken = await storage.read(key: "token");
     try {
       final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/quiz",
           queryParameters: {'practice_id': practiceID}, options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
-      var multipleChoiceData = QuizData.fromJson(response.data);
+      var multipleChoiceData = QuizModel.fromJson(response.data);
       mutlipleData(multipleChoiceData);
 
       return Right(multipleChoiceData);

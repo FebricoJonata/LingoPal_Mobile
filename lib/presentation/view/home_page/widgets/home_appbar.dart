@@ -60,29 +60,6 @@ class CustomAppBar extends StatelessWidget {
                             padding: EdgeInsets.symmetric(horizontal: 100.w),
                             child: Row(
                               children: [
-<<<<<<< HEAD
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundImage: Profile().body?.data?.first.image == null || Profile().body?.data?.first.image == ''
-                                          ? const NetworkImage("https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
-                                          : NetworkImage(Profile().body?.data?.first.image ?? ""),
-                                      backgroundColor: MyColors.primaryGreen,
-                                      foregroundColor: MyColors.secondaryYellow,
-                                      radius: 60.h,
-                                    ),
-                                    SizedBox(width: 50.w),
-                                    Text(
-                                      userName ?? "",
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.sp),
-                                    ),
-                                    SizedBox(width: 50.w),
-                                    const Icon(
-                                      Icons.waving_hand_rounded,
-                                      color: MyColors.secondaryYellow,
-                                    )
-                                  ],
-=======
                                 CircleAvatar(
                                   backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null || controllerProfile.profile.value?.body?.data?.first.image == ''
                                       ? const NetworkImage("https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
@@ -102,7 +79,6 @@ class CustomAppBar extends StatelessWidget {
                                 const Icon(
                                   Icons.waving_hand_rounded,
                                   color: MyColors.secondaryYellow,
->>>>>>> 5c4e3c0998955108f921d6eb98ce3a58138e9f52
                                 ),
                               ],
                             ),
