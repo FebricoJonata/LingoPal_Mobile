@@ -24,7 +24,7 @@ class MaterialCard extends StatelessWidget {
             child: Row(
               children: [
                 Image.network(
-                  material.cover=="" || material.cover=="-"? "https://icons.veryicon.com/png/o/miscellaneous/common-fill-icon/gallery-33.png" : material.cover,
+                  material.cover! =="" || material.cover! =="-"? "https://icons.veryicon.com/png/o/miscellaneous/common-fill-icon/gallery-33.png" : material.cover!,
                   width: 150.w,
                   height: 150.w,
                   fit: BoxFit.cover,

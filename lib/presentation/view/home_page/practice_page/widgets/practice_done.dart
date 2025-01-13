@@ -26,7 +26,7 @@ class PracticeDone extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
               ),
               child: Text(
-                practiceDone.practice!.practiceCode.toString(),
+                practiceDone.practiceCode!.code.toString(),
                 style: TextStyle(color: Colors.white, fontSize: 100.sp, fontWeight: FontWeight.bold),
               )),
           SizedBox(

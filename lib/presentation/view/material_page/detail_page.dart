@@ -130,7 +130,7 @@ class _MaterialDetailState extends State<MaterialDetail> {
                                 children: [
                                   material.cover!="" && material.cover!="-"?
                                   Image.network(
-                                    material.cover,
+                                    material.cover!,
                                     width: context.width,
                                     fit: BoxFit.contain,
                                   ): const SizedBox(height: 0,),

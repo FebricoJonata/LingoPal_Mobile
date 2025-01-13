@@ -1,15 +1,14 @@
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
-// import 'package:lingo_pal_mobile/core/color/error/failure.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
+
 import 'package:lingo_pal_mobile/presentation/model/profile_model/profile_model.dart';
 
-class GetProfileController extends GetxController {
-  var controllerLogin = Get.find<LoginAPIController>();
 
+class GetProfileController extends GetxController {
+  // var controllerLogin = Get.find<LoginAPIController>();
+  Rx<Profile?> profile = Rx<Profile?>(null);
   var storage = const FlutterSecureStorage();
   Future profileAPI() async {
     var email = await storage.read(key: "email");
@@ -24,14 +23,16 @@ class GetProfileController extends GetxController {
       );
       var profileModel = Profile.fromJson(response.data);
 
-      return Right(profileModel);
+      profile(profileModel);
+      // return Right(profileModel);
     } on DioException catch (e) {
       print("DioException: ${e.response?.statusCode}");
       if (e.response?.statusCode == 401) {
         print("Error 401");
       }
+      // return Left(Failure('Error: ${e.message}'));
     } catch (e) {
-      print(e);
+      // return Left(Failure("$e"));
     }
   }
 

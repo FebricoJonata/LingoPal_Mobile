@@ -99,7 +99,7 @@ class MaterialContent {
   String? _type;
   String? _category;
   String? _source;
-  dynamic _cover;
+  String? _cover;
   String? _content;
   String? _description;
   String? _createdAt;
@@ -110,7 +110,7 @@ class MaterialContent {
     String? type,
     String? category,
     String? source,
-    dynamic cover,
+    String? cover,
     String? content,
     String? description,
     String? createdAt,
@@ -130,7 +130,7 @@ class MaterialContent {
         _type = json['type'] as String?,
         _category = json['category'] as String?,
         _source = json['source'] as String?,
-        _cover = json['cover'],
+        _cover = json['cover'] as String?,
         _content = json['content'] as String?,
         _description = json['description'] as String?,
         _createdAt = json['created_at'] as String?;
@@ -168,8 +168,8 @@ class MaterialContent {
   set source(String? value) => _source = value;
 
   // Getter and Setter for _cover
-  dynamic get cover => _cover;
-  set cover(dynamic value) => _cover = value;
+  String? get cover => _cover;
+  set cover(String? value) => _cover = value;
 
   // Getter and Setter for _content
   String? get content => _content;

@@ -13,7 +13,7 @@ import 'package:audioplayers/audioplayers.dart';
 import '../../../core/error/errors.dart';
 
 class AudioController extends GetxController {
-  String audioUrl = '';
+  // String audioUrl = '';
   RxBool isLoading = false.obs;
   var storage = const FlutterSecureStorage();
   Future<Either<Failure, TTSModel>?> fetchAudioFromApi(String text) async {

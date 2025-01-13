@@ -7,7 +7,7 @@ import 'package:lingo_pal_mobile/core/error/errors.dart';
 import 'package:lingo_pal_mobile/presentation/model/dictionary_model/data_model.dart';
 
 class WordCardController extends GetxController {
-  Rx<List<WordData?>?> details = Rx<List<WordData?>?>(null);
+  RxList<WordData?> details = <WordData?>[].obs;
   var isLoading = false.obs;
   var errorMessage = ''.obs;
 
@@ -18,16 +18,14 @@ class WordCardController extends GetxController {
       // var uri = Uri.https('https://api.dictionaryapi.dev/api/v2/entries/en/', word);
       // print(uri);
       final response = await Dio().get('https://api.dictionaryapi.dev/api/v2/entries/en/$word');
-      var data = response.data as List<dynamic>;
-      List<WordData?> wordData = [];
+      var data = response.data as List?;
+      var wordData = <WordData?>[];
       if (response.data.toString().startsWith("[")) {
         // wordData = json.decode(response.data.toString());
         // print("After decode: $wordData");
-        wordData = data.map((data) {
+        wordData = data!.map((data) {
           return WordData.fromJson(data);
         }).toList();
-      } else {
-        wordData = [] as List<WordData?>;
       }
       details(wordData);
       return Right(wordData);
