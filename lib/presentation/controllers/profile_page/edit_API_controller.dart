@@ -13,14 +13,16 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../core/error/errors.dart';
 
 class EditAPIController extends GetxController {
-  RxBool isLoading = false.obs;
-  var storage = const FlutterSecureStorage();
-  var controllerProfile = Get.find<GetProfileController>();
+  final RxBool _isLoading = false.obs;
+  final _storage = const FlutterSecureStorage();
+  final _controllerProfile = Get.find<GetProfileController>();
+
+  get isLoading => _isLoading;
   Future editProfileAPI(String name, String birth, String image) async {
-    var userId = await storage.read(key: "userId");
-    String? accessToken = await storage.read(key: "token");
+    var userId = await _storage.read(key: "userId");
+    String? accessToken = await _storage.read(key: "token");
     try {
-      isLoading.value = true;
+      _isLoading.value = true;
       final response = await Dio().post(
         "https://lingo-pal-backend-v1.vercel.app/api/users/update",
         data: {"user_id": userId, "name": name, "birth_date": birth, "image": image},
@@ -30,12 +32,12 @@ class EditAPIController extends GetxController {
       );
       if (response.statusCode == 200) {
         // Success response
-        controllerProfile.update(); // Update profile data
+        _controllerProfile.update(); // Update profile data
       } else {
         // Handle unsuccessful responses (e.g., 400, 401, etc.)
         showError(response.statusCode, response.data['message']);
       }
-      controllerProfile.update();
+      _controllerProfile.update();
     } on DioException catch (e) {
       String errorMessage;
       if (e.type == DioExceptionType.connectionTimeout) {
@@ -49,14 +51,14 @@ class EditAPIController extends GetxController {
       } else {
         errorMessage = e.message ?? "An unexpected error occurred.";
       }
-      isLoading.value = false;
+      _isLoading.value = false;
       // Tampilkan modal error
       showError(e.response?.statusCode, errorMessage);
     } catch (e) {
-      isLoading.value = false;
+      _isLoading.value = false;
       showError(0, e.toString());
     } finally {
-      isLoading.value = false;
+      _isLoading.value = false;
     }
     return null;
   }
@@ -64,11 +66,11 @@ class EditAPIController extends GetxController {
   Future uploadImage(File imageFile, String? imageName) async {
     try {
       final response = await Supabase.instance.client.storage
-          .from('lingo-pal-storage/profiles/') // Replace with your storage bucket name
+          .from('lingo-pal-_storage/profiles/') // Replace with your _storage bucket name
           .upload(imageName ?? "img", imageFile);
 
       if (response.isNotEmpty) {
-        final String publicUrl = Supabase.instance.client.storage.from('lingo-pal-storage/profiles/').getPublicUrl(imageName ?? "");
+        final String publicUrl = Supabase.instance.client.storage.from('lingo-pal-_storage/profiles/').getPublicUrl(imageName ?? "");
 
         return publicUrl;
       }

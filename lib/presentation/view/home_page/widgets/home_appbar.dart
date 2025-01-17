@@ -48,7 +48,7 @@ class CustomAppBar extends StatelessWidget {
                         child: Text('Missing data in appbar'),
                       );
                     } else {
-                      String? userName = controllerProfile.profile.value?.body?.data?.first.name;
+                      String? userName = controllerProfile.profile.value?.body?.first.name;
 
                       return Stack(
                         alignment: Alignment.topCenter,
@@ -61,9 +61,9 @@ class CustomAppBar extends StatelessWidget {
                             child: Row(
                               children: [
                                 CircleAvatar(
-                                  backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null || controllerProfile.profile.value?.body?.data?.first.image == ''
+                                  backgroundImage: controllerProfile.profile.value?.body?.first.image == null || controllerProfile.profile.value?.body?.first.image == ''
                                       ? const NetworkImage("https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
-                                      : NetworkImage(controllerProfile.profile.value?.body?.data?.first.image ?? ""),
+                                      : NetworkImage(controllerProfile.profile.value?.body?.first.image ?? ""),
                                   backgroundColor: MyColors.primaryGreen,
                                   foregroundColor: MyColors.secondaryYellow,
                                   radius: 60.h,

@@ -8,11 +8,14 @@ import 'package:lingo_pal_mobile/presentation/model/profile_model/profile_model.
 
 class GetProfileController extends GetxController {
   // var controllerLogin = Get.find<LoginAPIController>();
-  Rx<Profile?> profile = Rx<Profile?>(null);
-  var storage = const FlutterSecureStorage();
+  final Rx<Profile?> _profile = Rx<Profile?>(null);
+  final _storage = const FlutterSecureStorage();
+
+  get profile => _profile;
+  
   Future profileAPI() async {
-    var email = await storage.read(key: "email");
-    String? accessToken = await storage.read(key: "token");
+    var email = await _storage.read(key: "email");
+    String? accessToken = await _storage.read(key: "token");
     try {
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/users',
@@ -23,7 +26,7 @@ class GetProfileController extends GetxController {
       );
       var profileModel = Profile.fromJson(response.data);
 
-      profile(profileModel);
+      _profile(profileModel);
       // return Right(profileModel);
     } on DioException catch (e) {
       print("DioException: ${e.response?.statusCode}");

@@ -1,11 +1,11 @@
 class TTSModel {
-  final String? audioContent;
+  final String? _audioContent;
 
-  TTSModel({
-    this.audioContent,
-  });
+  TTSModel(String audioContent): _audioContent = audioContent ;
 
-  TTSModel.fromJson(Map<String, dynamic> json) : audioContent = json['audioContent'] as String?;
+  TTSModel.fromJson(Map<String, dynamic> json) : _audioContent = json['audioContent'] as String?;
 
-  Map<String, dynamic> toJson() => {'audioContent': audioContent};
+  get audioContent => _audioContent;
+
+  Map<String, dynamic> toJson() => {'audioContent': _audioContent};
 }

@@ -74,77 +74,77 @@
 
 class Profile {
   int? _status; // Private
-  Body? _body; // Private
+  List<ProfileData>? _body; // Private
 
   Profile({
     int? status,
-    Body? body,
+    List<ProfileData>? body,
   })  : _status = status,
         _body = body;
 
   // Getters
   int? get status => _status;
-  Body? get body => _body;
+  List<ProfileData>? get body => _body;
 
   // Setters
   set status(int? value) => _status = value;
-  set body(Body? value) => _body = value;
+  set body(List<ProfileData>? value) => _body = value;
 
   Profile.fromJson(Map<String, dynamic> json)
       : _status = json['status'] as int?,
-        _body = (json['body'] as Map<String, dynamic>?) != null ? Body.fromJson(json['body'] as Map<String, dynamic>) : null;
+        _body = (json['body']['data'] as List?)?.map((dynamic e) => ProfileData.fromJson(e as Map<String, dynamic>)).toList();
 
-  Map<String, dynamic> toJson() => {'status': _status, 'body': _body?.toJson()};
+  Map<String, dynamic> toJson() => {'status': _status, 'body': _body?.map((e) => e.toJson()).toList()};
 }
 
-class Body {
-  dynamic _error; // Private
-  List<ProfileData>? _data; // Private
-  dynamic _count; // Private
-  int? _status; // Private
-  String? _statusText; // Private
+// class Body {
+//   dynamic _error; // Private
+//   List<ProfileData>? _data; // Private
+//   dynamic _count; // Private
+//   int? _status; // Private
+//   String? _statusText; // Private
 
-  Body({
-    dynamic error,
-    List<ProfileData>? data,
-    dynamic count,
-    int? status,
-    String? statusText,
-  })  : _error = error,
-        _data = data,
-        _count = count,
-        _status = status,
-        _statusText = statusText;
+//   Body({
+//     dynamic error,
+//     List<ProfileData>? data,
+//     dynamic count,
+//     int? status,
+//     String? statusText,
+//   })  : _error = error,
+//         _data = data,
+//         _count = count,
+//         _status = status,
+//         _statusText = statusText;
 
-  // Getters
-  dynamic get error => _error;
-  List<ProfileData>? get data => _data;
-  dynamic get count => _count;
-  int? get status => _status;
-  String? get statusText => _statusText;
+//   // Getters
+//   dynamic get error => _error;
+//   List<ProfileData>? get data => _data;
+//   dynamic get count => _count;
+//   int? get status => _status;
+//   String? get statusText => _statusText;
 
-  // Setters
-  set error(dynamic value) => _error = value;
-  set data(List<ProfileData>? value) => _data = value;
-  set count(dynamic value) => _count = value;
-  set status(int? value) => _status = value;
-  set statusText(String? value) => _statusText = value;
+//   // Setters
+//   set error(dynamic value) => _error = value;
+//   set data(List<ProfileData>? value) => _data = value;
+//   set count(dynamic value) => _count = value;
+//   set status(int? value) => _status = value;
+//   set statusText(String? value) => _statusText = value;
 
-  Body.fromJson(Map<String, dynamic> json)
-      : _error = json['error'],
-        _data = (json['data'] as List?)?.map((dynamic e) => ProfileData.fromJson(e as Map<String, dynamic>)).toList(),
-        _count = json['count'],
-        _status = json['status'] as int?,
-        _statusText = json['statusText'] as String?;
+//   Body.fromJson(Map<String, dynamic> json)
+//       : _error = json['error'],
+//         _data = (json['data'] as List?)?.map((dynamic e) => ProfileData.fromJson(e as Map<String, dynamic>)).toList(),
+//         _count = json['count'],
+//         _status = json['status'] as int?,
+//         _statusText = json['statusText'] as String?;
 
-  Map<String, dynamic> toJson() => {
-        'error': _error,
-        'data': _data?.map((e) => e.toJson()).toList(),
-        'count': _count,
-        'status': _status,
-        'statusText': _statusText,
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         'error': _error,
+//         'data': _data?.map((e) => e.toJson()).toList(),
+//         'count': _count,
+//         'status': _status,
+//         'statusText': _statusText,
+//       };
+// }
 
 class ProfileData {
   int? _userId;
