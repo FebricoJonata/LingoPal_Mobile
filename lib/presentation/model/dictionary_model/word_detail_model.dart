@@ -1,13 +1,13 @@
-// class WordData {
+// class WordDetailModel {
 //   final String? word;
 //   final List<Meanings>? meanings;
 
-//   WordData({
+//   WordDetailModel({
 //     this.word,
 //     this.meanings,
 //   });
 
-//   WordData.fromJson(Map<String, dynamic> json)
+//   WordDetailModel.fromJson(Map<String, dynamic> json)
 //     : word = json['word'] as String?,
 //       meanings = (json['meanings'] as List?)?.map((dynamic e) => Meanings.fromJson(e as Map<String,dynamic>)).toList();
 
@@ -59,17 +59,17 @@
 //     'definition' : definition
 //   };
 // }
-class WordData {
+class WordDetailModel {
   final String? _word;
   final List<Meanings>? _meanings;
 
-  WordData({
+  WordDetailModel({
     String? word,
     List<Meanings>? meanings,
   })  : _word = word,
         _meanings = meanings;
 
-  WordData.fromJson(Map<String, dynamic> json)
+  WordDetailModel.fromJson(Map<String, dynamic> json)
       : _word = json['word'] as String?,
         _meanings = (json['meanings'] as List?)?.map((dynamic e) => Meanings.fromJson(e as Map<String, dynamic>)).toList();
 

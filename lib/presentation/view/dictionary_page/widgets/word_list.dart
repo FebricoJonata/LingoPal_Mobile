@@ -51,9 +51,9 @@ class _WordListState extends State<WordList> {
         Obx(
           () {
             var listWords = controllerWord.words.value?.body ?? [];
-            if (controllerWord.isLoading.isTrue || controllerWord.words.value == null) {
+            if (controllerWord.isLoading.value == true || controllerWord.words.value == null) {
               return Text("loading".tr);
-            } else if (controllerWord.errorMessage.isNotEmpty) {
+            } else if (controllerWord.errorMessage.value != "") {
               return Text(controllerWord.errorMessage.value);
             } else if (listWords.isEmpty) {
               return const Text("No words found");

@@ -4,58 +4,61 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:lingo_pal_mobile/core/error/failure.dart';
 import 'package:lingo_pal_mobile/core/error/errors.dart';
-import 'package:lingo_pal_mobile/presentation/model/dictionary_model/data_model.dart';
+import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_detail_model.dart';
 
 class WordCardController extends GetxController {
-  RxList<WordData?> details = <WordData?>[].obs;
-  var isLoading = false.obs;
-  var errorMessage = ''.obs;
+  final RxList<WordDetailModel?> _details = <WordDetailModel?>[].obs;
+  final _isLoading = false.obs;
+  final _errorMessage = ''.obs;
 
-  Future<Either<Failure, List<WordData?>>?> getWordDetails(String word) async {
+  get isLoading => _isLoading;
+  get details => _details;
+  get errorMessage => _errorMessage;
+
+  Future<Either<Failure, List<WordDetailModel?>>?> getWordDetails(String word) async {
     try {
-      isLoading.value = true;
-      errorMessage.value = '';
+      _isLoading.value = true;
+      _errorMessage.value = '';
       // var uri = Uri.https('https://api.dictionaryapi.dev/api/v2/entries/en/', word);
       // print(uri);
       final response = await Dio().get('https://api.dictionaryapi.dev/api/v2/entries/en/$word');
       var data = response.data as List?;
-      var wordData = <WordData?>[];
+      var wordData = <WordDetailModel?>[];
       if (response.data.toString().startsWith("[")) {
         // wordData = json.decode(response.data.toString());
         // print("After decode: $wordData");
         wordData = data!.map((data) {
-          return WordData.fromJson(data);
+          return WordDetailModel.fromJson(data);
         }).toList();
       }
-      details(wordData);
+      _details(wordData);
       return Right(wordData);
     } on DioException catch (e) {
-      // isLoading.value = false;
-      String errorMessage;
+      // _isLoading.value = false;
 
       if (e.type == DioExceptionType.connectionTimeout) {
-        errorMessage = "Connection timed out. Please check your network and try again.";
+        _errorMessage.value = "Connection timed out. Please check your network and try again.";
       } else if (e.type == DioExceptionType.sendTimeout) {
-        errorMessage = "Request timed out while sending data. Please try again.";
+        _errorMessage.value = "Request timed out while sending data. Please try again.";
       } else if (e.type == DioExceptionType.receiveTimeout) {
-        errorMessage = "Response timed out. Please check your connection and try again.";
+        _errorMessage.value = "Response timed out. Please check your connection and try again.";
       } else if (e.type == DioExceptionType.connectionError) {
-        errorMessage = "Failed to connect to the server. Please check your internet connection.";
+        _errorMessage.value = "Failed to connect to the server. Please check your internet connection.";
       } else if (e.type == DioExceptionType.badResponse) {
-        List<WordData?> wordData = [];
+        List<WordDetailModel?> wordData = [];
         wordData = [];
-        details(wordData);
+        _details(wordData);
         return Right(wordData);
       } else {
-        errorMessage = e.message ?? "An unexpected error occurred.";
+        _errorMessage.value = e.message ?? "An unexpected error occurred.";
       }
-      showError(e.response?.statusCode, errorMessage);
+      showError(e.response?.statusCode, _errorMessage.value);
     } catch (e) {
       // showError(0, e.toString());
-      errorMessage.value = e.toString();
+      _errorMessage.value = e.toString();
       return Left(Failure("$e"));
     } finally {
-      isLoading.value = false;
+      _isLoading.value = false;
     }
     return null;
   }
