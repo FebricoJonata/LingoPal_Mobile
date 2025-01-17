@@ -16,8 +16,8 @@ class BasePage extends StatefulWidget {
 class _HomePageState extends State<BasePage> {
   // int _currentIndex = 0;
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-  var controllerPage = Get.find<BaseController>();
-  final controller = Get.find<ChoicesController>();
+  final _controllerPage = Get.find<BaseController>();
+  final _controller = Get.find<ChoicesController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,28 +61,28 @@ class _HomePageState extends State<BasePage> {
                     setState(() {
                       switch (index) {
                         case 0:
-                          controllerPage.pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                          _controllerPage.pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                           break;
                         case 1:
-                          controllerPage.pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                          _controllerPage.pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                           break;
                         case 2:
-                          controllerPage.pageController.animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                          _controllerPage.pageController.animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                           break;
                         case 3:
-                          controller.choices.clear();
-                          if (controller.choices.isEmpty) {
+                          _controller.choices.clear();
+                          if (_controller.choices.isEmpty) {
                             final List<Choices> pageChoices = [
                               Choices(1, "all".tr, "All", true),
                               Choices(2, "article".tr, "Article", false),
                               Choices(3, "Video", "Video", false),
                             ];
-                            controller.setChoices(pageChoices);
+                            _controller.setChoices(pageChoices);
                           }
-                          controllerPage.pageController.animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                          _controllerPage.pageController.animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                           break;
                         case 4:
-                          controllerPage.pageController.animateToPage(4, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                          _controllerPage.pageController.animateToPage(4, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                         default:
                           break;
                       }

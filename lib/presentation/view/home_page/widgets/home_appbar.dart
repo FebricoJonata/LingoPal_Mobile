@@ -6,7 +6,6 @@ import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/progress_course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
-import 'package:lingo_pal_mobile/presentation/model/profile_model/profile_model.dart';
 // import 'package:lingo_pal_mobile/presentation/model/home_model/progress_model.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -102,7 +101,7 @@ class CustomAppBar extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                      "Level: ${controllerProgress.progress.value?.body?.data?.first.level?.userLevelCode} ${controllerProgress.progress.value?.body?.data?.first.level?.userLevelName}",
+                                      "Level: ${controllerProgress.progress.value?.body?.first.level?.userLevelCode} ${controllerProgress.progress.value?.body?.first.level?.userLevelName}",
                                       style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
                                   Container(
                                     width: 2,
@@ -111,7 +110,7 @@ class CustomAppBar extends StatelessWidget {
                                   ),
                                   Row(children: [
                                     Obx(() =>
-                                        Text("${controllerProgress.progress.value?.body?.data?.first.totalPoin}", style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold))),
+                                        Text("${controllerProgress.progress.value?.body?.first.totalPoin}", style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold))),
                                     const Icon(
                                       Icons.star_rounded,
                                       color: MyColors.primaryYellow,

@@ -1,119 +1,92 @@
+import 'package:lingo_pal_mobile/presentation/model/login_model/login_model.dart';
+
 class ProgressUserModel {
-  final int? status;
-  final Body? body;
+  final int? _status;
+  final List<ProgressUser>? _body;
 
   ProgressUserModel({
-    this.status,
-    this.body,
-  });
+    int? status,
+    List<ProgressUser>? body,
+  })  : _status = status,
+        _body = body;
+
+  int? get status => _status;
+  List<ProgressUser>? get body => _body;
 
   ProgressUserModel.fromJson(Map<String, dynamic> json)
-      : status = json['status'] as int?,
-        body = (json['body'] as Map<String, dynamic>?) != null
-            ? Body.fromJson(json['body'] as Map<String, dynamic>)
-            : null;
+      : _status = json['status'] as int?,
+        _body = (json['body']['data'] as List?)?.map((dynamic e) => ProgressUser.fromJson(e as Map<String, dynamic>)).toList();
 
-  Map<String, dynamic> toJson() => {'status': status, 'body': body?.toJson()};
+  Map<String, dynamic> toJson() => {'status': _status, 'body': _body?.map((e) => e.toJson()).toList()};
 }
 
-class Body {
-  final dynamic error;
-  final List<Data>? data;
-  final dynamic count;
-  final int? status;
-  final String? statusText;
+class ProgressUser {
+  final int? _progressId;
+  final int? _progressCourseId;
+  final int? _totalPoin;
+  final int? _userId;
+  final User? _user;
+  final UserLevelProgress? _level;
 
-  Body({
-    this.error,
-    this.data,
-    this.count,
-    this.status,
-    this.statusText,
-  });
+  ProgressUser({
+    int? progressId,
+    int? progressCourseId,
+    int? totalPoin,
+    int? userId,
+    User? user,
+    UserLevelProgress? level,
+  })  : _progressId = progressId,
+        _progressCourseId = progressCourseId,
+        _totalPoin = totalPoin,
+        _userId = userId,
+        _user = user,
+        _level = level;
 
-  Body.fromJson(Map<String, dynamic> json)
-      : error = json['error'],
-        data = (json['data'] as List?)?.map((dynamic e) => Data.fromJson(e as Map<String, dynamic>)).toList(),
-        count = json['count'],
-        status = json['status'] as int?,
-        statusText = json['statusText'] as String?;
+  int? get progressId => _progressId;
+  int? get progressCourseId => _progressCourseId;
+  int? get totalPoin => _totalPoin;
+  int? get userId => _userId;
+  User? get user => _user;
+  UserLevelProgress? get level => _level;
 
-  Map<String, dynamic> toJson() => {
-        'error': error,
-        'data': data?.map((e) => e.toJson()).toList(),
-        'count': count,
-        'status': status,
-        'statusText': statusText
-      };
-}
-
-class Data { // jgn lupa ganti nama jadi ProgressUser
-  final int? progressId;
-  final int? progressCourseId;
-  final int? totalPoin;
-  final int? userId;
-  final User? user;
-  final Level? level;
-
-  Data({
-    this.progressId,
-    this.progressCourseId,
-    this.totalPoin,
-    this.userId,
-    this.user,
-    this.level,
-  });
-
-  Data.fromJson(Map<String, dynamic> json)
-      : progressId = json['progress_id'] as int?,
-        progressCourseId = json['progress_course_id'] as int?,
-        totalPoin = json['total_poin'] as int?,
-        userId = json['user_id'] as int?,
-        user = (json['user'] as Map<String, dynamic>?) != null
+  ProgressUser.fromJson(Map<String, dynamic> json)
+      : _progressId = json['progress_id'] as int?,
+        _progressCourseId = json['progress_course_id'] as int?,
+        _totalPoin = json['total_poin'] as int?,
+        _userId = json['user_id'] as int?,
+        _user = (json['user'] as Map<String, dynamic>?) != null
             ? User.fromJson(json['user'] as Map<String, dynamic>)
             : null,
-        level = (json['level'] as Map<String, dynamic>?) != null
-            ? Level.fromJson(json['level'] as Map<String, dynamic>)
+        _level = (json['level'] as Map<String, dynamic>?) != null
+            ? UserLevelProgress.fromJson(json['level'] as Map<String, dynamic>)
             : null;
 
   Map<String, dynamic> toJson() => {
-        'progress_id': progressId,
-        'progress_course_id': progressCourseId,
-        'total_poin': totalPoin,
-        'user_id': userId,
-        'user': user?.toJson(),
-        'level': level?.toJson()
+        'progress_id': _progressId,
+        'progress_course_id': _progressCourseId,
+        'total_poin': _totalPoin,
+        'user_id': _userId,
+        'user': _user?.toJson(),
+        'level': _level?.toJson()
       };
 }
 
-class User {
-  final String? name;
-  final String? email;
+class UserLevelProgress {
+  final String? _userLevelCode;
+  final String? _userLevelName;
 
-  User({
-    this.name,
-    this.email,
-  });
+  UserLevelProgress({
+    String? userLevelCode,
+    String? userLevelName,
+  })  : _userLevelCode = userLevelCode,
+        _userLevelName = userLevelName;
 
-  User.fromJson(Map<String, dynamic> json)
-      : name = json['name'] as String?,
-        email = json['email'] as String?;
+  String? get userLevelCode => _userLevelCode;
+  String? get userLevelName => _userLevelName;
 
-  Map<String, dynamic> toJson() => {'name': name, 'email': email};
-}
+  UserLevelProgress.fromJson(Map<String, dynamic> json)
+      : _userLevelCode = json['user_level_code'] as String?,
+        _userLevelName = json['user_level_name'] as String?;
 
-class Level {
-  final String? userLevelCode;
-  final String? userLevelName;
-
-  Level({
-    this.userLevelCode,
-    this.userLevelName,
-  });
-
-  Level.fromJson(Map<String, dynamic> json)
-      : userLevelCode = json['user_level_code'] as String?,
-        userLevelName = json['user_level_name'] as String?;
-
-  Map<String, dynamic> toJson() => {'user_level_code': userLevelCode, 'user_level_name': userLevelName};
+  Map<String, dynamic> toJson() => {'user_level_code': _userLevelCode, 'user_level_name': _userLevelName};
 }

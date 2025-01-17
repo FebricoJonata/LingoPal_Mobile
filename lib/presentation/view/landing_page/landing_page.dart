@@ -16,7 +16,7 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  var controller = Get.find<PageViewController>();
+  final _controller = Get.find<PageViewController>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +49,11 @@ class _LandingPageState extends State<LandingPage> {
                           width: 1179.w,
                           height: 1500.h,
                           child: PageView(
-                            controller: controller.pageController,
+                            controller: _controller.pageController,
                             onPageChanged: (int index) {
-                              controller.currentPageIndex.value = index;
+                              _controller.currentPageIndex.value = index;
                             },
-                            children: controller.pages,
+                            children: _controller.pages,
                           ),
                         ),
                       ),
@@ -104,13 +104,13 @@ class _LandingPageState extends State<LandingPage> {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List<Widget>.generate(
-                            controller.pages.length,
+                            _controller.pages.length,
                             (index) => Padding(
                               padding: const EdgeInsets.all(10),
                               child: InkWell(
                                 onTap: () {
-                                  controller.currentPageIndex.value = index;
-                                  controller.pageController.animateToPage(
+                                  _controller.currentPageIndex.value = index;
+                                  _controller.pageController.animateToPage(
                                     index,
                                     duration: const Duration(milliseconds: 300),
                                     curve: Curves.easeIn,
@@ -121,7 +121,7 @@ class _LandingPageState extends State<LandingPage> {
                                   height: 40.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: controller.currentPageIndex.value == index
+                                    color: _controller.currentPageIndex.value == index
                                         ? MyColors.primaryGreen
                                         : MyColors.secondaryGreen,
                                   ),
@@ -144,7 +144,7 @@ class _LandingPageState extends State<LandingPage> {
 }
 
 // class _LandingPageState extends State<LandingPage> {
-//   var controller = Get.find<PageViewController>();
+//   var _controller = Get.find<PageViewController>();
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
@@ -177,11 +177,11 @@ class _LandingPageState extends State<LandingPage> {
 //                           height: 1500.h,
 //                           child: Obx(() {
 //                             return PageView(
-//                               controller: controller.pageController,
+//                               _controller: _controller.pageController,
 //                               onPageChanged: (int index) {
-//                                 controller.currentPageIndex.value = index;
+//                                 _controller.currentPageIndex.value = index;
 //                               },
-//                               children: controller.pages,
+//                               children: _controller.pages,
 //                             );
 //                           }),
 //                         ),
@@ -226,20 +226,20 @@ class _LandingPageState extends State<LandingPage> {
 //                     width: 900.w,
 //                     height: 1200.h,
 //                     child: GetBuilder<PageViewController>(
-//                       builder: (controller) {
+//                       builder: (_controller) {
 //                         return Align(
 //                           alignment: Alignment.bottomCenter,
 //                           child: Row(
 //                               mainAxisAlignment: MainAxisAlignment.center,
 //                               children: List<Widget>.generate(
-//                                 controller.pages.length,
+//                                 _controller.pages.length,
 //                                 (index) => Padding(
 //                                     padding: const EdgeInsets.all(
 //                                       10,
 //                                     ),
 //                                     child: InkWell(onTap: () {
-//                                       controller.currentPageIndex.value = index;
-//                                       controller.pageController.animateToPage(index,
+//                                       _controller.currentPageIndex.value = index;
+//                                       _controller.pageController.animateToPage(index,
 //                                           duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
 //                                     }, child: Obx(() {
 //                                       return Container(
@@ -247,7 +247,7 @@ class _LandingPageState extends State<LandingPage> {
 //                                         height: 40.h,
 //                                         decoration: BoxDecoration(
 //                                           borderRadius: BorderRadius.circular(10),
-//                                           color: controller.currentPageIndex == index
+//                                           color: _controller.currentPageIndex == index
 //                                               ? MyColors.primaryGreen
 //                                               : MyColors.secondaryGreen,
 //                                         ),

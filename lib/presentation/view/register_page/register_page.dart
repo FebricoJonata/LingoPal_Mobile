@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
 import 'package:lingo_pal_mobile/core/error/errors.dart';
 import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/choice_chip_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/register_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/date_picker.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/email_alert.dart';
@@ -25,18 +24,17 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<RegisterPage> {
-  final RxBool isFormValid = false.obs;
+  final RxBool _isFormValid = false.obs;
 
-  final TextEditingController datePickerController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController _datePickerController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  final controllerRegis = Get.find<RegisterAPIController>();
-  final controllerChoiceChip = Get.find<ChoicesController>();
-  var controllerEmailVerif = Get.find<EmailVerifController>();
-  final RxBool isPasswordVisible = false.obs;
-  final RxBool isConfirmPasswordVisible = false.obs;
+  final _controllerRegis = Get.find<RegisterAPIController>();
+  final _controllerEmailVerif = Get.find<EmailVerifController>();
+  final RxBool _isPasswordVisible = false.obs;
+  final RxBool _isConfirmPasswordVisible = false.obs;
 
   String? validateField(String? value, String fieldType) {
     String? error;
@@ -56,7 +54,7 @@ class _MyWidgetState extends State<RegisterPage> {
       case 'Confirm Password':
         error = (value == null || value.isEmpty)
             ? 'Confirm Password cannot be empty'
-            : (value != passwordController.text)
+            : (value != _passwordController.text)
                 ? 'Passwords do not match'
                 : null;
         break;
@@ -65,18 +63,13 @@ class _MyWidgetState extends State<RegisterPage> {
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      isFormValid.value =
-          emailController.text.contains('@') && emailController.text.isNotEmpty && nameController.text.isNotEmpty && passwordController.text.isNotEmpty && passwordController.text == value;
+      _isFormValid.value =
+          _emailController.text.contains('@') && _emailController.text.isNotEmpty && _nameController.text.isNotEmpty && _passwordController.text.isNotEmpty && _passwordController.text == value;
     });
 
     return error;
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   controllerChoiceChip.setChoices(pageChoices);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +138,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                     ),
                                   ),
                                   ReuseTextField(
-                                    controller: emailController,
+                                    controller: _emailController,
                                     obscureText: false,
                                     linesMax: 1,
                                     linesMin: 1,
@@ -170,7 +163,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                     ),
                                   ),
                                   ReuseTextField(
-                                    controller: nameController,
+                                    controller: _nameController,
                                     obscureText: false,
                                     linesMax: 1,
                                     linesMin: 1,
@@ -195,7 +188,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                     ),
                                   ),
                                   DatePicker(
-                                      controller: datePickerController,
+                                      controller: _datePickerController,
                                       labelTxt: "YYYY-MM-DD / Click the icon",
                                       iconTxt: Icons.calendar_month,
                                       linesMax: 1,
@@ -216,8 +209,8 @@ class _MyWidgetState extends State<RegisterPage> {
                                     ),
                                   ),
                                   ReuseTextField(
-                                    controller: passwordController,
-                                    obscureText: !isPasswordVisible.value,
+                                    controller: _passwordController,
+                                    obscureText: !_isPasswordVisible.value,
                                     linesMax: 1,
                                     linesMin: 1,
                                     color: MyColors.white,
@@ -233,10 +226,10 @@ class _MyWidgetState extends State<RegisterPage> {
                                     validator: (value) => validateField(value, 'Password'),
                                     suffixIcon: IconButton(
                                       icon: Icon(
-                                        isPasswordVisible.value ? Icons.visibility : Icons.visibility_off,
+                                        _isPasswordVisible.value ? Icons.visibility : Icons.visibility_off,
                                       ),
                                       onPressed: () {
-                                        isPasswordVisible.value = !isPasswordVisible.value;
+                                        _isPasswordVisible.value = !_isPasswordVisible.value;
                                       },
                                     ),
                                   ),
@@ -249,7 +242,7 @@ class _MyWidgetState extends State<RegisterPage> {
                                     ),
                                   ),
                                   ReuseTextField(
-                                    obscureText: !isConfirmPasswordVisible.value,
+                                    obscureText: !_isConfirmPasswordVisible.value,
                                     linesMax: 1,
                                     linesMin: 1,
                                     color: MyColors.white,
@@ -265,10 +258,10 @@ class _MyWidgetState extends State<RegisterPage> {
                                     maxHeight: 100.h,
                                     suffixIcon: IconButton(
                                       icon: Icon(
-                                        isConfirmPasswordVisible.value ? Icons.visibility : Icons.visibility_off,
+                                        _isConfirmPasswordVisible.value ? Icons.visibility : Icons.visibility_off,
                                       ),
                                       onPressed: () {
-                                        isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
+                                        _isConfirmPasswordVisible.value = !_isConfirmPasswordVisible.value;
                                       },
                                     ),
                                   ),
@@ -291,25 +284,25 @@ class _MyWidgetState extends State<RegisterPage> {
                                     btnText: "next".tr,
                                     width: MediaQuery.of(context).size.width / 2,
                                     height: 150.h,
-                                    isLoading: controllerRegis.isLoading.value,
-                                    onClick: isFormValid.value
+                                    isLoading: _controllerRegis.isLoading.value,
+                                    onClick: _isFormValid.value
                                         ? () async {
-                                            String? name = nameController.text;
-                                            String? email = emailController.text;
-                                            String? password = passwordController.text;
+                                            String? name = _nameController.text;
+                                            String? email = _emailController.text;
+                                            String? password = _passwordController.text;
 
-                                            String birth = datePickerController.text;
-                                            var res = await controllerRegis.signUpAPI(name, email, password, birth);
+                                            String birth = _datePickerController.text;
+                                            var res = await _controllerRegis.signUpAPI(name, email, password, birth);
                                             res?.fold((l) {
                                               showError(int.parse(l.message), "");
                                             }, (r) {
-                                              controllerEmailVerif.emailVerification(email);
+                                              _controllerEmailVerif.emailVerification(email);
 
                                               Get.dialog(
                                                   barrierDismissible: false,
                                                   Obx(() => EmailAlert(
-                                                        buttonText: controllerEmailVerif.istap.value == 1
-                                                            ? "${controllerEmailVerif.countdown.value}s to resend" // Countdown
+                                                        buttonText: _controllerEmailVerif.istap.value == 1
+                                                            ? "${_controllerEmailVerif.countdown.value}s to resend" // Countdown
                                                             : "Resend", // Default text
                                                         title: "Email Verification",
                                                         message: "We've sent verification to your Email",
@@ -318,17 +311,17 @@ class _MyWidgetState extends State<RegisterPage> {
                                                         },
                                                         imagePath: AssetConstraints.robotCool,
                                                         onPressed: () async {
-                                                          if (controllerEmailVerif.istap.value == 0) {
-                                                            await controllerEmailVerif.emailVerification(email);
-                                                            controllerEmailVerif.istap.value = 1;
-                                                            controllerEmailVerif.countdown.value = 30; // Set durasi countdown
+                                                          if (_controllerEmailVerif.istap.value == 0) {
+                                                            await _controllerEmailVerif.emailVerification(email);
+                                                            _controllerEmailVerif.istap.value = 1;
+                                                            _controllerEmailVerif.countdown.value = 30; // Set durasi countdown
 
-                                                            for (int i = controllerEmailVerif.countdown.value; i > 0; i--) {
+                                                            for (int i = _controllerEmailVerif.countdown.value; i > 0; i--) {
                                                               await Future.delayed(const Duration(seconds: 1));
-                                                              controllerEmailVerif.countdown.value--;
+                                                              _controllerEmailVerif.countdown.value--;
                                                             }
 
-                                                            controllerEmailVerif.istap.value = 0;
+                                                            _controllerEmailVerif.istap.value = 0;
                                                           }
                                                         },
                                                       )));

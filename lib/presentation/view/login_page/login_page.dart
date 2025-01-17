@@ -22,8 +22,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var controllerLogin = Get.find<LoginAPIController>();
-  var controllerEmailVerif = Get.find<EmailVerifController>();
+  final _controllerLogin = Get.find<LoginAPIController>();
+  final _controllerEmailVerif = Get.find<EmailVerifController>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
   final RxBool _isFormValid = false.obs;
@@ -170,16 +170,16 @@ class _LoginPageState extends State<LoginPage> {
                             btnText: "Login",
                             width: MediaQuery.of(context).size.width / 2,
                             height: 150.h,
-                            isLoading: controllerLogin.isLoading.value,
+                            isLoading: _controllerLogin.isLoading.value,
                             onClick: _isFormValid.value == true
                                 ? () async {
                                     String? email = _emailController.text;
                                     String? pass = _passController.text;
-                                    var res = await controllerLogin.loginAPI(email, pass);
+                                    var res = await _controllerLogin.loginAPI(email, pass);
                                     res?.fold((l) {
                                       showError(int.parse(l.message), "");
                                       if (l.message == "422") {
-                                        controllerEmailVerif.emailVerification(email);
+                                        _controllerEmailVerif.emailVerification(email);
                                       }
                                     }, (r) {});
                                     // Get.toNamed(RouteName.basePage);
