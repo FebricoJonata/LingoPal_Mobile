@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.toNamed(RouteName.editPage, arguments: _controllerProfile.profile.value?.body!.data!.first.userId);
+                              Get.toNamed(RouteName.editPage, arguments: _controllerProfile.profile.value?.body!.first.userId);
                             },
                             child: Container(
                               width: 200.w,
@@ -98,9 +98,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             builder: (controllerProfile) {
                               return Obx(() => CircleAvatar(
                                     radius: 150.w,
-                                    backgroundImage: controllerProfile.profile.value?.body?.data?.first.image == null || controllerProfile.profile.value?.body?.data?.first.image == ''
+                                    backgroundImage: controllerProfile.profile.value?.body?.first.image == null || controllerProfile.profile.value?.body?.first.image == ''
                                         ? const NetworkImage("https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
-                                        : NetworkImage(controllerProfile.profile.value?.body?.data?.first.image ?? ""),
+                                        : NetworkImage(controllerProfile.profile.value?.body?.first.image ?? ""),
                                   ));
                             },
                           ),
@@ -117,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        _controllerProfile.profile.value?.body?.data?.first.name ?? "",
+                                        _controllerProfile.profile.value?.body?.first.name ?? "",
                                         style: TextStyle(
                                           fontSize: 40.sp,
                                           fontWeight: FontWeight.w500,
@@ -127,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        _controllerProfile.profile.value?.body?.data!.first.birthDate ?? "",
+                                        _controllerProfile.profile.value?.body?.first.birthDate ?? "",
                                         style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w500),
                                       ),
                                     ),
@@ -235,7 +235,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    _controllerProfile.profile.value?.body?.data?.first.email ?? "",
+                                    _controllerProfile.profile.value?.body?.first.email ?? "",
                                     style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),

@@ -17,7 +17,7 @@ class EditAPIController extends GetxController {
   final _storage = const FlutterSecureStorage();
   final _controllerProfile = Get.find<GetProfileController>();
 
-  get isLoading => null;
+  get isLoading => _isLoading;
   Future editProfileAPI(String name, String birth, String image) async {
     var userId = await _storage.read(key: "userId");
     String? accessToken = await _storage.read(key: "token");

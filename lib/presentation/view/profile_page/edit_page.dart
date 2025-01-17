@@ -139,7 +139,7 @@ class _EditPageState extends State<EditPage> {
                             ),
                           ),
                           ReuseTextField(
-                            controller: _nameContoller..text = _controllerProfile.profile.value?.body?.data?[0].name ?? "-",
+                            controller: _nameContoller..text = _controllerProfile.profile.value?.body?.first.name ?? "-",
                             obscureText: false,
                             linesMax: 1,
                             linesMin: 1,
@@ -165,7 +165,7 @@ class _EditPageState extends State<EditPage> {
                             ),
                           ),
                           DatePicker(
-                            controller: _datePickerController..text = _controllerProfile.profile.value?.body?.data?[0].birthDate ?? "-",
+                            controller: _datePickerController..text = _controllerProfile.profile.value?.body?.first.birthDate ?? "-",
                             labelTxt: "YYYY-MM-DD",
                             iconTxt: Icons.calendar_month,
                             linesMax: 1,
