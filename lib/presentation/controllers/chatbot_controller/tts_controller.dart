@@ -15,7 +15,6 @@ import 'package:audioplayers/audioplayers.dart';
 import '../../../core/error/errors.dart';
 
 class AudioController extends GetxController {
-  // String audioUrl = '';
   RxBool _isLoading = false.obs;
   RxBool get isLoading => _isLoading;
   var _storage = const FlutterSecureStorage();
