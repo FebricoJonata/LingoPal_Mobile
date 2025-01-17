@@ -9,16 +9,14 @@ class ProgressUserModel {
 
   ProgressUserModel.fromJson(Map<String, dynamic> json)
       : status = json['status'] as int?,
-        body = (json['body'] as Map<String, dynamic>?) != null
-            ? Body.fromJson(json['body'] as Map<String, dynamic>)
-            : null;
+        body = (json['body'] as Map<String, dynamic>?) != null ? Body.fromJson(json['body'] as Map<String, dynamic>) : null;
 
   Map<String, dynamic> toJson() => {'status': status, 'body': body?.toJson()};
 }
 
 class Body {
   final dynamic error;
-  final List<Data>? data;
+  final List<ProgressUser>? data;
   final dynamic count;
   final int? status;
   final String? statusText;
@@ -33,21 +31,16 @@ class Body {
 
   Body.fromJson(Map<String, dynamic> json)
       : error = json['error'],
-        data = (json['data'] as List?)?.map((dynamic e) => Data.fromJson(e as Map<String, dynamic>)).toList(),
+        data = (json['data'] as List?)?.map((dynamic e) => ProgressUser.fromJson(e as Map<String, dynamic>)).toList(),
         count = json['count'],
         status = json['status'] as int?,
         statusText = json['statusText'] as String?;
 
-  Map<String, dynamic> toJson() => {
-        'error': error,
-        'data': data?.map((e) => e.toJson()).toList(),
-        'count': count,
-        'status': status,
-        'statusText': statusText
-      };
+  Map<String, dynamic> toJson() => {'error': error, 'data': data?.map((e) => e.toJson()).toList(), 'count': count, 'status': status, 'statusText': statusText};
 }
 
-class Data { // jgn lupa ganti nama jadi ProgressUser
+class ProgressUser {
+  // jgn lupa ganti nama jadi ProgressUser
   final int? progressId;
   final int? progressCourseId;
   final int? totalPoin;
@@ -55,7 +48,7 @@ class Data { // jgn lupa ganti nama jadi ProgressUser
   final User? user;
   final Level? level;
 
-  Data({
+  ProgressUser({
     this.progressId,
     this.progressCourseId,
     this.totalPoin,
@@ -64,26 +57,15 @@ class Data { // jgn lupa ganti nama jadi ProgressUser
     this.level,
   });
 
-  Data.fromJson(Map<String, dynamic> json)
+  ProgressUser.fromJson(Map<String, dynamic> json)
       : progressId = json['progress_id'] as int?,
         progressCourseId = json['progress_course_id'] as int?,
         totalPoin = json['total_poin'] as int?,
         userId = json['user_id'] as int?,
-        user = (json['user'] as Map<String, dynamic>?) != null
-            ? User.fromJson(json['user'] as Map<String, dynamic>)
-            : null,
-        level = (json['level'] as Map<String, dynamic>?) != null
-            ? Level.fromJson(json['level'] as Map<String, dynamic>)
-            : null;
+        user = (json['user'] as Map<String, dynamic>?) != null ? User.fromJson(json['user'] as Map<String, dynamic>) : null,
+        level = (json['level'] as Map<String, dynamic>?) != null ? Level.fromJson(json['level'] as Map<String, dynamic>) : null;
 
-  Map<String, dynamic> toJson() => {
-        'progress_id': progressId,
-        'progress_course_id': progressCourseId,
-        'total_poin': totalPoin,
-        'user_id': userId,
-        'user': user?.toJson(),
-        'level': level?.toJson()
-      };
+  Map<String, dynamic> toJson() => {'progress_id': progressId, 'progress_course_id': progressCourseId, 'total_poin': totalPoin, 'user_id': userId, 'user': user?.toJson(), 'level': level?.toJson()};
 }
 
 class User {
