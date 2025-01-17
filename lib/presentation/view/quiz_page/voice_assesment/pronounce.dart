@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables, unrelated_type_equality_checks
+// ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables, unrelated_type_equality_checks, prefer_final_fields
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,22 +19,22 @@ import '../../../controllers/quiz_controller/practice_update.dart';
 class PronouncePage extends StatelessWidget {
   PronouncePage({super.key});
 
-  var controllerQuizQuestion = Get.find<QuestionsController>();
-  var practiceUpdateController = Get.find<PracticeUpdateController>();
-  var controllerProgress = Get.find<PracticeCourseController>();
-  var controllerQuiz = Get.find<PronounQuizController>();
-  var controllerUpdateCourse = Get.find<CourseUpdateController>();
+  var _controllerQuizQuestion = Get.find<QuestionsController>();
+  var _practiceUpdateController = Get.find<PracticeUpdateController>();
+  var _controllerProgress = Get.find<PracticeCourseController>();
+  var _controllerQuiz = Get.find<PronounQuizController>();
+  var _controllerUpdateCourse = Get.find<CourseUpdateController>();
   RxBool quizDone = false.obs;
   RxInt currentQuestion = 0.obs;
   // final RxInt score = 0.obs;
 
-  final RxInt stars = 0.obs;
+  final RxInt _stars = 0.obs;
 
-  var finalScore;
+  var _finalScore;
 
   int lengthofUserPractice = Get.arguments['progressLength'];
 
-  RxBool btnLoad = false.obs;
+  RxBool _btnLoad = false.obs;
 
   void showScoreDialog(BuildContext context, double score) {
     // if (score < 65) {
@@ -56,13 +56,13 @@ class PronouncePage extends StatelessWidget {
         message: "",
         onClose: () {
           Get.back();
-          var scores = controllerQuizQuestion.calculateScore(score);
-          if (currentQuestion.value < controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
+          var scores = _controllerQuizQuestion.calculateScore(score);
+          if (currentQuestion.value < _controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
             currentQuestion.value += 1;
           } else {
             quizDone.value = true;
-            finalScore = controllerQuizQuestion.calculateFinalScorePronoun(scores); // Hitung finalScore
-            stars.value = controllerQuizQuestion.starsValue(finalScore); // Gunakan nilai finalScore
+            _finalScore = _controllerQuizQuestion.calculateFinalScorePronoun(scores); // Hitung finalScore
+            _stars.value = _controllerQuizQuestion.starsValue(_finalScore); // Gunakan nilai finalScore
           }
         },
         // onClose: () {
@@ -95,9 +95,9 @@ class PronouncePage extends StatelessWidget {
         canPop: false,
         child: Obx(() {
           if (quizDone.value == false) {
-            if (controllerQuiz.speechText.value != null && controllerQuiz.flag.value == 1) {
-              final score = controllerQuiz.speechText.value!.body?.pronunciationScores?.pronunciationScore ?? 0;
-              controllerQuiz.flag.value = 0; // Reset flag untuk menghindari dialog berulang
+            if (_controllerQuiz.speechText.value != null && _controllerQuiz.flag.value == 1) {
+              final score = _controllerQuiz.speechText.value!.body?.pronunciationScores?.pronunciationScore ?? 0;
+              _controllerQuiz.flag.value = 0; // Reset flag untuk menghindari dialog berulang
               Future.microtask(() => showScoreDialog(context, score));
             }
             return SizedBox(
@@ -112,13 +112,13 @@ class PronouncePage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        controllerQuiz.isRecord == 0
+                        _controllerQuiz.isRecord == 0
                             ? Image.asset(AssetConstraints.robotQuiz)
                             : const CircularProgressIndicator(
                                 color: MyColors.primaryGreen,
                               ),
                         Text(
-                          controllerQuizQuestion.mutlipleData.value?.data?[currentQuestion.value].question.toString() ?? "",
+                          _controllerQuizQuestion.mutlipleData.value?.data?[currentQuestion.value].question.toString() ?? "",
                           textAlign: TextAlign.center,
                           style: TextStyle(color: MyColors.primaryGreen, fontSize: 100.sp),
                         )
@@ -131,7 +131,7 @@ class PronouncePage extends StatelessWidget {
                       color: MyColors.primaryYellow,
                       child: Center(
                           child: Recorder(
-                        referenceText: controllerQuizQuestion.mutlipleData.value?.data?[currentQuestion.value].question.toString() ?? "",
+                        referenceText: _controllerQuizQuestion.mutlipleData.value?.data?[currentQuestion.value].question.toString() ?? "",
                       )),
                     ),
                   ),
@@ -167,61 +167,60 @@ class PronouncePage extends StatelessWidget {
                                   btnText: "try_again".tr,
                                   width: 700.w,
                                   height: 150.h,
-                                  onClick: btnLoad.value
+                                  onClick: _btnLoad.value
                                       ? null
                                       : () {
                                           currentQuestion.value = 0;
-                                          controllerQuizQuestion.score.value = 0;
+                                          _controllerQuizQuestion.score.value = 0;
                                           quizDone.value = false;
-                                          stars.value = 0;
-                                          print("Practice ID Pronounce: ${controllerProgress.practiceId.value}");
-                                          controllerQuizQuestion.fetchQuestions(controllerProgress.practiceId.value);
+                                          _stars.value = 0;
+                                          _controllerQuizQuestion.fetchQuestions(_controllerProgress.practiceId.value);
                                         },
                                 );
                               }),
                               Obx(() {
                                 return SecondaryBtn(
-                                  isLoading: (practiceUpdateController.isLoading.value || controllerUpdateCourse.isLoading.value || controllerProgress.isLoading.value),
+                                  isLoading: (_practiceUpdateController.isLoading.value || _controllerUpdateCourse.isLoading.value || _controllerProgress.isLoading.value),
                                   btnText: "back_to_levels".tr,
                                   width: 700.w,
                                   height: 150.h,
                                   onClick: () async {
-                                    btnLoad.value = true;
+                                    _btnLoad.value = true;
                                     bool practiceFound = false;
                                     int prevStars = 0;
                                     int userPracticeProgress = 0;
-                                    for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
-                                      if (controllerProgress.practiceId.value == progress.practiceId) {
+                                    for (var progress in _controllerProgress.practiceProgress.value?.body ?? []) {
+                                      if (_controllerProgress.practiceId.value == progress.practiceId) {
                                         practiceFound = true;
-                                        controllerProgress.indexPractice.value = progress.progressPracticeId;
+                                        _controllerProgress.indexPractice.value = progress.progressPracticeId;
                                         userPracticeProgress = progress.progressPracticeId;
                                         break;
                                       } else {
                                         practiceFound = false;
                                       }
                                     }
-                                    if (stars.value >= 1) {
+                                    if (_stars.value >= 1) {
                                       if (practiceFound == true) {
-                                        if (stars.value > prevStars) {
-                                          await practiceUpdateController.updatePractice(
-                                              userPracticeProgress, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
+                                        if (_stars.value > prevStars) {
+                                          await _practiceUpdateController.updatePractice(
+                                              userPracticeProgress, _controllerProgress.practiceId.value, _stars.value, true, true, _controllerProgress.courseId.value);
                                         }
 
-                                        if (controllerUpdateCourse.lstIndex.value == true || lengthofUserPractice == 5) {
-                                          await controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                                        if (_controllerUpdateCourse.lstIndex.value == true || lengthofUserPractice == 5) {
+                                          await _controllerUpdateCourse.updateCourse(_controllerProgress.courseId.value);
                                         }
                                       } else {
-                                        await practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
-                                        if (controllerUpdateCourse.lstIndex.value == true) {
-                                          controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                                        await _practiceUpdateController.updatePractice(0, _controllerProgress.practiceId.value, _stars.value, true, true, _controllerProgress.courseId.value);
+                                        if (_controllerUpdateCourse.lstIndex.value == true) {
+                                          _controllerUpdateCourse.updateCourse(_controllerProgress.courseId.value);
                                         }
                                       }
                                     }
-                                    controllerQuizQuestion.score.value = 0; // reset score
-                                    await controllerProgress.getPractices(controllerProgress.courseId.value);
-                                    await controllerProgress.getUserPractices();
-                                    controllerUpdateCourse.lstIndex.value = false;
-                                    btnLoad.value = false;
+                                    _controllerQuizQuestion.score.value = 0; // reset score
+                                    await _controllerProgress.getPractices(_controllerProgress.courseId.value);
+                                    await _controllerProgress.getUserPractices();
+                                    _controllerUpdateCourse.lstIndex.value = false;
+                                    _btnLoad.value = false;
                                     Get.back();
                                   },
                                 );
@@ -252,11 +251,11 @@ class PronouncePage extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 40.sp),
           ),
           Text(
-            "$finalScore/100",
+            "$_finalScore/100",
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 140.sp),
           ),
           Image.asset(AssetConstraints.robotHappy),
-          buildStarRating(controllerQuizQuestion.starsValue(finalScore)),
+          buildStarRating(_controllerQuizQuestion.starsValue(_finalScore)),
         ],
       ),
     );

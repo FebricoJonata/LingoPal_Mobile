@@ -1,5 +1,7 @@
 // // ignore_for_file: invalid_use_of_protected_member
 
+// ignore_for_file: prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,10 +22,10 @@ class ChatbotPage extends StatefulWidget {
 }
 
 class _ChatbotPageState extends State<ChatbotPage> {
-  TextEditingController messageController = TextEditingController();
-  var chatbot = Get.find<ChatBotAPIController>();
-  var controllerTTS = Get.find<AudioController>();
-  var controller = Get.find<ChatController>();
+  TextEditingController _messageController = TextEditingController();
+  var _chatbot = Get.find<ChatBotAPIController>();
+  var _controllerTTS = Get.find<AudioController>();
+  var _controller = Get.find<ChatController>();
   ScrollController scrollController = ScrollController();
 
   Future<void> handleSubmittedMessage(String message) async {
@@ -31,8 +33,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
       if (message.trim().isEmpty) {
         return;
       }
-      controller.addMessage(message, true);
-      final response = await chatbot.chatBotAPI(message);
+      _controller.addMessage(message, true);
+      final response = await _chatbot.chatBotAPI(message);
 
       response.fold(
         (failure) {
@@ -40,16 +42,16 @@ class _ChatbotPageState extends State<ChatbotPage> {
           print('Error: ${failure.message}');
         },
         (chatBotResponse) {
-          controller.addMessage(chatbot.chatbotReponse.value?.message ?? "", false);
+          _controller.addMessage(_chatbot.chatbotReponse.value?.message ?? "", false);
 
           scrollToBottom(); // Scroll ke bawah setelah menerima respons
         },
       );
 
-      messageController.clear();
-      chatbot.update();
+      _messageController.clear();
+      _chatbot.update();
     }
-    controller.update();
+    _controller.update();
     scrollToBottom(); // Scroll ke bawah setelah mengirim pesan
   }
 
@@ -116,13 +118,13 @@ class _ChatbotPageState extends State<ChatbotPage> {
                             );
                           } else {
                             return Obx(() => MessageBubble.first(
-                                  isLoading: controllerTTS.isLoading.value,
+                                  isLoading: _chatbot.isLoading.value,
                                   userImage: AssetConstraints.robotCool,
                                   username: "Lingo",
                                   message: message.text,
                                   isMe: false,
                                   onSpeechPressed: () async {
-                                    controllerTTS.fetchAudioFromApi(controller.messages[index].text);
+                                    _controllerTTS.fetchAudioFromApi(controller.messages[index].text);
                                   },
                                   isLastMessage: true,
                                 ));
@@ -133,9 +135,9 @@ class _ChatbotPageState extends State<ChatbotPage> {
                   ),
                 ),
                 NewMessage(
-                  controller: messageController,
+                  controller: _messageController,
                   onSubmitted: (value) async {
-                    String message = messageController.text;
+                    String message = _messageController.text;
                     await handleSubmittedMessage(message);
                   },
                 )

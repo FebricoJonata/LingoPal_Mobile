@@ -10,9 +10,10 @@ import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
 
 class ChatBotAPIController extends GetxController {
   final _isLoading = RxBool(false);
-  Rx<ChatBotResponse?> chatbotReponse = Rx<ChatBotResponse?>(null);
+  final Rx<ChatBotResponse?> _chatbotReponse = Rx<ChatBotResponse?>(null);
+  Rx<ChatBotResponse?> get chatbotReponse => _chatbotReponse;
   RxBool get isLoading => _isLoading;
-  var storage = const FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
   Future<Either<Failure, ChatBotResponse>> chatBotAPI(String message) async {
     _isLoading.value = true;
     final requestBody = {
@@ -23,7 +24,7 @@ class ChatBotAPIController extends GetxController {
         }
       ]
     };
-    String? accessToken = await storage.read(key: "token");
+    String? accessToken = await _storage.read(key: "token");
     try {
       final response = await Dio().post(
         'https://lingo-pal-backend-v1.vercel.app/api/chat/chat-completion',
@@ -33,7 +34,7 @@ class ChatBotAPIController extends GetxController {
         ),
       );
       final chatBotResponseModel = ChatBotResponse.fromJson(response.data);
-      chatbotReponse(chatBotResponseModel);
+      _chatbotReponse(chatBotResponseModel);
 
       return Right(chatBotResponseModel);
     } on DioException catch (e) {

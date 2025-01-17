@@ -19,7 +19,7 @@ class Recorder extends StatefulWidget {
 }
 
 class _RecorderState extends State<Recorder> {
-  var controllerSpeech = Get.find<PronounQuizController>();
+  final _controllerSpeech = Get.find<PronounQuizController>();
   final AudioPlayer _audioPlayer = AudioPlayer();
   final AudioRecorder _recorder = AudioRecorder();
   bool _isRecording = false;
@@ -66,7 +66,7 @@ class _RecorderState extends State<Recorder> {
     setState(() {
       _isRecording = false;
     });
-    controllerSpeech.sstAPI(path ?? "", widget.referenceText);
+    _controllerSpeech.sstAPI(path ?? "", widget.referenceText);
   }
 
   Future<void> _playRecording() async {

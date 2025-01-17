@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -14,10 +16,11 @@ import '../../../core/error/errors.dart';
 
 class AudioController extends GetxController {
   // String audioUrl = '';
-  RxBool isLoading = false.obs;
-  var storage = const FlutterSecureStorage();
+  RxBool _isLoading = false.obs;
+  RxBool get isLoading => _isLoading;
+  var _storage = const FlutterSecureStorage();
   Future<Either<Failure, TTSModel>?> fetchAudioFromApi(String text) async {
-    String? accessToken = await storage.read(key: "token");
+    String? accessToken = await _storage.read(key: "token");
     try {
       isLoading.value = true;
       final response = await Dio().post(

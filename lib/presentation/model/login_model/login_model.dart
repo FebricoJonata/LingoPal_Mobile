@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters
+
 class LoginModel {
   String? _message;
   User? _user;
@@ -23,9 +25,7 @@ class LoginModel {
 
   LoginModel.fromJson(Map<String, dynamic> json)
       : _message = json['message'] as String?,
-        _user = (json['user'] as Map<String, dynamic>?) != null
-            ? User.fromJson(json['user'] as Map<String, dynamic>)
-            : null,
+        _user = (json['user'] as Map<String, dynamic>?) != null ? User.fromJson(json['user'] as Map<String, dynamic>) : null,
         _token = json['token'] as String?;
 
   Map<String, dynamic> toJson() => {'message': _message, 'user': _user?.toJson(), 'token': _token};
@@ -71,11 +71,5 @@ class User {
         _birthDate = json['birth_date'] as String?,
         _image = json['image'] as String?;
 
-  Map<String, dynamic> toJson() => {
-        'user_id': _userId,
-        'name': _name,
-        'email': _email,
-        'birth_date': _birthDate,
-        'image': _image
-      };
+  Map<String, dynamic> toJson() => {'user_id': _userId, 'name': _name, 'email': _email, 'birth_date': _birthDate, 'image': _image};
 }

@@ -1,5 +1,3 @@
-// ignore_for_file: unrelated_type_equality_checks
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,24 +13,24 @@ import 'package:lingo_pal_mobile/presentation/view/components/secondary_btn_reus
 class MutlipleChoice extends StatelessWidget {
   MutlipleChoice({super.key});
 
-  final QuestionsController controllerMultiple = Get.find<QuestionsController>();
-  final PracticeUpdateController practiceUpdateController = Get.find<PracticeUpdateController>();
-  var controllerProgress = Get.find<PracticeCourseController>();
-  var controllerUpdateCourse = Get.find<CourseUpdateController>();
+  final QuestionsController _controllerMultiple = Get.find<QuestionsController>();
+  final PracticeUpdateController _practiceUpdateController = Get.find<PracticeUpdateController>();
+  final _controllerProgress = Get.find<PracticeCourseController>();
+  final _controllerUpdateCourse = Get.find<CourseUpdateController>();
 
-  final RxInt currentIndex = 0.obs;
+  final RxInt _currentIndex = 0.obs;
 
-  final RxInt score = 0.obs;
+  final RxInt _score = 0.obs;
 
-  final RxBool flag = false.obs;
+  final RxBool _flag = false.obs;
 
-  final RxInt stars = 0.obs;
+  final RxInt _stars = 0.obs;
 
-  var finalScore = 0.obs;
+  final _finalScore = 0.obs;
 
   int lengthofUserPractice = Get.arguments;
 
-  RxBool btnLoad = false.obs;
+  final RxBool _btnLoad = false.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +42,7 @@ class MutlipleChoice extends StatelessWidget {
         child: Obx(() => SizedBox(
               width: 1179.w,
               height: 2700.h,
-              child: flag.value == false
+              child: _flag.value == false
                   ? Column(
                       children: [
                         Image.asset(AssetConstraints.bgQuiz),
@@ -69,7 +67,7 @@ class MutlipleChoice extends StatelessWidget {
           Image.asset(AssetConstraints.robotQuiz),
           SizedBox(height: 40.h),
           Obx(() {
-            final question = controllerMultiple.mutlipleData.value?.data?[currentIndex.value].question;
+            final question = _controllerMultiple.mutlipleData.value?.data?[_currentIndex.value].question;
             return SizedBox(
               width: 900.w,
               child: Text(
@@ -104,7 +102,7 @@ class MutlipleChoice extends StatelessWidget {
             width: 1300.w,
             height: 400.h,
             child: Obx(() {
-              final choices = controllerMultiple.mutlipleData.value?.data?[currentIndex.value].choices;
+              final choices = _controllerMultiple.mutlipleData.value?.data?[_currentIndex.value].choices;
               if (choices == null || choices.isEmpty) {
                 return const Text("No Choices Available");
               }
@@ -166,30 +164,30 @@ class MutlipleChoice extends StatelessWidget {
                     btnText: "try_again".tr,
                     width: 700.w,
                     height: 150.h,
-                    onClick: btnLoad.value
+                    onClick: _btnLoad.value
                         ? null
                         : () {
-                            currentIndex.value = 0;
-                            score.value = 0;
-                            flag.value = false;
-                            stars.value = 0;
-                            controllerMultiple.fetchQuestions(controllerProgress.practiceId.value);
+                            _currentIndex.value = 0;
+                            _score.value = 0;
+                            _flag.value = false;
+                            _stars.value = 0;
+                            _controllerMultiple.fetchQuestions(_controllerProgress.practiceId.value);
                           },
                   );
                 }),
                 Obx(() {
                   return SecondaryBtn(
-                    isLoading: (practiceUpdateController.isLoading.value || controllerUpdateCourse.isLoading.value || controllerProgress.isLoading.value),
+                    isLoading: (_practiceUpdateController.isLoading.value || _controllerUpdateCourse.isLoading.value || _controllerProgress.isLoading.value),
                     btnText: "back_to_levels".tr,
                     width: 700.w,
                     height: 150.h,
                     onClick: () async {
-                      btnLoad.value = true;
+                      _btnLoad.value = true;
                       bool practiceFound = false;
                       int prevStars = 0;
                       int userPracticeProgress = 0;
-                      for (var progress in controllerProgress.practiceProgress.value?.body ?? []) {
-                        if (controllerProgress.practiceId.value == progress.practiceId) {
+                      for (var progress in _controllerProgress.practiceProgress.value?.body ?? []) {
+                        if (_controllerProgress.practiceId.value == progress.practiceId) {
                           practiceFound = true;
                           prevStars = progress.progressPoin!;
                           userPracticeProgress = progress.progressPracticeId;
@@ -198,26 +196,26 @@ class MutlipleChoice extends StatelessWidget {
                           practiceFound = false;
                         }
                       }
-                      if (stars.value >= 1) {
+                      if (_stars.value >= 1) {
                         if (practiceFound == true) {
-                          if (stars.value > prevStars) {
-                            await practiceUpdateController.updatePractice(userPracticeProgress, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
+                          if (_stars.value > prevStars) {
+                            await _practiceUpdateController.updatePractice(userPracticeProgress, _controllerProgress.practiceId.value, _stars.value, true, true, _controllerProgress.courseId.value);
 
-                            if (controllerUpdateCourse.lstIndex.value == true || lengthofUserPractice == 10) {
-                              await controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                            if (_controllerUpdateCourse.lstIndex.value == true || lengthofUserPractice == 10) {
+                              await _controllerUpdateCourse.updateCourse(_controllerProgress.courseId.value);
                             }
                           }
                         } else {
-                          await practiceUpdateController.updatePractice(0, controllerProgress.practiceId.value, stars.value, true, true, controllerProgress.courseId.value);
-                          if (controllerUpdateCourse.lstIndex.value == true) {
-                            await controllerUpdateCourse.updateCourse(controllerProgress.courseId.value);
+                          await _practiceUpdateController.updatePractice(0, _controllerProgress.practiceId.value, _stars.value, true, true, _controllerProgress.courseId.value);
+                          if (_controllerUpdateCourse.lstIndex.value == true) {
+                            await _controllerUpdateCourse.updateCourse(_controllerProgress.courseId.value);
                           }
                         }
                       }
-                      await controllerProgress.getPractices(controllerProgress.courseId.value);
-                      await controllerProgress.getUserPractices();
-                      controllerUpdateCourse.lstIndex.value = false;
-                      btnLoad.value = false;
+                      await _controllerProgress.getPractices(_controllerProgress.courseId.value);
+                      await _controllerProgress.getUserPractices();
+                      _controllerUpdateCourse.lstIndex.value = false;
+                      _btnLoad.value = false;
                       Get.back();
                     },
                   );
@@ -237,11 +235,11 @@ class MutlipleChoice extends StatelessWidget {
         height: 160.h,
         fontSize: 44.sp,
         // onClick: () {
-        //   // if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
+        //   // if (choiceText == controllerMultiple.mutlipleData.value?.data?[_currentIndex.value].answerKey) {
         //   //   score + 1;
         //   // }
-        //   // if (currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
-        //   //   currentIndex.value += 1;
+        //   // if (_currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
+        //   //   _currentIndex.value += 1;
         //   // } else {
         //   //   finalScore.value = ((score.value / controllerMultiple.mutlipleData.value!.data!.length) * 100).toInt();
         //   //   flag.value = true;
@@ -256,11 +254,11 @@ class MutlipleChoice extends StatelessWidget {
         //   //     stars.value = 0;
         //   //   }
         //   // }
-        //   if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
+        //   if (choiceText == controllerMultiple.mutlipleData.value?.data?[_currentIndex.value].answerKey) {
         //     score.value += 1;
         //   }
-        //   if (currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
-        //     currentIndex.value += 1;
+        //   if (_currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
+        //     _currentIndex.value += 1;
         //   } else {
         //     finalScore.value = ((score.value / controllerMultiple.mutlipleData.value!.data!.length) * 100).toInt();
         //     stars.value = starsValue(finalScore.value);
@@ -268,18 +266,18 @@ class MutlipleChoice extends StatelessWidget {
         //   }
         // },
         onClick: () {
-          if (choiceText == controllerMultiple.mutlipleData.value?.data?[currentIndex.value].answerKey) {
-            score.value += 1;
+          if (choiceText == _controllerMultiple.mutlipleData.value?.data?[_currentIndex.value].answerKey) {
+            _score.value += 1;
           }
-          if (currentIndex.value < controllerMultiple.mutlipleData.value!.data!.length - 1) {
-            currentIndex.value += 1;
+          if (_currentIndex.value < _controllerMultiple.mutlipleData.value!.data!.length - 1) {
+            _currentIndex.value += 1;
           } else {
-            final totalQuestions = controllerMultiple.mutlipleData.value!.data!.length;
-            final correctAnswers = score.value;
+            final totalQuestions = _controllerMultiple.mutlipleData.value!.data!.length;
+            final correctAnswers = _score.value;
 
-            finalScore.value = controllerMultiple.calculateFinalScore(totalQuestions, correctAnswers);
-            stars.value = controllerMultiple.starsValue(finalScore.value);
-            flag.value = true;
+            _finalScore.value = _controllerMultiple.calculateFinalScore(totalQuestions, correctAnswers);
+            _stars.value = _controllerMultiple.starsValue(_finalScore.value);
+            _flag.value = true;
           }
         });
   }
@@ -295,11 +293,11 @@ class MutlipleChoice extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 40.sp),
           ),
           Text(
-            "$finalScore/100",
+            "$_finalScore/100",
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 140.sp),
           ),
           Image.asset(AssetConstraints.robotHappy),
-          buildStarRating(stars.value),
+          buildStarRating(_stars.value),
         ],
       ),
     );
