@@ -22,17 +22,17 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
-  TextEditingController datePickerController = TextEditingController();
-  TextEditingController nameContoller = TextEditingController();
+  final TextEditingController _datePickerController = TextEditingController();
+  final TextEditingController _nameContoller = TextEditingController();
 
-  var controllerEdit = Get.find<EditAPIController>();
-  var controllerChoice = Get.find<ChoicesController>();
-  var controllerProfile = Get.find<GetProfileController>();
-  var controllerImage = Get.find<ImagePickerController>();
-  int userId = Get.arguments;
-  final nameRx = ''.obs;
-  final dateRx = ''.obs;
-  final isFormValid = false.obs;
+  final _controllerEdit = Get.find<EditAPIController>();
+  final _controllerChoice = Get.find<ChoicesController>();
+  final _controllerProfile = Get.find<GetProfileController>();
+  final _controllerImage = Get.find<ImagePickerController>();
+  final int _userId = Get.arguments;
+  final _nameRx = ''.obs;
+  final _dateRx = ''.obs;
+  final _isFormValid = false.obs;
 
   String? validateField(String? value, String fieldType) {
     String? error;
@@ -43,7 +43,7 @@ class _EditPageState extends State<EditPage> {
     }
 
     // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   isFormValid.value = (nameContoller.text.isNotEmpty && datePickerController.text.isNotEmpty);
+    //   _isFormValid.value = (_nameContoller.text.isNotEmpty && _datePickerController.text.isNotEmpty);
     // });
 
     return error;
@@ -101,9 +101,9 @@ class _EditPageState extends State<EditPage> {
                                   Obx(() => CircleAvatar(
                                         radius: 200.sp,
                                         backgroundColor: Colors.blue,
-                                        backgroundImage: controllerImage.imageUrl.value == ""
+                                        backgroundImage: _controllerImage.imageUrl.value == ""
                                             ? const NetworkImage("https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg")
-                                            : NetworkImage(controllerImage.imageUrl.value),
+                                            : NetworkImage(_controllerImage.imageUrl.value),
                                       )),
                                   SizedBox(
                                     width: 393.w,
@@ -139,7 +139,7 @@ class _EditPageState extends State<EditPage> {
                             ),
                           ),
                           ReuseTextField(
-                            controller: nameContoller..text = controllerProfile.profile.value?.body?.data?[0].name ?? "-",
+                            controller: _nameContoller..text = _controllerProfile.profile.value?.body?.data?[0].name ?? "-",
                             obscureText: false,
                             linesMax: 1,
                             linesMin: 1,
@@ -165,7 +165,7 @@ class _EditPageState extends State<EditPage> {
                             ),
                           ),
                           DatePicker(
-                            controller: datePickerController..text = controllerProfile.profile.value?.body?.data?[0].birthDate ?? "-",
+                            controller: _datePickerController..text = _controllerProfile.profile.value?.body?.data?[0].birthDate ?? "-",
                             labelTxt: "YYYY-MM-DD",
                             iconTxt: Icons.calendar_month,
                             linesMax: 1,
@@ -185,10 +185,10 @@ class _EditPageState extends State<EditPage> {
                         btnText: "update".tr,
                         width: 300.w,
                         height: 150.h,
-                        isLoading: controllerEdit.isLoading.value,
+                        isLoading: _controllerEdit.isLoading.value,
                         onClick: () async {
-                          await controllerEdit.editProfileAPI(nameContoller.text, datePickerController.text, controllerImage.imageUrl.value);
-                          controllerProfile.profileAPI();
+                          await _controllerEdit.editProfileAPI(_nameContoller.text, _datePickerController.text, _controllerImage.imageUrl.value);
+                          _controllerProfile.profileAPI();
                           Get.back();
                         }))
                   ],

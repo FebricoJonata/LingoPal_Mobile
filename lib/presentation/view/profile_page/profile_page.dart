@@ -19,13 +19,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  var controllerProfile = Get.find<GetProfileController>();
-  var controllerChoice = Get.find<ChoicesController>();
-  var storage = const FlutterSecureStorage();
+  final _controllerProfile = Get.find<GetProfileController>();
+  final _controllerChoice = Get.find<ChoicesController>();
+  final _storage = const FlutterSecureStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: SingleChildScrollView(child: GetBuilder<GetProfileController>(
-      builder: (controllerProfile) {
+      builder: (controller) {
         return Container(
             width: 1179.w,
             height: 2900.h,
@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.toNamed(RouteName.editPage, arguments: controllerProfile.profile.value?.body!.data!.first.userId);
+                              Get.toNamed(RouteName.editPage, arguments: _controllerProfile.profile.value?.body!.data!.first.userId);
                             },
                             child: Container(
                               width: 200.w,
@@ -117,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        controllerProfile.profile.value?.body?.data?.first.name ?? "",
+                                        _controllerProfile.profile.value?.body?.data?.first.name ?? "",
                                         style: TextStyle(
                                           fontSize: 40.sp,
                                           fontWeight: FontWeight.w500,
@@ -127,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        controllerProfile.profile.value?.body?.data!.first.birthDate ?? "",
+                                        _controllerProfile.profile.value?.body?.data!.first.birthDate ?? "",
                                         style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w500),
                                       ),
                                     ),
@@ -185,7 +185,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: IconButton(
                                 onPressed: () {
                                   Get.offAllNamed(RouteName.loginPage);
-                                  storage.deleteAll();
+                                  _storage.deleteAll();
                                 },
                                 icon: Icon(
                                   Icons.logout,
@@ -235,7 +235,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    controllerProfile.profile.value?.body?.data?.first.email ?? "",
+                                    _controllerProfile.profile.value?.body?.data?.first.email ?? "",
                                     style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),
