@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
@@ -8,22 +7,25 @@ import 'package:lingo_pal_mobile/core/color/color_const.dart';
 import 'package:lingo_pal_mobile/routes/app_page.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'presentation/view/components/localization.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
-  // Init Supabase
-  // WidgetsFlutterBinding.ensureInitialized();
-  // FlutterFFmpegConfig().enableLogCallback(logCallback);
+  /// Load env file
+  await dotenv.load(fileName: ".env");
+
+  /// Init storage
   var storage = const FlutterSecureStorage();
+
+  /// Init Supabase
   Supabase.initialize(
-    url: 'https://vfsijkhnwxfbsanoefua.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZmc2lqa2hud3hmYnNhbm9lZnVhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxMjQ3MTYxOSwiZXhwIjoyMDI4MDQ3NjE5fQ.UnjnJOMv-Zrsr1t7WXsvt6WJ5-XrYAHFydb66FNGKU0',
+    url: dotenv.env['SUPABASE_URL'] ?? "",
+    anonKey: dotenv.env['SUPABASE_KEY'] ?? "",
   );
   String? token = await storage.read(key: 'token');
   await TranslationService.loadSavedLanguage();
-  String initialRoute = (token != null) ? RouteName.basePage : RouteName.landingPage;
+  String initialRoute =
+      (token != null) ? RouteName.basePage : RouteName.landingPage;
   runApp(MyApp(
     initialRoute: initialRoute,
   ));
@@ -66,8 +68,12 @@ class MyApp extends StatelessWidget {
           getPages: AppPages.pages,
           theme: ThemeData(
             textTheme: GoogleFonts.latoTextTheme(),
-            textSelectionTheme: const TextSelectionThemeData(cursorColor: MyColors.secondaryGreen, selectionHandleColor: MyColors.secondaryGreen, selectionColor: MyColors.primaryYellow),
-            popupMenuTheme: const PopupMenuThemeData(color: MyColors.primaryYellow),
+            textSelectionTheme: const TextSelectionThemeData(
+                cursorColor: MyColors.secondaryGreen,
+                selectionHandleColor: MyColors.secondaryGreen,
+                selectionColor: MyColors.primaryYellow),
+            popupMenuTheme:
+                const PopupMenuThemeData(color: MyColors.primaryYellow),
           ),
         );
       },
