@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:lingo_pal_mobile/core/error/failure.dart';
-import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/core/image/image_const.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
 import '../../model/quiz_model/pronoun_model.dart';
 

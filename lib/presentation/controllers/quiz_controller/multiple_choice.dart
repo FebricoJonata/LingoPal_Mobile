@@ -3,19 +3,19 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/error/failure.dart';
-import 'package:lingo_pal_mobile/presentation/model/quiz_model/multiple_choice.dart';
+import 'package:lingo_pal_mobile/presentation/model/quiz_model/quiz_model.dart';
 
 class QuestionsController extends GetxController {
   RxInt indexQuestion = 0.obs;
   RxDouble score = (0.0).obs;
-  Rx<QuizData?> mutlipleData = Rx<QuizData?>(null);
+  Rx<QuizModel?> mutlipleData = Rx<QuizModel?>(null);
   var storage = const FlutterSecureStorage();
-  Future<Either<Failure, QuizData>> fetchQuestions(int practiceID) async {
+  Future<Either<Failure, QuizModel>> fetchQuestions(int practiceID) async {
     String? accessToken = await storage.read(key: "token");
     try {
       final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/quiz",
           queryParameters: {'practice_id': practiceID}, options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
-      var multipleChoiceData = QuizData.fromJson(response.data);
+      var multipleChoiceData = QuizModel.fromJson(response.data);
       mutlipleData(multipleChoiceData);
 
       return Right(multipleChoiceData);

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
-import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/core/color/color_const.dart';
+import 'package:lingo_pal_mobile/core/image/image_const.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/profile_page/get_profile_controller.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.toNamed(RouteName.editPage, arguments:controllerProfile.profile.value?.body!.data!.first.userId);
+                              Get.toNamed(RouteName.editPage, arguments: controllerProfile.profile.value?.body!.data!.first.userId);
                             },
                             child: Container(
                               width: 200.w,
@@ -117,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                       controllerProfile.profile.value?.body?.data?.first.name ?? "",
+                                        controllerProfile.profile.value?.body?.data?.first.name ?? "",
                                         style: TextStyle(
                                           fontSize: 40.sp,
                                           fontWeight: FontWeight.w500,
@@ -127,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                    controllerProfile.profile.value?.body?.data!.first.birthDate ?? "",
+                                        controllerProfile.profile.value?.body?.data!.first.birthDate ?? "",
                                         style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w500),
                                       ),
                                     ),
@@ -235,7 +235,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                   controllerProfile.profile.value?.body?.data?.first.email ?? "",
+                                    controllerProfile.profile.value?.body?.data?.first.email ?? "",
                                     style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                                   ),
                                 ),

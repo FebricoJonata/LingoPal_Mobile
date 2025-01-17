@@ -1,27 +1,27 @@
-class QuizData {
+class QuizModel {
   final int? status;
-  final List<Data>? data;
+  final List<Quiz>? data;
 
-  QuizData({
+  QuizModel({
     this.status,
     this.data,
   });
 
-  QuizData.fromJson(Map<String, dynamic> json)
+  QuizModel.fromJson(Map<String, dynamic> json)
       : status = json['status'] as int?,
-        data = (json['data'] as List?)?.map((dynamic e) => Data.fromJson(e as Map<String, dynamic>)).toList();
+        data = (json['data'] as List?)?.map((dynamic e) => Quiz.fromJson(e as Map<String, dynamic>)).toList();
 
   Map<String, dynamic> toJson() => {'status': status, 'data': data?.map((e) => e.toJson()).toList()};
 }
 
-class Data {
+class Quiz {
   final int? quizId;
   final String? question;
   final String? answerKey;
   final List<String>? choices;
   final int? practiceId;
 
-  Data({
+  Quiz({
     this.quizId,
     this.question,
     this.answerKey,
@@ -29,7 +29,7 @@ class Data {
     this.practiceId,
   });
 
-  Data.fromJson(Map<String, dynamic> json)
+  Quiz.fromJson(Map<String, dynamic> json)
       : quizId = json['quiz_id'] as int?,
         question = json['question'] as String?,
         answerKey = json['answer_key'] as String?,
