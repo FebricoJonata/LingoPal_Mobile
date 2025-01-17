@@ -6,17 +6,21 @@ import 'package:lingo_pal_mobile/core/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/model/quiz_model/quiz_model.dart';
 
 class QuestionsController extends GetxController {
-  RxInt indexQuestion = 0.obs;
-  RxDouble score = (0.0).obs;
-  Rx<QuizModel?> mutlipleData = Rx<QuizModel?>(null);
-  var storage = const FlutterSecureStorage();
+  final RxInt _indexQuestion = 0.obs;
+  final RxDouble _score = (0.0).obs;
+  final Rx<QuizModel?> _mutlipleData = Rx<QuizModel?>(null);
+  final _storage = const FlutterSecureStorage();
+
+  get mutlipleData => _mutlipleData;
+  get score => _score;
+
   Future<Either<Failure, QuizModel>> fetchQuestions(int practiceID) async {
-    String? accessToken = await storage.read(key: "token");
+    String? accessToken = await _storage.read(key: "token");
     try {
       final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/quiz",
           queryParameters: {'practice_id': practiceID}, options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
       var multipleChoiceData = QuizModel.fromJson(response.data);
-      mutlipleData(multipleChoiceData);
+      _mutlipleData(multipleChoiceData);
 
       return Right(multipleChoiceData);
     } on DioException catch (e) {
@@ -33,9 +37,12 @@ class QuestionsController extends GetxController {
     return ((correctAnswers / totalQuestions) * 100).toInt();
   }
 
-  int starsValue(int finalScore) {
-    if (finalScore >= 90) {
-      return 3; // Skor sempurna mendapatkan 3 bintang
+  int starsValue(int finalScore, bool isPronounce) {
+    if (finalScore >= 90) { // Skor sempurna mendapatkan 3 bintang
+      if(isPronounce || finalScore==100){
+        return 3;
+      }
+      return 2;
     } else if (finalScore >= 60) {
       return 2; // Skor 60-99 mendapatkan 2 bintang
     } else if (finalScore >= 30) {
@@ -46,7 +53,7 @@ class QuestionsController extends GetxController {
   }
 
   double calculateScore(double scores) {
-    return score.value += scores;
+    return _score.value += scores;
   }
 
   int calculateFinalScorePronoun(double totalScore) {

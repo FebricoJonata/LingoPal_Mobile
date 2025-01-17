@@ -50,19 +50,19 @@ void checkPracticeProgress(practiceProgress) {
 }
 
 class _PracticePageState extends State<PracticePage> {
-  var controllerQuiz = Get.find<QuestionsController>();
-  var controllerPractice = Get.find<PracticeCourseController>();
-  var controllerCourseUpdate = Get.find<CourseUpdateController>();
-  var controllerProgress = Get.find<ProgressAPIController>();
-  var controllerCourse = Get.find<CourseController>();
+  final _controllerQuiz = Get.find<QuestionsController>();
+  final _controllerPractice = Get.find<PracticeCourseController>();
+  final _controllerCourseUpdate = Get.find<CourseUpdateController>();
+  final _controllerProgress = Get.find<ProgressAPIController>();
+  final _controllerCourse = Get.find<CourseController>();
   @override
   void initState() {
     super.initState();
     // Fetch data when the page is initialized
     Course course = Get.arguments['course'];
-    controllerPractice.courseId.value = course.courseId ?? 0;
-    controllerPractice.getPractices(course.courseId!);
-    controllerPractice.getUserPractices();
+    _controllerPractice.courseId.value = course.courseId ?? 0;
+    _controllerPractice.getPractices(course.courseId!);
+    _controllerPractice.getUserPractices();
   }
 
   @override
@@ -81,10 +81,10 @@ class _PracticePageState extends State<PracticePage> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Obx(() {
-                var practices = controllerPractice.practices.value?.body;
-                var userPractices = controllerPractice.practiceProgress.value?.body;
+                var practices = _controllerPractice.practices.value?.body;
+                var userPractices = _controllerPractice.practiceProgress.value?.body;
 
-                if (controllerPractice.isLoading.value) {
+                if (_controllerPractice.isLoading.value) {
                   return const CircularProgressIndicator(
                     color: Colors.white,
                     strokeWidth: 2.0,
@@ -110,9 +110,9 @@ class _PracticePageState extends State<PracticePage> {
                               children: [
                                 BackBtn(
                                   ontap: () {
-                                    controllerProgress.getProgress();
-                                    controllerCourse.getCourses();
-                                    controllerCourse.getUserCourseProgress();
+                                    _controllerProgress.getProgress();
+                                    _controllerCourse.getCourses();
+                                    _controllerCourse.getUserCourseProgress();
                                     Get.back();
                                   },
                                 ),
@@ -176,22 +176,22 @@ class _PracticePageState extends State<PracticePage> {
                                       ? () async {
                                           int tappedIndex = practices.indexOf(practice);
                                           if (tappedIndex == practices.length - 1) {
-                                            controllerCourseUpdate.lstIndex.value = true;
+                                            _controllerCourseUpdate.lstIndex.value = true;
                                           }
-                                          await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
-                                          // controllerPractice.indexPractice.value = practices.indexOf(practice);
-                                          controllerPractice.practiceId.value = practice.practiceId ?? 0;
+                                          await _controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
+                                          // _controllerPractice.indexPractice.value = practices.indexOf(practice);
+                                          _controllerPractice.practiceId.value = practice.practiceId ?? 0;
                                           Get.toNamed(RouteName.quiz, arguments: {"idPractice": practice.practiceId, "progressLength": userPracticeLength});
                                         }
                                       : () async {
                                           int tappedIndex = practices.indexOf(practice);
                                           if (tappedIndex == practices.length - 1) {
-                                            controllerCourseUpdate.lstIndex.value = true;
+                                            _controllerCourseUpdate.lstIndex.value = true;
                                           }
 
-                                          await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
-                                          // controllerPractice.indexPractice.value = practices.indexOf(practice);
-                                          controllerPractice.practiceId.value = practice.practiceId ?? 0;
+                                          await _controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
+                                          // _controllerPractice.indexPractice.value = practices.indexOf(practice);
+                                          _controllerPractice.practiceId.value = practice.practiceId ?? 0;
                                           Get.toNamed(RouteName.multipleChoice, arguments: userPracticeLength);
                                         },
                                   id: practice.practiceId!,
@@ -203,24 +203,24 @@ class _PracticePageState extends State<PracticePage> {
                                       ? () async {
                                           int tappedIndex = practices.indexOf(practice);
                                           if (tappedIndex == practices.length - 1) {
-                                            controllerCourseUpdate.lstIndex.value = true;
+                                            _controllerCourseUpdate.lstIndex.value = true;
                                           }
 
-                                          await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
-                                          // controllerPractice.indexPractice.value = practices.indexOf(practice);
-                                          controllerPractice.practiceId.value = practice.practiceId ?? 0;
+                                          await _controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
+                                          // _controllerPractice.indexPractice.value = practices.indexOf(practice);
+                                          _controllerPractice.practiceId.value = practice.practiceId ?? 0;
 
                                           Get.toNamed(RouteName.quiz, arguments: {"idPractice": practice.practiceId, "progressLength": userPracticeLength});
                                         }
                                       : () async {
                                           int tappedIndex = practices.indexOf(practice);
                                           if (tappedIndex == practices.length - 1) {
-                                            controllerCourseUpdate.lstIndex.value = true;
+                                            _controllerCourseUpdate.lstIndex.value = true;
                                           }
 
-                                          await controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
-                                          // controllerPractice.indexPractice.value = practices.indexOf(practice);
-                                          controllerPractice.practiceId.value = practice.practiceId ?? 0;
+                                          await _controllerQuiz.fetchQuestions(practice.practiceId ?? 0);
+                                          // _controllerPractice.indexPractice.value = practices.indexOf(practice);
+                                          _controllerPractice.practiceId.value = practice.practiceId ?? 0;
 
                                           Get.toNamed(RouteName.multipleChoice, arguments: userPracticeLength);
                                         },

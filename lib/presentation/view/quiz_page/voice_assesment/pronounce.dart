@@ -24,8 +24,8 @@ class PronouncePage extends StatelessWidget {
   var _controllerProgress = Get.find<PracticeCourseController>();
   var _controllerQuiz = Get.find<PronounQuizController>();
   var _controllerUpdateCourse = Get.find<CourseUpdateController>();
-  RxBool quizDone = false.obs;
-  RxInt currentQuestion = 0.obs;
+  RxBool _quizDone = false.obs;
+  RxInt _currentQuestion = 0.obs;
   // final RxInt score = 0.obs;
 
   final RxInt _stars = 0.obs;
@@ -35,6 +35,7 @@ class PronouncePage extends StatelessWidget {
   int lengthofUserPractice = Get.arguments['progressLength'];
 
   RxBool _btnLoad = false.obs;
+  bool _isPronounce = true;
 
   void showScoreDialog(BuildContext context, double score) {
     // if (score < 65) {
@@ -57,22 +58,22 @@ class PronouncePage extends StatelessWidget {
         onClose: () {
           Get.back();
           var scores = _controllerQuizQuestion.calculateScore(score);
-          if (currentQuestion.value < _controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
-            currentQuestion.value += 1;
+          if (_currentQuestion.value < _controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
+            _currentQuestion.value += 1;
           } else {
-            quizDone.value = true;
+            _quizDone.value = true;
             _finalScore = _controllerQuizQuestion.calculateFinalScorePronoun(scores); // Hitung finalScore
-            _stars.value = _controllerQuizQuestion.starsValue(_finalScore); // Gunakan nilai finalScore
+            _stars.value = _controllerQuizQuestion.starsValue(_finalScore, _isPronounce); // Gunakan nilai finalScore
           }
         },
         // onClose: () {
         //   Get.back();
         //   var scores = controllerQuiz.score.value += score;
         //   finalScore = scores / 5;
-        //   if (currentQuestion.value < controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
-        //     currentQuestion.value += 1;
+        //   if (_currentQuestion.value < controllerQuizQuestion.mutlipleData.value!.data!.length - 1) {
+        //     _currentQuestion.value += 1;
         //   } else {
-        //     quizDone.value = true;
+        //     _quizDone.value = true;
         //     finalScore = (scores / 5).toInt();
 
         //     // Menggunakan fungsi calculateStars
@@ -94,7 +95,7 @@ class PronouncePage extends StatelessWidget {
       body: PopScope(
         canPop: false,
         child: Obx(() {
-          if (quizDone.value == false) {
+          if (_quizDone.value == false) {
             if (_controllerQuiz.speechText.value != null && _controllerQuiz.flag.value == 1) {
               final score = _controllerQuiz.speechText.value!.body?.pronunciationScores?.pronunciationScore ?? 0;
               _controllerQuiz.flag.value = 0; // Reset flag untuk menghindari dialog berulang
@@ -118,7 +119,7 @@ class PronouncePage extends StatelessWidget {
                                 color: MyColors.primaryGreen,
                               ),
                         Text(
-                          _controllerQuizQuestion.mutlipleData.value?.data?[currentQuestion.value].question.toString() ?? "",
+                          _controllerQuizQuestion.mutlipleData.value?.data?[_currentQuestion.value].question.toString() ?? "",
                           textAlign: TextAlign.center,
                           style: TextStyle(color: MyColors.primaryGreen, fontSize: 100.sp),
                         )
@@ -131,7 +132,7 @@ class PronouncePage extends StatelessWidget {
                       color: MyColors.primaryYellow,
                       child: Center(
                           child: Recorder(
-                        referenceText: _controllerQuizQuestion.mutlipleData.value?.data?[currentQuestion.value].question.toString() ?? "",
+                        referenceText: _controllerQuizQuestion.mutlipleData.value?.data?[_currentQuestion.value].question.toString() ?? "",
                       )),
                     ),
                   ),
@@ -170,9 +171,9 @@ class PronouncePage extends StatelessWidget {
                                   onClick: _btnLoad.value
                                       ? null
                                       : () {
-                                          currentQuestion.value = 0;
-                                          _controllerQuizQuestion.score.value = 0;
-                                          quizDone.value = false;
+                                          _currentQuestion.value = 0;
+                                          _controllerQuizQuestion.score.value = 0.0;
+                                          _quizDone.value = false;
                                           _stars.value = 0;
                                           _controllerQuizQuestion.fetchQuestions(_controllerProgress.practiceId.value);
                                         },
@@ -216,7 +217,7 @@ class PronouncePage extends StatelessWidget {
                                         }
                                       }
                                     }
-                                    _controllerQuizQuestion.score.value = 0; // reset score
+                                    _controllerQuizQuestion.score.value = 0.0; // reset score
                                     await _controllerProgress.getPractices(_controllerProgress.courseId.value);
                                     await _controllerProgress.getUserPractices();
                                     _controllerUpdateCourse.lstIndex.value = false;
@@ -255,7 +256,7 @@ class PronouncePage extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 140.sp),
           ),
           Image.asset(AssetConstraints.robotHappy),
-          buildStarRating(_controllerQuizQuestion.starsValue(_finalScore)),
+          buildStarRating(_controllerQuizQuestion.starsValue(_finalScore, _isPronounce)),
         ],
       ),
     );

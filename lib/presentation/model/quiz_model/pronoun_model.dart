@@ -1,29 +1,29 @@
-// class SpeechToText {
+// class SpeechToTextModel {
 //   final int? status;
-//   final Body? body;
+//   final Pronounciation? body;
 
-//   SpeechToText({
+//   SpeechToTextModel({
 //     this.status,
 //     this.body,
 //   });
 
-//   SpeechToText.fromJson(Map<String, dynamic> json)
+//   SpeechToTextModel.fromJson(Map<String, dynamic> json)
 //       : status = json['status'] as int?,
-//         body = (json['body'] as Map<String, dynamic>?) != null ? Body.fromJson(json['body'] as Map<String, dynamic>) : null;
+//         body = (json['body'] as Map<String, dynamic>?) != null ? Pronounciation.fromJson(json['body'] as Map<String, dynamic>) : null;
 
 //   Map<String, dynamic> toJson() => {'status': status, 'body': body?.toJson()};
 // }
 
-// class Body {
+// class Pronounciation {
 //   final String? text;
 //   final PronunciationScores? pronunciationScores;
 
-//   Body({
+//   Pronounciation({
 //     this.text,
 //     this.pronunciationScores,
 //   });
 
-//   Body.fromJson(Map<String, dynamic> json)
+//   Pronounciation.fromJson(Map<String, dynamic> json)
 //       : text = json['text'] as String?,
 //         pronunciationScores = (json['pronunciationScores'] as Map<String, dynamic>?) != null ? PronunciationScores.fromJson(json['pronunciationScores'] as Map<String, dynamic>) : null;
 
@@ -51,19 +51,19 @@
 
 //   Map<String, dynamic> toJson() => {'accuracyScore': accuracyScore, 'pronunciationScore': pronunciationScore, 'completenessScore': completenessScore, 'fluencyScore': fluencyScore};
 // }
-class SpeechToText {
+class SpeechToTextModel {
   final int? _status;
-  final Body? _body;
+  final Pronounciation? _body;
 
-  SpeechToText({
+  SpeechToTextModel({
     int? status,
-    Body? body,
+    Pronounciation? body,
   })  : _status = status,
         _body = body;
 
-  SpeechToText.fromJson(Map<String, dynamic> json)
+  SpeechToTextModel.fromJson(Map<String, dynamic> json)
       : _status = json['status'] as int?,
-        _body = (json['body'] as Map<String, dynamic>?) != null ? Body.fromJson(json['body'] as Map<String, dynamic>) : null;
+        _body = (json['body'] as Map<String, dynamic>?) != null ? Pronounciation.fromJson(json['body'] as Map<String, dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
         'status': _status,
@@ -71,20 +71,20 @@ class SpeechToText {
       };
 
   int? get status => _status;
-  Body? get body => _body;
+  Pronounciation? get body => _body;
 }
 
-class Body {
+class Pronounciation {
   final String? _text;
   final PronunciationScores? _pronunciationScores;
 
-  Body({
+  Pronounciation({
     String? text,
     PronunciationScores? pronunciationScores,
   })  : _text = text,
         _pronunciationScores = pronunciationScores;
 
-  Body.fromJson(Map<String, dynamic> json)
+  Pronounciation.fromJson(Map<String, dynamic> json)
       : _text = json['text'] as String?,
         _pronunciationScores = (json['pronunciationScores'] as Map<String, dynamic>?) != null ? PronunciationScores.fromJson(json['pronunciationScores'] as Map<String, dynamic>) : null;
 

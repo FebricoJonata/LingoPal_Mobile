@@ -10,15 +10,20 @@ import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
 import '../../model/quiz_model/pronoun_model.dart';
 
 class PronounQuizController extends GetxController {
-  RxInt flag = 0.obs;
-  Rx<SpeechToText?> speechText = Rx<SpeechToText?>(null);
-  var isRecord = 0.obs;
+  final RxInt _flag = 0.obs;
+  final Rx<SpeechToTextModel?> _speechText = Rx<SpeechToTextModel?>(null);
+  final _isRecord = 0.obs;
 
-  var storage = const FlutterSecureStorage();
-  Future<Either<Failure, SpeechToText>> sstAPI(String audioPath, String referenceText) async {
-    String? accessToken = await storage.read(key: "token");
+  final _storage = const FlutterSecureStorage();
+
+  get speechText => _speechText;
+  get flag => _flag;
+  get isRecord => _isRecord;
+
+  Future<Either<Failure, SpeechToTextModel>> sstAPI(String audioPath, String referenceText) async {
+    String? accessToken = await _storage.read(key: "token");
     try {
-      isRecord.value = 1;
+      _isRecord.value = 1;
       File audioFile = File(audioPath);
       final audioBytes = await audioFile.readAsBytes();
 
@@ -30,10 +35,10 @@ class PronounQuizController extends GetxController {
         ),
       );
 
-      final speechTextModel = SpeechToText.fromJson(response.data);
-      speechText(speechTextModel);
+      final speechTextModel = SpeechToTextModel.fromJson(response.data);
+      _speechText(speechTextModel);
 
-      flag.value = 1;
+      _flag.value = 1;
       return Right(speechTextModel);
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
@@ -58,7 +63,7 @@ class PronounQuizController extends GetxController {
           imagePath: AssetConstraints.robotCool));
       return Left(Failure("$e"));
     } finally {
-      isRecord.value = 0;
+      _isRecord.value = 0;
     }
   }
 }

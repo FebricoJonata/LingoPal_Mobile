@@ -32,6 +32,8 @@ class MutlipleChoice extends StatelessWidget {
 
   final RxBool _btnLoad = false.obs;
 
+  final bool _isPronounce = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -276,7 +278,7 @@ class MutlipleChoice extends StatelessWidget {
             final correctAnswers = _score.value;
 
             _finalScore.value = _controllerMultiple.calculateFinalScore(totalQuestions, correctAnswers);
-            _stars.value = _controllerMultiple.starsValue(_finalScore.value);
+            _stars.value = _controllerMultiple.starsValue(_finalScore.value, _isPronounce);
             _flag.value = true;
           }
         });

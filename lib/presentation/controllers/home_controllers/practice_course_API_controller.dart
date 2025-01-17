@@ -10,30 +10,38 @@ import 'package:lingo_pal_mobile/presentation/model/home_model/practice_model.da
 import 'package:lingo_pal_mobile/presentation/model/home_model/practice_progress_model.dart';
 
 class PracticeCourseController extends GetxController {
-  Rx<PracticeModel?> practices = Rx<PracticeModel?>(null);
-  var controllerProfile = Get.find<GetProfileController>();
-  Rx<PracticeProgressModel?> practiceProgress = Rx<PracticeProgressModel?>(null);
-  RxInt indexPractice = 0.obs;
-  RxInt practiceId = 0.obs;
-  RxInt courseId = 0.obs;
-  var isLoading = false.obs;
+  final Rx<PracticeModel?> _practices = Rx<PracticeModel?>(null);
+  final _controllerProfile = Get.find<GetProfileController>();
+  final Rx<PracticeProgressModel?> _practiceProgress = Rx<PracticeProgressModel?>(null);
+  final RxInt _indexPractice = 0.obs;
+  RxInt _practiceId = 0.obs;
+  RxInt _courseId = 0.obs;
+  var _isLoading = false.obs;
 
   var storage = const FlutterSecureStorage();
+
+  get courseId => _courseId;
+  get practices => _practices;
+  get practiceProgress => _practiceProgress;
+  get isLoading => _isLoading;
+  get practiceId => _practiceId;
+  get indexPractice => _indexPractice;
+
   Future<Either<Failure, PracticeModel>> getPractices(courseId) async {
     String? accessToken = await storage.read(key: "token");
     try {
-      isLoading.value = true;
+      _isLoading.value = true;
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice',
           queryParameters: {'course_id': courseId}, options: Options(headers: {"Accept": "application/json", "Authorization": "Bearer $accessToken"}));
 
       var practiceModel = PracticeModel.fromJson(response.data);
-      practices(practiceModel);
+      _practices(practiceModel);
       return Right(practiceModel);
     } catch (e) {
       print("Error");
       return Left(Failure("$e"));
     } finally {
-      isLoading.value = false;
+      _isLoading.value = false;
     }
   }
 
@@ -41,21 +49,21 @@ class PracticeCourseController extends GetxController {
     var userId = await storage.read(key: "userId");
     String? accessToken = await storage.read(key: "token");
     try {
-      isLoading.value = true;
+      _isLoading.value = true;
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/practice/progress',
           queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
 
       var userPractices = PracticeProgressModel.fromJson(response.data);
 
-      practiceProgress(userPractices);
+      _practiceProgress(userPractices);
 
       return Right(userPractices);
     } catch (e) {
       print("Error: $e");
-      isLoading.value = false;
+      _isLoading.value = false;
       return Left(Failure("$e"));
     } finally {
-      isLoading.value = false;
+      _isLoading.value = false;
     }
   }
 }
