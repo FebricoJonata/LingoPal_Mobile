@@ -18,20 +18,20 @@ class DictionaryPage extends StatefulWidget {
 
 class _DictionaryPageState extends State<DictionaryPage> {
   // String searches = "";
-  var controllerWord = Get.find<WordListController>();
-  var controllerSearch = Get.find<SearchBarController>();
+  final _controllerWord = Get.find<WordListController>();
+  final _controllerSearch = Get.find<SearchBarController>();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      controllerSearch.setSearchWord("");
+      _controllerSearch.setSearchWord("");
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // controllerSearch.searches.value = "";
+    // _controllerSearch.searches.value = "";
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -50,19 +50,19 @@ class _DictionaryPageState extends State<DictionaryPage> {
                     children: [
                       ReuseSearchBar(
                         onPressed: (value) {
-                          // searches = controllerSearch.searches.value;
-                          // controllerVocab.setWordCard(controllerSearch.searches.value);
+                          // searches = _controllerSearch.searches.value;
+                          // controllerVocab.setWordCard(_controllerSearch.searches.value);
                         },
                       ),
                       const SizedBox(height: 24),
                       Obx(() {
-                        if (controllerSearch.searches.value.isEmpty) {
+                        if (_controllerSearch.searches.value.isEmpty) {
                           return const Expanded(child: WordList());
                         } else {
-                          printError(info: controllerSearch.searches.value);
+                          printError(info: _controllerSearch.searches.value);
                           return Expanded(
                               child: WordCard(
-                            searchWord: controllerSearch.searches.value,
+                            searchWord: _controllerSearch.searches.value,
                           ));
                         }
                       })

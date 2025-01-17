@@ -8,44 +8,48 @@ import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_model.
 import '../../../core/error/errors.dart';
 
 class WordListController extends GetxController {
-  Rx<WordModel?> words = Rx<WordModel?>(null);
-  var isLoading = false.obs;
-  var errorMessage = ''.obs;
-  var storage = const FlutterSecureStorage();
+  final Rx<WordModel?> _words = Rx<WordModel?>(null);
+  final _isLoading = false.obs;
+  final _errorMessage = ''.obs;
+  final _storage = const FlutterSecureStorage();
+
+  get words => _words;
+  get isLoading => _isLoading;
+  get errorMessage => _errorMessage;
+
   Future<Either<Failure, WordModel>?> getVocabs() async {
-    String? accessToken = await storage.read(key: "token");
+    String? accessToken = await _storage.read(key: "token");
     try {
-      isLoading.value = true;
+      _isLoading.value = true;
       final response = await Dio().get("https://lingo-pal-backend-v1.vercel.app/api/word", options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
       if (response.statusCode == 200) {
         var wordModel = WordModel.fromJson(response.data);
-        words.value = wordModel;
+        _words.value = wordModel;
 
         return Right(wordModel);
       } else {
-        isLoading.value = false;
+        _isLoading.value = false;
 
         return Left(Failure(response.statusCode.toString()));
       }
     } on DioException catch (e) {
-      isLoading.value = false;
-      String errorMessage;
+      _isLoading.value = false;
       if (e.type == DioExceptionType.connectionTimeout) {
-        errorMessage = "Connection timed out. Please check your network and try again.";
+        _errorMessage.value = "Connection timed out. Please check your network and try again.";
       } else if (e.type == DioExceptionType.sendTimeout) {
-        errorMessage = "Request timed out while sending data. Please try again.";
+        _errorMessage.value = "Request timed out while sending data. Please try again.";
       } else if (e.type == DioExceptionType.receiveTimeout) {
-        errorMessage = "Response timed out. Please check your connection and try again.";
+        _errorMessage.value = "Response timed out. Please check your connection and try again.";
       } else if (e.type == DioExceptionType.connectionError) {
-        errorMessage = "Failed to connect to the server. Please check your internet connection.";
+        _errorMessage.value = "Failed to connect to the server. Please check your internet connection.";
       } else {
-        errorMessage = e.message ?? "An unexpected error occurred.";
+        _errorMessage.value = e.message ?? "An unexpected error occurred.";
       }
-      showError(e.response?.statusCode, errorMessage);
+      showError(e.response?.statusCode, _errorMessage.value);
     } catch (e) {
       showError(0, e.toString());
     } finally {
-      isLoading.value = false;
+      _isLoading.value = false;
     }
     return null;
   }

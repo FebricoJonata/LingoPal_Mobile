@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/color/color_const.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/chatbot_controller/tts_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/dictionary_controller/word_card_controller.dart';
-import 'package:lingo_pal_mobile/presentation/model/dictionary_model/data_model.dart';
+import 'package:lingo_pal_mobile/presentation/model/dictionary_model/word_detail_model.dart';
 
 class WordCard extends StatefulWidget {
   WordCard({super.key, required this.searchWord});
@@ -31,9 +31,9 @@ class _WordCardState extends State<WordCard> {
     controllerWordCard.getWordDetails(search);
     return SingleChildScrollView(child: Obx(() {
       var wordList = controllerWordCard.details;
-      if (controllerWordCard.isLoading.isTrue) {
+      if (controllerWordCard.isLoading.value == true) {
         return Text("loading".tr);
-      } else if (controllerWordCard.errorMessage.isNotEmpty) {
+      } else if (controllerWordCard.errorMessage.value != "") {
         return Text(controllerWordCard.errorMessage.value);
       } else if (wordList.isEmpty) {
         return Column(
@@ -46,7 +46,7 @@ class _WordCardState extends State<WordCard> {
           ],
         );
       } else {
-        WordData fixedData = wordList.first!;
+        WordDetailModel fixedData = wordList.first!;
         String word = fixedData.word!;
         String wordforCard = word[0].toUpperCase() + word.substring(1);
         return Column(
