@@ -2,18 +2,22 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:lingo_pal_mobile/core/error/failure.dart';
+import 'package:lingo_pal_mobile/presentation/model/signup_model/email_verif_model.dart';
 
 import '../../../core/error/errors.dart';
-import '../../../core/error/failure.dart';
-import '../../model/signup_model/email_verid_model.dart';
 
 class EmailVerifController extends GetxController {
-  RxBool isLoading = false.obs;
-  RxInt istap = 0.obs;
-  var countdown = 0.obs;
-  var storage = const FlutterSecureStorage();
-  Future<Either<Failure, EmailVerif>?> emailVerification(String email) async {
-    String? accessToken = await storage.read(key: "token");
+  final RxBool _isLoading = false.obs;
+  final RxInt _istap = 0.obs;
+  final _countdown = 0.obs;
+  final _storage = const FlutterSecureStorage();
+
+  get istap => _istap;
+  get countdown => _countdown;
+
+  Future<Either<Failure, EmailVerifModel>?> emailVerification(String email) async {
+    String? accessToken = await _storage.read(key: "token");
     try {
       final response = await Dio().post(
         "https://lingo-pal-backend-v1.vercel.app/api/mail/send-verification",
@@ -23,16 +27,16 @@ class EmailVerifController extends GetxController {
         ),
       );
       if (response.statusCode == 200) {
-        final emailVerifModel = EmailVerif.fromJson(response.data);
-        isLoading.value = false;
+        final emailVerifModel = EmailVerifModel.fromJson(response.data);
+        _isLoading.value = false;
         return Right(emailVerifModel);
       } else {
-        isLoading.value = false;
+        _isLoading.value = false;
 
         return Left(Failure(response.statusCode.toString()));
       }
     } on DioException catch (e) {
-      isLoading.value = false;
+      _isLoading.value = false;
       String errorMessage;
       if (e.type == DioExceptionType.connectionTimeout) {
         errorMessage = "Connection timed out. Please check your network and try again.";
@@ -51,7 +55,7 @@ class EmailVerifController extends GetxController {
     } catch (e) {
       showError(0, e.toString());
     } finally {
-      isLoading.value = false;
+      _isLoading.value = false;
     }
     return null;
   }

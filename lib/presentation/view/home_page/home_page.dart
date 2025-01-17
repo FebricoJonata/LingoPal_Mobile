@@ -17,8 +17,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool alertShown = false;
-  var courseController = Get.find<CourseController>();
+  final bool _alertShown = false;
+  final _courseController = Get.find<CourseController>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +34,13 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 150.h),
             Expanded(
               child: Obx(() {
-                var courseList = courseController.courses.value?.body ?? [];
-                var activeCourses = courseController.courseProgress.value?.body ?? [];
+                var courseList = _courseController.courses.value?.body ?? [];
+                var activeCourses = _courseController.courseProgress.value?.body ?? [];
 
-                if (courseController.isLoading.isTrue || courseController.courseProgress.value == null || courseController.courses.value == null) {
+                if (_courseController.isLoading.value== true || _courseController.courseProgress.value == null || _courseController.courses.value == null) {
                   return Text("loading".tr);
-                } else if (courseController.errorMessage.isNotEmpty) {
-                  return Text(courseController.errorMessage.value);
+                } else if (_courseController.errorMessage.value != "") {
+                  return Text(_courseController.errorMessage.value);
                 } else if (courseList.isEmpty) {
                   return const Text("No courses found");
                 } else {
@@ -48,8 +48,8 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: Colors.white,
                     color: MyColors.primaryGreen,
                     onRefresh: () async {
-                      await courseController.getCourses();
-                      await courseController.getUserCourseProgress();
+                      await _courseController.getCourses();
+                      await _courseController.getUserCourseProgress();
                     },
                     child: ListView.separated(
                       padding: EdgeInsets.fromLTRB(20, 50.h, 20, 300.h),
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
   //             'Sebagai upaya mendukung penyandang disabilitas untuk mendapatkan edukasi yang maksimal, kami menyediakan fitur yang dapat menunjang pembelajaran bahasa Inggris bagi teman-teman.\n\nJika ingin menggunakan fitur tersebut, silakan pindah ke halaman Profile -> Pengaturan Disabilitas',
   //         onClose: () async {
   // SharedPreferences prefs = await SharedPreferences.getInstance();
-  //           await prefs.setBool('alertShown', true);
+  //           await prefs.setBool('_alertShown', true);
   //           setState(() {
   //             _alertShown = true;
   //           });

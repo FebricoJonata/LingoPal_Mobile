@@ -53,14 +53,17 @@
 // }
 
 class CourseProgressModel {
-  final int? _status;
-  final List<CourseProgress>? _body;
+  int? _status;
+  List<CourseProgress>? _body;
 
   CourseProgressModel({
     int? status,
     List<CourseProgress>? body,
   })  : _status = status,
         _body = body;
+
+  int? get status => _status;
+  List<CourseProgress>? get body => _body;
 
   CourseProgressModel.fromJson(Map<String, dynamic> json)
       : _status = json['status'] as int?,
@@ -70,18 +73,15 @@ class CourseProgressModel {
         'status': _status,
         'body': _body?.map((e) => e.toJson()).toList(),
       };
-
-  int? get status => _status;
-  List<CourseProgress>? get body => _body;
 }
 
 class CourseProgress {
-  final int? _progressCourseId;
-  final int? _userId;
-  final int? _courseId;
-  final int? _progressPoin;
-  final bool? _isActive;
-  final bool? _isCourseCompleted;
+  int? _progressCourseId;
+  int? _userId;
+  int? _courseId;
+  int? _progressPoin;
+  bool? _isActive;
+  bool? _isCourseCompleted;
 
   CourseProgress({
     int? progressCourseId,
@@ -96,6 +96,13 @@ class CourseProgress {
         _progressPoin = progressPoin,
         _isActive = isActive,
         _isCourseCompleted = isCourseCompleted;
+
+  int? get progressCourseId => _progressCourseId;
+  int? get userId => _userId;
+  int? get courseId => _courseId;
+  int? get progressPoin => _progressPoin;
+  bool? get isActive => _isActive;
+  bool? get isCourseCompleted => _isCourseCompleted;
 
   CourseProgress.fromJson(Map<String, dynamic> json)
       : _progressCourseId = json['progress_course_id'] as int?,
@@ -113,11 +120,4 @@ class CourseProgress {
         'is_active': _isActive,
         'is_course_completed': _isCourseCompleted,
       };
-
-  int? get progressCourseId => _progressCourseId;
-  int? get userId => _userId;
-  int? get courseId => _courseId;
-  int? get progressPoin => _progressPoin;
-  bool? get isActive => _isActive;
-  bool? get isCourseCompleted => _isCourseCompleted;
 }

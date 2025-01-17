@@ -102,7 +102,7 @@ class CustomAppBar extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                      "Level: ${controllerProgress.progress.value?.body?.data?.first.level?.userLevelCode} ${controllerProgress.progress.value?.body?.data?.first.level?.userLevelName}",
+                                      "Level: ${controllerProgress.progress.value?.body?.first.level?.userLevelCode} ${controllerProgress.progress.value?.body?.first.level?.userLevelName}",
                                       style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold)),
                                   Container(
                                     width: 2,
@@ -111,7 +111,7 @@ class CustomAppBar extends StatelessWidget {
                                   ),
                                   Row(children: [
                                     Obx(() =>
-                                        Text("${controllerProgress.progress.value?.body?.data?.first.totalPoin}", style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold))),
+                                        Text("${controllerProgress.progress.value?.body?.first.totalPoin}", style: const TextStyle(color: MyColors.primaryGreen, fontWeight: FontWeight.bold))),
                                     const Icon(
                                       Icons.star_rounded,
                                       color: MyColors.primaryYellow,

@@ -9,15 +9,19 @@ import 'package:lingo_pal_mobile/core/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/progress_model.dart';
 
 class ProgressAPIController extends GetxController {
-  var isLoading = false.obs;
+  final _isLoading = false.obs;
 
-  var storage = const FlutterSecureStorage();
-  Rx<ProgressUserModel?> progress = Rx<ProgressUserModel?>(null);
+  final _storage = const FlutterSecureStorage();
+  final Rx<ProgressUserModel?> _progress = Rx<ProgressUserModel?>(null);
+
+  get isLoading => _isLoading;
+  get progress => _progress;
+  
   Future<Either<Failure, ProgressUserModel>> getProgress() async {
-    var userId = await storage.read(key: "userId");
-    String? accessToken = await storage.read(key: "token");
+    var userId = await _storage.read(key: "userId");
+    String? accessToken = await _storage.read(key: "token");
     try {
-      isLoading.value = true;
+      _isLoading.value = true;
       final response = await Dio().get(
         'https://lingo-pal-backend-v1.vercel.app/api/users/status',
         queryParameters: {'user_id': userId},
@@ -28,7 +32,7 @@ class ProgressAPIController extends GetxController {
 
       var progressModel = ProgressUserModel.fromJson(response.data);
 
-      progress(progressModel);
+      _progress(progressModel);
 
       return Right(progressModel);
     } on DioException catch (e) {
@@ -38,7 +42,7 @@ class ProgressAPIController extends GetxController {
     } catch (e) {
       return Left(Failure("$e"));
     } finally {
-      isLoading.value = false;
+      _isLoading.value = false;
     }
   }
 

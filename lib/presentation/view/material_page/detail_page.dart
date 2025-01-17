@@ -17,13 +17,13 @@ class MaterialDetail extends StatefulWidget {
 }
 
 class _MaterialDetailState extends State<MaterialDetail> {
-  MaterialContent material = Get.arguments;
+  final MaterialContent _material = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
     String? vidId;
-    if (material.type == "Video") {
-      vidId = YoutubePlayer.convertUrlToId(material.content!);
+    if (_material.type == "Video") {
+      vidId = YoutubePlayer.convertUrlToId(_material.content!);
     }
 
     var videoController = YoutubePlayerController(
@@ -76,16 +76,16 @@ class _MaterialDetailState extends State<MaterialDetail> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    material.title ?? "Title",
+                                    _material.title ?? "Title",
                                     style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    material.category ?? "Category",
+                                    _material.category ?? "Category",
                                     style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold, color: MyColors.primaryGreen),
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      launchUrlString(material.source!);
+                                      launchUrlString(_material.source!);
                                     },
                                     child: Row(
                                       children: [
@@ -112,25 +112,25 @@ class _MaterialDetailState extends State<MaterialDetail> {
                           ],
                         ),
                         SizedBox(
-                          height: material.description! == "-" || material.description! == "" ? 0 : 100.h,
+                          height: _material.description! == "-" || _material.description! == "" ? 0 : 100.h,
                         ), //
                         Text(
-                          material.description! == "-" ? "" : material.description!,
+                          _material.description! == "-" ? "" : _material.description!,
                           textAlign: TextAlign.justify,
                         ),
                         SizedBox(
-                          height: material.description! == "-" || material.description! == "" ? 0 : 100.h,
+                          height: _material.description! == "-" || _material.description! == "" ? 0 : 100.h,
                         ),
-                        if (material.type == "Video")
+                        if (_material.type == "Video")
                           player
                         else
                           Expanded(
                             child: SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  material.cover != "" && material.cover != "-"
+                                  _material.cover != "" && _material.cover != "-"
                                       ? Image.network(
-                                          material.cover!,
+                                          _material.cover!,
                                           width: context.width,
                                           fit: BoxFit.contain,
                                         )
@@ -138,10 +138,10 @@ class _MaterialDetailState extends State<MaterialDetail> {
                                           height: 0,
                                         ),
                                   SizedBox(
-                                    height: (material.cover != "" && material.cover != "-") ? 100.h : 0.h,
+                                    height: (_material.cover != "" && _material.cover != "-") ? 100.h : 0.h,
                                   ),
                                   Text(
-                                    material.content!,
+                                    _material.content!,
                                     textAlign: TextAlign.justify,
                                   ),
                                 ],

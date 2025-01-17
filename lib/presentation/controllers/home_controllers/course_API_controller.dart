@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/error/failure.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/login_page/login_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_progress_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
@@ -13,69 +12,73 @@ import 'package:lingo_pal_mobile/presentation/view/components/alert.dart';
 import '../../../core/error/errors.dart';
 
 class CourseController extends GetxController {
-  Rx<CourseModel?> courses = Rx<CourseModel?>(null);
-  var controllerLogin = Get.find<LoginAPIController>();
-  Rx<CourseProgressModel?> courseProgress = Rx<CourseProgressModel?>(null);
-  var isLoading = false.obs;
-  var errorMessage = ''.obs;
-  var totalCoursesBefore = 0.obs;
-  var storage = const FlutterSecureStorage();
+  final Rx<CourseModel?> _courses = Rx<CourseModel?>(null);
+  final Rx<CourseProgressModel?> _courseProgress = Rx<CourseProgressModel?>(null);
+  final _isLoading = false.obs;
+  final _errorMessage = ''.obs;
+  final _totalCoursesBefore = 0.obs;
+  final _storage = const FlutterSecureStorage();
+
+  get courses => _courses;
+  get courseProgress => _courseProgress;
+  get isLoading => _isLoading;
+  get errorMessage => _errorMessage;
+
   // get master course
   Future<Either<Failure, CourseModel>?> getCourses() async {
-    String? accessToken = await storage.read(key: "token");
+    String? accessToken = await _storage.read(key: "token");
     try {
-      isLoading.value = true;
+      _isLoading.value = true;
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course', options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
 
       var courseModel = CourseModel.fromJson(response.data);
-      courses(courseModel);
+      _courses(courseModel);
 
       return Right(courseModel);
     } on DioException catch (e) {
-      isLoading.value = false;
-      String errorMessage;
+      _isLoading.value = false;
       if (e.type == DioExceptionType.connectionTimeout) {
-        errorMessage = "Connection timed out. Please check your network and try again.";
+        _errorMessage.value = "Connection timed out. Please check your network and try again.";
       } else if (e.type == DioExceptionType.sendTimeout) {
-        errorMessage = "Request timed out while sending data. Please try again.";
+        _errorMessage.value = "Request timed out while sending data. Please try again.";
       } else if (e.type == DioExceptionType.receiveTimeout) {
-        errorMessage = "Response timed out. Please check your connection and try again.";
+        _errorMessage.value = "Response timed out. Please check your connection and try again.";
       } else if (e.type == DioExceptionType.connectionError) {
-        errorMessage = "Failed to connect to the server. Please check your internet connection.";
+        _errorMessage.value = "Failed to connect to the server. Please check your internet connection.";
       } else {
-        errorMessage = e.message ?? "An unexpected error occurred.";
+        _errorMessage.value = e.message ?? "An unexpected error occurred.";
       }
 
       // Tampilkan modal error
-      showError(e.response?.statusCode, errorMessage);
+      showError(e.response?.statusCode, _errorMessage.value);
     } catch (e) {
-      isLoading.value = false;
+      _isLoading.value = false;
       showError(0, e.toString());
     } finally {
-      isLoading.value = false;
+      _isLoading.value = false;
     }
     return null;
   }
 
   // get user course progress
   Future<Either<Failure, CourseProgressModel>> getUserCourseProgress() async {
-    var userId = await storage.read(key: "userId");
-    String? accessToken = await storage.read(key: "token");
+    var userId = await _storage.read(key: "userId");
+    String? accessToken = await _storage.read(key: "token");
     try {
-      isLoading.value = true;
+      _isLoading.value = true;
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/course/progress',
           queryParameters: {'user_id': userId}, options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}));
 
       var userCourseProgress = CourseProgressModel.fromJson(response.data);
 
-      courseProgress(userCourseProgress);
-      var activeCourses = courseProgress.value?.body ?? [];
-      if (totalCoursesBefore.value == 0) {
-        totalCoursesBefore.value = activeCourses.length;
+      _courseProgress(userCourseProgress);
+      var activeCourses = _courseProgress.value?.body ?? [];
+      if (_totalCoursesBefore.value == 0) {
+        _totalCoursesBefore.value = activeCourses.length;
       } else {
-        if (totalCoursesBefore.value < activeCourses.length) {
+        if (_totalCoursesBefore.value < activeCourses.length) {
           var lastCourseId = activeCourses.last.courseId;
-          var courseList = courses.value?.body ?? [];
+          var courseList = _courses.value?.body ?? [];
           var newCourse = courseList[lastCourseId! - 1];
 
           Get.dialog(Alert(
@@ -86,16 +89,16 @@ class CourseController extends GetxController {
               Get.back();
             },
           ));
-          totalCoursesBefore.value = activeCourses.length;
+          _totalCoursesBefore.value = activeCourses.length;
         }
       }
       return Right(userCourseProgress);
     } catch (e) {
-      isLoading.value = false;
+      _isLoading.value = false;
 
       return Left(Failure("$e"));
     } finally {
-      isLoading.value = false;
+      _isLoading.value = false;
     }
   }
 

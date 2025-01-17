@@ -1,61 +1,75 @@
+// ignore_for_file: unnecessary_getters_setters
+
 class LoginModel {
-  final String? message;
-  final User? user;
-  final String? token;
+  String? _message;
+  User? _user;
+  String? _token;
 
   LoginModel({
-    this.message,
-    this.user,
-    this.token,
-  });
+    String? message,
+    User? user,
+    String? token,
+  })  : _message = message,
+        _user = user,
+        _token = token;
+
+  // Getters
+  String? get message => _message;
+  User? get user => _user;
+  String? get token => _token;
+
+  // Setters
+  set message(String? value) => _message = value;
+  set user(User? value) => _user = value;
+  set token(String? value) => _token = value;
 
   LoginModel.fromJson(Map<String, dynamic> json)
-      : message = json['message'] as String?,
-        user = (json['user'] as Map<String, dynamic>?) != null
-            ? User.fromJson(json['user'] as Map<String, dynamic>)
-            : null,
-        token = json['token'] as String?;
+      : _message = json['message'] as String?,
+        _user = (json['user'] as Map<String, dynamic>?) != null ? User.fromJson(json['user'] as Map<String, dynamic>) : null,
+        _token = json['token'] as String?;
 
-  Map<String, dynamic> toJson() => {'message': message, 'user': user?.toJson(), 'token': token};
+  Map<String, dynamic> toJson() => {'message': _message, 'user': _user?.toJson(), 'token': _token};
 }
 
 class User {
-  final int? userId;
-  final String? name;
-  final String? email;
-  final String? phoneNumber;
-  final String? birthDate;
-  final String? gender;
-  final String? image;
+  int? _userId;
+  String? _name;
+  String? _email;
+  String? _birthDate;
+  String? _image;
 
   User({
-    this.userId,
-    this.name,
-    this.email,
-    this.phoneNumber,
-    this.birthDate,
-    this.gender,
-    this.image,
-  });
+    int? userId,
+    String? name,
+    String? email,
+    String? birthDate,
+    String? image,
+  })  : _userId = userId,
+        _name = name,
+        _email = email,
+        _birthDate = birthDate,
+        _image = image;
+
+  // Getters
+  int? get userId => _userId;
+  String? get name => _name;
+  String? get email => _email;
+  String? get birthDate => _birthDate;
+  String? get image => _image;
+
+  // Setters
+  set userId(int? value) => _userId = value;
+  set name(String? value) => _name = value;
+  set email(String? value) => _email = value;
+  set birthDate(String? value) => _birthDate = value;
+  set image(String? value) => _image = value;
 
   User.fromJson(Map<String, dynamic> json)
-      : userId = json['user_id'] as int?,
-        name = json['name'] as String?,
-        email = json['email'] as String?,
-        phoneNumber = json['phone_number'] as String?,
-        birthDate = json['birth_date'] as String?,
-        gender = json['gender'] as String?,
-        image = json['image'] as String?;
+      : _userId = json['user_id'] as int?,
+        _name = json['name'] as String?,
+        _email = json['email'] as String?,
+        _birthDate = json['birth_date'] as String?,
+        _image = json['image'] as String?;
 
-  Map<String, dynamic> toJson() => {
-        'user_id': userId,
-        'name': name,
-        'email': email,
-        'phone_number': phoneNumber,
-        'birth_date': birthDate,
-        'gender': gender,
-        'image': image
-      };
+  Map<String, dynamic> toJson() => {'user_id': _userId, 'name': _name, 'email': _email, 'birth_date': _birthDate, 'image': _image};
 }
-
-//https://itsallwidgets.com/json-to-dart-converter-support-null-safety

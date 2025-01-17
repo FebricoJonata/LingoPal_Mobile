@@ -3,17 +3,20 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:lingo_pal_mobile/core/error/failure.dart';
+import 'package:lingo_pal_mobile/presentation/model/signup_model/signup_model.dart';
+import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 import '../../../core/error/errors.dart';
-import '../../../core/error/failure.dart';
-import '../../../routes/name_page.dart';
-import '../../model/signup_model/singup_model.dart';
 
 class RegisterAPIController extends GetxController {
-  RxBool isLoading = false.obs;
-  Future<Either<Failure, SignUp>?> signUpAPI(String name, String email, String password, String birth) async {
+  final RxBool _isLoading = false.obs;
+
+  get isLoading => _isLoading;
+
+  Future<Either<Failure, SignUpModel>?> signUpAPI(String name, String email, String password, String birth) async {
     try {
-      isLoading.value = true;
+      _isLoading.value = true;
       final response = await Dio().post(
         "https://lingo-pal-backend-v1.vercel.app/api/users/signup",
         data: {
@@ -27,16 +30,16 @@ class RegisterAPIController extends GetxController {
         ),
       );
       if (response.statusCode == 200) {
-        final signUpModel = SignUp.fromJson(response.data);
-        isLoading.value = false;
+        final signUpModel = SignUpModel.fromJson(response.data);
+        _isLoading.value = false;
         Get.toNamed(RouteName.loginPage);
         return Right(signUpModel);
       } else {
-        isLoading.value = false;
+        _isLoading.value = false;
         return Left(Failure(response.statusCode.toString()));
       }
     } on DioException catch (e) {
-      isLoading.value = false;
+      _isLoading.value = false;
       String errorMessage;
       if (e.type == DioExceptionType.connectionTimeout) {
         errorMessage = "Connection timed out. Please check your network and try again.";
@@ -55,7 +58,7 @@ class RegisterAPIController extends GetxController {
     } catch (e) {
       showError(0, e.toString());
     } finally {
-      isLoading.value = false;
+      _isLoading.value = false;
     }
     return null;
   }
