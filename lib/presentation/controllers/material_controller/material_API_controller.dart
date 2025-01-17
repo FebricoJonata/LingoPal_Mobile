@@ -9,32 +9,37 @@ import 'package:lingo_pal_mobile/core/error/failure.dart';
 import 'package:lingo_pal_mobile/presentation/model/material_model/material_model.dart';
 
 class MaterialController extends GetxController {
-  Rx<MaterialModel?> materials = Rx<MaterialModel?>(null);
-  var isLoading = false.obs;
-  var errorMessage = ''.obs;
-  var storage = const FlutterSecureStorage();
+  final Rx<MaterialModel?> _materials = Rx<MaterialModel?>(null);
+  final _isLoading = false.obs;
+  final _errorMessage = ''.obs;
+  final _storage = const FlutterSecureStorage();
+
+  get materials => _materials;
+  get errorMessage => _errorMessage;
+  get isLoading => _isLoading;
+
   Future<Either<Failure, MaterialModel>> getMaterials(String? filter, String searches) async {
     printError(info: searches);
     if (filter == "All" || filter == null) {
       filter = "";
     }
-    String? accessToken = await storage.read(key: "token");
+    String? accessToken = await _storage.read(key: "token");
     try {
-      isLoading.value = true;
+      _isLoading.value = true;
       final response = await Dio().get('https://lingo-pal-backend-v1.vercel.app/api/material-resource',
           options: Options(headers: {'accept': 'application/json', "Authorization": "Bearer $accessToken"}), queryParameters: {"type": filter, "search": searches});
       var materialModel = MaterialModel.fromJson(response.data);
-      materials(materialModel);
+      _materials(materialModel);
       return Right(materialModel);
     } on DioException catch (e) {
       print(e);
       return Left(Failure("$e"));
     } catch (e) {
       print("Error material: $e");
-      errorMessage.value = e.toString();
+      _errorMessage.value = e.toString();
       return Left(Failure("$e"));
     } finally {
-      isLoading.value = false;
+      _isLoading.value = false;
     }
   }
 }

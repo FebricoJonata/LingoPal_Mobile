@@ -18,29 +18,29 @@ class MaterialPage extends StatefulWidget {
 }
 
 class _MaterialPageState extends State<MaterialPage> {
-  RxString searches = "".obs;
+  final RxString _searches = "".obs;
 
-  var controllerMaterial = Get.find<MaterialController>();
-  final controller = Get.find<ChoicesController>();
-  final controllerSearch = Get.find<SearchBarController>();
+  final _controllerMaterial = Get.find<MaterialController>();
+  final _controller = Get.find<ChoicesController>();
+  final _controllerSearch = Get.find<SearchBarController>();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      controllerSearch.setSearchWord("");
+      _controllerSearch.setSearchWord("");
       // Pastikan pencarian hanya dijalankan jika diperlukan
-      if (controllerMaterial.materials.value == null) {
-        controllerMaterial.getMaterials(controller.selectedChoice.value?.value, "");
+      if (_controllerMaterial.materials.value == null) {
+        _controllerMaterial.getMaterials(_controller.selectedChoice.value?.value, "");
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // controllerSearch.searches.value = "";
-    if (searches.value == "") {
-      controllerMaterial.getMaterials("All", "");
+    // _controllerSearch._searches.value = "";
+    if (_searches.value == "") {
+      _controllerMaterial.getMaterials("All", "");
     }
     return Scaffold(
       body: Container(
@@ -57,9 +57,9 @@ class _MaterialPageState extends State<MaterialPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ReuseSearchBar(
-                      // searches: searches,
+                      // _searches: _searches,
                       onPressed: (value) {
-                        controllerMaterial.getMaterials(controller.selectedChoice.value!.value, controllerSearch.searches.value);
+                        _controllerMaterial.getMaterials(_controller.selectedChoice.value!.value, _controllerSearch.searches.value);
                       },
                     ),
                     const SizedBox(height: 24),
@@ -68,16 +68,16 @@ class _MaterialPageState extends State<MaterialPage> {
                     SizedBox(
                       child: ReusableChoiceChip(
                         onSelect: (value) {
-                          controllerMaterial.getMaterials(controller.selectedChoice.value!.value, controllerSearch.searches.value);
+                          _controllerMaterial.getMaterials(_controller.selectedChoice.value!.value, _controllerSearch.searches.value);
                         },
                       ),
                     ),
                     const SizedBox(height: 20),
                     Expanded(
                       child: Obx(() {
-                        var materials = controllerMaterial.materials.value?.body ?? [];
+                        var materials = _controllerMaterial.materials.value?.body ?? [];
 
-                        if (controllerMaterial.materials.value == null || controllerMaterial.isLoading.isTrue) {
+                        if (_controllerMaterial.materials.value == null || _controllerMaterial.isLoading.value == true) {
                           return Column(
                             children: [
                               SizedBox(
@@ -89,8 +89,8 @@ class _MaterialPageState extends State<MaterialPage> {
                               ),
                             ],
                           );
-                        } else if (controllerMaterial.errorMessage.isNotEmpty) {
-                          return Text(controllerMaterial.errorMessage.value);
+                        } else if (_controllerMaterial.errorMessage.value != "") {
+                          return Text(_controllerMaterial.errorMessage.value);
                         } else if (materials.isEmpty) {
                           return Column(
                             children: [
@@ -107,7 +107,7 @@ class _MaterialPageState extends State<MaterialPage> {
                             backgroundColor: Colors.white,
                             color: MyColors.primaryGreen,
                             onRefresh: () async {
-                              await controllerMaterial.getMaterials(controller.selectedChoice.value!.value, controllerSearch.searches.value);
+                              await _controllerMaterial.getMaterials(_controller.selectedChoice.value!.value, _controllerSearch.searches.value);
                             },
                             child: ListView.separated(
                               padding: EdgeInsets.fromLTRB(0, 0, 0, 300.h),
