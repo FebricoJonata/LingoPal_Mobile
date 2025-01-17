@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/choice_chip_controller.dart';
-import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/email_verif_controller.dart';
 
-import 'package:lingo_pal_mobile/presentation/controllers/register_page_controller/register_API_controller.dart';
+import '../choice_chip_controller.dart';
+import 'email_verif_controller.dart';
+import 'register_API_controller.dart';
 
 class RegisBindings implements Bindings {
   @override
