@@ -17,7 +17,6 @@ class DictionaryPage extends StatefulWidget {
 }
 
 class _DictionaryPageState extends State<DictionaryPage> {
-  // String searches = "";
   final _controllerWord = Get.find<WordListController>();
   final _controllerSearch = Get.find<SearchBarController>();
 
