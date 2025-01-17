@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/core/color/color_const.dart';
 import 'package:lingo_pal_mobile/presentation/model/material_model/material_model.dart';
 
 class MaterialCard extends StatelessWidget {
@@ -17,14 +17,14 @@ class MaterialCard extends StatelessWidget {
         shadowColor: const Color.fromRGBO(0, 0, 0, 0.25),
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: 300.h),
-          child: Container(       
+          child: Container(
             decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(30.sp)), color: Colors.white),
             padding: EdgeInsets.all(36.sp),
             // height: 300.h,
             child: Row(
               children: [
                 Image.network(
-                  material.cover! =="" || material.cover! =="-"? "https://icons.veryicon.com/png/o/miscellaneous/common-fill-icon/gallery-33.png" : material.cover!,
+                  material.cover! == "" || material.cover! == "-" ? "https://icons.veryicon.com/png/o/miscellaneous/common-fill-icon/gallery-33.png" : material.cover!,
                   width: 150.w,
                   height: 150.w,
                   fit: BoxFit.cover,

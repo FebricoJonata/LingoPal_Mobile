@@ -51,6 +51,8 @@
 //       description = json['description'] as String?,
 //       createdAt = json['created_at'] as String?;
 
+// ignore_for_file: unnecessary_getters_setters
+
 //   Map<String, dynamic> toJson() => {
 //     'id' : id,
 //     'title' : title,
@@ -75,9 +77,7 @@ class MaterialModel {
 
   MaterialModel.fromJson(Map<String, dynamic> json)
       : _status = json['status'] as int?,
-        _body = (json['body'] as List?)
-            ?.map((dynamic e) => MaterialContent.fromJson(e as Map<String, dynamic>))
-            .toList();
+        _body = (json['body'] as List?)?.map((dynamic e) => MaterialContent.fromJson(e as Map<String, dynamic>)).toList();
 
   Map<String, dynamic> toJson() => {
         'status': _status,

@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lingo_pal_mobile/core/error/failure.dart';
-import 'package:lingo_pal_mobile/presentation/model/quiz_model/multiple_choice.dart';
+import 'package:lingo_pal_mobile/presentation/model/quiz_model/quiz_model.dart';
 
 class QuestionsController extends GetxController {
   RxInt indexQuestion = 0.obs;

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/core/color/color_const.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/choice_chip_controller.dart';
 
 class ReusableChoiceChip extends StatelessWidget {

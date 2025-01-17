@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/core/color/color_const.dart';
 
 class DisablePractice extends StatelessWidget {
   const DisablePractice({super.key});
@@ -10,10 +10,8 @@ class DisablePractice extends StatelessWidget {
     return SizedBox(
       width: 180.w,
       height: 360.h,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
+      child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Container(
             width: 200.w,
             height: 200.w,
             alignment: Alignment.center,
@@ -21,16 +19,32 @@ class DisablePractice extends StatelessWidget {
               color: MyColors.primaryYellow,
               borderRadius: BorderRadius.circular(100),
             ),
-            child: Icon(Icons.lock_rounded, size: 100.sp, color: MyColors.secondaryYellow,)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(Icons.star_border, size: 70.w, color: MyColors.primaryYellow,),
-              Icon(Icons.star_border, size: 70.w, color: MyColors.primaryYellow,),
-              Icon(Icons.star_border, size: 70.w, color: MyColors.primaryYellow,)
-            ],
-          )
-        ]),
+            child: Icon(
+              Icons.lock_rounded,
+              size: 100.sp,
+              color: MyColors.secondaryYellow,
+            )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(
+              Icons.star_border,
+              size: 70.w,
+              color: MyColors.primaryYellow,
+            ),
+            Icon(
+              Icons.star_border,
+              size: 70.w,
+              color: MyColors.primaryYellow,
+            ),
+            Icon(
+              Icons.star_border,
+              size: 70.w,
+              color: MyColors.primaryYellow,
+            )
+          ],
+        )
+      ]),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/core/color/color_const.dart';
 
 class SecondaryBtn extends StatelessWidget {
   const SecondaryBtn({
@@ -8,7 +8,9 @@ class SecondaryBtn extends StatelessWidget {
     required this.btnText,
     required this.width,
     required this.height,
-    this.onClick, this.fontSize, this.isLoading,
+    this.onClick,
+    this.fontSize,
+    this.isLoading,
   });
 
   final double? fontSize;
@@ -24,9 +26,7 @@ class SecondaryBtn extends StatelessWidget {
     return FilledButton(
       onPressed: loading ? null : onClick,
       style: FilledButton.styleFrom(
-          backgroundColor: loading ? MyColors.grey : MyColors.secondaryGreen,
-          minimumSize: Size(width, height),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.sp))),
+          backgroundColor: loading ? MyColors.grey : MyColors.secondaryGreen, minimumSize: Size(width, height), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.sp))),
       child: loading
           ? const CircularProgressIndicator(
               color: MyColors.white,

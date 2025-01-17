@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
-import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/core/color/color_const.dart';
+import 'package:lingo_pal_mobile/core/image/image_const.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/landing_page_controller/page_view_controller.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
@@ -121,9 +121,7 @@ class _LandingPageState extends State<LandingPage> {
                                   height: 40.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: controller.currentPageIndex.value == index
-                                        ? MyColors.primaryGreen
-                                        : MyColors.secondaryGreen,
+                                    color: controller.currentPageIndex.value == index ? MyColors.primaryGreen : MyColors.secondaryGreen,
                                   ),
                                 ),
                               ),

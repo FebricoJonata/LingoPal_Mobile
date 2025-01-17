@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
-import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/core/color/color_const.dart';
+import 'package:lingo_pal_mobile/core/image/image_const.dart';
 import 'package:lingo_pal_mobile/presentation/model/material_model/material_model.dart';
 import 'package:lingo_pal_mobile/presentation/view/components/back_btn.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -112,14 +112,14 @@ class _MaterialDetailState extends State<MaterialDetail> {
                           ],
                         ),
                         SizedBox(
-                          height: material.description! =="-" || material.description! ==""? 0 : 100.h,
+                          height: material.description! == "-" || material.description! == "" ? 0 : 100.h,
                         ), //
                         Text(
-                          material.description! =="-"? "" : material.description!,
+                          material.description! == "-" ? "" : material.description!,
                           textAlign: TextAlign.justify,
                         ),
                         SizedBox(
-                          height: material.description! =="-" || material.description! ==""? 0 : 100.h,
+                          height: material.description! == "-" || material.description! == "" ? 0 : 100.h,
                         ),
                         if (material.type == "Video")
                           player
@@ -128,14 +128,17 @@ class _MaterialDetailState extends State<MaterialDetail> {
                             child: SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  material.cover!="" && material.cover!="-"?
-                                  Image.network(
-                                    material.cover!,
-                                    width: context.width,
-                                    fit: BoxFit.contain,
-                                  ): const SizedBox(height: 0,),
+                                  material.cover != "" && material.cover != "-"
+                                      ? Image.network(
+                                          material.cover!,
+                                          width: context.width,
+                                          fit: BoxFit.contain,
+                                        )
+                                      : const SizedBox(
+                                          height: 0,
+                                        ),
                                   SizedBox(
-                                    height: (material.cover!="" && material.cover!="-")? 100.h : 0.h,
+                                    height: (material.cover != "" && material.cover != "-") ? 100.h : 0.h,
                                   ),
                                   Text(
                                     material.content!,

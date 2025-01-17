@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
-import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/core/color/color_const.dart';
+import 'package:lingo_pal_mobile/core/image/image_const.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/home_controllers/practice_course_API_controller.dart';
 import 'package:lingo_pal_mobile/presentation/controllers/quiz_controller/multiple_choice.dart';
 import 'package:lingo_pal_mobile/presentation/model/home_model/course_model.dart';
@@ -100,7 +100,6 @@ class _PracticePageState extends State<PracticePage> {
                   lastPracticeCode = (practiceProgress.isEmpty) ? "0" : practiceProgress.last.practiceCode!.code!;
                   int lastPracticeNum = int.parse(lastPracticeCode);
                   String activePracticeCode = (lastPracticeNum + 1).toString();
-
                   return Column(
                     children: [
                       Row(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
+import 'package:lingo_pal_mobile/core/color/color_const.dart';
 
 class DatePicker extends StatefulWidget {
   const DatePicker({
@@ -108,16 +108,15 @@ class _MyWidgetState extends State<DatePicker> {
               height: widget.iconSize,
               child: Center(
                 child: Icon(
-                    widget.iconTxt,
-                    size: widget.iconSize,
-                  ),
+                  widget.iconTxt,
+                  size: widget.iconSize,
                 ),
               ),
             ),
           ),
-          // onChanged: widget.onChanged,
         ),
-      
+        // onChanged: widget.onChanged,
+      ),
     );
   }
 }

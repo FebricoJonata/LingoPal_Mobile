@@ -70,6 +70,8 @@
 //   Map<String, dynamic> toJson() => {'user_id': userId, 'name': name, 'email': email, 'phone_number': phoneNumber, 'birth_date': birthDate, 'gender': gender, 'image': image};
 // }
 
+// ignore_for_file: unnecessary_getters_setters
+
 class Profile {
   int? _status; // Private
   Body? _body; // Private

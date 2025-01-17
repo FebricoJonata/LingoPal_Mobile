@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:lingo_pal_mobile/core/color/color_constraint.dart';
-import 'package:lingo_pal_mobile/core/image/image_constraint.dart';
+import 'package:lingo_pal_mobile/core/color/color_const.dart';
+import 'package:lingo_pal_mobile/core/image/image_const.dart';
 import 'package:lingo_pal_mobile/routes/name_page.dart';
 
 class Page3 extends StatelessWidget {
@@ -49,8 +49,7 @@ class Page3 extends StatelessWidget {
                           padding: WidgetStateProperty.all<EdgeInsets>(
                             const EdgeInsets.symmetric(vertical: 1.0, horizontal: 1.0),
                           ),
-                          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.sp))),
+                          shape: WidgetStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.sp))),
                           backgroundColor: WidgetStateProperty.all<Color>(MyColors.primaryGreen),
                         ),
                         onPressed: () {
